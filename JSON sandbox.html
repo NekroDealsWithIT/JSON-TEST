@@ -72,6 +72,9 @@
 			request.responseType = 'json';
 			request.send();
 			request.onload = function() {
+			  var dataJson = request.response;
+			  alert(dataJson['USD']['transferencia']);
+			  console.log(request.response);
 			  return request.response;
 			}
 		}
@@ -119,8 +122,12 @@
 		  }
 		}
 
-		function getWFWorldstate(){
-			var dataJson=getJson("http://content.warframe.com/dynamic/worldState.php");
+		function getWFWorldstate(proxy=false){
+			var dataJson=getJson("http://content.warframe.com/dynamic/worldState.php",proxy);
+		}
+		function getEstadoDolar(proxy=false){
+			var dataJson=getJson("https://s3.amazonaws.com/dolartoday/data.json",proxy);
+			alert(dataJson['USD']['transferencia']);
 		}
 	</script>
 </head>
@@ -131,6 +138,7 @@
 		<ul>
 			<li><a href="https://docs.google.com/document/d/1121cjBNN4BeZdMBGil6Qbuqse-sWpEXPpitQH5fb_Fo/edit#">API WF MARKET</a></li>
 			<li><a href="http://content.warframe.com/dynamic/worldState.php">WF WorldState</a></li>
+			<li><a href="https://s3.amazonaws.com/dolartoday/data.json">Estado dolar</li>
 			<li><a href="http://jsonviewer.stack.hu/">Para ver mejor los JSON</a></li>
 		</ul>
 	</div>
