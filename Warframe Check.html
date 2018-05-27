@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nekro's WF Check</title>
+	<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">
+	<script type="text/javascript" src="static/js/tools.js"></script>
+	<script type="text/javascript" src="static/js/wf.js"></script>
+	<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">startAll();</script>
+	<div class="content">
+		<div id="botonera">
+			<div class="botonera">
+				
+				<div id="test"></div>
+				<label><input type="checkbox" name="cetusTimer" checked="true" onclick="toggleHide(this.name);">Cetus Timer</label>
+				<label><input type="checkbox" name="alerts" checked="true" onclick="toggleHide(this.name);">Alertas</label>
+				<label><input type="checkbox" name="invasions" checked="true" onclick="toggleHide(this.name);">Invasiones</label>
+				<label><input type="checkbox" name="sortie" checked="true" onclick="toggleHide(this.name);">Sortie</label>
+				<label><input type="checkbox" name="baro" checked="true" onclick="toggleHide(this.name);">Baro</label>
+				<label><input type="checkbox" name="news" checked="true" onclick="toggleHide(this.name);">News</label>
+			</div>
+		</div>
+
+		<h1>Warframe check by Nekro</h1>
+		<hr>
+		<div id="datosPagina"></div>
+		<div id="timeStamp"></div>
+		<div id="cetusTimer"></div>
+		<div id="alerts"></div>
+		<div id="invasions"></div>
+		<div id="sortie"></div>
+		<div id="baro"></div>
+		<div id="news"></div>
+	</div>
+</body>
+</html>

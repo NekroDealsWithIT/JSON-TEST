@@ -6,6 +6,7 @@
 	<title>JSON Sandbox</title>
 	
 	<script type="text/javascript">
+		var responseJson;
 		var superHeroes2={
 			  "squadName": "Super hero squad",
 			  "homeTown": "Metro City",
@@ -73,8 +74,9 @@
 			request.send();
 			request.onload = function() {
 			  var dataJson = request.response;
-			  alert(dataJson['USD']['transferencia']);
+			  //alert(dataJson['USD']['transferencia']);
 			  console.log(request.response);
+			  responseJson=request.response;
 			  return request.response;
 			}
 		}
@@ -125,6 +127,9 @@
 		function getWFWorldstate(proxy=false){
 			var dataJson=getJson("http://content.warframe.com/dynamic/worldState.php",proxy);
 		}
+		function getWFstatus(proxy=false){
+			var dataJson=getJson("https://ws.warframestat.us/pc",proxy);
+		}
 		function getEstadoDolar(proxy=false){
 			var dataJson=getJson("https://s3.amazonaws.com/dolartoday/data.json",proxy);
 			alert(dataJson['USD']['transferencia']);
@@ -138,6 +143,7 @@
 		<ul>
 			<li><a href="https://docs.google.com/document/d/1121cjBNN4BeZdMBGil6Qbuqse-sWpEXPpitQH5fb_Fo/edit#">API WF MARKET</a></li>
 			<li><a href="http://content.warframe.com/dynamic/worldState.php">WF WorldState</a></li>
+			<li><a href="https://ws.warframestat.us/pc">Otro test para WF</a>
 			<li><a href="https://s3.amazonaws.com/dolartoday/data.json">Estado dolar</li>
 			<li><a href="http://jsonviewer.stack.hu/">Para ver mejor los JSON</a></li>
 		</ul>

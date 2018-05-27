@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+}
+body{
+	background-color: black;
+	color:white;
+}
+.content{
+	/*display: flex;*/
+}
+#botonera{
+	display: flex;
+	/*margin:auto;*/
+	position: -webkit-sticky;
+  	position: sticky;
+  	color:red;
+  	top:20px;
+  	padding: 2px 0 0 12px;
+  	justify-content: flex-end;	
+  	z-index: 5;
+}
+.botonera{
+	width: 45%;
+	background: black;
+}
+h3{
+	margin:auto;
+	position: -webkit-sticky;
+  	position: sticky;
+  	background:#B8C1C8;
+  	color:red;
+  	padding: 2px 0 0 12px;
+  	top:-1px;
+}
+
+.hidden{
+	display: none;
+}
+.infoNoFetch{
+	color:green;
+	background: black;
+}
+
+.infoFetch{
+	color:yellow;
+	background: red;
+}
+
+.pDay{
+	background: black;
+	color:yellow;
+	display: inline;
+	font-size:3rem;
+}
+.pDay::after{
+	content: " (ES DE DIA!)"
+}
+.pNight{
+	background: black;
+	color:red;
+	display: inline;
+	font-size:3rem;
+}
+.pNight::after{
+	content: " (ES DE NOCHE!)"
+}
+#sortie{
+	border:1px dotted;
+}
+
+/*tables*/
+.tableSortie{
+	border: 1px dashed red;
+	width: 100%; 
+	/*display: flex;
+	justify-content: space-between;*/
+}
+.tableAlerts{
+	border: 1px dashed red;
+	width: 100%; 
+	/*display: flex;
+	justify-content: space-between;*/
+}
+.tableAlerts img{
+	width: 50px;
+}
+.tableInvasion{
+	border: 1px dashed red;
+	width: 100%; 
+	/*display: flex;
+	justify-content: space-between;*/
+}
+.tableInvasion img{
+	width: 50px;
+}
+.news img{
+	width: 50px;
+	transform-origin: 10px 0;
+}
+
+.news img:hover{
+	transform: scale(5.5) translateX(100px) translateY(-10px);
+}
+
+/*color facciones*/
+.corpus{
+	background-color: blue;
+	color: white;
+}
+.grineer{
+	background-color: burlywood;
+	color: darkred;
+}
+.infested{
+	background-color: aquamarine;
+	color: black;
+}
+.orokin{
+	background-color: rebeccapurple;
+	color: white;
+}
