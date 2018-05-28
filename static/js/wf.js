@@ -57,6 +57,7 @@ function rellenarDatos(){
 	estado='<p class='+((fetching)?'infoFetch':'infoNoFetch')+'>';
 	estado+='('+tiempoStr()+') Proximo fetch:'+(counter1Max-counter1)+'</p>';
 	datosPagina.innerHTML=estado;
+	barraProgreso.innerHTML='<progress value='+counter1+' max='+(counter1Max-1)+' class="barraProgreso"/>';
 	if (resultJson!=''){
 		var ths=[];
 		var tds=[];
@@ -242,7 +243,7 @@ function strDiff(strDate, diff){
 	horas=new Date(result+ (new Date().getTimezoneOffset() * 60000)).getHours();
 	minutos=new Date(result+ (new Date().getTimezoneOffset() * 60000)).getMinutes();
 	segundos=new Date(result+ (new Date().getTimezoneOffset() * 60000)).getSeconds();
-	test.innerHTML=dias +''+horas +''+ minutos +''+ segundos;
+	//test.innerHTML=dias +''+horas +''+ minutos +''+ segundos;
 	//test.innerHTML=new Date(result+ (new Date().getTimezoneOffset() * 60000));
 	if(dias=31){
 		result='-FINALIZADO-';

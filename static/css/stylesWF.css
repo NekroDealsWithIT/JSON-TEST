@@ -32,7 +32,10 @@ h3{
   	padding: 2px 0 0 12px;
   	top:-1px;
 }
-
+.barraProgreso{
+	background: black;
+	width: 100%;
+}
 .hidden{
 	display: none;
 }
