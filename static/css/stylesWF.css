@@ -14,13 +14,13 @@ body{
 	position: -webkit-sticky;
   	position: sticky;
   	color:red;
-  	top:20px;
+  	top:25px;
   	padding: 2px 0 0 12px;
   	justify-content: flex-end;	
   	z-index: 5;
 }
 .botonera{
-	width: 45%;
+	/*width: 45%;*/
 	background: black;
 }
 h3{
