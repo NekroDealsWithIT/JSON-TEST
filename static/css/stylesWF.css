@@ -5,8 +5,32 @@ body{
 	background-color: black;
 	color:white;
 }
+a{
+	color: green;
+}
+a:visited{
+	color: red;
+}
 .content{
-	/*display: flex;*/
+	width: 90%;
+	margin: auto;
+	background-image: url(../img/warframe-lotus-wallpaper.png);
+}
+.content>div{
+	margin: auto;
+	align-self: center;
+}
+.content>div>div{
+	flex-grow: 1;
+}
+
+.completed{
+	text-decoration: line-through;
+}
+.completed::after{
+	content: "\2714 (Completa)";
+	color:green;
+	text-decoration: none;
 }
 #botonera{
 	display: flex;
@@ -22,6 +46,16 @@ body{
 .botonera{
 	/*width: 45%;*/
 	background: black;
+}
+.headLogo{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 50px; 
+}
+.headLogo img{
+	height: 50px;
+	position: relative;
+	align-self: center;
 }
 h3{
 	margin:auto;
@@ -49,14 +83,20 @@ h3{
 	background: red;
 }
 
+.whatsWarframeDiv{
+	width: 90%;
+	margin: auto;
+}
+
 .pDay{
 	background: black;
 	color:yellow;
 	display: inline;
 	font-size:3rem;
 }
-.pDay::after{
-	content: " (ES DE DIA!)"
+.pDay::after, .pDay::before{
+	content: "(\263C)";
+	color:red;
 }
 .pNight{
 	background: black;
@@ -64,8 +104,11 @@ h3{
 	display: inline;
 	font-size:3rem;
 }
-.pNight::after{
-	content: " (ES DE NOCHE!)"
+.pNight::after, .pNight::before{
+	content: "(\1F319)";
+	color:green;
+/*	content: "\2193";
+	content: "\2193";*/
 }
 #sortie{
 	border:1px dotted;
@@ -74,37 +117,38 @@ h3{
 /*tables*/
 .tableSortie{
 	border: 1px dashed red;
-	width: 100%; 
-	/*display: flex;
-	justify-content: space-between;*/
+	margin: auto;
 }
-.tableAlerts{
+.tableAlerts, .tableInvasion, .tableFisures, .tableSortie{
 	border: 1px dashed red;
-	width: 100%; 
-	/*display: flex;
-	justify-content: space-between;*/
+	width: 90%; 
+	margin: auto;
+	margin-top: 15px;
 }
 .tableAlerts img{
 	width: 50px;
 }
-.tableInvasion{
-	border: 1px dashed red;
-	width: 100%; 
-	/*display: flex;
-	justify-content: space-between;*/
+.tableAlerts th{
+	width: 1%;
 }
 .tableInvasion img{
 	width: 50px;
+}
+.invTH{
+	width: 1%;
+}
+.sonidos ul{
+	margin:auto;
 }
 .news img{
 	width: 50px;
 	transform-origin: 10px 0;
 }
 
-.news img:hover{
+.enlargeMe img:hover{
 	transform: scale(5.5) translateX(100px) translateY(-10px);
+	transition-duration: .5s .8s
 }
-
 /*color facciones*/
 .corpus{
 	background-color: blue;
@@ -118,7 +162,7 @@ h3{
 	background-color: aquamarine;
 	color: black;
 }
-.orokin{
+.orokin, .corrupted{
 	background-color: rebeccapurple;
 	color: white;
 }
