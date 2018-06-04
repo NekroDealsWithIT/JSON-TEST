@@ -107,8 +107,6 @@ h3{
 .pNight::after, .pNight::before{
 	content: "(\1F319)";
 	color:green;
-/*	content: "\2193";
-	content: "\2193";*/
 }
 #sortie{
 	border:1px dotted;

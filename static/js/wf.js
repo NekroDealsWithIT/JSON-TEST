@@ -79,7 +79,7 @@ function rellenarDatos(){
 		
 		//CetusTimer
 		timers.innerHTML='<h3>Timers</h3>';
-		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '('+resultJson.cetusCycle.timeLeft+')</p></div>';
+		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '('+resultJson.earthCycle.timeLeft+')</p></div>';
 		//Alerts
 		ths=[];
