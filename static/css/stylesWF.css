@@ -170,3 +170,14 @@ h3{
 	background-color: rebeccapurple;
 	color: white;
 }
+
+/*formularios*/
+.formulario{
+	justify-content: space-between;
+}
+.formulario input:valid{
+	background-color:green;
+}
+.formulario input:invalid{
+	background-color:red;
+}

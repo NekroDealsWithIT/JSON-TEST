@@ -47,6 +47,7 @@
 			</div>
 			<div>
 				<label><input type="checkbox" name="" checked onclick="toggleTimer(this.checked)" >Actualizar automaticamente</label>
+				<label><input type="checkbox" name="formContacto" onclick="toggleHide(this.name)">Form contacto</label>
 			</div>
 		</nav>
 	</div>
@@ -159,7 +160,27 @@
 			<audio id="sound4"></audio>
 			<audio id="sound5"></audio>
 		</div>
+		<div id="formContacto" class="formulario hidden">
+			<form action="#" method="get">
+				<h3>Contactame</h3>
+				<label>Nombre:<input type="text" name="nombre" id="formNombre" placeholder="Ingresa tu nombre"required></label><br>
+				<label>Mail:<input type="mail" name="email" placeholder="Ingresa tu mail" required></label><br>
+				<label>Feedback: <textarea name="feedback"></textarea></label><br>
+				<input type="submit" value="enviar" onclick="setCookie('campeon','formNombre')">
+			</form>
 
+			<script type="text/javascript">
+				var campeon=getCookie('campeon');
+				if(campeon!=undefined&&!campeon.equals('')){
+					descripcionForm.innerHTML='<h1>Lince/lincesa, no esta implementado todavia pero al menos me acuerdo de vos campeon ('+campeon+')</h1>(aguanten las galletitas)';
+					removeClass("sinImplementar",'hidden');
+				}
+			</script>
+			<div id="sinImplementar" class="hidden">
+				<div id="descripcionForm"></div>
+				<iframe id="jaja" width="560" height="315" src="https://www.youtube-nocookie.com/embed/gWLbn--n17g?rel=0&amp;showinfo=0" frameborder="0" autoplay="true" allow="autoplay=1; encrypted-media" allowfullscreen></iframe>
+			</div>
+		</div>
 		<div id="whatsWarframe" class="hidden">
 			<div>
 				<h3>Que es warframe?</h3>
