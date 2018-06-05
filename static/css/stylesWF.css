@@ -34,6 +34,12 @@ a:visited{
 	color:green;
 	text-decoration: none;
 }
+.botonera{
+	/*width: 45%;*/
+	background: transparent;
+	border-radius: 10%;
+	border: 2px solid rebeccapurple;
+}
 #botonera{
 	display: flex;
 	/*margin:auto;*/
@@ -45,9 +51,29 @@ a:visited{
   	justify-content: flex-end;	
   	z-index: 5;
 }
-.botonera{
-	/*width: 45%;*/
-	background: black;
+#botonera input[type=checkbox]:checked{
+	color:green;
+}
+#botonera .active{
+	color:green;
+}
+#botonera-desplegable{
+	font-size: .72rem;	
+	position: absolute;
+	z-index: 5;
+	min-width: 15%;
+}
+#botonera-desplegable ul{
+	list-style: none;
+	width: 100%;
+	padding: 0;
+	margin-left:-70px;
+}
+#botonera-desplegable li{
+	border: 1px solid white;
+	width: 100%;
+	background: linear-gradient(to top right, #000 5%, #00F 100%);
+	border-radius: 15%;
 }
 .headLogo{
 	display: flex;

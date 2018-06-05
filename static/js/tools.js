@@ -461,7 +461,17 @@ function removeClass(id, clase){
 function addClass(id,clase){
 	document.getElementById(id).classList.add(clase);
 }
-
+function toggleClass(id,clase,aplicar=''){
+	if (aplicar==''){
+		document.getElementById(id).classList.toggle(clase);
+	}else{
+		if(aplicar){
+			document.getElementById(id).classList.add(clase);
+		}else{
+			document.getElementById(id).classList.remove(clase);
+		}
+	}
+}
 /*
 -----------------------------------------------------
 	Cookies
