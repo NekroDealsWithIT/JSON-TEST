@@ -162,19 +162,30 @@ h3{
 	background-color: blue;
 	color: white;
 }
+.corpus a, .corpus a:visited{
+	color:#0400ff;
+}
 .grineer{
 	background-color: burlywood;
 	color: darkred;
+}
+.grineer a, .grineer a:visited{
+	color:#0400ff;
 }
 .infested, .crossfire{
 	background-color: aquamarine;
 	color: black;
 }
+.infested a, .crossfire a, .infested a:visited, .crossfire a:visited{
+	color:#0400fe;	
+}
 .orokin, .corrupted{
 	background-color: rebeccapurple;
 	color: white;
 }
-
+.orokin a, .corrupted a, .orokin a:visited, .corrupted a:visited{
+	color: #11d6ea;
+}
 /*formularios*/
 .formulario{
 	justify-content: space-between;
