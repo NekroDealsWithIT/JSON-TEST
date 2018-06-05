@@ -15,6 +15,14 @@ var completado=[];
 
 var sounds=[];
 
+var campeon;
+function checkCampeon(){
+	campeon=getCookie('campeon');
+	if(campeon!=undefined&&!campeon.equals('')){
+		descripcionForm.innerHTML='<h1>Lince/lincesa, no esta implementado todavia pero al menos me acuerdo de vos campeon ('+campeon+')</h1>(aguanten las galletitas)';
+		removeClass("sinImplementar","hidden");
+	}
+}
 function getWFWorldstate(proxy=false){
 	var dataJson=getJson("https://ws.warframestat.us/pc",proxy);
 }
