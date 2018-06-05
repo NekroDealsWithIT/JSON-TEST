@@ -160,15 +160,37 @@
 			<audio id="sound4"></audio>
 			<audio id="sound5"></audio>
 		</div>
-		<div id="formContacto" class="formulario hidden">
-			<form action="#" method="get">
-				<h3>Contactame</h3>
+
+		<div id="formContacto" class="hidden">
+<!-- 			<form action="#" method="get">
+				
 				<label>Nombre:<input type="text" name="nombre" id="formNombre" placeholder="Ingresa tu nombre"required></label><br>
 				<label>Mail:<input type="mail" name="email" placeholder="Ingresa tu mail" required></label><br>
 				<label>Feedback: <textarea name="feedback"></textarea></label><br>
 				<input type="submit" value="enviar" onclick="setCookie('campeon',formNombre.value,(1000*60*3))">
 			</form>
-
+ -->		
+ 			<h3>Contactame</h3>
+			<form class="formulario" action="#" method="get">
+				<ul>
+					<li>
+						<input type="text" name="nombre" id="formNombre" class="field-style field-split align-left" placeholder="* Nombre" required />
+						<input type="email" name="email" class="field-style field-split align-right" required placeholder="* Email" />
+					</li>
+					<li>
+						<input type="text" name="asunto" class="field-style field-full align-none" placeholder="Asunto" />
+					</li>
+					<li>
+						<textarea name="mensaje" class="field-style" placeholder="Mensaje"></textarea>
+					</li>
+					<li>
+						<input type="submit" value="Enviar mensaje"  onclick="setCookie('campeon',formNombre.value,(1000*60*1)" />
+					</li>
+					<li>
+						<a href="https://www.sanwebe.com/2014/08/css-html-forms-designs/comment-page-2" target="blank">Plantilla utlizada utilizada(Form Style 9)</a>
+					</li>
+				</ul>
+			</form>
 			<div id="sinImplementar" class="hidden">
 				<div id="descripcionForm"></div>
 				<img src="https://78.media.tumblr.com/f6f47e10cf1e76b3a55b2147c218a4d2/tumblr_mqs90xiuRU1r2kb4qo1_500.gif">
