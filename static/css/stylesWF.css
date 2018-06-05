@@ -138,6 +138,9 @@ h3{
 .tableInvasion img{
 	width: 50px;
 }
+.tableInvasion progress{
+	width:100%;
+}
 .invTH{
 	width: 1%;
 }
