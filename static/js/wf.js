@@ -19,8 +19,8 @@ var campeon;
 function checkCampeon(){
 	campeon=getCookie('campeon');
 	if(campeon!=undefined&&campeon!=''){
-		descripcionForm.innerHTML='<h1>Lince/lincesa, no esta implementado todavia pero al menos me acuerdo de vos campeon ('+campeon+')</h1>(aguanten las galletitas)';
 		removeClass("sinImplementar","hidden");
+		descripcionForm.innerHTML='<h1>Lince/lincesa, no esta implementado todavia pero al menos me acuerdo de vos campeon ('+campeon+')</h1>(aguanten las galletitas)';
 	}
 }
 function getWFWorldstate(proxy=false){
