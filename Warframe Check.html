@@ -28,15 +28,26 @@
 		<nav class="botonera">
 			<div id="barraProgreso"></div>
 			<div id="test"></div>
-			<label><input type="checkbox" name="sonidos" onclick="toggleHide(this.name);">Sonidos</label>
-			<label><input type="checkbox" name="cetusTimer" checked onclick="toggleHide(this.name);">Timers</label>
-			<label><input type="checkbox" name="alerts" checked onclick"toggleHide(this.name);">Alertas</label>
-			<label><input type="checkbox" name="invasions" checked onclick="toggleHide(this.name);">Invasiones</label>
-			<label><input type="checkbox" name="sortie" checked onclick="toggleHide(this.name);">Sortie</label>
-			<label><input type="checkbox" name="fissures" checked onclick="toggleHide(this.name);">Fissures</label>
-			<label><input type="checkbox" name="baro" checked onclick="toggleHide(this.name);">Baro</label>
-			<label><input type="checkbox" name="news" checked onclick="toggleHide(this.name);">News</label>
-			<label><input type="checkbox" name="whatsWarframe" onclick="toggleHide(this.name);">Video Intro</label>
+			
+<!-- 			ver esta barra
+			https://codepen.io/mindfullsilence/pen/DtzjE -->
+			<div>
+				<label><input type="checkbox" name="sonidos" onclick="toggleHide(this.name);">Sonidos</label>
+				<label><input type="checkbox" name="cetusTimer" checked onclick="toggleHide(this.name);">Timers</label>
+				<label id="eventsCheckbox"><input type="checkbox" name="events" checked onclick="toggleHide(this.name);">Eventos</label>
+				<label><input type="checkbox" name="alerts" checked onclick"toggleHide(this.name);">Alertas</label>
+				<label><input type="checkbox" name="invasions" checked onclick="toggleHide(this.name);">Invasiones</label>
+			</div>
+			<div>
+				<label><input type="checkbox" name="sortie" checked onclick="toggleHide(this.name);">Sortie</label>
+				<label><input type="checkbox" name="fissures" checked onclick="toggleHide(this.name);">Fissures</label>
+				<label><input type="checkbox" name="baro" checked onclick="toggleHide(this.name);">Baro</label>
+				<label><input type="checkbox" name="news" checked onclick="toggleHide(this.name);">News</label>
+				<label><input type="checkbox" name="whatsWarframe" onclick="toggleHide(this.name);">Video Intro</label>
+			</div>
+			<div>
+				<label><input type="checkbox" name="" checked onclick="toggleTimer(this.checked)" >Actualizar automaticamente</label>
+			</div>
 		</nav>
 	</div>
 
@@ -161,13 +172,14 @@
 				</div>
 			</div>
 		</div>
-		<div id="timers"></div>
-		<div id="alerts"></div>
-		<div id="invasions"></div>
-		<div id="sortie"></div>
-		<div id="fissures"></div>
-		<div id="baro"></div>
-		<div id="news"></div>
+		<section id="timers"></section>
+		<section id="events"></section>
+		<section id="alerts"></section>
+		<section id="invasions"></section>
+		<section id="sortie"></section>
+		<section id="fissures"></section>
+		<section id="baro"></section>
+		<section id="news"></section>
 
 	</div>
 

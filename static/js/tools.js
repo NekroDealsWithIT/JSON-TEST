@@ -171,11 +171,12 @@ function fillStr(string,positions=0,char='0',left=true){
 function sleep(timer=1000,idTimer=true){
 	return window.setTimeout(idTimer, timer);
 }
-function setClock(interval=1000,idClock='clock'){
-	return window.setInterval(idClock, interval);
+function setClock(interval=1000,funcion='clock',variable){
+	variable = window.setInterval(funcion, interval);
+	return variable;
 }
-function stopClock(idClock='clock'){
-	return window.clearInterval(idClock);
+function stopClock(variableClock){
+	return window.clearInterval(variableClock);
 }
 function tiempoStr(tiempo=new Date(),mascara=''){
 	var resultado;
@@ -425,16 +426,65 @@ function randListaArray(arrayLista){
 	);
 	return arrayFinal;
 }
+
+/*
+-----------------------------------------------------
+	Manejo de sonidos
+-----------------------------------------------------
+*/
+function cargarSonido(source='', soundControl){
+	if (source==''){return false;}
+	if (source=='Hablado'){textToSpeach(source);return;}
+	source='static/sound/alerts/'+source;
+	soundControl.src =source;
+	soundControl.load();
+	soundControl.play();
+}
+
+function textToSpeach(text){
+	var msg = new SpeechSynthesisUtterance(text);
+	window.speechSynthesis.speak(msg);
+}
+
+/*
+-----------------------------------------------------
+	Manejo de clases
+-----------------------------------------------------
+*/
+function toggleHide(id){
+	// requiere clase .hidden{display: none;}
+	document.getElementById(id).classList.toggle("hidden");
+}
+function removeClass(id, clase){
+	document.getElementById(id).classList.remove(clase);
+}
+function addClass(id,clase){
+	document.getElementById(id).classList.add(clase);
+}
+
 /*
 -----------------------------------------------------
 	Cookies
 -----------------------------------------------------
 */
-function setCookie(cname,cvalue,tiempoExpiracion=1) {
+
+function isCookieEnabled(){
+    var cookieEnabled = (navigator.cookieEnabled) ? true : false;
+    if (typeof navigator.cookieEnabled == "undefined" && !cookieEnabled){ 
+        document.cookie="testcookie";
+        cookieEnabled = (document.cookie.indexOf("testcookie") != -1) ? true : false;
+    }
+    return (cookieEnabled);
+}
+
+function setCookie(cname,cvalue,tiempoExpiracion=1*24*60*60*1000, path='/') {
+    // 1 dia= 1*24*60*60*1000
     var d = new Date();
-    d.setTime(d.getTime() + (tiempoExpiracion*24*60*60*1000));
+    d.setTime(d.getTime() + (tiempoExpiracion));
     var expires = "expires=" + d.toGMTString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    var cookie =cname + "=" + cvalue + "; " + expires + ", path="+path;
+    document.cookie = cookie;
+    console.log(cookie);
 }
 
 function getCookie(cname) {
@@ -454,7 +504,7 @@ function getCookie(cname) {
 }
 
 function deleteCookie(cname) {
-	document.cookie = cname+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = cname+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 }
 
 function checkCookie() {
@@ -464,11 +514,16 @@ function checkCookie() {
     } else {
        user = prompt("Please enter your name:","");
        if (user != "" && user != null) {
-           setCookie("username", user, 30);
+           setCookie("username", user, (1*24*60*60*1000));
        }
     }
 }
 
+function cookieTest(){
+	document.cookie = "name=oeschger";  
+	document.cookie = "favorite_food=tripe";  
+	console.log(document.cookie); 
+}
 
 /*
 -----------------------------------------------------
@@ -498,4 +553,4 @@ function bubbleSorting(arr,ordenarZA) {
 		}
 	}
 	return arr;
-}
+}11

@@ -41,7 +41,7 @@ function getJson(url='',viaCors=true){
 
 function startAll(){
 	getWFWorldstate();
-	setClock(1000,timerTime);
+	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
 	rellenarDatos();
@@ -51,6 +51,15 @@ function timerTime(){
 			getWFWorldstate();
 			counter1=0;
 		}
+	}
+}
+
+function toggleTimer(activar){
+	console.log(activar);
+	if(activar){
+		startAll();
+	}else{
+		stopClock(timer1);
 	}
 }
 
@@ -81,6 +90,60 @@ function rellenarDatos(){
 		timers.innerHTML='<h3>Timers</h3>';
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
+		
+		//Events
+		var eventsData=resultJson.events;
+		if (eventsData.length>0){
+			removeClass('eventsCheckbox','hidden');
+			parseado='<h3>Eventos</h3>';
+			eventsData.forEach(function(e){
+				parseado +='<article>';
+				parseado +='<u><h2>' +e.description+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+e.affiliatedWith+'" target="blank">'+e.affiliatedWith+'</a>)</h2></u>';
+				parseado +='<p>' +e.tooltip+'</p>';
+				parseado +='<p>Nodo: ' +e.victimNode+'('+e.health+'%)</p>';
+				parseado += '<hr>';
+				if(e.jobs.length>0){
+					parseado+='<u><h4>&#8227; Misiones</h4></u>';
+					e.jobs.forEach(function(j){
+						parseado+='Tipo: '+j.type;
+						if(j.enemyLevels.length>0){
+							parseado+='<p>Nivel:';
+							j.enemyLevels.forEach(function(el){
+								parseado+= ' '+el;
+							});
+							parseado+='</p>';
+						}
+						if(j.rewardPool.length>0){
+							parseado+='<p>Recompensas: ';
+							j.rewardPool.forEach(function(rp){
+								parseado+= '[<a href="http://warframe.wikia.com/wiki/Special:Search?search='+rp+'" target="blank">'+rp+'</a>]';
+							});
+							parseado+='</p>';
+						}
+						if(j.standingStages.length>0){
+							parseado+='<p>Reputacion: ';
+							var suma=0;
+							j.standingStages.forEach(function(ss){
+								parseado+= '['+ss+']';
+								suma+=ss;
+							});
+							parseado+=' <b>(Total: '+suma+')</b>';
+							parseado+='</p>';
+						}
+						parseado+='<hr>';
+					});
+				}
+
+				parseado +='</article>';
+			});
+
+			// parseado += '<hr>';
+			events.innerHTML=parseado;
+		}else{
+			addClass('eventsCheckbox','hidden');
+			events.innerHTML='';
+		}
+
 		//Alerts
 		ths=[];
 		tds=[];
@@ -107,7 +170,7 @@ function rellenarDatos(){
 			td.push([a.mission.node,'tdAlert '+idFaction+ isCompleted]);
 			td.push([idFaction.toUpperCase(),'tdAlert '+idFaction+ isCompleted]);
 			td.push([a.mission.minEnemyLevel+'-'+a.mission.maxEnemyLevel,'tdAlert '+idFaction+ isCompleted]);
-			td.push([a.mission.reward.asString,'tdAlert '+idFaction+ isCompleted]);
+			td.push(['<a href="http://warframe.wikia.com/wiki/Special:Search?search='+a.mission.reward.asString+'" target="blank">'+a.mission.reward.asString+'</a>','tdAlert '+idFaction+ isCompleted]);
 			if (!a.expired){tds.push(td);}
 		});
 		parseado += generateTable(tds,ths,'tableAlerts enlargeMe','','');
@@ -139,9 +202,9 @@ function rellenarDatos(){
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push(['<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push([inv.attackingFaction.toUpperCase(),'tdInvasion '+atk+isCompleted]);
-				td.push(['<img src="'+inv.attackerReward.thumbnail +'"><BR>'+ inv.attackerReward.asString,'tdInvasion '+atk+isCompleted]);
+				td.push(['<img src="'+inv.attackerReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>','tdInvasion '+atk+isCompleted]);
 				td.push([inv.defendingFaction.toUpperCase(),'tdInvasion '+def+isCompleted]);
-				td.push(['<img src="'+inv.defenderReward.thumbnail +'"><BR>'+ inv.defenderReward.asString,'tdInvasion '+def+isCompleted]);
+				td.push(['<img src="'+inv.defenderReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
 				td.push([inv.vsInfestation,'tdInvasion '+def+isCompleted]);
 				tds.push(td);	
 			}
@@ -156,7 +219,7 @@ function rellenarDatos(){
 		tds=[];
 		parseado='';
 		var sortieData=resultJson.sortie;
-		parseado = 	'<h3>Sortie ('+sortieData.boss+'-'+sortieData.faction+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
+		parseado = 	'<h3>Sortie ('+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
 		parseado += '<BR>Faccion: '+sortieData.faction;
 		parseado += '<BR>Tiempo Restante: '+strDiff((sortieData.eta),diff)+'('+sortieData.eta+')</div>';
 		var sortieFaction=sortieData.faction.toLowerCase();
@@ -164,7 +227,7 @@ function rellenarDatos(){
 		sortieData.variants.forEach(function(v){
 			var idSortie="'"+v.missionType+v.node+v.modifier+"'";
 			var sortieCompleta=chequearCompleto(v.missionType+v.node+v.modifier);
-			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idSortie+')"'+(sortieCompleta?' checked':'')+'>Completa?</label><br>'
+			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idSortie+')"'+(sortieCompleta?' checked':'')+'></label>'
 			var isCompleted=(sortieCompleta?' completed':'');
 			
 			var td=[];
@@ -219,9 +282,7 @@ function rellenarDatos(){
 		news.innerHTML=parseado;
 	}
 }
-function toggleHide(id){
-	document.getElementById(id).classList.toggle("hidden");
-}
+
 function strToDate(stringDate){
 	var res=stringDate.split(" ");
 	var response=0;
@@ -245,6 +306,7 @@ function strToDate(stringDate){
 		case 'a':
 		case 'g':
 		case 'o':
+		case '*':
 			break;
 		default:
 			console.log('*'+t+'*'+caracter+'* default');
@@ -324,18 +386,4 @@ function chequearCompleto(id){
 		return false;
 	}
 
-}
-
-function cargarSonido(source='', soundControl){
-	if (source==''){return false;}
-	if (source=='Hablado'){textToSpeach(source);return;}
-	source='static/sound/alerts/'+source;
-	soundControl.src =source;
-	soundControl.load();
-	soundControl.play();
-}
-
-function textToSpeach(text){
-	var msg = new SpeechSynthesisUtterance(text);
-	window.speechSynthesis.speak(msg);
 }

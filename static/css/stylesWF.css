@@ -15,7 +15,8 @@ a:visited{
 	width: 90%;
 	margin: auto;
 	background-image: url(../img/warframe-lotus-wallpaper.png);
-	background-image: url(../img/warframe_logo_data.jpg);
+	/*background-image: url(../img/warframe_logo_data.jpg) no-repeat center center fixed;*/
+	/*background-size: cover;*/
 }
 .content>div{
 	margin: auto;
