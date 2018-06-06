@@ -1,3 +1,4 @@
+/*Genericos*/
 * {
   box-sizing: border-box;
 }
@@ -11,6 +12,16 @@ a{
 a:visited{
 	color: red;
 }
+h3{
+	margin:auto;
+	position: -webkit-sticky;
+  	position: sticky;
+  	background:#B8C1C8;
+  	color:red;
+  	padding: 2px 0 0 12px;
+  	top:-1px;
+}
+/*Contenedor*/
 .content{
 	width: 90%;
 	margin: auto;
@@ -26,19 +37,30 @@ a:visited{
 	flex-grow: 1;
 }
 
-.completed{
-	text-decoration: line-through;
+/*HEADER*/
+.headLogo{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 0; 
 }
-.completed::after{
-	content: "\2714 (Completa)";
-	color:green;
-	text-decoration: none;
+.headLogo img{
+	height: 50px;
+	position: relative;
+	align-self: center;
 }
+#whatsWarframe img{
+	width: 100%;
+}
+/*Botonera*/
 .botonera{
-	/*width: 45%;*/
-	background: transparent;
+	background: black;
 	border-radius: 10%;
 	border: 2px solid rebeccapurple;
+	width: 160px;
+}
+#botoneraCheckbox{
+	margin: auto;
+	padding: 9px;
 }
 #botonera{
 	display: flex;
@@ -50,6 +72,7 @@ a:visited{
   	padding: 2px 0 0 12px;
   	justify-content: flex-end;	
   	z-index: 5;
+  	
 }
 #botonera input[type=checkbox]:checked{
 	color:green;
@@ -61,55 +84,51 @@ a:visited{
 	font-size: .72rem;	
 	position: absolute;
 	z-index: 5;
-	min-width: 15%;
+	width: 160px;
+	transition-duration: 1s;
+	transition: all;
 }
 #botonera-desplegable ul{
 	list-style: none;
 	width: 100%;
 	padding: 0;
-	margin-left:-70px;
+	border: 3px solid rebeccapurple;
+	border-radius: 15%;
+	background: linear-gradient(to top right, #000 5%, #00F 100%);
+	max-height: 10500px;
+	transition: max-height 1s ease-in-out -1s;
+}
+#botonera-desplegable.hidden ul{
+	max-height: 0px;
+	transition: max-height 1s ease-in-out -1s;
 }
 #botonera-desplegable li{
-	border: 1px solid white;
-	width: 100%;
-	background: linear-gradient(to top right, #000 5%, #00F 100%);
-	border-radius: 15%;
+	border-bottom: 1px solid white;
+	width: 99%;	
+	padding: 10px;
+	opacity: .85;
 }
-.headLogo{
-	display: flex;
-	justify-content: space-between;
-	margin-top: 50px; 
+#botonera-desplegable li:hover{
+	opacity: 1;
 }
-.headLogo img{
-	height: 50px;
-	position: relative;
-	align-self: center;
+#botonera-desplegable li:last-child{
+	border-bottom: none;
 }
 
-#whatsWarframe img{
-	width: 100%;
+#botonera-desplegable label{
+	min-width: 50%;
 }
-h3{
-	margin:auto;
-	position: -webkit-sticky;
-  	position: sticky;
-  	background:#B8C1C8;
-  	color:red;
-  	padding: 2px 0 0 12px;
-  	top:-1px;
+#botonera-desplegable input[type=checkbox]{
+	display: none;
 }
 .barraProgreso{
 	background: black;
 	width: 100%;
 }
-.hidden{
-	display: none;
-}
 .infoNoFetch{
 	color:green;
 	background: black;
 }
-
 .infoFetch{
 	color:yellow;
 	background: red;
@@ -120,26 +139,6 @@ h3{
 	margin: auto;
 }
 
-.pDay{
-	background: black;
-	color:yellow;
-	display: inline;
-	font-size:3rem;
-}
-.pDay::after, .pDay::before{
-	content: "(\263C)";
-	color:red;
-}
-.pNight{
-	background: black;
-	color:red;
-	display: inline;
-	font-size:3rem;
-}
-.pNight::after, .pNight::before{
-	content: "(\1F319)";
-	color:green;
-}
 #sortie{
 	border:1px dotted;
 }
@@ -178,11 +177,11 @@ h3{
 	width: 50px;
 	transform-origin: 10px 0;
 }
-
 .enlargeMe img:hover{
 	transform: scale(5.5) translateX(100px) translateY(-10px);
-	transition-duration: .5s .8s
+	transition-duration: .5s .8s;
 }
+
 /*color facciones*/
 .corpus{
 	background-color: blue;
@@ -257,11 +256,10 @@ h3{
     -o-transition: all 0.30s ease-in-out;
 
 }
-
 .formulario .field-style:valid{
-
+    box-shadow: 0 0 5px #B0CFE0;
+    border:3px dotted green;
 }
-
 .formulario .field-style:invalid{
     box-shadow: 0 0 5px #B0CFE0;
     border:3px dotted red;	
@@ -333,4 +331,70 @@ h3{
 .formulario:focus-within a:visited::after{
 	font-size:.6rem;
 	content: " -- Editado por el contenedor padre! \1F497"
+}
+/*Formato de texto*/
+.subrayado{
+	text-decoration:underline;
+}
+.negrita{
+	font-weight: 800;
+}
+.ucase{
+	text-transform: uppercase;
+}
+.lcase{
+	text-transform: lowercase;
+}
+.capitalize{
+	text-transform: capitalize;	
+}
+/*estados*/
+.hidden{
+	display: none;
+}
+.pDay{
+	color:yellow;
+	display: inline;
+	font-size:3rem;
+}
+.pDay::after, .pDay::before{
+	content: "(\263C)";
+	color:red;
+}
+.pNight{
+	color:red;
+	display: inline;
+	font-size:3rem;
+}
+.pNight::after, .pNight::before{
+	content: "(\1F319)";
+	color:green;
+}
+
+.baroEsta{
+	color: white;
+	font-size: 3em;
+}
+.baroEsta::after, .baroEsta::before{
+	content: " \23F0 ";
+	font-weight: 800px;
+	color:#0F0;
+}
+.baroNoEsta{
+	color: #00e5ff;
+	font-size: 3em;
+}
+.baroNoEsta::after, .baroNoEsta::before{
+	content: " \1F559 ";
+	font-weight: 800px;
+	color:#F00;
+}
+
+.completed{
+	text-decoration: line-through;
+}
+.completed::after{
+	content: "\2714 (Completa)";
+	/*color:green;*/
+	text-decoration: none;
 }

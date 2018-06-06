@@ -16,6 +16,13 @@ var completado=[];
 var sounds=[];
 
 var campeon;
+
+// arrays activos
+var alertaActivaArr=[];
+var invasionActivaArr=[];
+var sortieActivaArr=[];
+var eventActivaArr=[];
+
 function checkCampeon(){
 	campeon=getCookie('campeon');
 	if(campeon!=undefined&&campeon!=''){
@@ -41,7 +48,7 @@ function getJson(url='',viaCors=true){
 	request.onload = function() {
 	  resultJson = request.response;
 	  //alert(dataJson['USD']['transferencia']);
-	  // console.log(request.response);
+	  //console.log(request.response);
 	  fetching=false;
 	  return request.response;
 	}
@@ -52,6 +59,7 @@ function startAll(){
 	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
+	buscarCompletasCookie();
 	rellenarDatos();
 	if (!fetching){
 		counter1++
@@ -60,10 +68,12 @@ function timerTime(){
 			counter1=0;
 		}
 	}
+	limpiarCompletasFinalizadas();
+
 }
 
 function toggleTimer(activar){
-	console.log(activar);
+	//console.log(activar);
 	if(activar){
 		startAll();
 	}else{
@@ -73,6 +83,13 @@ function toggleTimer(activar){
 
 function rellenarDatos(){
 	var estado='';
+	
+	// reseteo las activas
+	alertaActivaArr=[];
+	invasionActivaArr=[];
+	sortieActivaArr=[];
+	eventActivaArr=[];
+
 	estado='<p class='+((fetching)?'infoFetch':'infoNoFetch')+'>';
 	estado+='('+tiempoStr()+') Proximo fetch:'+(counter1Max-counter1)+'</p>';
 	datosPagina.innerHTML=estado;
@@ -103,33 +120,46 @@ function rellenarDatos(){
 		var eventsData=resultJson.events;
 		if (eventsData.length>0){
 			removeClass('eventsCheckbox','hidden');
-			parseado='<h3>Eventos</h3>';
+			parseado='';
+			// parseado='<a id="E"></a>';
+			parseado+='<h3>Eventos</h3>';
+			
 			eventsData.forEach(function(e){
 				parseado +='<article>';
-				parseado +='<u><h2>' +e.description+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+e.affiliatedWith+'" target="blank">'+e.affiliatedWith+'</a>)</h2></u>';
+				parseado +='<span class="subrayado"><h2>' +e.description+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+e.affiliatedWith+'" target="blank">'+e.affiliatedWith+'</a>)</h2></span>';
 				parseado +='<p>' +e.tooltip+'</p>';
 				parseado +='<p>Nodo: ' +e.victimNode+'('+e.health+'%)</p>';
 				parseado += '<hr>';
 				if(e.jobs.length>0){
-					parseado+='<u><h4>&#8227; Misiones</h4></u>';
+					parseado+='<span class="subrayado"><h4>&#8227; Misiones</h4></span><div class="eventMission">';
 					e.jobs.forEach(function(j){
-						parseado+='Tipo: '+j.type;
+
+						var idEvent="'"+j.id+"'";
+						var eventoCompleta=chequearCompleto(j.id);
+						
+						//agrego eventActiva
+						eventActivaArr.push(j.id);
+
+						var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idEvent+')"'+(eventoCompleta?' checked':'')+'>Completa?</label><br>'
+						var isCompleted=(eventoCompleta?' completed':'');
+						
+						parseado+=checkBoxCompleted+' Tipo: '+j.type;
 						if(j.enemyLevels.length>0){
-							parseado+='<p>Nivel:';
+							parseado+='<p class='+isCompleted+'>Nivel:';
 							j.enemyLevels.forEach(function(el){
 								parseado+= ' '+el;
 							});
 							parseado+='</p>';
 						}
 						if(j.rewardPool.length>0){
-							parseado+='<p>Recompensas: ';
+							parseado+='<p class='+isCompleted+'>Recompensas: ';
 							j.rewardPool.forEach(function(rp){
 								parseado+= '[<a href="http://warframe.wikia.com/wiki/Special:Search?search='+rp+'" target="blank">'+rp+'</a>]';
 							});
 							parseado+='</p>';
 						}
 						if(j.standingStages.length>0){
-							parseado+='<p>Reputacion: ';
+							parseado+='<p class='+isCompleted+'>Reputacion: ';
 							var suma=0;
 							j.standingStages.forEach(function(ss){
 								parseado+= '['+ss+']';
@@ -155,7 +185,10 @@ function rellenarDatos(){
 		//Alerts
 		ths=[];
 		tds=[];
-		parseado='<h3>Alertas</h3>'
+		parseado='';
+		// parseado='<a id="A"></a>';
+		parseado+='<h3>Alertas</h3>';
+		
 		var alertsData=resultJson.alerts;
 		ths.push([['Tiempo','alertTH'],['Mods','alertTH'],['Tipo Mision','alertTH'],['Nodo','alertTH'],['Faccion','alertTH'],['Nivel','alertTH'],['Reward','alertTH']])
 		alertsData.forEach(function(a){
@@ -163,6 +196,10 @@ function rellenarDatos(){
 			var idFaction=a.mission.faction.toLowerCase();
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
+			
+			// agrego a la lista la alertaActiva
+			alertaActivaArr.push(a.id);
+
 			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idAlerta+')"'+(alertaCompleta?' checked':'')+'>Completa?</label><br>'
 			var isCompleted=(alertaCompleta?' completed':'');
 
@@ -188,7 +225,10 @@ function rellenarDatos(){
 		//Invasions
 		ths=[];
 		tds=[];
-		parseado='<h3>Invasiones</h3>'
+		parseado='';
+		// parseado='<a id="I"></a>';
+		parseado+='<h3>Invasiones</h3>'
+		
 		parseado+='<div>Construcciones:'
 		parseado+='<ul><li class="grineer">Fomorian: '+resultJson.constructionProgress.fomorianProgress+'%</li>'
 		parseado+='<li class="corpus">RazorBack: '+resultJson.constructionProgress.razorbackProgress+'%</li>'
@@ -205,6 +245,9 @@ function rellenarDatos(){
 				var invasionCompleta=chequearCompleto(inv.id);
 				var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idInvasion+')"'+(invasionCompleta?' checked':'')+'>Completa?</label><br>'
 				var isCompleted=(invasionCompleta?' completed':'');
+
+				// agrego la invasionActiva
+				invasionActivaArr.push(inv.id);
 
 				td.push([checkBoxCompleted+inv.desc,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)]);
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
@@ -227,7 +270,9 @@ function rellenarDatos(){
 		tds=[];
 		parseado='';
 		var sortieData=resultJson.sortie;
-		parseado = 	'<h3>Sortie ('+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
+		// parseado ='<a id="S"></a>';
+		parseado += '<h3>(Sortie '+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
+		
 		parseado += '<BR>Faccion: '+sortieData.faction;
 		parseado += '<BR>Tiempo Restante: '+strDiff((sortieData.eta),diff)+'('+sortieData.eta+')</div>';
 		var sortieFaction=sortieData.faction.toLowerCase();
@@ -238,6 +283,9 @@ function rellenarDatos(){
 			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idSortie+')"'+(sortieCompleta?' checked':'')+'></label>'
 			var isCompleted=(sortieCompleta?' completed':'');
 			
+			// agego la sortieActiva
+			sortieActivaArr.push(v.missionType+v.node+v.modifier);
+
 			var td=[];
 			td.push([checkBoxCompleted+v.missionType,'tdSortie '+sortieFaction]);
 			td.push([v.node,'tdSortie '+sortieFaction+isCompleted]);
@@ -252,7 +300,9 @@ function rellenarDatos(){
 		//Fisures
 		parseado='';
 		var fisureData=resultJson.fissures;
-		parseado = 	'<h3>Fisures</h3>';
+		// parseado ='<a id="F"></a>';
+		parseado +='<h3>Fisures</h3>';
+		
 		ths=[];
 		tds=[];
 		ths.push([['Tier'],['Tiempo'],['Enemigo'],['Tipo'],['Nodo']]);
@@ -270,18 +320,27 @@ function rellenarDatos(){
 		parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
 		parseado +='<hr>';
 		fissures.innerHTML=parseado;
+		
 		//Baro
 		var baroData=resultJson.voidTrader;
-		parseado='<h3>'+baroData.character+' - ('+(baroData.active?'Activo! Se va: '+strDiff((baroData.endString),diff):'Esperando, llega: '+strDiff((baroData.startString),diff))+')</h3>'
+		parseado='';
+		// parseado ='<a id="B"></a>';
+		parseado +='<h3>'+baroData.character+'</h3>'
+		parseado +='<p class='+(baroData.active?'"baroEsta"':'"baroNoEsta"')+'>'+(baroData.active?'Se va: '+strDiff((baroData.endString),diff):'Llega: '+strDiff((baroData.startString),diff))+'</p>';
+		
 		parseado+=baroData.character+
 			'<BR>Llega a: '+baroData.location+' Activo: '+baroData.active+
 			'<BR>Llega: '+strDiff((baroData.startString),diff)+' Se va: '+strDiff((baroData.endString),diff)+
 			'<BR>Inventario: '+baroData.inventory;
 		parseado +='<hr>';
 		baro.innerHTML=parseado;
+		
 		//News
 		var newsData=resultJson.news;
+		parseado='';
+		// parseado='<a id="N"></a>';
 		parseado='<h3>News</h3>';
+		
 		parseado+='<ul class="news enlargeMe">';
 		newsData.forEach(function(n){
 			parseado+='<li><img src="'+n.imageLink+'" alt="'+n.message+'">['+strDiff(n.eta, diff*-1)+']<a href="'+n.link+'" target="blank">'+n.message+'</a></li>'
@@ -311,13 +370,14 @@ function strToDate(stringDate){
 		case 's':
 			response+=t*1000;
 			break;
-		case 'a':
 		case 'g':
 		case 'o':
 		case '*':
+		case 'n':
+		case 'i':
 			break;
 		default:
-			console.log('*'+t+'*'+caracter+'* default');
+			console.log(stringDate+'*'+t+'*'+caracter+'* default');
 		}
 	});
 	return response;
@@ -393,5 +453,32 @@ function chequearCompleto(id){
 	}else{
 		return false;
 	}
+}
+function limpiarCompletasFinalizadas(){
+	var auxArr=[];
+	//busco en las cookies las alertas completas
+	console.log("inicial:"+completado);
+	completado=completado.concat(getCookie("completas"))
+	console.log("con cookie:"+completado);
+	//limpio las completas duplicadas
+	completado = completado.filter(function (item, pos) {return c.indexOf(item) == pos});
+	console.log("filtrado:"+completado);
 
+	if (completado.length>0){
+		var arrayCompleto=[];
+		arrayCompleto=arrayCompleto.concat(alertaActivaArr);
+		arrayCompleto=arrayCompleto.concat(invasionActivaArr);
+		arrayCompleto=arrayCompleto.concat(sortieActivaArr);
+		arrayCompleto=arrayCompleto.concat(eventActivaArr);
+		completado.forEach(function(c){
+			if(arrayCompleto.includes(c)){
+				auxArr.push(c);
+			}
+		})
+		setCookie("completas",auxArr,7*24*60*60*1000)
+		completado=auxArr;
+	}
+}
+function buscarCompletasCookie(){
+	return getCookie("completas");
 }

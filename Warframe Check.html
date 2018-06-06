@@ -34,21 +34,50 @@
 			<div>
 				<label id="botoneraCheckbox"><img src="static/img/favicon/favicon-32x32.png" ><input type="checkbox" name="botonera-desplegable" class="hidden" onclick="toggleHide(this.name);toggleClass('botoneraCheckbox','active',this.checked);">Controles<img src="static/img/favicon/favicon-32x32.png" ></label>
 			</div>
-			<div id="botonera-desplegable" class="hidden">
+			<div id="botonera-desplegable" class="hidden ucase negrita">
+				<ul>
+					<li>
+						<label class="active" id="autoUpdateCheckbox">		<input type="checkbox" name="autoUpdate"	checked onclick="toggleTimer(this.checked);toggleClass('autoUpdateCheckbox','active',this.checked	);">Actualizar		</label>
+					</li>
+					<li>
+						<a href="#C">▼</a>
+						<label 				  id="formContactoCheckbox">	<input type="checkbox" name="formContacto" 			onclick="toggleHide(this.name);toggleClass('formContactoCheckbox','active',this.checked 	);">Form contacto 	</label>
+					</li>
+					<li>
+						<a href="#V">▼</a>
+						<label 				  id="whatsWarframeCheckbox">	<input type="checkbox" name="whatsWarframe" 		onclick="toggleHide(this.name);toggleClass('whatsWarframeCheckbox','active',this.checked	);">Video Intro 	</label>
+					</li>
+				</ul>
 				<ul>
 					<!-- no queda otra que JS porque el checkbox es son y tengo que moficar su parent. -->
-					<li><label 				  id="sonidosCheckbox">			<input type="checkbox" name="sonidos" 				onclick="toggleHide(this.name);toggleClass('sonidosCheckbox','active',this.checked 			);">Sonidos 					</label></li>
-					<li><label class="active" id="cetusTimerCheckbox">		<input type="checkbox" name="cetusTimer" 	checked onclick="toggleHide(this.name);toggleClass('cetusTimerCheckbox','active',this.checked 		);">Timers 						</label></li>
-					<li><label class="active" id="eventsCheckbox">			<input type="checkbox" name="events" 		checked onclick="toggleHide(this.name);toggleClass('eventsCheckbox','active',this.checked 			);">Eventos 					</label></li>
-					<li><label class="active" id="alertsCheckbox">			<input type="checkbox" name="alerts" 		checked onclick="toggleHide(this.name);toggleClass('alertsCheckbox','active',this.checked 			);">Alertas						</label></li>
-					<li><label class="active" id="invasionsCheckbox">		<input type="checkbox" name="invasions" 	checked onclick="toggleHide(this.name);toggleClass('invasionsCheckbox','active',this.checked 		);">Invasiones 					</label></li>
-					<li><label class="active" id="sortieCheckbox">			<input type="checkbox" name="sortie" 		checked onclick="toggleHide(this.name);toggleClass('sortieCheckbox','active',this.checked 			);">Sortie 						</label></li>
-					<li><label class="active" id="fissuresCheckbox">		<input type="checkbox" name="fissures" 		checked onclick="toggleHide(this.name);toggleClass('fissuresCheckbox','active',this.checked 		);">Fissures 					</label></li>
-					<li><label class="active" id="baroCheckbox">			<input type="checkbox" name="baro" 			checked onclick="toggleHide(this.name);toggleClass('baroCheckbox','active',this.checked 			);">Baro 						</label></li>
-					<li><label class="active" id="newsCheckbox">			<input type="checkbox" name="news" 			checked onclick="toggleHide(this.name);toggleClass('newsCheckbox','active',this.checked 			);">News 						</label></li>
-					<li><label 				  id="whatsWarframeCheckbox">	<input type="checkbox" name="whatsWarframe" 		onclick="toggleHide(this.name);toggleClass('whatsWarframeCheckbox','active',this.checked	);">Video Intro 				</label></li>
-					<li><label class="active" id="autoUpdateCheckbox">		<input type="checkbox" name="autoUpdate"	checked onclick="toggleTimer(this.checked);toggleClass('autoUpdateCheckbox','active',this.checked	);">Actualizar automaticamente	</label></li>
-					<li><label 				  id="formContactoCheckbox">	<input type="checkbox" name="formContacto" 			onclick="toggleHide(this.name);toggleClass('formContactoCheckbox','active',this.checked 	);">Form contacto 				</label></li>
+					<li>	
+						<a href="#S">▼</a>
+						<label 				  id="sonidosCheckbox">			<input type="checkbox" name="sonidos" 				onclick="toggleHide(this.name);toggleClass('sonidosCheckbox','active',this.checked 			);">Sonido</label>
+						<a href="#T">▼</a>
+						<label class="active" id="cetusTimerCheckbox">		<input type="checkbox" name="timers" 		checked onclick="toggleHide(this.name);toggleClass('cetusTimerCheckbox','active',this.checked 		);">Timers</label>
+					</li>
+					<li>	
+						<a href="#E">▼</a>
+						<label class="active" id="eventsCheckbox">			<input type="checkbox" name="events" 		checked onclick="toggleHide(this.name);toggleClass('eventsCheckbox','active',this.checked 			);">Evento</label>
+					 	<a href="#A">▼</a>
+					 	<label class="active" id="alertsCheckbox">			<input type="checkbox" name="alerts" 		checked onclick="toggleHide(this.name);toggleClass('alertsCheckbox','active',this.checked 			);">Alerta</label>
+					</li>
+					<li>	
+						<a href="#I">▼</a>
+						<label class="active" id="invasionsCheckbox">		<input type="checkbox" name="invasions" 	checked onclick="toggleHide(this.name);toggleClass('invasionsCheckbox','active',this.checked 		);">Invasion</label>
+						<a href="#S">▼</a>
+						<label class="active" id="sortieCheckbox">			<input type="checkbox" name="sortie" 		checked onclick="toggleHide(this.name);toggleClass('sortieCheckbox','active',this.checked 			);">Sortie</label>
+					</li>
+					<li>	
+						<a href="#F">▼</a>
+						<label class="active" id="fissuresCheckbox">		<input type="checkbox" name="fissures" 		checked onclick="toggleHide(this.name);toggleClass('fissuresCheckbox','active',this.checked 		);">Fisura</label>
+						<a href="#B">▼</a>
+						<label class="active" id="baroCheckbox">			<input type="checkbox" name="baro" 			checked onclick="toggleHide(this.name);toggleClass('baroCheckbox','active',this.checked 			);">Baro</label>
+					</li>
+					<li>	
+						<a href="#N">▼</a>
+						<label class="active" id="newsCheckbox">			<input type="checkbox" name="news" 			checked onclick="toggleHide(this.name);toggleClass('newsCheckbox','active',this.checked 			);">News</label>
+					</li>																																																															
 				</ul>
 			</div>
 		</nav>
@@ -62,9 +91,17 @@
 		<div id="timeStamp"></div>
 		<hr>
 		<div id="sonidos" class="sonidos hidden">
+			<a id="S"></a>
 			<h3>Sonidos, notificaciones</h3>
+			
 			<ul>
 				<li>
+					<!-- no se como reutilizar estos options :( -->
+					<!-- 
+						Chequear estos links:
+						http://yeoman.io/
+						https://github.com/larsonjj/generator-yeogurt
+ 					-->
 					<label><input type="checkbox" id="habilitar1">Habilitar</label>
 					<select id="combo1" onchange="cargarSonido(value,sound1);">
 					  <option value="">Deshabilitado</option>
@@ -164,14 +201,7 @@
 		</div>
 
 		<div id="formContacto" class="hidden">
-<!-- 			<form action="#" method="get">
-				
-				<label>Nombre:<input type="text" name="nombre" id="formNombre" placeholder="Ingresa tu nombre"required></label><br>
-				<label>Mail:<input type="mail" name="email" placeholder="Ingresa tu mail" required></label><br>
-				<label>Feedback: <textarea name="feedback"></textarea></label><br>
-				<input type="submit" value="enviar" onclick="setCookie('campeon',formNombre.value,(1000*60*3))">
-			</form>
- -->		
+ 			<a id="C"></a>
  			<h3>Contactame</h3>
 			<form class="formulario" action="#" method="get">
 				<ul>
@@ -204,6 +234,7 @@
 			</script>
 		</div>
 		<div id="whatsWarframe" class="hidden">
+			<a id="V"></a>
 			<div>
 				<h3>Que es warframe?</h3>
 				<a href="https://www.warframe.com/">Pagina del juego</a> 
@@ -215,13 +246,22 @@
 				</div>
 			</div>
 		</div>
+		
+		<a id="T"></a>
 		<section id="timers"></section>
+		<a id="E"></a>
 		<section id="events"></section>
+		<a id="A"></a>
 		<section id="alerts"></section>
+		<a id="I"></a>
 		<section id="invasions"></section>
+		<a id="S"></a>
 		<section id="sortie"></section>
+		<a id="F"></a>
 		<section id="fissures"></section>
+		<a id="B"></a>
 		<section id="baro"></section>
+		<a id="N"></a>
 		<section id="news"></section>
 
 	</div>
