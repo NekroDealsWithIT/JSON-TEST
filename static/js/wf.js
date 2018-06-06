@@ -477,8 +477,10 @@ function limpiarCompletasFinalizadas(){
 				auxArr.push(c);
 			}
 		})		
-		completado=auxArr;
-		completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
-		setCookie("completas",auxArr,7*24*60*60*1000)
 	}
+	completado=auxArr;
+	// le tiro un unique
+	completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
+	setCookie("completas",auxArr,7*24*60*60*1000)
+
 }
