@@ -461,7 +461,7 @@ function limpiarCompletasFinalizadas(){
 	completado=completado.concat(getCookie("completas"))
 	console.log("con cookie:"+completado);
 	//limpio las completas duplicadas
-	completado = completado.filter(function (item, pos) {return c.indexOf(item) == pos});
+	completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
 	console.log("filtrado:"+completado);
 
 	if (completado.length>0){
@@ -476,7 +476,7 @@ function limpiarCompletasFinalizadas(){
 			}
 		})		
 		completado=auxArr;
-		completado = completado.filter(function (item, pos) {return c.indexOf(item) == pos});
+		completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
 		setCookie("completas",auxArr,7*24*60*60*1000)
 	}
 }
