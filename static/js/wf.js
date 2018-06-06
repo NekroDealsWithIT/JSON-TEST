@@ -474,9 +474,10 @@ function limpiarCompletasFinalizadas(){
 			if(arrayCompleto.includes(c)){
 				auxArr.push(c);
 			}
-		})
-		setCookie("completas",auxArr,7*24*60*60*1000)
+		})		
 		completado=auxArr;
+		completado = completado.filter(function (item, pos) {return c.indexOf(item) == pos});
+		setCookie("completas",auxArr,7*24*60*60*1000)
 	}
 }
 function buscarCompletasCookie(){
