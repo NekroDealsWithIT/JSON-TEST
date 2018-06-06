@@ -56,7 +56,7 @@ function getJson(url='',viaCors=true){
 
 function startAll(){
 	getWFWorldstate();
-	timer1=setClock(1000,timerTime,timer1);
+	//timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
 	rellenarDatos();
