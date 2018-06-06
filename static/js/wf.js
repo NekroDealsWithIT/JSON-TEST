@@ -59,7 +59,6 @@ function startAll(){
 	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
-	buscarCompletasCookie();
 	rellenarDatos();
 	if (!fetching){
 		counter1++
@@ -68,8 +67,6 @@ function timerTime(){
 			counter1=0;
 		}
 	}
-	limpiarCompletasFinalizadas();
-
 }
 
 function toggleTimer(activar){
@@ -347,6 +344,8 @@ function rellenarDatos(){
 		});
 		parseado +='</ul><hr>';
 		news.innerHTML=parseado;
+
+		limpiarCompletasFinalizadas();
 	}
 }
 
