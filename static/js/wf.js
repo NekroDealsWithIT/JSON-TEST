@@ -56,6 +56,8 @@ function getJson(url='',viaCors=true){
 
 function startAll(){
 	getWFWorldstate();
+	// busco en las cookies las completadas de los ultimos 7 dias
+	completado=completado.concat(getCookie("completas"));
 	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
@@ -457,7 +459,8 @@ function limpiarCompletasFinalizadas(){
 	var auxArr=[];
 	//busco en las cookies las alertas completas
 	// console.log("inicial:"+completado);
-	completado=completado.concat(getCookie("completas"))
+	// solo debe de ejecutarse la primera vez!
+	// completado=completado.concat(getCookie("completas"))
 	// console.log("con cookie:"+completado);
 	//limpio las completas duplicadas
 	completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
