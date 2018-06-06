@@ -56,7 +56,7 @@ function getJson(url='',viaCors=true){
 
 function startAll(){
 	getWFWorldstate();
-	//timer1=setClock(1000,timerTime,timer1);
+	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
 	rellenarDatos();
@@ -456,12 +456,12 @@ function chequearCompleto(id){
 function limpiarCompletasFinalizadas(){
 	var auxArr=[];
 	//busco en las cookies las alertas completas
-	console.log("inicial:"+completado);
+	// console.log("inicial:"+completado);
 	completado=completado.concat(getCookie("completas"))
-	console.log("con cookie:"+completado);
+	// console.log("con cookie:"+completado);
 	//limpio las completas duplicadas
 	completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
-	console.log("filtrado:"+completado);
+	// console.log("filtrado:"+completado);
 
 	if (completado.length>0){
 		var arrayCompleto=[];
@@ -478,7 +478,4 @@ function limpiarCompletasFinalizadas(){
 		completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
 		setCookie("completas",auxArr,7*24*60*60*1000)
 	}
-}
-function buscarCompletasCookie(){
-	return getCookie("completas");
 }
