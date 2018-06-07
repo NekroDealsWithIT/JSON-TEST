@@ -201,7 +201,11 @@ function rellenarDatos(){
 
 			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idAlerta+')"'+(alertaCompleta?' checked':'')+'>Completa?</label><br>'
 			var isCompleted=(alertaCompleta?' completed':'');
-
+			if(a.rewardTypes.length>0){
+				a.rewardType.forEach(function(rt){
+					setCookie('a_'+rt,new Date(),365*24*60*60*1000);
+				});
+			}
 			td.push([checkBoxCompleted+'<img src="'+a.mission.reward.thumbnail +'"><BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
 			var modifs='';
 			(a.mission.nightmare?modifs+='N ':'');
@@ -481,6 +485,6 @@ function limpiarCompletasFinalizadas(){
 	completado=auxArr;
 	// le tiro un unique
 	completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
-	setCookie("completas",auxArr,7*24*60*60*1000)
+	setCookie("completas",auxArr,7*24*60*60*1000);
 
 }
