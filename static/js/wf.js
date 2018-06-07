@@ -115,6 +115,13 @@ function rellenarDatos(){
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
 		
+		//Manejo de sonidos
+
+		cacheado=getCachedData();
+		if (cacheado=!''){
+			notificaciones.innerHTML='<h3>Notificar</h3>';
+		}
+
 		//Events
 		var eventsData=resultJson.events;
 		if (eventsData.length>0){
@@ -206,13 +213,17 @@ function rellenarDatos(){
 			if(a.rewardTypes.length>0){
 				a.rewardTypes.forEach(function(rt){
 					// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
-					cookieStore+='t_'+rt;
+					if(rt!=''){
+						cookieStore+='t_'+rt;
+					}
 				});
 			}
 			if(a.mission.reward.items+!undefined&&a.mission.reward.items.length>0){
 				a.mission.reward.items.forEach(function(ri){
 					// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
-					cookieStore+='_i_'+ri;
+					if(ri!=''){
+						cookieStore+='_i_'+ri;
+					}
 				});
 			}
 			cookieStore+='_l_'+a.mission.reward.thumbnail;
@@ -500,4 +511,67 @@ function limpiarCompletasFinalizadas(){
 	completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
 	setCookie("completas",auxArr,7*24*60*60*1000);
 
+}
+
+
+function getCachedData(){
+	var cachedData=[];
+	var cookieData="BCSI-CS-53631f2127934e24=2; BCSI-CS-170bdc07205ed45e=2; completas=5b19335af3cc7f49b2e101fc; t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina)"
+	// busco esto: t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina)
+
+	if (document.cookie==''){
+		// estoy local
+		var decodedCookie = decodeURIComponent(cookieData);
+	}else{
+		var decodedCookie = decodeURIComponent(document.cookie);
+	}
+	
+    var cookieArray = decodedCookie.split(';');
+	for(var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i];
+        while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1);
+        }
+        
+        // Variable de checkeo
+        var cV='t_';
+        if (cookie.indexOf(cV) == 0) {
+            var cachedType='';
+            var cachedItem='';
+            var cachedImgLink='';
+            var cachedTime='';
+            // (cookieMasticada)
+            var cM=cookie;
+            console.log(cookie.substring(cM));
+
+            cV='=';
+            if (cM.indexOf(cV) > -1) {
+            	cachedTime=cM.substring(cM.indexOf(cV), cM.length);
+            	cM=cM.substring(0, cM.length-cachedTime.length);
+            	cachedTime=cachedTime.replace(cV,'');
+            }
+
+            cV='_l_';
+            if (cM.indexOf(cV) > -1) {
+            	cachedImgLink=cM.substring(cM.indexOf(cV), cM.length);
+            	cM=cM.substring(0, cM.length-cachedImgLink.length);
+            	cachedImgLink=cachedImgLink.replace(cV,'');
+            }
+
+            cV='_i_';
+            if (cM.indexOf(cV) > -1) {
+            	cachedItem=cM.substring(cM.indexOf(cV), cM.length);
+            	cM=cM.substring(0, cM.length-cachedItem.length);
+            	cachedItem=cachedItem.replace(cV,'');
+            }
+
+            cV='t_';
+        	cachedType=cM.substring(cM.indexOf(cV), cM.length);
+        	cachedType=cachedType.replace(cV,'');
+        	console.log(cachedType);
+        	
+        	cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime});
+        }
+    }
+    return cachedData;
 }
