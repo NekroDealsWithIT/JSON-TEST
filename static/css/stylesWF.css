@@ -138,7 +138,9 @@ h3{
 	width: 90%;
 	margin: auto;
 }
-
+#notificaciones li{
+	list-style: none;
+}
 #sortie{
 	border:1px dotted;
 }

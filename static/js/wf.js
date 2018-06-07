@@ -12,6 +12,8 @@ var counter1=0;
 var counter1Max=15;
 
 var completado=[];
+var informarArr=[];
+
 
 var sounds=[];
 
@@ -126,24 +128,40 @@ function rellenarDatos(){
 					tipos.push(c.cachedType);
 				}
 			});
+			// Agrego clase generica
 			tipos.push('recursos');
+			// Dejo unico el array para no repetir data
 			tipos=arrayUnique(tipos);
+			// hago un ordenamiento burbuja (A-Z) para los titulos
+			tipos=bubbleSorting(tipos);
+			// hago un ordenamiento para los items
+			cacheado=arraySortByKey(cacheado,'cachedType');
+			cacheado=arraySortByKey(cacheado,'cachedItem');
+			
 			tipos.forEach(function(t){
 				notificaciones.innerHTML+='<article><h4 class="ucase subrayado">'+t+'<h4><ul>';
 				cacheado.forEach(function (c){
 					if(t=='recursos'&&c.cachedItem==''){
-							notificaciones.innerHTML+='<li>';
-							notificaciones.innerHTML+='<img class="thumbnail" src="'+c.cachedImgLink+'">';
-							notificaciones.innerHTML+='<span class="capitalize">'+c.cachedType+'</span>';
-							notificaciones.innerHTML+=' (ultima vez registrado: '+dateToString(c.cachedTime)+')';
-							notificaciones.innerHTML+='</li>';
+							var notificar=chequearInformar(c.cachedType);
+							notificaciones.innerHTML+='<li>'+
+								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
+								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
+								'<img class="thumbnail" src="'+c.cachedImgLink+'">'+
+								'<span class="capitalize">'+c.cachedType+'</span>'+
+								'</a>'+
+								' (ultima vez registrado: '+dateToString(c.cachedTime)+')'+
+								'</li>';
 					}else{
 						if(t==c.cachedType){
-							notificaciones.innerHTML+='<li>';
-							notificaciones.innerHTML+='<img class="thumbnail" src="'+c.cachedImgLink+'">';
-							notificaciones.innerHTML+='<span class="capitalize">'+c.cachedItem+'</span>';
-							notificaciones.innerHTML+=' (ultima vez registrado: '+dateToString(c.cachedTime)+')';
-							notificaciones.innerHTML+='</li>';
+							var notificar=chequearInformar(c.cachedItem);
+							notificaciones.innerHTML+='<li>'+
+								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
+								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
+								'<img class="thumbnail" src="'+c.cachedImgLink+'">'+
+								'<span class="capitalize">'+c.cachedItem+'</span>'+
+								'</a>'+
+								' (ultima vez registrado: '+dateToString(c.cachedTime)+')'+
+								'</li>';
 						}
 					}
 				});
@@ -488,12 +506,6 @@ function toggleCompletar(id){
 		// console.log("agregado:" +id+'\n'+completado);
 	}
 	timerTime();
-/*	if (completado.includes(id)){
-		completado.
-	}else{
-		completado.push(id);
-	}*/
-
 }
 function chequearCompleto(id){
 	var pos=-1;
@@ -505,12 +517,49 @@ function chequearCompleto(id){
 			// console.log(id);
 		}
 	});
-	// if (completado.includes(id)){alert (id+' aparece!');}
-	// console.log("pregunto por: "+id);
-	if(posElemento>-1){
+	if (posElemento>-1){
 		return true;
 	}else{
-		return false;
+		return false;	
+	}
+}
+function toggleInformar(id){
+	var pos=-1;
+	var posElemento=-1;
+	//if (informarArr.includes(id)){alert("existe");}
+	informarArr.forEach(function(valor){
+		pos++;
+		if (valor==id){
+			posElemento=pos;
+		}
+	});
+
+	if(posElemento!=-1){
+		//console.log(informarArr);
+		informarArr.splice(posElemento, 1);
+		// console.log("eliminado:" +id+'\n'+informarArr);
+	}else{
+		informarArr.push(id);
+		// console.log("agregado:" +id+'\n'+informarArr);
+	}
+	arrayUnique(informarArr);
+	setCookie("informaArrCookie",informarArr,30*24*60*60*1000);
+	// timerTime();
+}
+function chequearInformar(id){
+	var pos=-1;
+	var posElemento=-1;
+	informarArr.forEach(function(valor){
+		pos++;
+		if (valor==id){
+			posElemento=pos;
+			// console.log(id);
+		}
+	});
+	if (posElemento>-1){
+		return true;
+	}else{
+		return false;	
 	}
 }
 function limpiarCompletasFinalizadas(){
@@ -547,6 +596,7 @@ function limpiarCompletasFinalizadas(){
 function getCachedData(){
 	var cachedData=[];
 	var cookieData="BCSI-CS-53631f2127934e24=2; BCSI-CS-170bdc07205ed45e=2; completas=5b19335af3cc7f49b2e101fc; t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina)"
+	cookieData="t_endo_i_100 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 09:43:41 GMT-0300 (Argentina Standard Time); t_catalyst_i_Orokin Catalyst Blueprint_l_https://i.imgur.com/C4X9NWm.png=Thu Jun 07 2018 09:48:41 GMT-0300 (Argentina Standard Time); completas=; t_oxium_l_https://i.imgur.com/hY8NCjk.png=Thu Jun 07 2018 09:49:41 GMT-0300 (Argentina Standard Time); t_traces_l_https://i.imgur.com/vvZGMPv.png=Thu Jun 07 2018 10:04:30 GMT-0300 (Argentina Standard Time); t_endo_i_80 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 10:15:34 GMT-0300 (Argentina Standard Time); t_argonCrystal_l_https://i.imgur.com/DdJJYSB.png=Thu Jun 07 2018 10:41:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:42 GMT-0300 (Argentina Standard Time); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 11:18:43 GMT-0300 (Argentina Standard Time); t_nitain_l_https://i.imgur.com/3Db4PHh.png=Thu Jun 07 2018 11:49:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Valkyr Kara Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 12:41:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Ember Backdraft Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 14:10:40 GMT-0300 (Argentina Standard Time); t_endo_i_150 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 14:35:00 GMT-0300 (Argentina Standard Time); t_helmet_i_Oberon Oryx Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 14:40:33 GMT-0300 (Argentina Standard Time); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 14:40:33 GMT-0300 (Argentina Standard Time)"
 	// busco esto: t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina)
 
 	if (document.cookie==''){
