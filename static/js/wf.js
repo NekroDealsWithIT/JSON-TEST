@@ -143,8 +143,8 @@ function rellenarDatos(){
 				notificaciones.innerHTML+='<article><h4 class="ucase subrayado">'+t+'<h4><ul>';
 				cacheado.forEach(function (c){
 					var actual='';
-					if(	(alertasActuales.rewardTypes!=undefined&&alertasActuales.rewardTypes.includes(c.cachedType))||
-						(alertasActuales.mission!=undefined&&alertasActuales.mission.reward.items!=undefined&&alertasActuales.mission.reward.items.includes(c.cachedItem))){
+					if(	(alertasActuales.rewardTypes!=undefined&&alertasActuales.rewardTypes.includes('"'+c.cachedType+'"'))||
+						(alertasActuales.mission!=undefined&&alertasActuales.mission.reward.items!=undefined&&alertasActuales.mission.reward.items.includes('"'+c.cachedItem+'"'))){
 						
 						actual=alertasActuales.id;
 					}
