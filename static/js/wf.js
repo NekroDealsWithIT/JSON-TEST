@@ -195,17 +195,28 @@ function rellenarDatos(){
 			var idFaction=a.mission.faction.toLowerCase();
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
-			
+
 			// agrego a la lista la alertaActiva
 			alertaActivaArr.push(a.id);
 
 			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idAlerta+')"'+(alertaCompleta?' checked':'')+'>Completa?</label><br>'
 			var isCompleted=(alertaCompleta?' completed':'');
+			
+			var cookieStore='';
 			if(a.rewardTypes.length>0){
 				a.rewardTypes.forEach(function(rt){
-					setCookie('a_'+rt,new Date(),365*24*60*60*1000);
+					// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
+					cookieStore+='t_'+rt;
 				});
 			}
+			if(a.mission.reward.items+!undefined&&a.mission.reward.items.length>0){
+				a.mission.reward.items.forEach(function(ri){
+					// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
+					cookieStore+='_i_'+ri;
+				});
+			}			
+			setCookie(cookieStore,new Date(),365*24*60*60*1000);
+
 			td.push([checkBoxCompleted+'<img src="'+a.mission.reward.thumbnail +'"><BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
 			var modifs='';
 			(a.mission.nightmare?modifs+='N ':'');
