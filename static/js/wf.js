@@ -542,8 +542,7 @@ function getCachedData(){
             var cachedTime='';
             // (cookieMasticada)
             var cM=cookie;
-            console.log(cookie.substring(cM));
-
+ 
             cV='=';
             if (cM.indexOf(cV) > -1) {
             	cachedTime=cM.substring(cM.indexOf(cV), cM.length);
@@ -568,8 +567,6 @@ function getCachedData(){
             cV='t_';
         	cachedType=cM.substring(cM.indexOf(cV), cM.length);
         	cachedType=cachedType.replace(cV,'');
-        	console.log(cachedType);
-        	
         	cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime});
         }
     }
