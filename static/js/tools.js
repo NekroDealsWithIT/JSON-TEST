@@ -313,6 +313,16 @@ Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
 };
 
+function dateToString(date){
+	date=new Date(date);
+	return 	date.getDate() + "/"
+	        + (date.getMonth()+1)  + "/" 
+	        + date.getFullYear() + " @ "  
+	        + date.getHours() + ":"  
+	        + date.getMinutes() + ":" 
+	        + date.getSeconds();
+}
+
 /*
 -----------------------------------------------------
 	Funciones numericas
@@ -563,4 +573,10 @@ function bubbleSorting(arr,ordenarZA) {
 		}
 	}
 	return arr;
-}11
+}
+function arrayUnique(array){
+	return array.filter(
+					function (item, pos){
+						return array.indexOf(item) == pos}
+					);
+}

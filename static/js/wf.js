@@ -116,10 +116,39 @@ function rellenarDatos(){
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
 		
 		//Manejo de sonidos
-
+		var cacheado=[];
 		cacheado=getCachedData();
-		if (cacheado=!''){
+		if (cacheado.length>0){
 			notificaciones.innerHTML='<h3>Notificar</h3>';
+			var tipos=[];
+			cacheado.forEach(function(c){
+				if(c.cachedItem!=''){
+					tipos.push(c.cachedType);
+				}
+			});
+			tipos.push('recursos');
+			tipos=arrayUnique(tipos);
+			tipos.forEach(function(t){
+				notificaciones.innerHTML+='<article><h4 class="ucase subrayado">'+t+'<h4><ul>';
+				cacheado.forEach(function (c){
+					if(t=='recursos'&&c.cachedItem==''){
+							notificaciones.innerHTML+='<li>';
+							notificaciones.innerHTML+='<img class="thumbnail" src="'+c.cachedImgLink+'">';
+							notificaciones.innerHTML+='<span class="capitalize">'+c.cachedType+'</span>';
+							notificaciones.innerHTML+=' (ultima vez registrado: '+dateToString(c.cachedTime)+')';
+							notificaciones.innerHTML+='</li>';
+					}else{
+						if(t==c.cachedType){
+							notificaciones.innerHTML+='<li>';
+							notificaciones.innerHTML+='<img class="thumbnail" src="'+c.cachedImgLink+'">';
+							notificaciones.innerHTML+='<span class="capitalize">'+c.cachedItem+'</span>';
+							notificaciones.innerHTML+=' (ultima vez registrado: '+dateToString(c.cachedTime)+')';
+							notificaciones.innerHTML+='</li>';
+						}
+					}
+				});
+				notificaciones.innerHTML+='</ul></article>';
+			});
 		}
 
 		//Events
@@ -298,32 +327,33 @@ function rellenarDatos(){
 		parseado='';
 		var sortieData=resultJson.sortie;
 		// parseado ='<a id="S"></a>';
-		parseado += '<h3>(Sortie '+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
-		
-		parseado += '<BR>Faccion: '+sortieData.faction;
-		parseado += '<BR>Tiempo Restante: '+strDiff((sortieData.eta),diff)+'('+sortieData.eta+')</div>';
-		var sortieFaction=sortieData.faction.toLowerCase();
-		ths.push([['Tipo Mision'],['Nodo'],['Modificador'],['Descripcion Modificador']]);
-		sortieData.variants.forEach(function(v){
-			var idSortie="'"+v.missionType+v.node+v.modifier+"'";
-			var sortieCompleta=chequearCompleto(v.missionType+v.node+v.modifier);
-			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idSortie+')"'+(sortieCompleta?' checked':'')+'></label>'
-			var isCompleted=(sortieCompleta?' completed':'');
+		if (sortieData!=undefined){
+			parseado += '<h3>(Sortie '+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
 			
-			// agego la sortieActiva
-			sortieActivaArr.push(v.missionType+v.node+v.modifier);
+			parseado += '<BR>Faccion: '+sortieData.faction;
+			parseado += '<BR>Tiempo Restante: '+strDiff((sortieData.eta),diff)+'('+sortieData.eta+')</div>';
+			var sortieFaction=sortieData.faction.toLowerCase();
+			ths.push([['Tipo Mision'],['Nodo'],['Modificador'],['Descripcion Modificador']]);
+			sortieData.variants.forEach(function(v){
+				var idSortie="'"+v.missionType+v.node+v.modifier+"'";
+				var sortieCompleta=chequearCompleto(v.missionType+v.node+v.modifier);
+				var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idSortie+')"'+(sortieCompleta?' checked':'')+'></label>'
+				var isCompleted=(sortieCompleta?' completed':'');
+				
+				// agego la sortieActiva
+				sortieActivaArr.push(v.missionType+v.node+v.modifier);
 
-			var td=[];
-			td.push([checkBoxCompleted+v.missionType,'tdSortie '+sortieFaction]);
-			td.push([v.node,'tdSortie '+sortieFaction+isCompleted]);
-			td.push([v.modifier,'tdSortie '+sortieFaction+isCompleted]);
-			td.push([v.modifierDescription,'tdSortie '+sortieFaction+isCompleted]);
-			tds.push(td);	
-		});
-		parseado += generateTable(tds,ths,'tableSortie enlargeMe','','');
-		parseado +='<hr>';
-		sortie.innerHTML=parseado;
-		
+				var td=[];
+				td.push([checkBoxCompleted+v.missionType,'tdSortie '+sortieFaction]);
+				td.push([v.node,'tdSortie '+sortieFaction+isCompleted]);
+				td.push([v.modifier,'tdSortie '+sortieFaction+isCompleted]);
+				td.push([v.modifierDescription,'tdSortie '+sortieFaction+isCompleted]);
+				tds.push(td);	
+			});
+			parseado += generateTable(tds,ths,'tableSortie enlargeMe','','');
+			parseado +='<hr>';
+			sortie.innerHTML=parseado;
+		}
 		//Fisures
 		parseado='';
 		var fisureData=resultJson.fissures;
