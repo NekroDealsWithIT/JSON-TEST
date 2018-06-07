@@ -202,7 +202,7 @@ function rellenarDatos(){
 			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idAlerta+')"'+(alertaCompleta?' checked':'')+'>Completa?</label><br>'
 			var isCompleted=(alertaCompleta?' completed':'');
 			if(a.rewardTypes.length>0){
-				a.rewardType.forEach(function(rt){
+				a.rewardTypes.forEach(function(rt){
 					setCookie('a_'+rt,new Date(),365*24*60*60*1000);
 				});
 			}
