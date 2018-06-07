@@ -214,7 +214,9 @@ function rellenarDatos(){
 					// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
 					cookieStore+='_i_'+ri;
 				});
-			}			
+			}
+			cookieStore+='_l_'+a.mission.reward.thumbnail;
+			
 			setCookie(cookieStore,new Date(),365*24*60*60*1000);
 
 			td.push([checkBoxCompleted+'<img src="'+a.mission.reward.thumbnail +'"><BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
