@@ -102,6 +102,10 @@ h3{
 	max-height: 0px;
 	transition: max-height 1s ease-in-out -1s;
 }
+#botonera-desplegable a,
+#botonera-desplegable a:visited{
+	color:#ccdeb9;
+}
 #botonera-desplegable li{
 	border-bottom: 1px solid white;
 	width: 99%;	
