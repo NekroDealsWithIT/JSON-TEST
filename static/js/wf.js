@@ -138,9 +138,18 @@ function rellenarDatos(){
 			cacheado=arraySortByKey(cacheado,'cachedType');
 			cacheado=arraySortByKey(cacheado,'cachedItem');
 			
+			var alertasActuales=resultJson.alerts;
 			tipos.forEach(function(t){
 				notificaciones.innerHTML+='<article><h4 class="ucase subrayado">'+t+'<h4><ul>';
 				cacheado.forEach(function (c){
+					var actual='';
+					if(	(alertasActuales.rewardTypes!=undefined&&alertasActuales.rewardTypes.includes(c.cachedType))||
+						(alertasActuales.mission!=undefined&&alertasActuales.mission.reward.items!=undefined&&alertasActuales.mission.reward.items.includes(c.cachedItem))){
+						
+						actual=alertasActuales.id;
+					}
+
+
 					if(t=='recursos'&&c.cachedItem==''){
 							var notificar=chequearInformar(c.cachedType);
 							notificaciones.innerHTML+='<li>'+
@@ -149,7 +158,7 @@ function rellenarDatos(){
 								'<img class="thumbnail" src="'+c.cachedImgLink+'">'+
 								'<span class="capitalize">'+c.cachedType+'</span>'+
 								'</a>'+
-								' (ultima vez registrado: '+dateToString(c.cachedTime)+')'+
+								' (ultima vez registrado: '+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a>':'')+
 								'</li>';
 					}else{
 						if(t==c.cachedType){
@@ -160,7 +169,7 @@ function rellenarDatos(){
 								'<img class="thumbnail" src="'+c.cachedImgLink+'">'+
 								'<span class="capitalize">'+c.cachedItem+'</span>'+
 								'</a>'+
-								' (ultima vez registrado: '+dateToString(c.cachedTime)+')'+
+								' (ultima vez registrado: '+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a>':'')+
 								'</li>';
 						}
 					}
@@ -253,7 +262,7 @@ function rellenarDatos(){
 			// agrego a la lista la alertaActiva
 			alertaActivaArr.push(a.id);
 
-			var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idAlerta+')"'+(alertaCompleta?' checked':'')+'>Completa?</label><br>'
+			var checkBoxCompleted='<a id='+idAlerta+'></a><label><input type="checkbox" onclick="toggleCompletar('+idAlerta+')"'+(alertaCompleta?' checked':'')+'>Completa?</label><br>'
 			var isCompleted=(alertaCompleta?' completed':'');
 			
 			var cookieStore='';
