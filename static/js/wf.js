@@ -13,7 +13,7 @@ var counter1Max=15;
 
 var completado=[];
 var informarArr=[];
-
+var informarArrChecked=[];
 
 var sounds=[];
 
@@ -65,7 +65,9 @@ function startAll(){
 	informarArr=informarArr.concat(getCachedData());
 	console.log('informarArr:');
 	console.log(informarArr);
-
+	informarArrChecked=informarArrChecked.concat(getCookie("informaArrCookie"));
+	console.log('informarArrChecked:');
+	console.log(informarArrChecked);
 	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
@@ -101,7 +103,7 @@ function rellenarDatos(){
 		invasionActivaArr=[];
 		sortieActivaArr=[];
 		eventActivaArr=[];
-		
+
 		var ths=[];
 		var tds=[];
 		var parseado='';
@@ -548,8 +550,8 @@ function chequearCompleto(id){
 function toggleInformar(id){
 	var pos=-1;
 	var posElemento=-1;
-	//if (informarArr.includes(id)){alert("existe");}
-	informarArr.forEach(function(valor){
+	//if (informarArrChecked.includes(id)){alert("existe");}
+	informarArrChecked.forEach(function(valor){
 		pos++;
 		if (valor==id){
 			posElemento=pos;
@@ -557,21 +559,21 @@ function toggleInformar(id){
 	});
 
 	if(posElemento!=-1){
-		//console.log(informarArr);
-		informarArr.splice(posElemento, 1);
-		// console.log("eliminado:" +id+'\n'+informarArr);
+		//console.log(informarArrChecked);
+		informarArrChecked.splice(posElemento, 1);
+		// console.log("eliminado:" +id+'\n'+informarArrChecked);
 	}else{
-		informarArr.push(id);
-		// console.log("agregado:" +id+'\n'+informarArr);
+		informarArrChecked.push(id);
+		// console.log("agregado:" +id+'\n'+informarArrChecked);
 	}
-	arrayUnique(informarArr);
-	setCookie("informaArrCookie",informarArr,30*24*60*60*1000);
+	arrayUnique(informarArrChecked);
+	setCookie("informaArrCookie",informarArrChecked,30*24*60*60*1000);
 	// timerTime();
 }
 function chequearInformar(id){
 	var pos=-1;
 	var posElemento=-1;
-	informarArr.forEach(function(valor){
+	informarArrChecked.forEach(function(valor){
 		pos++;
 		if (valor==id){
 			posElemento=pos;
