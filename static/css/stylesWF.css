@@ -197,7 +197,7 @@ h3{
 	color: white;
 }
 .corpus a, .corpus a:visited{
-	color:#0400ff;
+	color:yellow;
 }
 .grineer{
 	background-color: burlywood;
@@ -403,7 +403,28 @@ h3{
 	text-decoration: line-through;
 }
 .completed::after{
-	content: "\2714 (Completa)";
+	content: "\2714";
 	/*color:green;*/
 	text-decoration: none;
+}
+.notifActive{
+    font-weight: 900;
+    color:#0F0;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;	
+}
+.notifActive::before{
+	font-weight: 900;
+	content: "🌑";
+	color:#0F0;
+}
+.notifInactive{
+	color:#F00;
+}
+.notifInactive::before{
+	font-weight: 900;
+	content: "❌";
+	color:#F00;
 }

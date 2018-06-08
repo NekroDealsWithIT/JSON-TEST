@@ -60,6 +60,12 @@ function startAll(){
 	getWFWorldstate();
 	// busco en las cookies las completadas de los ultimos 7 dias
 	completado=completado.concat(getCookie("completas"));
+	console.log('completado:');
+	console.log(completado);
+	informarArr=informarArr.concat(getCachedData());
+	console.log('informarArr:');
+	console.log(informarArr);
+
 	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
@@ -159,24 +165,24 @@ function rellenarDatos(){
 
 					if(t=='recursos'&&c.cachedItem==''){
 							var notificar=chequearInformar(c.cachedType);
-							notificaciones.innerHTML+='<li>'+
+							notificaciones.innerHTML+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
 								'<img class="thumbnail" src="'+c.cachedImgLink+'">'+
 								'<span class="capitalize">'+c.cachedType+'</span>'+
 								'</a>'+
-								' (ultima vez registrado: '+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a>':'')+
+								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a>':'')+
 								'</li>';
 					}else{
 						if(t==c.cachedType){
 							var notificar=chequearInformar(c.cachedItem);
-							notificaciones.innerHTML+='<li>'+
+							notificaciones.innerHTML+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
 								'<img class="thumbnail" src="'+c.cachedImgLink+'">'+
 								'<span class="capitalize">'+c.cachedItem+'</span>'+
 								'</a>'+
-								' (ultima vez registrado: '+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a>':'')+
+								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a>':'')+
 								'</li>';
 						}
 					}
@@ -434,7 +440,7 @@ function rellenarDatos(){
 		
 		parseado+='<ul class="news enlargeMe">';
 		newsData.forEach(function(n){
-			parseado+='<li><img src="'+n.imageLink+'" alt="'+n.message+'">['+strDiff(n.eta, diff*-1)+']<a href="'+n.link+'" target="blank">'+n.message+'</a></li>'
+			parseado+='<li><img src="'+n.imageLink+'" alt="'+n.message+'">&nbsp;&nbsp;<a href="'+n.link+'" target="blank">'+n.message+'</a>&nbsp;&nbsp;&nbsp;&nbsp;['+strDiff(n.eta, diff*-1)+']</li>'
 		});
 		parseado +='</ul><hr>';
 		news.innerHTML=parseado;

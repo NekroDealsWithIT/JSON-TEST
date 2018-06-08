@@ -47,34 +47,38 @@
 						<a href="#V">▼</a>
 						<label 				  id="whatsWarframeCheckbox">	<input type="checkbox" name="whatsWarframe" 		onclick="toggleHide(this.name);toggleClass('whatsWarframeCheckbox','active',this.checked	);">Video Intro 	</label>
 					</li>
+					<li>
+						<a href="#S">▼</a>
+						<label 				  id="sonidosCheckbox">			<input type="checkbox" name="sonidos" 				onclick="toggleHide(this.name);toggleClass('sonidosCheckbox','active',this.checked 			);">Sonido</label>
+					</li>
+					<li>
+						<a href="#NOTI">▼</a>
+						<label class="active" id="notificacionesCheckbox">	<input type="checkbox" name="notificaciones"checked onclick="toggleHide(this.name);toggleClass('notificacionesCheckbox','active',this.checked 	);">Notificaciones</label>
+					</li>
 				</ul>
 				<ul>
 					<!-- no queda otra que JS porque el checkbox es son y tengo que moficar su parent. -->
 					<li>	
-						<a href="#S">▼</a>
-						<label 				  id="sonidosCheckbox">			<input type="checkbox" name="sonidos" 				onclick="toggleHide(this.name);toggleClass('sonidosCheckbox','active',this.checked 			);">Sonido</label>
 						<a href="#T">▼</a>
 						<label class="active" id="cetusTimerCheckbox">		<input type="checkbox" name="timers" 		checked onclick="toggleHide(this.name);toggleClass('cetusTimerCheckbox','active',this.checked 		);">Timers</label>
-					</li>
-					<li>	
-						<a href="#E">▼</a>
-						<label class="active" id="eventsCheckbox">			<input type="checkbox" name="events" 		checked onclick="toggleHide(this.name);toggleClass('eventsCheckbox','active',this.checked 			);">Evento</label>
 					 	<a href="#A">▼</a>
 					 	<label class="active" id="alertsCheckbox">			<input type="checkbox" name="alerts" 		checked onclick="toggleHide(this.name);toggleClass('alertsCheckbox','active',this.checked 			);">Alerta</label>
 					</li>
 					<li>	
+						<a href="#E">▼</a>
+						<label class="active" id="eventsCheckbox">			<input type="checkbox" name="events" 		checked onclick="toggleHide(this.name);toggleClass('eventsCheckbox','active',this.checked 			);">Evento</label>
 						<a href="#I">▼</a>
 						<label class="active" id="invasionsCheckbox">		<input type="checkbox" name="invasions" 	checked onclick="toggleHide(this.name);toggleClass('invasionsCheckbox','active',this.checked 		);">Invasion</label>
+					</li>
+					<li>	
 						<a href="#S">▼</a>
 						<label class="active" id="sortieCheckbox">			<input type="checkbox" name="sortie" 		checked onclick="toggleHide(this.name);toggleClass('sortieCheckbox','active',this.checked 			);">Sortie</label>
-					</li>
-					<li>	
 						<a href="#F">▼</a>
 						<label class="active" id="fissuresCheckbox">		<input type="checkbox" name="fissures" 		checked onclick="toggleHide(this.name);toggleClass('fissuresCheckbox','active',this.checked 		);">Fisura</label>
-						<a href="#B">▼</a>
-						<label class="active" id="baroCheckbox">			<input type="checkbox" name="baro" 			checked onclick="toggleHide(this.name);toggleClass('baroCheckbox','active',this.checked 			);">Baro</label>
 					</li>
 					<li>	
+						<a href="#B">▼</a>
+						<label class="active" id="baroCheckbox">			<input type="checkbox" name="baro" 			checked onclick="toggleHide(this.name);toggleClass('baroCheckbox','active',this.checked 			);">Baro</label>
 						<a href="#N">▼</a>
 						<label class="active" id="newsCheckbox">			<input type="checkbox" name="news" 			checked onclick="toggleHide(this.name);toggleClass('newsCheckbox','active',this.checked 			);">News</label>
 					</li>																																																															
