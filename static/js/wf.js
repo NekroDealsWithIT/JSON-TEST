@@ -340,27 +340,13 @@ function rellenarDatos(){
 				
 				//Agregado a la lista de notificaciones de cookies
 				var cookieStore='';
-				if(inv.rewardTypes.length>0){
-					var i=0;
-					inv.rewardTypes.forEach(function(rt){
-						// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
-						if(rt!=''){
-							cookieStore='t_'+'invasion_i_'+rt;
-							if(inv.vsInfestation){
-								cookieStore+='_l_'+inv.defenderReward.thumbnail;
-								setCookie(cookieStore,new Date(),365*24*60*60*1000);
-							}else{
-								if(i=0){
-									cookieStore+='_l_'+inv.attackerReward.thumbnail;
-								}else{
-									cookieStore+='_l_'+inv.defenderReward.thumbnail;
-								}
-								setCookie(cookieStore,new Date(),365*24*60*60*1000);
-							}
-							i++
-						}
-					});
+				if(!inv.vsInfestation){
+					cookieStore='t_'+'invasion_i_'+inv.attackerReward.asString+'_l_'+inv.attackerReward.thumbnail;
+					setCookie(cookieStore,new Date(),365*24*60*60*1000);
 				}
+				cookieStore='t_'+'invasion_i_'+inv.defenderReward.asString+'_l_'+inv.defenderReward.thumbnail;
+				setCookie(cookieStore,new Date(),365*24*60*60*1000);
+
 				var atk=inv.attackingFaction.toLowerCase();
 				var def=inv.defendingFaction.toLowerCase();
 				var idInvasion="'"+inv.id+"'";

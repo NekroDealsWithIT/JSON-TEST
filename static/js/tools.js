@@ -504,7 +504,7 @@ function setCookie(cname,cvalue,tiempoExpiracion=1*24*60*60*1000, path='/') {
     var expires = "expires=" + d.toGMTString();
     var cookie =cname + "=" + cvalue + "; " + expires + ", path="+path;
     document.cookie = cookie;
-    console.log(cookie);
+    // console.log(cookie);
 }
 function setCookieArray(cname,cvalueArray,tiempoExpiracion=1*24*60*60*1000, path='/') {
     // 1 dia= 1*24*60*60*1000
