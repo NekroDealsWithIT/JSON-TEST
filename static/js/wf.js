@@ -65,7 +65,7 @@ function startAll(){
 	informarArr=informarArr.concat(getCachedData());
 	console.log('informarArr:');
 	console.log(informarArr);
-	informarArrChecked=informarArrChecked.concat(getCookie("informaArrCookie"));
+	informarArrChecked=informarArrChecked.concat(getCookie("informarArrChecked"));
 	console.log('informarArrChecked:');
 	console.log(informarArrChecked);
 	timer1=setClock(1000,timerTime,timer1);
@@ -567,7 +567,7 @@ function toggleInformar(id){
 		// console.log("agregado:" +id+'\n'+informarArrChecked);
 	}
 	arrayUnique(informarArrChecked);
-	setCookie("informaArrCookie",informarArrChecked,30*24*60*60*1000);
+	setCookie("informarArrChecked",informarArrChecked,30*24*60*60*1000);
 	// timerTime();
 }
 function chequearInformar(id){
