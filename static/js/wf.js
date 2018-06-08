@@ -14,6 +14,7 @@ var counter1Max=15;
 var completado=[];
 var informarArr=[];
 var informarArrChecked=[];
+var informarArrMostrar=[];
 
 var sounds=[];
 
@@ -68,6 +69,9 @@ function startAll(){
 	informarArrChecked=informarArrChecked.concat(getCookieArray("informarArrChecked"));
 	console.log('informarArrChecked:');
 	console.log(informarArrChecked);
+	informarArrMostrar=informarArrMostrar.concat(getCookieArray("informarArrMostrar"));
+	console.log('informarArrMostrar:');
+	console.log(informarArrMostrar);
 	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
@@ -130,6 +134,7 @@ function rellenarDatos(){
 		cacheado=getCachedData();
 		if (cacheado.length>0){
 			notificaciones.innerHTML='<h3>Notificar</h3>';
+			notificaciones.innerHTML+='<div class="notificacionesParent">';
 			var tipos=[];
 			cacheado.forEach(function(c){
 				if(c.cachedItem!=''){
@@ -148,7 +153,8 @@ function rellenarDatos(){
 			
 			var alertasActuales=resultJson.alerts;
 			tipos.forEach(function(t){
-				notificaciones.innerHTML+='<article><h4 class="ucase subrayado">'+t+'<h4><ul>';
+				// notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h4 class="ucase subrayado">'+t+'</h4><ul id="typeNotif'+t.toUpperCase()+'">';
+				var notificacion='';
 				cacheado.forEach(function (c){
 					var actual='';
 					// hay que recorrer las misiones!
@@ -167,10 +173,10 @@ function rellenarDatos(){
 
 					if(t=='recursos'&&c.cachedItem==''){
 							var notificar=chequearInformar(c.cachedType);
-							notificaciones.innerHTML+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
+							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
-								'<img class="thumbnail" src="'+c.cachedImgLink+'">'+
+								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
 								'<span class="capitalize">'+c.cachedType+'</span>'+
 								'</a>'+
 								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a>':'')+
@@ -178,19 +184,24 @@ function rellenarDatos(){
 					}else{
 						if(t==c.cachedType){
 							var notificar=chequearInformar(c.cachedItem);
-							notificaciones.innerHTML+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
+							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
-								'<img class="thumbnail" src="'+c.cachedImgLink+'">'+
+								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
 								'<span class="capitalize">'+c.cachedItem+'</span>'+
 								'</a>'+
 								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a>':'')+
 								'</li>';
 						}
 					}
+
 				});
-				notificaciones.innerHTML+='</ul></article>';
+				var idLista="'typeNotif"+t.toUpperCase()+"'";
+				var ocultarTipo=chequearInformarNotif("typeNotif"+t.toUpperCase());
+				// crear un array que guarde que tipo mostrar
+				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?'▼':'▲')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+notificacion+'</ul></article></div>';
 			});
+			notificaciones.innerHTML+='</div>'
 		}
 
 		//Events
@@ -596,6 +607,47 @@ function chequearInformar(id){
 		return false;	
 	}
 }
+function toggleInformarNotif(id){
+	var pos=-1;
+	var posElemento=-1;
+	//if (informarArrMostrar.includes(id)){alert("existe");}
+	informarArrMostrar.forEach(function(valor){
+		pos++;
+		if (valor==id){
+			posElemento=pos;
+		}
+	});
+
+	if(posElemento!=-1){
+		//console.log(informarArrMostrar);
+		informarArrMostrar.splice(posElemento, 1);
+		// console.log("eliminado:" +id+'\n'+informarArrMostrar);
+	}else{
+		informarArrMostrar.push(id);
+		// console.log("agregado:" +id+'\n'+informarArrMostrar);
+	}
+	arrayUnique(informarArrMostrar);
+	setCookieArray("informarArrMostrar",informarArrMostrar,30*24*60*60*1000);
+	// timerTime();	
+}
+function chequearInformarNotif(id){
+	var pos=-1;
+	var posElemento=-1;
+	// console.log(id);
+	informarArrMostrar.forEach(function(valor){
+		pos++;
+		if (valor==id){
+			posElemento=pos;
+		}
+	});
+	if (posElemento>-1){
+		return true;
+	}else{
+		return false;	
+	}
+}
+
+
 function limpiarCompletasFinalizadas(){
 	var auxArr=[];
 	//busco en las cookies las alertas completas

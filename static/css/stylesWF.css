@@ -428,3 +428,26 @@ h3{
 	content: "❌";
 	color:#F00;
 }
+
+.notificacionesParent{
+	border: 3px solid red;
+	/*border-radius: 50%;*/
+	font-size: .7rem;
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;	
+}
+.notificacionesParent>div{
+
+}
+.listaNotificaciones ul{
+	border: 3px solid rebeccapurple;
+	border-radius: 30px;
+	font-size: .8rem;
+	width: 50%;
+	margin:auto;
+}
+.thumbnailNotif{
+	width: 15px;
+}
