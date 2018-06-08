@@ -91,17 +91,17 @@ function toggleTimer(activar){
 function rellenarDatos(){
 	var estado='';
 	
-	// reseteo las activas
-	alertaActivaArr=[];
-	invasionActivaArr=[];
-	sortieActivaArr=[];
-	eventActivaArr=[];
-
 	estado='<p class='+((fetching)?'infoFetch':'infoNoFetch')+'>';
 	estado+='('+tiempoStr()+') Proximo fetch:'+(counter1Max-counter1)+'</p>';
 	datosPagina.innerHTML=estado;
 	barraProgreso.innerHTML='<progress value='+counter1+' max='+(counter1Max-1)+' class="barraProgreso"/>';
 	if (resultJson!=''){
+		// reseteo las activas
+		alertaActivaArr=[];
+		invasionActivaArr=[];
+		sortieActivaArr=[];
+		eventActivaArr=[];
+		
 		var ths=[];
 		var tds=[];
 		var parseado='';
