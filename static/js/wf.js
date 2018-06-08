@@ -59,13 +59,13 @@ function getJson(url='',viaCors=true){
 function startAll(){
 	getWFWorldstate();
 	// busco en las cookies las completadas de los ultimos 7 dias
-	completado=completado.concat(getCookie("completas"));
+	completado=completado.concat(getCookieArray("completas"));
 	console.log('completado:');
 	console.log(completado);
 	informarArr=informarArr.concat(getCachedData());
 	console.log('informarArr:');
 	console.log(informarArr);
-	informarArrChecked=informarArrChecked.concat(getCookie("informarArrChecked"));
+	informarArrChecked=informarArrChecked.concat(getCookieArray("informarArrChecked"));
 	console.log('informarArrChecked:');
 	console.log(informarArrChecked);
 	timer1=setClock(1000,timerTime,timer1);
@@ -567,7 +567,7 @@ function toggleInformar(id){
 		// console.log("agregado:" +id+'\n'+informarArrChecked);
 	}
 	arrayUnique(informarArrChecked);
-	setCookie("informarArrChecked",informarArrChecked,30*24*60*60*1000);
+	setCookieArray("informarArrChecked",informarArrChecked,30*24*60*60*1000);
 	// timerTime();
 }
 function chequearInformar(id){
@@ -612,7 +612,7 @@ function limpiarCompletasFinalizadas(){
 	completado=auxArr;
 	// le tiro un unique
 	completado = completado.filter(function (item, pos) {return completado.indexOf(item) == pos});
-	setCookie("completas",auxArr,7*24*60*60*1000);
+	setCookieArray("completas",auxArr,7*24*60*60*1000);
 
 }
 

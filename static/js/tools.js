@@ -506,7 +506,15 @@ function setCookie(cname,cvalue,tiempoExpiracion=1*24*60*60*1000, path='/') {
     document.cookie = cookie;
     // console.log(cookie);
 }
-
+function setCookieArray(cname,cvalueArray,tiempoExpiracion=1*24*60*60*1000, path='/') {
+    // 1 dia= 1*24*60*60*1000
+    var d = new Date();
+    d.setTime(d.getTime() + (tiempoExpiracion));
+    var expires = "expires=" + d.toGMTString();
+    var cookie =cname + "=" + arrayToPipedString(cvalueArray) + "; " + expires + ", path="+path;
+    document.cookie = cookie;
+    // console.log(cookie);
+}
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -522,7 +530,21 @@ function getCookie(cname) {
     }
     return "";
 }
-
+function getCookieArray(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return pipedStringToArray(c.substring(name.length, c.length));
+        }
+    }
+    return "";
+}
 function deleteCookie(cname) {
 	document.cookie = cname+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 }
@@ -574,16 +596,43 @@ function bubbleSorting(arr,ordenarZA) {
 	}
 	return arr;
 }
+
 function arraySortByKey(array, key) {
     return array.sort(function(a, b) {
-        var x = a[key]; var y = b[key];
-        // console.log('x:' +x+' y:'+y)
+        var x = a[key]; var y = b[key]
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 }
+
+/*
+-----------------------------------------------------
+	Arrays
+-----------------------------------------------------
+*/
+
 function arrayUnique(array){
 	return array.filter(
 					function (item, pos){
 						return array.indexOf(item) == pos}
 					);
+}
+
+function arrayToPipedString(array,separador='|'){
+	var result="";
+	var i=0;
+	array.forEach(function (item){
+		if(i=0){
+			result=item;
+		}else{
+			result+=separador+item;
+		}
+		i++
+	});
+	return result;
+}
+
+function pipedStringToArray(pipedString,separador='|'){
+	var result=[];
+	result = pipedString.split(separador);
+	return result;
 }
