@@ -417,7 +417,7 @@ h3{
 }
 .notifActive::before{
 	font-weight: 900;
-	content: "🌑";
+	content: "🌑  ";
 	color:#0F0;
 }
 .notifInactive{
@@ -425,7 +425,7 @@ h3{
 }
 .notifInactive::before{
 	font-weight: 900;
-	content: "❌";
+	content: "❌  ";
 	color:#F00;
 }
 

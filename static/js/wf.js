@@ -100,7 +100,8 @@ function rellenarDatos(){
 	estado='<p class='+((fetching)?'infoFetch':'infoNoFetch')+'>';
 	estado+='('+tiempoStr()+') Proximo fetch:'+(counter1Max-counter1)+'</p>';
 	datosPagina.innerHTML=estado;
-	barraProgreso.innerHTML='<progress value='+counter1+' max='+(counter1Max-1)+' class="barraProgreso"/>';
+	// toggleTimer(this.checked);toggleClass('autoUpdateCheckbox','active',this.checked	)
+	barraProgreso.innerHTML='<progress value='+counter1+' max='+(counter1Max-1)+' class="barraProgreso" onClick="autoUpdateCheckbox.click()"/>';
 	if (resultJson!=''){
 		// reseteo las activas
 		alertaActivaArr=[];
@@ -155,6 +156,7 @@ function rellenarDatos(){
 			tipos.forEach(function(t){
 				// notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h4 class="ucase subrayado">'+t+'</h4><ul id="typeNotif'+t.toUpperCase()+'">';
 				var notificacion='';
+				var listaActiva=false;
 				cacheado.forEach(function (c){
 					var actual='';
 					// hay que recorrer las misiones!
@@ -170,8 +172,8 @@ function rellenarDatos(){
 						}
 					})
 
-
 					if(t=='recursos'&&c.cachedItem==''){
+							if(actual!=''){listaActiva=true;}
 							var notificar=chequearInformar(c.cachedType);
 							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
@@ -183,6 +185,7 @@ function rellenarDatos(){
 								'</li>';
 					}else{
 						if(t==c.cachedType){
+							if(actual!=''){listaActiva=true;}
 							var notificar=chequearInformar(c.cachedItem);
 							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
@@ -199,7 +202,7 @@ function rellenarDatos(){
 				var idLista="'typeNotif"+t.toUpperCase()+"'";
 				var ocultarTipo=chequearInformarNotif("typeNotif"+t.toUpperCase());
 				// crear un array que guarde que tipo mostrar
-				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?'▼':'▲')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+notificacion+'</ul></article></div>';
+				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+notificacion+'</ul></article></div>';
 			});
 			notificaciones.innerHTML+='</div>'
 		}
