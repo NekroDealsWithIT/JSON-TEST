@@ -4,6 +4,14 @@
 /*
 	Variables globales
 */
+var estadosDesarrollo=['analisis','desarrollo','test','prod','pruebas','completo','bug','rollback'];
+var trabajandoEn=[
+					[1,'Mostrar En el titulo de lista cuando todo fue finalizado y esta activo algun item']
+					,[5,'Generar lista de desarrollo y estado']
+					,[0,'Crear modo debug']
+					,[0,'Conexion DB']
+				];
+
 var fetching=false;
 var resultJson='';
 
@@ -96,7 +104,17 @@ function toggleTimer(activar){
 
 function rellenarDatos(){
 	var estado='';
-	
+	// muestro en que estoy trabajando
+	if(trabajandoEn.length>-1){
+		workingOn.innerHTML='<h3><img class="thumbnail" src="static/img/warning.webp"> Trabajando actualmente en <img class="thumbnail" src="static/img/warning.webp"><ul>';
+		listaTrabajo='';
+		trabajandoEn.forEach(function(te){
+			listaTrabajo+='<li class="dev_'+estadosDesarrollo[te[0]]+'">('+estadosDesarrollo[te[0]].toUpperCase()+') '+te[1]+'</li>';
+		});
+		workingOn.innerHTML+=listaTrabajo+'</ul>';
+	}	
+	//fin de muestro en que estoy trabajando
+
 	estado='<p class='+((fetching)?'infoFetch':'infoNoFetch')+'>';
 	estado+='('+tiempoStr()+') Proximo fetch:'+(counter1Max-counter1)+'</p>';
 	datosPagina.innerHTML=estado;

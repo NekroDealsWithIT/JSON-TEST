@@ -21,6 +21,47 @@ h3{
   	padding: 2px 0 0 12px;
   	top:-1px;
 }
+
+/*
+	estados de desarrollo
+	.dev_analisis,
+	.dev_desarrollo,
+	.dev_test,
+	.dev_prod,
+	.dev_pruebas,
+	.dev_completo,
+	.dev_bug,
+	.dev_rollback
+*/
+.dev_analisis{
+	background: blue;
+	color: #FFF;
+}
+.dev_desarrollo{
+	background: black;
+	color: #F00;
+}
+.dev_test,.dev_pruebas{
+	background: black;
+	color:yellow;
+}
+.dev_prod{
+	background: black;
+	color: #CCC;	
+}
+.dev_completo{
+	background: black;
+	color: #0F0;	
+}
+.dev_bug,.dev_rollback{
+	background: rebeccapurple;
+	color: #FF0;		
+}
+
+
+
+
+
 /*Contenedor*/
 .content{
 	width: 90%;
@@ -453,3 +494,4 @@ h3{
 .thumbnailNotif{
 	width: 25px;
 }
+
