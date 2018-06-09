@@ -164,32 +164,36 @@ function rellenarDatos(){
 					var timerNotificacion='';
 					// hay que recorrer las alertas!
 					alertasActuales.forEach(function(a){
-						if (c.cachedItem==''){
-							if(a.rewardTypes!=undefined&&a.rewardTypes.includes(c.cachedType)){
-								actual=a.id;
-								completa=chequearCompleto(a.id);
-								timerNotificacion=strDiff((a.eta),diff);
-							}
-						}else{
-							if(a.mission!=undefined&&a.mission.reward.items!=undefined&&a.mission.reward.items.includes(c.cachedItem)){
-								actual=a.id;	
-								completa=chequearCompleto(a.id);
-								timerNotificacion=strDiff((a.eta),diff);
+						if(!a.expired){
+							if (c.cachedItem==''){
+								if(a.rewardTypes!=undefined&&a.rewardTypes.includes(c.cachedType)){
+									actual=a.id;
+									completa=chequearCompleto(a.id);
+									timerNotificacion=strDiff((a.eta),diff);
+								}
+							}else{
+								if(a.mission!=undefined&&a.mission.reward.items!=undefined&&a.mission.reward.items.includes(c.cachedItem)){
+									actual=a.id;	
+									completa=chequearCompleto(a.id);
+									timerNotificacion=strDiff((a.eta),diff);
+								}
 							}
 						}
 					});
 					// hay que recorrer las invasiones!
 					if(t=='invasion'){
 						invasionesActuales.forEach(function(i){
-							if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
-								actual=i.attackerReward.asString;
-								completa=chequearCompleto(i.id);
-								timerNotificacion=strDiff((i.eta),diff);
-							}
-							if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
-								actual=i.defenderReward.asString;
-								completa=chequearCompleto(i.id);
-								timerNotificacion=strDiff((i.eta),diff);
+							if (!i.completed){
+								if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
+									actual=i.attackerReward.asString;
+									completa=chequearCompleto(i.id);
+									timerNotificacion=strDiff((i.eta),diff);
+								}
+								if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
+									actual=i.defenderReward.asString;
+									completa=chequearCompleto(i.id);
+									timerNotificacion=strDiff((i.eta),diff);
+								}
 							}
 						});
 					}
