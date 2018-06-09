@@ -117,6 +117,15 @@ function rellenarDatos(){
 		//getMilliseconds()
 		var diff=new Date(new Date().toUTCString())-moment(resultJson.timestamp);
 		
+		//cookies
+		cookiesShow.innerHTML='<h2>Cookies capturados al '+ dateToString(new Date(new Date().toUTCString()))+':</h2>';
+		cookiesShow.innerHTML+=document.cookie;
+		cookiesShow.innerHTML+='<h2>Completas:</h2>';
+		cookiesShow.innerHTML+=getCookie("completas");
+		cookiesShow.innerHTML+='<h2>Data cacheada(notificaciones):</h2>';
+		cookiesShow.inne1rHTML+=arrayToPipedString(getCachedData());
+
+
 		//Timestamp
 		timeStamp.innerHTML='Timestamp: '+resultJson.timestamp;
 		// timeStamp.innerHTML+= '<BR>Local UTF<BR> '+new Date(new Date().toUTCString()).getTime();
@@ -190,7 +199,7 @@ function rellenarDatos(){
 									timerNotificacion=strDiff((i.eta),diff);
 								}
 								if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
-									actual=i.defenderReward.asString;
+									actual=i.defenderRewar1d.asString;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
 								}
