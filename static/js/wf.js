@@ -160,15 +160,18 @@ function rellenarDatos(){
 				var listaActiva=false;
 				cacheado.forEach(function (c){
 					var actual='';
+					var completa=false;
 					// hay que recorrer las alertas!
 					alertasActuales.forEach(function(a){
 						if (c.cachedItem==''){
 							if(a.rewardTypes!=undefined&&a.rewardTypes.includes(c.cachedType)){
-								actual=a.id;
+								actual=a.id;1
+								completa=chequearCompleto(a.id);
 							}
 						}else{
 							if(a.mission!=undefined&&a.mission.reward.items!=undefined&&a.mission.reward.items.includes(c.cachedItem)){
 								actual=a.id;	
+								completa=chequearCompleto(a.id);
 							}
 						}
 					});
@@ -176,16 +179,24 @@ function rellenarDatos(){
 					invasionesActuales.forEach(function(i){
 						if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
 							actual=i.attackerReward.asString;
+							completa=chequearCompleto(inv.id);
 						}
 						if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
 							actual=i.defenderReward.asString;
+							completa=chequearCompleto(inv.id);
 						}
 					});
 
+
+
 					if(t=='recursos'&&c.cachedItem==''){
+							//de paso revisamos si esta completa para marcarlo tambien!
+
+							// chequeo si hay alguno en la lista para remarcar la lista entera
 							if(actual!=''){listaActiva=true;}
 							var notificar=chequearInformar(c.cachedType);
-							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
+							var isCompleted=(completa?' completed':'');
+							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+isCompleted+'>'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
 								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
@@ -197,7 +208,8 @@ function rellenarDatos(){
 						if(t==c.cachedType){
 							if(actual!=''){listaActiva=true;}
 							var notificar=chequearInformar(c.cachedItem);
-							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+'>'+
+							var isCompleted=(completa?' completed':'');
+							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+isCompleted+'>'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
 								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
