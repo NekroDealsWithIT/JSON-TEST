@@ -143,7 +143,7 @@ function rellenarDatos(){
 		var cacheado=[];
 		cacheado=getCachedData();
 		if (cacheado.length>0){
-			notificaciones.innerHTML='<h3>Notificar</h3>';
+			notificaciones.innerHTML='<h3>Notificar ('+cacheado.length+' Items cacheados | '+informarArrChecked.length+' Items seleccionados)</h3>';
 			notificaciones.innerHTML+='<div class="notificacionesParent">';
 			var tipos=[];
 			cacheado.forEach(function(c){
