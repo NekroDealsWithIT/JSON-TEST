@@ -430,9 +430,9 @@ h3{
 }
 
 .notificacionesParent{
-	border: 3px solid red;
+	/*border: 3px solid red;*/
 	/*border-radius: 50%;*/
-	font-size: .7rem;
+	/*font-size: .7rem;*/
 	width: 90%;
 	display: flex;
 	justify-content: space-between;
@@ -444,10 +444,12 @@ h3{
 .listaNotificaciones ul{
 	border: 3px solid rebeccapurple;
 	border-radius: 30px;
-	font-size: .8rem;
-	width: 50%;
+	font-size: .9rem;
+	width: 90%;
 	margin:auto;
+	margin-bottom: 10px;
+	background: #000;
 }
 .thumbnailNotif{
-	width: 15px;
+	width: 25px;
 }
