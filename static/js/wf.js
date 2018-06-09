@@ -179,18 +179,20 @@ function rellenarDatos(){
 						}
 					});
 					// hay que recorrer las invasiones!
-					invasionesActuales.forEach(function(i){
-						if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
-							actual=i.attackerReward.asString;
-							completa=chequearCompleto(i.id);
-							timerNotificacion=strDiff((i.eta),diff);
-						}
-						if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
-							actual=i.defenderReward.asString;
-							completa=chequearCompleto(i.id);
-							timerNotificacion=strDiff((i.eta),diff);
-						}
-					});
+					if(t=='invasion'){
+						invasionesActuales.forEach(function(i){
+							if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
+								actual=i.attackerReward.asString;
+								completa=chequearCompleto(i.id);
+								timerNotificacion=strDiff((i.eta),diff);
+							}
+							if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
+								actual=i.defenderReward.asString;
+								completa=chequearCompleto(i.id);
+								timerNotificacion=strDiff((i.eta),diff);
+							}
+						});
+					}
 
 
 
@@ -208,7 +210,7 @@ function rellenarDatos(){
 								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
 								'<span class="capitalize">'+c.cachedType+'</span>'+
 								'</a>'+
-								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a> (eta:'+timerNotificacion+')':'')+
+								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a> (eta: '+timerNotificacion+')':'')+
 								'</li>';
 					}else{
 						if(t==c.cachedType){
@@ -222,7 +224,7 @@ function rellenarDatos(){
 								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
 								'<span class="capitalize">'+c.cachedItem+'</span>'+
 								'</a>'+
-								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!! (eta:'+timerNotificacion+')</a>':'')+
+								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
 								'</li>';
 						}
 					}
