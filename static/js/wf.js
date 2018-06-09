@@ -153,13 +153,14 @@ function rellenarDatos(){
 			cacheado=arraySortByKey(cacheado,'cachedItem');
 			
 			var alertasActuales=resultJson.alerts;
+			var invasionesActuales=resultJson.invasions;
 			tipos.forEach(function(t){
 				// notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h4 class="ucase subrayado">'+t+'</h4><ul id="typeNotif'+t.toUpperCase()+'">';
 				var notificacion='';
 				var listaActiva=false;
 				cacheado.forEach(function (c){
 					var actual='';
-					// hay que recorrer las misiones!
+					// hay que recorrer las alertas!
 					alertasActuales.forEach(function(a){
 						if (c.cachedItem==''){
 							if(a.rewardTypes!=undefined&&a.rewardTypes.includes(c.cachedType)){
@@ -170,7 +171,25 @@ function rellenarDatos(){
 								actual=a.id;	
 							}
 						}
-					})
+					});
+					// hay que recorrer las invasiones!
+					invasionesActuales.forEach(function(i){
+						if (c.cachedItem==''){
+							if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedType){
+								actual=a.id;
+							}
+							if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedType){
+								actual=a.id;
+							}
+						}else{
+							if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
+								actual=a.id;
+							}
+							if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
+								actual=a.id;
+							}
+						}
+					});
 
 					if(t=='recursos'&&c.cachedItem==''){
 							if(actual!=''){listaActiva=true;}
@@ -375,9 +394,9 @@ function rellenarDatos(){
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push(['<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push([inv.attackingFaction.toUpperCase(),'tdInvasion '+atk+isCompleted]);
-				td.push(['<img src="'+inv.attackerReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>','tdInvasion '+atk+isCompleted]);
+				td.push(['<a id="'+inv.attackerReward.asString+'"></a><img src="'+inv.attackerReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>','tdInvasion '+atk+isCompleted]);
 				td.push([inv.defendingFaction.toUpperCase(),'tdInvasion '+def+isCompleted]);
-				td.push(['<img src="'+inv.defenderReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
+				td.push(['<a id="'+inv.defenderReward.asString+'"></a><img src="'+inv.defenderReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
 				td.push([inv.vsInfestation,'tdInvasion '+def+isCompleted]);
 				tds.push(td);	
 			}
