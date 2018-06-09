@@ -174,20 +174,11 @@ function rellenarDatos(){
 					});
 					// hay que recorrer las invasiones!
 					invasionesActuales.forEach(function(i){
-						if (c.cachedItem==''){
-							if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedType){
-								actual=a.id;
-							}
-							if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedType){
-								actual=a.id;
-							}
-						}else{
-							if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
-								actual=a.id;
-							}
-							if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
-								actual=a.id;
-							}
+						if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
+							actual=i.attackerReward.asString;
+						}
+						if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
+							actual=i.defenderReward.asString;
 						}
 					});
 
