@@ -179,11 +179,11 @@ function rellenarDatos(){
 					invasionesActuales.forEach(function(i){
 						if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
 							actual=i.attackerReward.asString;
-							completa=chequearCompleto(inv.id);
+							completa=chequearCompleto(i.id);
 						}
 						if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
 							actual=i.defenderReward.asString;
-							completa=chequearCompleto(inv.id);
+							completa=chequearCompleto(i.id);
 						}
 					});
 
