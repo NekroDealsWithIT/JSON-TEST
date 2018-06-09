@@ -196,7 +196,7 @@ function rellenarDatos(){
 							if(actual!=''){listaActiva=true;}
 							var notificar=chequearInformar(c.cachedType);
 							var isCompleted=(completa?' completed':'');
-							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+isCompleted+'>'+
+							notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
 								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
@@ -209,7 +209,7 @@ function rellenarDatos(){
 							if(actual!=''){listaActiva=true;}
 							var notificar=chequearInformar(c.cachedItem);
 							var isCompleted=(completa?' completed':'');
-							notificacion+='<li class='+(actual!=''?'"notifActive"':'"notifInactive"')+isCompleted+'>'+
+							notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
 								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
 								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
