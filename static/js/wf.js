@@ -6,10 +6,13 @@
 */
 var estadosDesarrollo=['analisis','desarrollo','test','prod','pruebas','completo','bug','rollback'];
 var trabajandoEn=[
-					[1,'Mostrar En el titulo de lista cuando todo fue finalizado y esta activo algun item']
-					,[5,'Generar lista de desarrollo y estado']
-					,[0,'Crear modo debug']
-					,[0,'Conexion DB']
+					[1,'09-06-18 Mostrar En el titulo de lista cuando todo fue finalizado y esta activo algun item']
+					,[5,'09-06-18 Generar lista de desarrollo y estado']
+					,[0,'09-06-18 Crear modo debug']
+					,[0,'09-06-18 Conexion DB']
+					,[0,'09-06-18 Conexion Discord']
+					,[0,'09-06-18 Conexion Warframe market']
+					,[0,'09-06-18 Conexion a droptables']
 				];
 
 var fetching=false;
