@@ -199,7 +199,7 @@ function rellenarDatos(){
 									timerNotificacion=strDiff((i.eta),diff);
 								}
 								if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
-									actual=i.defenderRewar1d.asString;
+									actual=i.defenderReward.asString;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
 								}
