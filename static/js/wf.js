@@ -17,8 +17,9 @@ var trabajandoEn=[
 					,[0,'09-06-18 Conexion a droptables (porque... donde carajo cae el mod vitality?)']
 					,[5,'09-06-18 css "Smooth" scroll para anchor links {oh zi... zepsy Smooth scrolling}']
 					,[5,'09-06-18 Notificaciones mostrar cantidad cacheado/seleccionado']
-					,[0,'09-06-18 Seteo de sonidos dependiendo de tipo']
-					,[0,'09-06-18 Reproduccion de sonidos cuando aparece el item marcado']
+					,[1,'09-06-18 Seteo de sonidos dependiendo de tipo']
+					,[1,'09-06-18 Reproduccion de sonidos cuando aparece el item marcado']
+					,[5,'09-06-18 Algo para eliminar todo lo seleccionado']
 				];
 
 var fetching=false;
@@ -175,8 +176,8 @@ function rellenarDatos(){
 		var cacheado=[];
 		cacheado=getCachedData();
 		if (cacheado.length>0){
-			notificaciones.innerHTML='<h3>Notificar ('+cacheado.length+' Items cacheados | '+informarArrChecked.length+' Items seleccionados)</h3>';
-			notificaciones.innerHTML+='<div class="notificacionesParent">';
+			notificaciones.innerHTML='<h3>Notificar ('+cacheado.length+' Items cacheados | '+(informarArrChecked.length-1)+' Items seleccionados)</h3>';
+			notificaciones.innerHTML+='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			var tipos=[];
 			cacheado.forEach(function(c){
 				if(c.cachedItem!=''){
