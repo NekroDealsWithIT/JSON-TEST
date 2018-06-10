@@ -1,6 +1,10 @@
 /*Genericos*/
+html {
+  scroll-behavior: smooth;
+}
 * {
   box-sizing: border-box;
+
 }
 body{
 	background-color: black;
@@ -33,34 +37,58 @@ h3{
 	.dev_bug,
 	.dev_rollback
 */
-.dev_analisis{
-	background: blue;
-	color: #FFF;
+.dev_analisis{background: blue;color: #FFF;}
+.dev_desarrollo{background: black;color: #F00;}
+.dev_test,.dev_pruebas{background: black;color:yellow;}
+.dev_prod{background: black;color: #CCC;}
+.dev_completo{background: black;color: #0F0;}
+.dev_bug,.dev_rollback{background: rebeccapurple;color: #FF0;}
+#workingOn{
+	/*era inevitable.*/
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
-.dev_desarrollo{
-	background: black;
-	color: #F00;
+.somethingWentVeryWrong{
+	transition: all .3s ease-in;
+	z-index: 6;
+	transform-origin: 0;
 }
-.dev_test,.dev_pruebas{
-	background: black;
-	color:yellow;
+.somethingWentVeryWrong:hover{
+	transform: rotateZ(3deg) skew(3deg);
 }
-.dev_prod{
-	background: black;
-	color: #CCC;	
+.omfg {
+	width:70px;
+	height:47px;
+	background: #92B901;
+	color: #ffffff;
+	position: relative;
+	font-weight:bold;
+	font-size:20px;
+	padding:10px;
+	animation:letsGetRidiculous 15s 3;
+	border-radius:5px;
 }
-.dev_completo{
-	background: black;
-	color: #0F0;	
+.ahhhhhhhhhhhhhh{
+	animation:NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO 3s infinite;	
+	animation-timing-function: linear;
+	position: relative;
 }
-.dev_bug,.dev_rollback{
-	background: rebeccapurple;
-	color: #FF0;		
+@keyframes NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+{
+	from{left: 0px;}
+	50%{left:70%;}
+	to{left:0%;}
 }
-
-
-
-
+@keyframes letsGetRidiculous
+{
+	0% {transform: rotate(0deg);left:0px;}
+	25% {transform: rotate(20deg);left:0px;}
+	50% {transform: rotate(0deg);left:70%;}
+	55% {transform: rotate(0deg);left:70%;}
+	70% {transform: rotate(0deg);left:70%;background:#1ec7e6;}
+	85% {transform: rotate(720deg);right:50%;background:#1ec7e6;}
+	95% {transform: rotate(0deg);right:100%;background:red;}
+	100% {transform: rotate(-360deg);left:0px;}
+}
 
 /*Contenedor*/
 .content{

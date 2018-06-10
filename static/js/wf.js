@@ -6,13 +6,17 @@
 */
 var estadosDesarrollo=['analisis','desarrollo','test','prod','pruebas','completo','bug','rollback'];
 var trabajandoEn=[
-					[1,'09-06-18 Mostrar En el titulo de lista cuando todo fue finalizado y esta activo algun item']
-					,[5,'09-06-18 Generar lista de desarrollo y estado']
+					[5,'05-06-18 Hacer todo UN POCO mas responsive, si... funciono decente en celulares!']
+					,[1,'09-06-18 Mostrar En el titulo de lista cuando todo fue finalizado y esta activo algun item']
+					,[5,'09-06-18 Generar lista de desarrollo y estado... y aqui me ves.']
+					,[0,'09-06-18 Esperar a Baro para marcar los items que trae']
 					,[0,'09-06-18 Crear modo debug']
-					,[0,'09-06-18 Conexion DB']
-					,[0,'09-06-18 Conexion Discord']
-					,[0,'09-06-18 Conexion Warframe market']
-					,[0,'09-06-18 Conexion a droptables']
+					,[0,'09-06-18 Conexion DB {en analisis para largo}']
+					,[0,'09-06-18 Conexion Discord {en analisis para largo++}']
+					,[0,'09-06-18 Conexion Warframe market (para averiguar precios rapido)']
+					,[0,'09-06-18 Conexion a droptables (porque... donde carajo cae el mod vitality?)']
+					,[5,'09-06-18 css "Smooth" scroll para anchor links {oh zi... zepsy Smooth scrolling}']
+					,[5,'09-06-18 Notificaciones mostrar cantidad cacheado/seleccionado']
 				];
 
 var fetching=false;
@@ -83,6 +87,21 @@ function startAll(){
 	informarArrMostrar=informarArrMostrar.concat(getCookieArray("informarArrMostrar"));
 	console.log('informarArrMostrar:');
 	console.log(informarArrMostrar);
+
+	// muestro en que estoy trabajando
+	if(trabajandoEn.length>-1){
+		workingOn.innerHTML='var serioMode=false;<h3 class="somethingWentVeryWrong" onClick="toggleHide('+"'workingOn'"+');"><img class="thumbnail" src="static/img/warning.webp"> Trabajando actualmente en <img class="thumbnail" src="static/img/warning.webp"> (click en esta barra para ocultar este exceso de COMIC SANZ)<ul>';
+		listaTrabajo='';
+		trabajandoEn.forEach(function(te){
+			listaTrabajo+='<li class="dev_'+estadosDesarrollo[te[0]]+'">('+estadosDesarrollo[te[0]].toUpperCase()+') '+te[1]+'</li>';
+		});
+		workingOn.innerHTML+=listaTrabajo+'</ul>';
+		workingOn.innerHTML+='<h2>Recorda, que si algo falla... <br><img class="omfg" src="queIronia.com_soy_una_imagen_con_el_path_mal_formado._re_loco_no?.imagenQueNoCarga" alt="(Que ironia... soy una imagen sobre bugs, en comic sanz... y no cargo.)"><br> shit happens everywhere... y muy probablemente ya este trabajando en el problema.</h2>';
+		workingOn.innerHTML+='(realidad)<br><img class="ahhhhhhhhhhhhhh" src="static/img/bug.gif" alt="yo tampoco cargo."><br><br>';
+		workingOn.innerHTML+='Discord:Nekro#0089<br>'+'serioMode=true;';
+	}	
+	//fin de muestro en que estoy trabajando
+
 	timer1=setClock(1000,timerTime,timer1);
 }
 function timerTime(){
@@ -107,16 +126,6 @@ function toggleTimer(activar){
 
 function rellenarDatos(){
 	var estado='';
-	// muestro en que estoy trabajando
-	if(trabajandoEn.length>-1){
-		workingOn.innerHTML='<h3><img class="thumbnail" src="static/img/warning.webp"> Trabajando actualmente en <img class="thumbnail" src="static/img/warning.webp"><ul>';
-		listaTrabajo='';
-		trabajandoEn.forEach(function(te){
-			listaTrabajo+='<li class="dev_'+estadosDesarrollo[te[0]]+'">('+estadosDesarrollo[te[0]].toUpperCase()+') '+te[1]+'</li>';
-		});
-		workingOn.innerHTML+=listaTrabajo+'</ul>';
-	}	
-	//fin de muestro en que estoy trabajando
 
 	estado='<p class='+((fetching)?'infoFetch':'infoNoFetch')+'>';
 	estado+='('+tiempoStr()+') Proximo fetch:'+(counter1Max-counter1)+'</p>';
