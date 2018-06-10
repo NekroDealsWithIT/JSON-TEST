@@ -11,12 +11,14 @@ var trabajandoEn=[
 					,[5,'09-06-18 Generar lista de desarrollo y estado... y aqui me ves.']
 					,[0,'09-06-18 Esperar a Baro para marcar los items que trae']
 					,[0,'09-06-18 Crear modo debug']
-					,[0,'09-06-18 Conexion DB {en analisis para largo}']
+					,[0,'09-06-18 Conexion DB (persistir en alguna base en algun lado) {en analisis para mediano plazo}']
 					,[0,'09-06-18 Conexion Discord {en analisis para largo++}']
 					,[0,'09-06-18 Conexion Warframe market (para averiguar precios rapido)']
 					,[0,'09-06-18 Conexion a droptables (porque... donde carajo cae el mod vitality?)']
 					,[5,'09-06-18 css "Smooth" scroll para anchor links {oh zi... zepsy Smooth scrolling}']
 					,[5,'09-06-18 Notificaciones mostrar cantidad cacheado/seleccionado']
+					,[0,'09-06-18 Seteo de sonidos dependiendo de tipo']
+					,[0,'09-06-18 Reproduccion de sonidos cuando aparece el item marcado']
 				];
 
 var fetching=false;
@@ -76,17 +78,17 @@ function startAll(){
 	getWFWorldstate();
 	// busco en las cookies las completadas de los ultimos 7 dias
 	completado=completado.concat(getCookieArray("completas"));
-	console.log('completado:');
-	console.log(completado);
+	// console.log('completado:');
+	// console.log(completado);
 	informarArr=informarArr.concat(getCachedData());
-	console.log('informarArr:');
-	console.log(informarArr);
+	// console.log('informarArr:');
+	// console.log(informarArr);
 	informarArrChecked=informarArrChecked.concat(getCookieArray("informarArrChecked"));
-	console.log('informarArrChecked:');
-	console.log(informarArrChecked);
+	// console.log('informarArrChecked:');
+	// console.log(informarArrChecked);
 	informarArrMostrar=informarArrMostrar.concat(getCookieArray("informarArrMostrar"));
-	console.log('informarArrMostrar:');
-	console.log(informarArrMostrar);
+	// console.log('informarArrMostrar:');
+	// console.log(informarArrMostrar);
 
 	// muestro en que estoy trabajando
 	if(trabajandoEn.length>-1){
