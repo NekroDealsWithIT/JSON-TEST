@@ -860,6 +860,7 @@ function getComboSound(id){
 	comboHtml+='<label class="audioCheckbox"><input type="checkbox" onclick="focusSound('+"'"+id+"'"+",'CheckTipo',this.checked);"+'" id="'+id+'CheckTipo">Decir Tipo</label>';
 	comboHtml+='<label class="audioCheckbox"><input type="checkbox" onclick="focusSound('+"'"+id+"'"+",'CheckItem',this.checked);"+'" id="'+id+'CheckItem">Decir Item</label>';
 	comboHtml+='<input class="audioText" type="text" id="'+id+'Text" placeholder="Texto a decir" onfocus="focusSound('+"'"+id+"'"+",'text',true);"+'"'+' onblur="'+"focusSound("+"'"+id+"'"+",'text',false);textToSpeech(value);"+'">';
+	comboHtml+='<span class="probar" id="'+id+'Span" onclick="focusSound('+"'"+id+"'"+",'SpanTipo',false);"+'"> (Probar)</span>';
 	return comboHtml;1
 }
 
