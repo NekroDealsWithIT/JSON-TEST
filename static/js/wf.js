@@ -281,7 +281,7 @@ function rellenarDatos(){
 				var idLista="'typeNotif"+t.toUpperCase()+"'";
 				var ocultarTipo=chequearInformarNotif("typeNotif"+t.toUpperCase());
 				// crear un array que guarde que tipo mostrar
-				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5>'+comboSonido+'<ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+notificacion+'</ul></article></div>';
+				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+comboSonido+notificacion+'</ul></article></div>';
 			});
 			notificaciones.innerHTML+='</div>'
 		}
@@ -860,7 +860,7 @@ function getComboSound(id){
 	comboHtml+='<label class="audioCheckbox"><input type="checkbox" onclick="focusSound('+"'"+id+"'"+",'CheckTipo',this.checked);"+'" id="'+id+'CheckTipo">Decir Tipo</label>';
 	comboHtml+='<label class="audioCheckbox"><input type="checkbox" onclick="focusSound('+"'"+id+"'"+",'CheckItem',this.checked);"+'" id="'+id+'CheckItem">Decir Item</label>';
 	comboHtml+='<input class="audioText" type="text" id="'+id+'Text" placeholder="Texto a decir" onfocus="focusSound('+"'"+id+"'"+",'text',true);"+'"'+' onblur="'+"focusSound("+"'"+id+"'"+",'text',false);textToSpeech(value);"+'">';
-	return comboHtml;
+	return comboHtml;1
 }
 
 
