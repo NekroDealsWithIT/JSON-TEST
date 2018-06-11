@@ -444,14 +444,14 @@ function randListaArray(arrayLista){
 */
 function cargarSonido(source='', soundControl){
 	if (source==''){return false;}
-	if (source=='Hablado'){textToSpeach(source);return;}
+	if (source=='Hablado'){textToSpeech(source);return;}
 	source='static/sound/alerts/'+source;
 	soundControl.src =source;
 	soundControl.load();
 	soundControl.play();
 }
 
-function textToSpeach(text){
+function textToSpeech(text){
 	var msg = new SpeechSynthesisUtterance(text);
 	window.speechSynthesis.speak(msg);
 }
@@ -615,6 +615,15 @@ function arrayUnique(array){
 					function (item, pos){
 						return array.indexOf(item) == pos}
 					);
+}
+function arrayRemove(array,remove=''){
+	var auxArray
+	array.forEach(function(a){
+		if(a!=remove){
+			auxArray.push(a);
+		}
+	});
+	return auxArray;
 }
 
 function arrayToPipedString(array,separador='|'){

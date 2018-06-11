@@ -21,13 +21,13 @@ var trabajandoEn=[
 					,[1,'09-06-18 Reproduccion de sonidos cuando aparece el item marcado']
 					,[5,'09-06-18 Algo para eliminar todo lo seleccionado']
 				];
-
 var fetching=false;
 var resultJson='';
 
 var timer1='';
 var counter1=0;
 var counter1Max=15;
+var estadoTimerTiming=true;
 
 var completado=[];
 var informarArr=[];
@@ -90,8 +90,9 @@ function startAll(){
 	informarArrMostrar=informarArrMostrar.concat(getCookieArray("informarArrMostrar"));
 	// console.log('informarArrMostrar:');
 	// console.log(informarArrMostrar);
+	cargarSonidos();
 
-	// muestro en que estoy trabajando
+	// en que estoy trabajando?
 	if(trabajandoEn.length>-1){
 		workingOn.innerHTML='var serioMode=false;<h3 class="somethingWentVeryWrong" onClick="toggleHide('+"'workingOn'"+');"><img class="thumbnail" src="static/img/warning.webp"> Trabajando actualmente en <img class="thumbnail" src="static/img/warning.webp"> (click en esta barra para ocultar este exceso de COMIC SANZ)<ul>';
 		listaTrabajo='';
@@ -103,7 +104,7 @@ function startAll(){
 		workingOn.innerHTML+='(realidad)<br><img class="ahhhhhhhhhhhhhh" src="static/img/bug.gif" alt="yo tampoco cargo."><br><br>';
 		workingOn.innerHTML+='Discord:Nekro#0089<br>'+'serioMode=true;';
 	}	
-	//fin de muestro en que estoy trabajando
+	//fin de en que estoy trabajando?1
 
 	timer1=setClock(1000,timerTime,timer1);
 }
@@ -200,6 +201,7 @@ function rellenarDatos(){
 				// notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h4 class="ucase subrayado">'+t+'</h4><ul id="typeNotif'+t.toUpperCase()+'">';
 				var notificacion='';
 				var listaActiva=false;
+				var comboSonido=getComboSound(t);
 				cacheado.forEach(function (c){
 					var actual='';
 					var completa=false;
@@ -279,7 +281,7 @@ function rellenarDatos(){
 				var idLista="'typeNotif"+t.toUpperCase()+"'";
 				var ocultarTipo=chequearInformarNotif("typeNotif"+t.toUpperCase());
 				// crear un array que guarde que tipo mostrar
-				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+notificacion+'</ul></article></div>';
+				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5>'+comboSonido+'<ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+notificacion+'</ul></article></div>';
 			});
 			notificaciones.innerHTML+='</div>'
 		}
@@ -668,6 +670,7 @@ function toggleInformar(id){
 		// console.log("agregado:" +id+'\n'+informarArrChecked);
 	}
 	arrayUnique(informarArrChecked);
+	arrayRemove(informarArrChecked);
 	setCookieArray("informarArrChecked",informarArrChecked,30*24*60*60*1000);
 	// timerTime();
 }
@@ -817,4 +820,76 @@ function getCachedData(){
         }
     }
     return cachedData;
+}
+function cargarSonidos(){
+	var texto='';
+	var value=''
+	var selected='';
+	var auxArr=[];
+
+	value='';	
+	selected=true;
+	texto='Deshabilitado';
+	sounds.push({'value':'Deshabilitado','texto':'Deshabilitado','default':true});
+	sounds.push({'value':'Hablado','texto':'Hablado','default':false});
+
+	auxArr.push('case-closed.ogg');
+	auxArr.push('cheerful.ogg');
+	auxArr.push('decay.ogg');
+	auxArr.push('hold-on.ogg');
+	auxArr.push('horse.ogg');
+	auxArr.push('just-like-magic.ogg');
+	auxArr.push('case-closed.ogg');
+	auxArr.push('relentless.ogg');
+	auxArr.push('system-fault.ogg');
+	auxArr.push('to-the-point.ogg');
+	auxArr.push('your-turn.ogg');
+
+	auxArr.forEach(function(aux){
+		sounds.push({'value':aux,'texto':aux.split('.')[0],'default':false});	
+	});
+}
+function getComboSound(id){
+	var comboHtml='<select id="'+id+'Combo" class="comboText" onchange="cargarSonido(value,'+id+'Sound);" onfocus="focusSound('+id+',"combo",true)" onblur="focusSound('+id+',"combo",false)">';
+	sounds.forEach(function(s){
+		comboHtml+='<option value="'+s.value+'"'+(s.default?' selected':'')+'>'+s.texto+'</option>';
+	});
+	comboHtml+='</select><audio id="'+id+'Sound"></audio>';
+	comboHtml+='<label class="audioCheckbox"><input type="checkbox" onclick="focusSound('+"'"+id+"'"+",'CheckTipo',this.checked);"+'" id="'+id+'CheckTipo">Decir Tipo</label>';
+	comboHtml+='<label class="audioCheckbox"><input type="checkbox" onclick="focusSound('+"'"+id+"'"+",'CheckItem',this.checked);"+'" id="'+id+'CheckItem">Decir Item</label>';
+	comboHtml+='<input class="audioText" type="text" id="'+id+'Text" placeholder="Texto a decir" onfocus="focusSound('+"'"+id+"'"+",'text',true);"+'"'+' onblur="'+"focusSound("+"'"+id+"'"+",'text',false);textToSpeech(value);"+'">';
+	return comboHtml;
+}
+
+
+function focusSound(id,type,hold){
+	console.log('id: '+id+' type: '+type+' hold: '+hold)
+	switch(type){
+		case 'combo':
+			holdTimer(hold);	
+			break;
+		case 'text':
+			holdTimer(hold);
+			break;
+		case 'checkTipo':
+			if (hold){
+				
+			}
+			break;
+		case 'CheckItem':
+			if (hold){
+
+			}
+			break;
+	}
+}
+function holdTimer(hold){
+	console.log('holdTimer: '+hold)
+	if(hold){
+		// tengo que detener los timers
+		toggleTimer(false);
+	}else{
+		//lo dejo en el estado que lo encontre
+		toggleTimer(autoUpdateHiddenCheckbox.checked);
+	}
 }
