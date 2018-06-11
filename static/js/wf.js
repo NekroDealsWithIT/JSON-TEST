@@ -850,7 +850,9 @@ function cargarSonidos(){
 	});
 }
 function getComboSound(id){
-	var comboHtml='<select id="'+id+'Combo" class="comboText" onchange="cargarSonido(value,'+id+'Sound);" onfocus="focusSound('+id+',"combo",true)" onblur="focusSound('+id+',"combo",false)">';
+				// <select id="catalystCombo" class="comboText" onchange="cargarSonido(value,catalystSound);" onclick="focusSound('catalyst','combo',true);onfocus=" focussound('catalyst','combo',true);onblur="focusSound('catalyst','combo',false)>
+				// <select id="catalystCombo" class="comboText" onchange="cargarSonido(value,catalystSound);" onclick="focusSound('catalyst','combo',true);" onfocus="focusSound('catalyst','combo',true);" onblur="focusSound('catalyst','combo',false)">
+	var comboHtml='<select id="'+id+'Combo" class="comboText" onchange="cargarSonido(value,'+id+'Sound);" onClick="focusSound('+"'"+id+"'"+",'combo',true);" +'" onFocus="focusSound('+"'"+id+"'"+",'combo',true);" +'" onblur="focusSound('+"'"+id+"'"+",'combo',false)"+'">';
 	sounds.forEach(function(s){
 		comboHtml+='<option value="'+s.value+'"'+(s.default?' selected':'')+'>'+s.texto+'</option>';
 	});
