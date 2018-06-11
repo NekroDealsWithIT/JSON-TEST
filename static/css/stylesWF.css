@@ -523,3 +523,37 @@ h3{
 	width: 25px;
 }
 
+/*referente a audio*/
+.audioCombo{
+
+}
+.audioCheckbox{
+
+}
+.audioCheckbox::after,
+.audioCheckbox::before{
+	content:" ";
+}
+.audioCheckbox input[type="checkbox"]{
+	display:none;
+}
+.soundActive{
+	color:#0F0;	
+}
+.soundActive:before{
+	content: "🌑";
+}
+.soundInactive{
+	color:#F00;	
+}
+.soundInactive:before{
+	content: "❌";
+}
+
+
+.audioText{
+
+}
+.audioProbar{
+
+}

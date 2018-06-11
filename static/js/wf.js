@@ -35,6 +35,8 @@ var informarArrChecked=[];
 var informarArrMostrar=[];
 
 var sounds=[];
+var selectedSounds=[];
+var elementActiveFocus='';
 
 var campeon;
 
@@ -433,7 +435,7 @@ function rellenarDatos(){
 				
 				//Agregado a la lista de notificaciones de cookies
 				var cookieStore='';
-				if(!inv.vsInfestation){
+					if(!inv.vsInfestation){
 					cookieStore='t_'+'invasion_i_'+inv.attackerReward.asString+'_l_'+inv.attackerReward.thumbnail;
 					setCookie(cookieStore,new Date(),365*24*60*60*1000);
 				}
@@ -822,16 +824,10 @@ function getCachedData(){
     return cachedData;
 }
 function cargarSonidos(){
-	var texto='';
-	var value=''
-	var selected='';
 	var auxArr=[];
 
-	value='';	
-	selected=true;
-	texto='Deshabilitado';
 	sounds.push({'value':'Deshabilitado','texto':'Deshabilitado','default':true});
-	sounds.push({'value':'Hablado','texto':'Hablado','default':false});
+	//sounds.push({'value':'Hablado','texto':'Hablado','default':false});
 
 	auxArr.push('case-closed.ogg');
 	auxArr.push('cheerful.ogg');
@@ -850,41 +846,114 @@ function cargarSonidos(){
 	});
 }
 function getComboSound(id){
-				// <select id="catalystCombo" class="comboText" onchange="cargarSonido(value,catalystSound);" onclick="focusSound('catalyst','combo',true);onfocus=" focussound('catalyst','combo',true);onblur="focusSound('catalyst','combo',false)>
-				// <select id="catalystCombo" class="comboText" onchange="cargarSonido(value,catalystSound);" onclick="focusSound('catalyst','combo',true);" onfocus="focusSound('catalyst','combo',true);" onblur="focusSound('catalyst','combo',false)">
-	var comboHtml='<select id="'+id+'Combo" class="comboText" onchange="cargarSonido(value,'+id+'Sound);" onClick="focusSound('+"'"+id+"'"+",'combo',true);" +'" onFocus="focusSound('+"'"+id+"'"+",'combo',true);" +'" onblur="focusSound('+"'"+id+"'"+",'combo',false)"+'">';
+	var comboSelectedValue='Deshabilitado';
+	var comboItemChecked=false;
+	var comboTypeChecked=false;
+	var textoADecir='';
+
+	var sonidoPersistido=[];
+	sonidoPersistido=getPersistedSound(id);
+	if(sonidoPersistido.combo!=undefined){
+		comboSelectedValue=sonidoPersistido.combo;
+		comboItemChecked=sonidoPersistido.checkItem;
+		comboTypeChecked=sonidoPersistido.checkTipo;
+		textoADecir=sonidoPersistido.texto;
+	}
+
+	var comboHtml='<select id="'+id+'Combo" class="audioCombo" onchange="cargarSonido(value,'+id+'Sound);" onClick="focusSound('+"'"+id+"'"+",'combo',true);" +'" onFocus="focusSound('+"'"+id+"'"+",'combo',true);" +'" onblur="focusSound('+"'"+id+"'"+",'combo',false)"+'">';
 	sounds.forEach(function(s){
+		s.default=(s.value==comboSelectedValue?true:false);
 		comboHtml+='<option value="'+s.value+'"'+(s.default?' selected':'')+'>'+s.texto+'</option>';
 	});
 	comboHtml+='</select><audio id="'+id+'Sound"></audio>';
-	comboHtml+='<label class="audioCheckbox"><input type="checkbox" onclick="focusSound('+"'"+id+"'"+",'CheckTipo',this.checked);"+'" id="'+id+'CheckTipo">Decir Tipo</label>';
-	comboHtml+='<label class="audioCheckbox"><input type="checkbox" onclick="focusSound('+"'"+id+"'"+",'CheckItem',this.checked);"+'" id="'+id+'CheckItem">Decir Item</label>';
-	comboHtml+='<input class="audioText" type="text" id="'+id+'Text" placeholder="Texto a decir" onfocus="focusSound('+"'"+id+"'"+",'text',true);"+'"'+' onblur="'+"focusSound("+"'"+id+"'"+",'text',false);textToSpeech(value);"+'">';
-	comboHtml+='<span class="probar" id="'+id+'Span" onclick="focusSound('+"'"+id+"'"+",'SpanTipo',false);"+'"> (Probar)</span>';
-	return comboHtml;1
+	comboHtml+='<label class="audioCheckbox '+(comboTypeChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboTypeChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckTipo',this.checked);"+'" id="'+id+'CheckTipo">Decir Tipo</label>';
+	comboHtml+='<label class="audioCheckbox '+(comboItemChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboItemChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckItem',this.checked);"+'" id="'+id+'CheckItem">Decir Item</label>';
+	comboHtml+='<input class="audioText" type="text" id="'+id+'Text" value="'+textoADecir+'" placeholder="Texto a decir" onfocus="focusSound('+"'"+id+"'"+",'text',true);"+'"'+' onblur="'+"focusSound("+"'"+id+"'"+",'text',false);textToSpeech(value);"+'">';
+	comboHtml+='<span class="audioProbar" id="'+id+'Span" onclick="focusSound('+"'"+id+"'"+",'SpanTipo',false);"+'"> (Probar ▶)</span>';
+	return comboHtml;
 }
-
-
 function focusSound(id,type,hold){
-	console.log('id: '+id+' type: '+type+' hold: '+hold)
+	// console.log('id: '+id+' type: '+type+' hold: '+hold);
+	// console.log('id:'+id+' combotTipo:'+(id+'CheckTipo').checked);
+
+	objCombo=document.getElementById(id+'Combo');
+	objCheckTipo=document.getElementById(id+'CheckTipo');
+	objCheckItem=document.getElementById(id+'CheckItem');
+	objTexto=document.getElementById(id+'Text');
+	objAudio=document.getElementById(id+'Sound');
+	persistSound(id,objCombo,objCheckTipo,objCheckItem,objTexto);
+
 	switch(type){
 		case 'combo':
-			holdTimer(hold);	
+
+			holdTimer(hold);
+
 			break;
 		case 'text':
 			holdTimer(hold);
+
 			break;
-		case 'checkTipo':
+		case 'CheckTipo':
 			if (hold){
-				
+				textToSpeech("tipo: "+id);
 			}
 			break;
 		case 'CheckItem':
 			if (hold){
-
+				textToSpeech("item de "+id);
 			}
 			break;
+		case 'SpanTipo':
+			var decir='';
+			if(objCheckTipo.checked){
+				decir="tipo: "+id;
+			}
+			if(objCheckItem.checked){
+				decir+=" item de: "+id;
+			}
+			if(objTexto.value!=''){
+				decir+= ' '+objTexto.value
+			}
+			objAudio.play();
+			textToSpeech(decir);
+			break;
 	}
+}
+function persistSound(id,combo,checkTipo,checkItem,texto){
+	var i=0;
+	var pos=-1;
+	selectedSounds.forEach(function(s){
+		if(s.id==id){
+			pos=i;
+			// console.log('estoy '+pos);
+		}
+		i++
+	});
+	// console.log({'id':id,'combo':combo.value,'checkTipo':checkTipo.checked,'checkItem':checkItem.checked,'texto':texto.value});
+	if(pos==-1){
+		// console.log('agrego '+pos);
+		selectedSounds.push({'id':id,'combo':combo.value,'checkTipo':checkTipo.checked,'checkItem':checkItem.checked,'texto':texto.value});
+	}else{
+		// console.log('reemplazo '+pos);
+		// selectedSounds[pos].id=id;
+		// selectedSounds[pos].combo=combo.value;
+		// selectedSounds[pos].checkTipo=checkTipo.checked;
+		// selectedSounds[pos].checkItem=checkItem.checked;
+		// selectedSounds[pos].texto=texto.value;
+
+		selectedSounds[pos]={'id':id,'combo':combo.value,'checkTipo':checkTipo.checked,'checkItem':checkItem.checked,'texto':texto.value}
+	}
+}
+function getPersistedSound(id){
+	var response='';
+	selectedSounds.forEach(function(sonidoP){
+		if(sonidoP.id==id){
+			//return {'id':sonidoP.id,'combo':sonidoP.combo,'checkTipo':sonidoP.checkTipo,'checkItem':sonidoP.checkItem};
+			response=sonidoP;
+			return response;
+		}
+	});	
+	return response;
 }
 function holdTimer(hold){
 	console.log('holdTimer: '+hold)
