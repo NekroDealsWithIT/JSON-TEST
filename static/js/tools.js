@@ -649,6 +649,80 @@ function pipedStringToArray(pipedString,separador='|'){
 /*
 -----------------------------------------------------
 	Notificaciones Push
+	https://developer.mozilla.org/en-US/docs/Web/API/Push_API
 -----------------------------------------------------
 */
 
+/*
+1. Check for serviceWorker on navigator.
+2. Check for PushManager on window.
+*/
+function checkPushServiceWorker(){
+	if (!('serviceWorker' in navigator)) {
+		// Service Worker isn't supported on this browser, disable or hide UI.
+		return 'serviceWorker FAIL';
+	}
+	if (!('PushManager' in window)) {
+		// Push isn't supported on this browser, disable or hide UI.
+		return 'PushManager FAIL';
+	}
+	return true
+}
+
+function registerServiceWorker(archivoJs) {
+	if (archivoJs==undefined||archivoJs==''){return false;}
+	
+	return navigator.serviceWorker.register()
+	.then(function(registration) {
+		console.log('Service worker registrado.');
+		return registration;
+	})
+	.catch(function(err) {
+		console.error('Service worker no registrado.', err);
+	});
+}
+
+function askPermission() {
+	return new Promise(function(resolve, reject) {
+		const permissionResult = Notification.requestPermission(function(result) {
+			resolve(result);
+		});
+		if (permissionResult) {
+			permissionResult.then(resolve, reject);
+		}
+	})
+	.then(function(permissionResult) {
+		if (permissionResult !== 'granted') {
+			throw new Error('No tenemos permisos.');
+		}
+	});
+}
+
+function getNotificationPermissionState() {
+	if (navigator.permissions) {
+		return navigator.permissions.query({name: 'notifications'})
+		.then((result) => {
+			return result.state;
+		});
+	}
+	return new Promise((resolve) => {
+		resolve(Notification.permission);
+	});
+}
+
+function subscribeUserToPush() {
+	return getSWRegistration()
+	.then(function(registration) {
+		const subscribeOptions = {
+			userVisibleOnly: true,
+			applicationServerKey: urlBase64ToUint8Array(
+				'BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDzkrxZJjSgSnfckjBJuBkr3qBUYIHBQFLXYp5Nksh8U'
+				)
+		};
+		return registration.pushManager.subscribe(subscribeOptions);
+	})
+	.then(function(pushSubscription) {
+		console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
+		return pushSubscription;
+	});
+}
