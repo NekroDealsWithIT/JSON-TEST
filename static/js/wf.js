@@ -6,20 +6,7 @@
 */
 var estadosDesarrollo=['analisis','desarrollo','test','prod','pruebas','completo','bug','rollback'];
 var trabajandoEn=[
-					[5,'05-06-18 Hacer todo UN POCO mas responsive, si... funciono decente en celulares!']
-					,[1,'09-06-18 Mostrar En el titulo de lista cuando todo fue finalizado y esta activo algun item']
-					,[5,'09-06-18 Generar lista de desarrollo y estado... y aqui me ves.']
-					,[0,'09-06-18 Esperar a Baro para marcar los items que trae']
-					,[0,'09-06-18 Crear modo debug']
-					,[0,'09-06-18 Conexion DB (persistir en alguna base en algun lado) {en analisis para mediano plazo}']
-					,[0,'09-06-18 Conexion Discord {en analisis para largo++}']
-					,[0,'09-06-18 Conexion Warframe market (para averiguar precios rapido)']
-					,[0,'09-06-18 Conexion a droptables (porque... donde carajo cae el mod vitality?)']
-					,[5,'09-06-18 css "Smooth" scroll para anchor links {oh zi... zepsy Smooth scrolling}']
-					,[5,'09-06-18 Notificaciones mostrar cantidad cacheado/seleccionado']
-					,[1,'09-06-18 Seteo de sonidos dependiendo de tipo']
-					,[1,'09-06-18 Reproduccion de sonidos cuando aparece el item marcado']
-					,[5,'09-06-18 Algo para eliminar todo lo seleccionado']
+					[3,'12-06-2018 Migre el manejo del desarrollo a trello!']
 				];
 var fetching=false;
 var resultJson='';
@@ -102,7 +89,11 @@ function startAll(){
 			listaTrabajo+='<li class="dev_'+estadosDesarrollo[te[0]]+'">('+estadosDesarrollo[te[0]].toUpperCase()+') '+te[1]+'</li>';
 		});
 		workingOn.innerHTML+=listaTrabajo+'</ul>';
-		workingOn.innerHTML+='<h2>Recorda, que si algo falla... <br><img class="omfg" src="queIronia.com_soy_una_imagen_con_el_path_mal_formado._re_loco_no?.imagenQueNoCarga" alt="(Que ironia... soy una imagen sobre bugs, en comic sanz... y no cargo.)"><br> shit happens everywhere... y muy probablemente ya este trabajando en el problema.</h2>';
+		
+		workingOn.innerHTML+='<hr><a class="dev_analisis" href="https://trello.com/b/Gu0xFtVG" target="blank">Link al dashboard de trello</a>'
+		workingOn.innerHTML+='<iframe src="https://trello.com/b/Gu0xFtVG.html" frameBorder="0" width="100%" height="300vh"></iframe><hr>';
+
+		workingOn.innerHTML+='<h2>Recorda, que si algo falla... <span class="lineThrough">Un hechicero lo hizo</span><br><img class="omfg" src="queIronia.com_soy_una_imagen_con_el_path_mal_formado._re_loco_no?.imagenQueNoCarga" alt="(Que ironia... soy una imagen sobre bugs, en comic sanz... y no cargo.)"><br> shit happens everywhere... y muy probablemente ya este trabajando en el problema.</h2>';
 		workingOn.innerHTML+='(realidad)<br><img class="ahhhhhhhhhhhhhh" src="static/img/bug.gif" alt="yo tampoco cargo."><br><br>';
 		workingOn.innerHTML+='Discord:Nekro#0089<br>'+'serioMode=true;';
 	}	

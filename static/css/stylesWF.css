@@ -411,6 +411,9 @@ h3{
 	content: " -- Editado por el contenedor padre! \1F497"
 }
 /*Formato de texto*/
+.lineThrough{
+	text-decoration:line-through;
+}
 .subrayado{
 	text-decoration:underline;
 }
