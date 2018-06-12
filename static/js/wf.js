@@ -840,6 +840,7 @@ function getComboSound(id){
 	var comboSelectedValue='Deshabilitado';
 	var comboItemChecked=false;
 	var comboTypeChecked=false;
+	var comboPushChecked=false;
 	var textoADecir='';
 
 	var sonidoPersistido=[];
@@ -848,6 +849,7 @@ function getComboSound(id){
 		comboSelectedValue=sonidoPersistido.combo;
 		comboItemChecked=sonidoPersistido.checkItem;
 		comboTypeChecked=sonidoPersistido.checkTipo;
+		comboPushChecked=sonidoPersistido.checkPush;
 		textoADecir=sonidoPersistido.texto;
 	}
 
@@ -859,6 +861,7 @@ function getComboSound(id){
 	comboHtml+='</select><audio id="'+id+'Sound"></audio>';
 	comboHtml+='<label class="audioCheckbox '+(comboTypeChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboTypeChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckTipo',this.checked);"+'" id="'+id+'CheckTipo">Decir Tipo</label>';
 	comboHtml+='<label class="audioCheckbox '+(comboItemChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboItemChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckItem',this.checked);"+'" id="'+id+'CheckItem">Decir Item</label>';
+	comboHtml+='<label class="audioCheckbox '+(comboPushChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboPushChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckPush',this.checked);"+'" id="'+id+'CheckPush">Notificar con push</label>';
 	comboHtml+='<input class="audioText" type="text" id="'+id+'Text" value="'+textoADecir+'" placeholder="Texto a decir" onfocus="focusSound('+"'"+id+"'"+",'text',true);"+'"'+' onblur="'+"focusSound("+"'"+id+"'"+",'text',false);textToSpeech(value);"+'">';
 	comboHtml+='<span class="audioProbar" id="'+id+'Span" onclick="focusSound('+"'"+id+"'"+",'SpanTipo',false);"+'"> (Probar ▶)</span>';
 	return comboHtml;
@@ -870,9 +873,10 @@ function focusSound(id,type,hold){
 	objCombo=document.getElementById(id+'Combo');
 	objCheckTipo=document.getElementById(id+'CheckTipo');
 	objCheckItem=document.getElementById(id+'CheckItem');
+	objCheckPush=document.getElementById(id+'CheckPush');
 	objTexto=document.getElementById(id+'Text');
 	objAudio=document.getElementById(id+'Sound');
-	persistSound(id,objCombo,objCheckTipo,objCheckItem,objTexto);
+	persistSound(id,objCombo,objCheckTipo,objCheckItem,objCheckPush,objTexto);
 
 	switch(type){
 		case 'combo':
@@ -894,6 +898,8 @@ function focusSound(id,type,hold){
 				textToSpeech("item de "+id);
 			}
 			break;
+		case 'CheckPush':
+			break;
 		case 'SpanTipo':
 			var decir='';
 			if(objCheckTipo.checked){
@@ -910,7 +916,7 @@ function focusSound(id,type,hold){
 			break;
 	}
 }
-function persistSound(id,combo,checkTipo,checkItem,texto){
+function persistSound(id,combo,checkTipo,checkItem,checkPush,texto){
 	var i=0;
 	var pos=-1;
 	selectedSounds.forEach(function(s){
@@ -923,7 +929,7 @@ function persistSound(id,combo,checkTipo,checkItem,texto){
 	// console.log({'id':id,'combo':combo.value,'checkTipo':checkTipo.checked,'checkItem':checkItem.checked,'texto':texto.value});
 	if(pos==-1){
 		// console.log('agrego '+pos);
-		selectedSounds.push({'id':id,'combo':combo.value,'checkTipo':checkTipo.checked,'checkItem':checkItem.checked,'texto':texto.value});
+		selectedSounds.push({'id':id,'combo':combo.value,'checkTipo':checkTipo.checked,'checkItem':checkItem.checked,'checkPush':checkPush.checked,'texto':texto.value});
 	}else{
 		// console.log('reemplazo '+pos);
 		// selectedSounds[pos].id=id;
@@ -932,7 +938,7 @@ function persistSound(id,combo,checkTipo,checkItem,texto){
 		// selectedSounds[pos].checkItem=checkItem.checked;
 		// selectedSounds[pos].texto=texto.value;
 
-		selectedSounds[pos]={'id':id,'combo':combo.value,'checkTipo':checkTipo.checked,'checkItem':checkItem.checked,'texto':texto.value}
+		selectedSounds[pos]={'id':id,'combo':combo.value,'checkTipo':checkTipo.checked,'checkItem':checkItem.checked,'checkPush':checkPush.checked,'texto':texto.value}
 	}
 }
 function getPersistedSound(id){

@@ -645,3 +645,10 @@ function pipedStringToArray(pipedString,separador='|'){
 	result = pipedString.split(separador);
 	return result;
 }
+
+/*
+-----------------------------------------------------
+	Notificaciones Push
+-----------------------------------------------------
+*/
+
