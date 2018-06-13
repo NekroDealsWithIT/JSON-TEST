@@ -360,6 +360,9 @@ function rellenarDatos(){
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
 
+			var txtCopiar="'"+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" [Nightmare]":"")+(a.mission.archwingRequired?" [Archwing]":"")+"'";
+			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
+
 			// agrego a la lista la alertaActiva
 			alertaActivaArr.push(a.id);
 
@@ -387,7 +390,7 @@ function rellenarDatos(){
 			
 			setCookie(cookieStore,new Date(),365*24*60*60*1000);
 
-			td.push([checkBoxCompleted+'<img src="'+a.mission.reward.thumbnail +'"><BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
+			td.push([checkBoxCompleted+'<img src="'+a.mission.reward.thumbnail +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
 			var modifs='';
 			(a.mission.nightmare?modifs+='N ':'');
 			(a.mission.archwingRequired?modifs+='Aw ':'');

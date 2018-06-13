@@ -94,7 +94,8 @@ h3{
 .content{
 	width: 90%;
 	margin: auto;
-	background-image: url(../img/warframe-lotus-wallpaper.png);
+	/*background-image: url(../img/warframe-lotus-wallpaper.png);*/
+	background-image: url(../img/warframe_logo_data.jpg);
 	/*background-image: url(../img/warframe_logo_data.jpg) no-repeat center center fixed;*/
 	/*background-size: cover;*/
 }
@@ -255,10 +256,10 @@ h3{
 	width: 50px;
 	transform-origin: 10px 0;
 }
-.enlargeMe img:hover{
+/*.enlargeMe img:hover{
 	transform: scale(5.5) translateX(100px) translateY(-10px);
 	transition-duration: .5s .8s;
-}
+}*/
 
 /*color facciones*/
 .corpus{
@@ -525,7 +526,9 @@ h3{
 .thumbnailNotif{
 	width: 25px;
 }
-
+.thumbnailCopiar{
+	width: 25px!important;
+}
 /*referente a audio*/
 .audioCombo{
 
