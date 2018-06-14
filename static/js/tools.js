@@ -790,3 +790,44 @@ function subscribeUserToPush() {
 		return pushSubscription;
 	});
 }
+
+
+const sendNotification = (body, title = 'test', sound, link) => {
+  if (Notification.permission === 'granted') {
+    const notif = new Notification(title, {icon: 'https://warframestat.us/wfcd_logo_color.png', body});
+    setTimeout(notif.close.bind(notif), 15000);
+    if (sound) {
+      const audio = new Audio(sound);
+      audio.volume = 0.2;
+      audio.play();
+    }
+    notif.onclick = event => {
+      if (link) {
+        event.preventDefault();
+        window.open(link, '_blank');
+      } else {
+        window.focus();
+      }
+      notif.close.bind(notif);
+    };
+    return notif;
+  }
+  return undefined;
+};
+
+function pedirPermiso(){
+	if (!('Notification' in window)) {
+		// eslint-disable-next-line no-console
+		console.error('[Error] This browser does not support system notifications');
+	} else if (Notification.permission === 'granted') {
+		// Do nothing
+	} else if (Notification.permission !== 'denied') {
+		// Otherwise, we need to ask the user for permission
+		Notification.requestPermission(permission => {
+			// If the user accepts, let's create a notification
+			if (permission === 'granted') {
+				sendNotification('Woot, now we can send you notifications.');
+			}
+		});
+	}
+}
