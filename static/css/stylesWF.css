@@ -9,6 +9,7 @@ html {
 body{
 	background-color: black;
 	color:white;
+	background:url('../img/stars.gif')  repeat fixed;
 }
 a{
 	color: yellow;
@@ -95,9 +96,27 @@ h3{
 	width: 90%;
 	margin: auto;
 	/*background-image: url(../img/warframe-lotus-wallpaper.png);*/
-	background-image: url(../img/warframe_logo_data.jpg);
 	/*background-image: url(../img/warframe_logo_data.jpg) no-repeat center center fixed;*/
 	/*background-size: cover;*/
+	
+	/*dinamicos*/
+	/*background:url('http://i.stack.imgur.com/tQTRW.gif')  repeat fixed;*/
+/*	background-image: url('../img/ledLogoWall.jpg');
+	background-size: 75px 50px;
+*/	
+
+	background-image: url('../img/warframe_full_logo.png');
+	background-size: 75px 50px;
+	
+	opacity: 0.9;
+}
+.content::after{
+	content: "";
+	position: relative;
+	background-image: url(../img/warframe_logo_data.jpg);
+	background-size: cover;
+
+	opacity: 0.4;
 }
 .content>div{
 	margin: auto;
@@ -528,6 +547,16 @@ h3{
 }
 .thumbnailCopiar{
 	width: 25px!important;
+	border-radius: 3px;
+	border: 1px solid #F00;
+	background-color: currentColor;
+	transition-duration: .3s;
+}
+.thumbnailCopiar:active
+,.thumbnailCopiar:hover
+{
+	transform: scale(1.5);
+	transition-duration: 0.001s;
 }
 /*referente a audio*/
 .audioCombo{

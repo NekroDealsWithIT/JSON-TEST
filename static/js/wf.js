@@ -360,7 +360,7 @@ function rellenarDatos(){
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
 
-			var txtCopiar="'"+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" [Nightmare]":"")+(a.mission.archwingRequired?" [Archwing]":"")+"'";
+			var txtCopiar="'"+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" [Nightmare]":"")+(a.mission.archwingRequired?" [Archwing]":"")+" ["+strDiff((a.eta),diff)+"]"+' {http://nekro-warframe.netlify.com}'+"'";
 			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 			// agrego a la lista la alertaActiva
@@ -443,10 +443,13 @@ function rellenarDatos(){
 				var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idInvasion+')"'+(invasionCompleta?' checked':'')+'>Completa?</label><br>'
 				var isCompleted=(invasionCompleta?' completed':'');
 
+				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
+				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
+
 				// agrego la invasionActiva
 				invasionActivaArr.push(inv.id);
 
-				td.push([checkBoxCompleted+inv.desc,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)]);
+				td.push([imgCopiar+checkBoxCompleted+inv.desc,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)]);
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push(['<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push([inv.attackingFaction.toUpperCase(),'tdInvasion '+atk+isCompleted]);
@@ -484,8 +487,11 @@ function rellenarDatos(){
 				// agego la sortieActiva
 				sortieActivaArr.push(v.missionType+v.node+v.modifier);
 
+				var txtCopiar="'"+"Sortie: "+v.missionType+"|"+v.node+"|"+sortieFaction.toUpperCase()+"|"+v.modifier+"|"+sortieData.eta+' {http://nekro-warframe.netlify.com}'+"'";
+				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
+
 				var td=[];
-				td.push([checkBoxCompleted+v.missionType,'tdSortie '+sortieFaction]);
+				td.push([imgCopiar+checkBoxCompleted+v.missionType,'tdSortie '+sortieFaction]);
 				td.push([v.node,'tdSortie '+sortieFaction+isCompleted]);
 				td.push([v.modifier,'tdSortie '+sortieFaction+isCompleted]);
 				td.push([v.modifierDescription,'tdSortie '+sortieFaction+isCompleted]);
@@ -508,7 +514,16 @@ function rellenarDatos(){
 		fisureData.forEach(function(f){
 			var td=[];
 			var fisureFaction=f.enemy.toLowerCase();
-			td.push([f.tier+' ('+f.tierNum+')','tdFisure '+fisureFaction]);
+
+			//var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
+			//var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img><br>";
+
+			var txtCopiar="'"+"Fissure: "+f.tier+' ('+f.tierNum+')'+"|"+f.node+"|"+f.missionType+"|"+strDiff(f.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
+			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+
+
+
+			td.push([imgCopiar+f.tier+' ('+f.tierNum+')','tdFisure '+fisureFaction]);
 			td.push([strDiff(f.eta,diff),'tdFisure '+fisureFaction]);
 			td.push([f.enemy,'tdFisure '+fisureFaction]);
 			td.push([f.missionType,'tdFisure '+fisureFaction]);
@@ -524,12 +539,19 @@ function rellenarDatos(){
 		parseado='';
 		// parseado ='<a id="B"></a>';
 		parseado +='<h3>'+baroData.character+'</h3>'
-		parseado +='<p class='+(baroData.active?'"baroEsta"':'"baroNoEsta"')+'>'+(baroData.active?'Se va: '+strDiff((baroData.endString),diff):'Llega: '+strDiff((baroData.startString),diff))+'</p>';
+
+		var itemsBaro='';
+		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' ['+strDiff((baroData.startString),diff)+"] "+" | "+' Se va:['+strDiff((baroData.endString),diff)+"]"+(baroData.active?' | Items: '+itemsBaro:'')+' {http://nekro-warframe.netlify.com}'+"'";
+		var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
+
+		parseado +='<p class='+(baroData.active?'"baroEsta"':'"baroNoEsta"')+'>'+(baroData.active?'Se va: '+strDiff((baroData.endString),diff):'Llega: '+strDiff((baroData.startString),diff))+imgCopiar+'</p>';
 		
 		parseado+=baroData.character+
 			'<BR>Llega a: '+baroData.location+' Activo: '+baroData.active+
-			'<BR>Llega: '+strDiff((baroData.startString),diff)+' Se va: '+strDiff((baroData.endString),diff)+
-			'<BR>Inventario: '+baroData.inventory;
+			'<BR>Llega: '+strDiff((baroData.startString),diff)+' Se va: '+strDiff((baroData.endString),diff);
+		if(baroData.active){
+			parseado +='<BR>Inventario: '+baroData.inventory;
+		}			
 		parseado +='<hr>';
 		baro.innerHTML=parseado;
 		
