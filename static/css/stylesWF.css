@@ -105,11 +105,13 @@ h3{
 	background-size: 75px 50px;
 */	
 
+/*
 	background-image: url('../img/warframe_full_logo.png');
 	background-size: 75px 50px;
-	
+*/	
 	opacity: 0.9;
 }
+/*
 .content::after{
 	content: "";
 	position: relative;
@@ -118,6 +120,7 @@ h3{
 
 	opacity: 0.4;
 }
+*/
 .content>div{
 	margin: auto;
 	align-self: center;
