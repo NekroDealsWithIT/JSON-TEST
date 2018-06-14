@@ -13,7 +13,7 @@ var resultJson='';
 
 var timer1='';
 var counter1=0;
-var counter1Max=15;
+var counter1Max=30;
 var estadoTimerTiming=true;
 
 var completado=[];
@@ -886,7 +886,7 @@ function getComboSound(id){
 	comboHtml+='</select><audio id="'+id+'Sound"></audio>';
 	comboHtml+='<label class="audioCheckbox '+(comboTypeChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboTypeChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckTipo',this.checked);"+'" id="'+id+'CheckTipo">Decir Tipo</label>';
 	comboHtml+='<label class="audioCheckbox '+(comboItemChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboItemChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckItem',this.checked);"+'" id="'+id+'CheckItem">Decir Item</label>';
-	comboHtml+='<label class="audioCheckbox '+(comboPushChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboPushChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckPush',this.checked);"+'" id="'+id+'CheckPush">Notificar con push</label>';
+	comboHtml+='<label class="audioCheckbox hidden '+(comboPushChecked?"soundActive":"soundInactive")+'"><input type="checkbox" '+(comboPushChecked?" checked":"")+' onclick="focusSound('+"'"+id+"'"+",'CheckPush',this.checked);"+'" id="'+id+'CheckPush">Notificar con push</label>';
 	comboHtml+='<input class="audioText" type="text" id="'+id+'Text" value="'+textoADecir+'" placeholder="Texto a decir" onfocus="focusSound('+"'"+id+"'"+",'text',true);"+'"'+' onblur="'+"focusSound("+"'"+id+"'"+",'text',false);textToSpeech(value);"+'">';
 	comboHtml+='<span class="audioProbar" id="'+id+'Span" onclick="focusSound('+"'"+id+"'"+",'SpanTipo',false);"+'"> (Probar ▶)</span>';
 	return comboHtml;
