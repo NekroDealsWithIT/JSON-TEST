@@ -422,7 +422,8 @@ function rellenarDatos(){
 		parseado+='<li class="infested">Unknown: '+resultJson.constructionProgress.unknownProgress+'%</li></ul></div'
 		
 		var invasionData=resultJson.invasions;
-		ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Porcentaje','invTH'],['Ataca','invTH'],['Reward A','invTH'],['Defiende','invTH'],['Reward D','invTH'],['VS infested','invTH']])
+		//ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Porcentaje','invTH'],['Ataca','invTH'],['Reward A','invTH'],['Defiende','invTH'],['Reward D','invTH'],['VS infested','invTH']])
+		ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Porcentaje','invTH'],['Ataca','invTH'],['Reward A','invTH'],['Defiende','invTH'],['Reward D','invTH']])
 		invasionData.forEach(function(inv){
 			var td=[];
 			if (!inv.completed){
@@ -453,10 +454,10 @@ function rellenarDatos(){
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push(['<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push([inv.attackingFaction.toUpperCase(),'tdInvasion '+atk+isCompleted]);
-				td.push(['<a id="'+inv.attackerReward.asString+'"></a><img src="'+inv.attackerReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>','tdInvasion '+atk+isCompleted]);
+				td.push([(!inv.vsInfestation?'<a id="'+inv.attackerReward.asString+'"></a><img src="'+inv.attackerReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>':'❌'),'tdInvasion '+atk+isCompleted]);
 				td.push([inv.defendingFaction.toUpperCase(),'tdInvasion '+def+isCompleted]);
 				td.push(['<a id="'+inv.defenderReward.asString+'"></a><img src="'+inv.defenderReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
-				td.push([inv.vsInfestation,'tdInvasion '+def+isCompleted]);
+				//td.push([inv.vsInfestation,'tdInvasion '+def+isCompleted]);
 				tds.push(td);	
 			}
 		});
