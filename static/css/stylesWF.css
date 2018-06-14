@@ -7,9 +7,9 @@ html {
 
 }
 body{
+	/*trabajo el fondo con mediaquery*/
 	background-color: black;
-	color:white;
-	background:url('../img/stars.gif')  repeat fixed;
+	color:white;	
 }
 a{
 	color: yellow;
@@ -587,11 +587,46 @@ h3{
 .soundInactive:before{
 	content: "❌";
 }
-
-
 .audioText{
 
 }
 .audioProbar{
 
 }
+
+/*
+----------------------------
+		MediaQueries
+----------------------------
+*/
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	body{
+		background:black;
+	}
+} 
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+	body{
+		background:url('../img/stars.gif')  repeat fixed;
+	}
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+}
+
+
