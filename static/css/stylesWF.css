@@ -27,6 +27,11 @@ h3{
   	top:-1px;
 }
 
+.loading{
+	width: 100%;
+	opacity: .5;
+}
+
 /*
 	estados de desarrollo
 	.dev_analisis,
