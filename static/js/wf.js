@@ -596,6 +596,61 @@ function rellenarDatos(){
 		parseado +='<hr>';
 		baro.innerHTML=parseado;
 		
+		//Syndicates
+		var synData=resultJson.syndicateMissions;
+		parseado="";
+		parseado +='<h3>Sindicatos</h3>'
+		synData.forEach	(function(s){
+			parseado+="<h2>"+s.syndicate+" | "+strDiff(s.eta,diff)+"</h2>";
+			
+			if(s.nodes.length>0){
+				parseado+="<h4>Nodos:</h4><ul>";
+
+				s.nodes.forEach(function (n){
+					parseado+='<li class="syndicateNode">'+n+"</li>";
+				});
+				parseado+="</ul>";
+			}
+			
+			if(s.jobs.length>0){
+				parseado+="<ul>";
+				s.jobs.forEach(function (j){
+					var enemyLevels	="";
+					j.enemyLevels.forEach(function (el){
+						if (enemyLevels==""){
+							enemyLevels+=el;
+						}else{
+							enemyLevels+="-"+el;
+						}
+							
+					});
+					enemyLevels="Nivel: "+enemyLevels;
+
+					var standingStages	="";
+					j.standingStages.forEach(function (ss){
+						if (standingStages==""){
+							standingStages+=ss;
+						}else{
+							standingStages+="-"+ss;
+						}
+							
+					});
+
+					var rewards="<h4>Rewards:</h4><ol>";
+					j.rewardPool.forEach(function (rp){
+						rewards+="<li class='syndicateReward'>"+rp+"</li>";
+					});
+					rewards+="</ol>";
+
+					standingStages="Standing: "+standingStages;
+
+					parseado+='<li class="syndicateTitle">'+j.type+"<br>"+enemyLevels+"<br>"+standingStages+rewards+"<br><hr></li>";
+				});
+				parseado+="</ul>";
+			}
+		});
+		syndicates.innerHTML=parseado;
+
 		//News
 		var newsData=resultJson.news;
 		parseado='';
