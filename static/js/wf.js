@@ -239,7 +239,7 @@ function rellenarDatos(){
 					if(t=='baro'){
 						if(itemsBaroActuales.inventory!=undefined){
 							itemsBaroActuales.inventory.forEach(function(i){
-								if(i.item==strReplaceAllNonPrintables(c.cachedItem)){
+								if(i.item==strReplaceAllNonPrintable(c.cachedItem)){
 									actual=i.item;
 									completa=chequearCompleto(actual);
 									timerNotificacion=strDiff(itemsBaroActuales.endString,diff);
