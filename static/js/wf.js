@@ -240,7 +240,7 @@ function rellenarDatos(){
 						if(itemsBaroActuales.inventory!=undefined){
 							itemsBaroActuales.inventory.forEach(function(i){
 								if(i.item==c.cachedItem){
-									actual=i.inventory.item;
+									actual=i.item;
 									completa=chequearCompleto(actual);
 									timerNotificacion=strDiff(itemsBaroActuales.endString,diff);
 								}
