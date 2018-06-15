@@ -251,7 +251,7 @@ h3{
 	border: 1px dashed red;
 	margin: auto;
 }
-.tableAlerts, .tableInvasion, .tableFisures, .tableSortie{
+.tableAlerts, .tableInvasion, .tableFisures, .tableSortie, .tableBaro{
 	border: 1px dashed red;
 	width: 90%; 
 	margin: auto;
@@ -563,7 +563,7 @@ h3{
 .thumbnailCopiar:active
 ,.thumbnailCopiar:hover
 {
-	transform: scale(1.5);
+	transform: scale(2.5);
 	transition-duration: 0.001s;
 }
 /*referente a audio*/

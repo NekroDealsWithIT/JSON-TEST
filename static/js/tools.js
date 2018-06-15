@@ -227,6 +227,23 @@ function fillStr(string,positions=0,char='0',left=true){
 	}
 	return result;
 }
+
+function strReplaceAll(texto,reemplazar,por,escape=false){
+	//return str.replace(new RegExp(find, 'g'), replace);
+	if (escape){
+		por="\\"+reemplazar;
+		return texto.split(reemplazar).join(por);	
+	} else {
+		return texto.split(reemplazar).join(por);	
+	}
+	
+}
+
+function strReplaceAllNonPrintable(texto,reemplazarPor=' '){
+	texto=strReplaceAll	(texto,"'",reemplazarPor);
+	return texto;
+}
+
 /*
 -----------------------------------------------------
 	Funciones de tiempo

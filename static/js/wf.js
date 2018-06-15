@@ -190,6 +190,7 @@ function rellenarDatos(){
 			
 			var alertasActuales=resultJson.alerts;
 			var invasionesActuales=resultJson.invasions;
+			var itemsBaroActuales=resultJson.voidTrader;
 			tipos.forEach(function(t){
 				// notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h4 class="ucase subrayado">'+t+'</h4><ul id="typeNotif'+t.toUpperCase()+'">';
 				var notificacion='';
@@ -234,8 +235,16 @@ function rellenarDatos(){
 							}
 						});
 					}
-
-
+					// Si esta baro... hay que recorrerle los items
+					if(t=='baro'){
+						itemsBaroActuales.forEach(function(i){
+							if(i.inventory!=undefined&&i.inventory.item!=undefined&&i.item==c.cachedItem){
+								actual=i.inventory.item;
+								completa=chequearCompleto(actual);
+								timerNotificacion=strDiff(i.endString,diff);
+							}
+						});
+					}
 
 					if(t=='recursos'&&c.cachedItem==''){
 							//de paso revisamos si esta completa para marcarlo tambien!
@@ -444,11 +453,11 @@ function rellenarDatos(){
 				var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idInvasion+')"'+(invasionCompleta?' checked':'')+'>Completa?</label><br>'
 				var isCompleted=(invasionCompleta?' completed':'');
 
-				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
-				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
-
 				// agrego la invasionActiva
 				invasionActivaArr.push(inv.id);
+
+				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
+				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 				td.push([imgCopiar+checkBoxCompleted+inv.desc,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)]);
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
@@ -522,8 +531,6 @@ function rellenarDatos(){
 			var txtCopiar="'"+"Fissure: "+f.tier+' ('+f.tierNum+')'+"|"+f.node+"|"+f.missionType+"|"+strDiff(f.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
 			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 
-
-
 			td.push([imgCopiar+f.tier+' ('+f.tierNum+')','tdFisure '+fisureFaction]);
 			td.push([strDiff(f.eta,diff),'tdFisure '+fisureFaction]);
 			td.push([f.enemy,'tdFisure '+fisureFaction]);
@@ -542,6 +549,12 @@ function rellenarDatos(){
 		parseado +='<h3>'+baroData.character+'</h3>'
 
 		var itemsBaro='';
+		if(baroData.active){
+			baroData.inventory.forEach(function (i){
+				itemsBaro+="("+i.item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+") ";
+			});
+		}
+		itemsBaro=strReplaceAllNonPrintable(itemsBaro);
 		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' ['+strDiff((baroData.startString),diff)+"] "+" | "+' Se va:['+strDiff((baroData.endString),diff)+"]"+(baroData.active?' | Items: '+itemsBaro:'')+' {http://nekro-warframe.netlify.com}'+"'";
 		var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
@@ -551,7 +564,32 @@ function rellenarDatos(){
 			'<BR>Llega a: '+baroData.location+' Activo: '+baroData.active+
 			'<BR>Llega: '+strDiff((baroData.startString),diff)+' Se va: '+strDiff((baroData.endString),diff);
 		if(baroData.active){
-			parseado +='<BR>Inventario: '+baroData.inventory;
+			parseado +='<h2>Inventario</h2>';
+			ths=[];
+			tds=[];
+			ths.push([['Item'],['Ducats'],['Creditos']]);
+			baroData.inventory.forEach(function (i){
+				var td=[];
+				var item=strReplaceAllNonPrintable(i.item);
+
+				//Agregado a la lista de notificaciones de cookies
+				var cookieStore='';
+				cookieStore='t_'+'baro_i_'+item+'_l_'+'static/img/factions/Baro.png';
+				setCookie(cookieStore,new Date(),365*24*60*60*1000);
+
+				//Agrego copiar
+				var txtCopiar="'"+"Baro: "+item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+" | Ubicacion: "+baroData.location+' ('+strDiff((baroData.endString),diff)+') {http://nekro-warframe.netlify.com}'+"'";
+				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+
+				// agrego link al item y anchor
+				item='<a id="'+item+'"><a href="http://warframe.wikia.com/wiki/Special:Search?search='+item+'" target="blank">'+item+'</a>'
+				td.push([imgCopiar+item,'tdBaro orokin']);
+				td.push([i.ducats,'tdBaro orokin']);
+				td.push([i.credits,'tdBaro orokin']);
+
+				tds.push(td);
+			});
+			parseado +=generateTable(tds,ths,'tableBaro enlargeMe','','');
 		}			
 		parseado +='<hr>';
 		baro.innerHTML=parseado;
