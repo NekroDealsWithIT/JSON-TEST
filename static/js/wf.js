@@ -237,13 +237,15 @@ function rellenarDatos(){
 					}
 					// Si esta baro... hay que recorrerle los items
 					if(t=='baro'){
-						itemsBaroActuales.forEach(function(i){
-							if(i.inventory!=undefined&&i.inventory.item!=undefined&&i.item==c.cachedItem){
-								actual=i.inventory.item;
-								completa=chequearCompleto(actual);
-								timerNotificacion=strDiff(i.endString,diff);
-							}
-						});
+						if(itemsBaroActuales.inventory!=undefined){
+							itemsBaroActuales.inventory.forEach(function(i){
+								if(i.item==c.cachedItem){
+									actual=i.inventory.item;
+									completa=chequearCompleto(actual);
+									timerNotificacion=strDiff(itemsBaroActuales.endString,diff);
+								}
+							});
+						}
 					}
 
 					if(t=='recursos'&&c.cachedItem==''){
