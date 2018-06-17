@@ -265,7 +265,7 @@ h3{
 	width: 50px;
 }
 .tableAlerts th{
-	width: 1%;
+	width: 0;
 }
 .tableInvasion img{
 	width: 50px;
@@ -274,7 +274,7 @@ h3{
 	width:100%;
 }
 .invTH{
-	width: 1%;
+	width: 0;
 }
 .sonidos ul{
 	margin:auto;
@@ -292,6 +292,7 @@ h3{
 .corpus{
 	background-color: blue;
 	color: white;
+	text-align: center;
 }
 .corpus a, .corpus a:visited{
 	color:yellow;
@@ -299,6 +300,7 @@ h3{
 .grineer{
 	background-color: burlywood;
 	color: darkred;
+	text-align: center;
 }
 .grineer a, .grineer a:visited{
 	color:#0400ff;
@@ -306,6 +308,7 @@ h3{
 .infested, .crossfire{
 	background-color: aquamarine;
 	color: black;
+	text-align: center;
 }
 .infested a, .crossfire a, .infested a:visited, .crossfire a:visited{
 	color:#0400fe;	
@@ -313,6 +316,7 @@ h3{
 .orokin, .corrupted{
 	background-color: rebeccapurple;
 	color: white;
+	text-align: center;
 }
 .orokin a, .corrupted a, .orokin a:visited, .corrupted a:visited{
 	color: #11d6ea;
