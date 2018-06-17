@@ -11,9 +11,15 @@ var trabajandoEn=[
 var fetching=false;
 var resultJson='';
 
+var setsToCheck=['vigilante','gladiator','blueprint','relic','augur'];
+
 var timer1='';
 var counter1=0;
 var counter1Max=30;
+
+var fetchingCounter=0;
+var fetchingCounterMax=30;
+
 var estadoTimerTiming=true;
 
 var completado=[];
@@ -57,8 +63,6 @@ function getJson(url='',viaCors=true){
 	request.send();
 	request.onload = function() {
 	  resultJson = request.response;
-	  //alert(dataJson['USD']['transferencia']);
-	  //console.log(request.response);
 	  fetching=false;
 	  return request.response;
 	}
@@ -104,11 +108,18 @@ function startAll(){
 function timerTime(){
 	rellenarDatos();
 	if (!fetching){
-		counter1++
+		fetchingCounter=0;
+		counter1++;
 		if (counter1>=counter1Max){
 			getWFWorldstate();
 			counter1=0;
 		}
+	}else{
+		fetchingCounter++;
+		if (fetchingCounter>=fetchingCounterMax){
+			getWFWorldstate();
+			fetchingCounter=0;
+		}		
 	}
 }
 
@@ -604,10 +615,14 @@ function rellenarDatos(){
 			parseado+="<h2>"+s.syndicate+" | "+strDiff(s.eta,diff)+"</h2>";
 			
 			if(s.nodes.length>0){
-				parseado+="<h4>Nodos:</h4><ul>";
+				parseado+='<h4 class="syndicateTitle">Nodos:</h4><ul>';
 
 				s.nodes.forEach(function (n){
-					parseado+='<li class="syndicateNode">'+n+"</li>";
+					//Agrego copiar
+					var txtCopiar="'"+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+n+' {http://nekro-warframe.netlify.com}'+"'";
+					var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+
+					parseado+='<li class="syndicateNode">'+imgCopiar+n+"</li>";
 				});
 				parseado+="</ul>";
 			}
@@ -633,12 +648,16 @@ function rellenarDatos(){
 						}else{
 							standingStages+="-"+ss;
 						}
-							
 					});
 
-					var rewards="<h4>Rewards:</h4><ol>";
+					var rewards="<h4>Rewards"+" | ("+strDiff(s.eta,diff)+"):</h4><ol>";
 					j.rewardPool.forEach(function (rp){
-						rewards+="<li class='syndicateReward'>"+rp+"</li>";
+						//Agrego copiar
+						var txtCopiar="'"+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+j.type+" | "+rp+' {http://nekro-warframe.netlify.com}'+"'";
+						var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+						var link='<a href="http://warframe.wikia.com/wiki/Special:Search?search='+rp+'" target="blank">🔗</a>';
+
+						rewards+='<li class="syndicateReward '+checkSetsClass(rp)+ '"'+'>'+imgCopiar+link+"&nbsp;"+rp+'</li>';
 					});
 					rewards+="</ol>";
 
@@ -667,7 +686,21 @@ function rellenarDatos(){
 		limpiarCompletasFinalizadas();
 	}
 }
-
+function checkSetsClass(reward){
+	reward=reward.toLowerCase();
+	result='';
+	setsToCheck.forEach(function (s){
+		s=s.toLowerCase();
+		if(reward.indexOf(s)>-1){
+			result=s;
+		}
+	});
+	if (result!=''){
+		return result;
+	}else{
+		return result;
+	}
+}
 function strToDate(stringDate){
 	var res=stringDate.split(" ");
 	var response=0;
@@ -987,6 +1020,7 @@ function getComboSound(id){
 	comboHtml+='<span class="audioProbar" id="'+id+'Span" onclick="focusSound('+"'"+id+"'"+",'SpanTipo',false);"+'"> (Probar ▶)</span>';
 	return comboHtml;
 }
+
 function focusSound(id,type,hold){
 	// console.log('id: '+id+' type: '+type+' hold: '+hold);
 	// console.log('id:'+id+' combotTipo:'+(id+'CheckTipo').checked);
@@ -1078,7 +1112,7 @@ function holdTimer(hold){
 	if(hold){
 		// tengo que detener los timers
 		toggleTimer(false);
-	}else{
+	}else{111
 		//lo dejo en el estado que lo encontre
 		toggleTimer(autoUpdateHiddenCheckbox.checked);
 	}

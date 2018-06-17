@@ -598,18 +598,61 @@ h3{
 .audioProbar{
 
 }
+/*
+----------------------------
+Syndicates
+----------------------------
+*/
+.syndicateTitle{
+	color:#0f0;
+}
 .syndicateNode{
 	color:#35deaf;
-	font-size: 	0.75rem;
+	font-size: 0.75rem;
 }
 .syndicateReward{
 	color:#35deaf;
-	font-size: 	0.75rem;
-}
-.syndicateTitle{
-	color: #ff003b;
+	font-size: 0.75rem;
 }
 
+.syndicateReward a:visited,
+.syndicateReward a{
+	color:#35deaf;
+	background: none;
+	font-size: 1rem;
+}
+.syndicateLink{
+	background: currentColor;
+}
+
+/*
+----------------------------
+Sets para checkear
+----------------------------
+*/
+.vigilante{
+	font-size: 1.3rem;
+	color:yellow;
+	font-weight: 800;
+}
+.gladiator{
+	font-size: 1.3rem;
+	color:#de8aff;
+	font-weight: 800;
+}
+.augur{
+	font-size: 1.3rem;
+	color:#0f0;
+	font-weight: 800;	
+}
+.blueprint{
+	font-size: 1.3rem;
+	color:#e88cac;
+}
+.relic{
+	font-size: 1.3rem;
+	color:#11f9fb;
+}
 /*
 ----------------------------
 		MediaQueries
