@@ -39,6 +39,161 @@ var invasionActivaArr=[];
 var sortieActivaArr=[];
 var eventActivaArr=[];
 
+// historico
+var historicCachedData=[
+	{cachedType: "nightmare", cachedItem: "Focus Energy", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Sun Jun 10 2018 01:12:42 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "aura", cachedItem: "Rejuvenation", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Sun Jun 10 2018 04:35:38 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Ember Phoenix Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 10 2018 04:50:05 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Inaros Canopic Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 10 2018 06:53:55 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Dark Dagger Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Sun Jun 10 2018 08:16:15 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Ceramic Dagger Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Sun Jun 10 2018 09:28:26 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Zephyr Tengu Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 10 2018 10:59:42 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Forma Blueprint", cachedImgLink: "https://i.imgur.com/2b0FT3D.png", cachedTime: "Sun Jun 10 2018 11:25:36 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Orokin Catalyst Blueprint", cachedImgLink: "https://i.imgur.com/C4X9NWm.png", cachedTime: "Sun Jun 10 2018 11:25:36 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Nezha Circa Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 10 2018 11:51:34 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Rhino Vanguard Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 10 2018 13:44:26 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "forma", cachedItem: "Forma Blueprint", cachedImgLink: "https://i.imgur.com/2b0FT3D.png", cachedTime: "Sun Jun 10 2018 15:33:21 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Blaze", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Sun Jun 10 2018 17:07:51 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Heat Dagger Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Sun Jun 10 2018 18:55:31 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Fortitude", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Mon Jun 11 2018 01:22:56 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Vigor", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Mon Jun 11 2018 12:19:30 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Rending Strike", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Mon Jun 11 2018 13:19:21 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Trinity Aura Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Mon Jun 11 2018 14:08:40 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Trinity Meridian Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Mon Jun 11 2018 14:39:29 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Pangolin Sword Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Mon Jun 11 2018 18:08:30 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Ash Locust Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Mon Jun 11 2018 19:41:41 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Hydroid Triton Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Mon Jun 11 2018 22:16:27 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Valkyr Kara Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Mon Jun 11 2018 22:59:54 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Chroma Drac Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 00:36:04 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Loki Swindle Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 01:29:38 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "skin", cachedItem: "Brokk Hammer Skin Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…ate-parser/master/resources/weapon_skin_thumb.png", cachedTime: "Tue Jun 12 2018 01:55:43 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Rhino Thrak Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 05:26:46 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Atlas Tartarus Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 12:36:06 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Oberon Markhor Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 14:01:25 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Seeking Fury", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Tue Jun 12 2018 14:24:05 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Valkyr Bastet Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 15:24:40 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "aura", cachedItem: "Speed Holster", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Tue Jun 12 2018 16:16:30 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Jaw Sword Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Tue Jun 12 2018 19:48:54 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Volt Pulse Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 20:12:55 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Mirage Harlequin Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 21:59:11 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Sheev Blueprint", cachedImgLink: "", cachedTime: "Tue Jun 12 2018 22:35:55 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "catalyst", cachedItem: "Orokin Catalyst Blueprint", cachedImgLink: "https://i.imgur.com/C4X9NWm.png", cachedTime: "Tue Jun 12 2018 23:39:47 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Vauban Esprit Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Tue Jun 12 2018 23:47:41 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Constitution", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Wed Jun 13 2018 01:17:46 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Banshee Chorus Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Thu Jun 14 2018 10:53:05 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Sheev Heatsink", cachedImgLink: "", cachedTime: "Thu Jun 14 2018 10:53:05 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Karak Wraith Blueprint", cachedImgLink: "https://i.imgur.com/B5sv3mQ.png", cachedTime: "Thu Jun 14 2018 10:53:05 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Snipetron Vandal Stock", cachedImgLink: "https://i.imgur.com/kPQcg5B.png", cachedTime: "Thu Jun 14 2018 10:53:05 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Latron Wraith Receiver", cachedImgLink: "https://i.imgur.com/B5sv3mQ.png", cachedTime: "Thu Jun 14 2018 10:53:05 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Dera Vandal Barrel", cachedImgLink: "https://i.imgur.com/kPQcg5B.png", cachedTime: "Thu Jun 14 2018 10:53:05 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "kubrowEgg", cachedItem: "Kubrow Egg", cachedImgLink: "https://i.imgur.com/Vv3LXnz.png", cachedTime: "Thu Jun 14 2018 11:33:00 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "aura", cachedItem: "Shield Disruption", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Thu Jun 14 2018 15:27:21 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "morphics", cachedItem: "", cachedImgLink: "https://i.imgur.com/SF3XWd6.png", cachedTime: "Thu Jun 14 2018 17:11:24 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Plasma Sword Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Thu Jun 14 2018 18:02:20 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Nidus Prion Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Thu Jun 14 2018 18:48:45 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Ivara Loxley Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Thu Jun 14 2018 19:22:39 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Ash Scorpion Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Thu Jun 14 2018 19:24:42 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "resource", cachedItem: "", cachedImgLink: "https://i.imgur.com/Bq5TEPo.png", cachedTime: "Thu Jun 14 2018 20:16:46 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Heat Sword Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Thu Jun 14 2018 20:37:45 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Nekros Raknis Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Thu Jun 14 2018 21:06:40 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Saryn Chlora Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Thu Jun 14 2018 23:54:17 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "vauban", cachedItem: "Vauban Systems Blueprint", cachedImgLink: "https://i.imgur.com/r5x0owi.png", cachedTime: "Fri Jun 15 2018 00:30:23 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Wraith Twin Vipers Blueprint", cachedImgLink: "https://i.imgur.com/B5sv3mQ.png", cachedTime: "Fri Jun 15 2018 08:58:59 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Dera Vandal Stock", cachedImgLink: "https://i.imgur.com/kPQcg5B.png", cachedTime: "Fri Jun 15 2018 08:58:59 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Karak Wraith Receiver", cachedImgLink: "https://i.imgur.com/B5sv3mQ.png", cachedTime: "Fri Jun 15 2018 08:58:59 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Dera Vandal Receiver", cachedImgLink: "https://i.imgur.com/kPQcg5B.png", cachedTime: "Fri Jun 15 2018 08:58:59 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Exilus Adapter Blueprint", cachedImgLink: "https://i.imgur.com/eQNeNpY.png", cachedTime: "Fri Jun 15 2018 09:41:15 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Orokin Reactor Blueprint", cachedImgLink: "https://i.imgur.com/6Hm1BEq.png", cachedTime: "Fri Jun 15 2018 09:41:15 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Frost Aurora Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Fri Jun 15 2018 23:29:24 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Zephyr Cierzo Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Fri Jun 15 2018 23:56:43 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Nyx Menticide Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sat Jun 16 2018 01:39:22 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "aura", cachedItem: "Sprint Boost", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Sat Jun 16 2018 14:01:46 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Wraith Twin Vipers Barrel", cachedImgLink: "https://i.imgur.com/B5sv3mQ.png", cachedTime: "Sat Jun 16 2018 14:01:46 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Dera Vandal Blueprint", cachedImgLink: "https://i.imgur.com/kPQcg5B.png", cachedTime: "Sat Jun 16 2018 14:01:46 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Gara Virago Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sat Jun 16 2018 14:52:08 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Armored Agility", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Sat Jun 16 2018 16:09:34 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Stunning Speed", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Sat Jun 16 2018 16:10:34 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Glaive Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Sat Jun 16 2018 16:58:24 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Oberon Oryx Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sat Jun 16 2018 18:13:49 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Limbo Magrite Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sat Jun 16 2018 19:21:12 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "synthula", cachedItem: "", cachedImgLink: "https://i.imgur.com/X0Lvfc9.png", cachedTime: "Sat Jun 16 2018 20:42:37 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "weapon", cachedItem: "Dark Sword Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Sat Jun 16 2018 20:42:37 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Nova Slipstream Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sat Jun 16 2018 21:40:18 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Nekros Shroud Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sat Jun 16 2018 22:28:44 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Octavia Cadenza Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sat Jun 16 2018 23:33:35 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "aura", cachedItem: "Dead Eye", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Sun Jun 17 2018 00:45:25 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Harrow Suffragan Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 17 2018 01:10:34 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Limbo Aristeas Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 17 2018 01:40:02 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Volt Storm Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 17 2018 02:42:19 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "plastids", cachedItem: "", cachedImgLink: "https://i.imgur.com/5yVfTEF.png", cachedTime: "Sun Jun 17 2018 03:02:40 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Vauban Gambit Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 17 2018 03:38:38 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "controlModule", cachedItem: "", cachedImgLink: "https://i.imgur.com/F1UUub1.png", cachedTime: "Sun Jun 17 2018 03:53:02 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Loki Essence Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 17 2018 04:21:42 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Wildfire", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Snipetron Vandal Blueprint", cachedImgLink: "https://i.imgur.com/kPQcg5B.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "invasion", cachedItem: "Sheev Hilt", cachedImgLink: "", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Baro Visor", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Primed Continuity", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Thermite Rounds", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Scattering Inferno", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Scorch", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Volcanic Edge", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Prisma Grakata", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Twin Grakata Towsun Skin", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Prisma Skana", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Baro Kiteer Sekhara", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Prisma Hecate Syandana", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Prisma Naberus Arm Armor", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Scimitar Prisma Skin", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Sonicor Exilis Skin", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Noggle Statue - Baro Ki teer", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Prisma Sigil ", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "3 Day Credit Booster", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "baro", cachedItem: "Sands Of Inaros", cachedImgLink: "static/img/factions/Baro.png", cachedTime: "Sun Jun 17 2018 11:09:16 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Excalibur Avalon Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 17 2018 11:53:32 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "circuits", cachedItem: "", cachedImgLink: "https://i.imgur.com/OxJvWIx.png", cachedTime: "Sun Jun 17 2018 13:05:01 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "skin", cachedItem: "Dagger Zoren Skin Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…ate-parser/master/resources/weapon_skin_thumb.png", cachedTime: "Sun Jun 17 2018 13:45:14 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "oxium", cachedItem: "", cachedImgLink: "https://i.imgur.com/hY8NCjk.png", cachedTime: "Sun Jun 17 2018 15:12:10 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Lethal Torrent", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Sun Jun 17 2018 15:34:40 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Wukong Dasheng Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 17 2018 15:47:58 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "vauban", cachedItem: "Vauban Chassis Blueprint", cachedImgLink: "https://i.imgur.com/r5x0owi.png", cachedTime: "Sun Jun 17 2018 17:33:54 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Accelerated Blast", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Sun Jun 17 2018 17:33:54 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "helmet", cachedItem: "Mirage Trivelin Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Sun Jun 17 2018 17:33:54 GMT-0300 (Argentina Standard Time)"},
+	{cachedType: "nightmare", cachedItem: "Shred", cachedImgLink: "https://i.imgur.com/cAYNH7j.png", cachedTime: "Sun Jun 17 2018 18:43:46 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "polymerBundle", cachedItem: "", cachedImgLink: "https://i.imgur.com/pg8asnC.png", cachedTime: "Sun Jun 17 2018 18:55:13 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "aura", cachedItem: "Energy Siphon", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Sun Jun 17 2018 20:13:10 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "orokinCell", cachedItem: "", cachedImgLink: "https://i.imgur.com/tEQdoDE.png", cachedTime: "Sun Jun 17 2018 20:13:10 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "rubedo", cachedItem: "", cachedImgLink: "https://i.imgur.com/gSO9ILf.png", cachedTime: "Sun Jun 17 2018 20:45:59 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "aura", cachedItem: "Rifle Scavenger", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Sun Jun 17 2018 21:31:31 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "ferrite", cachedItem: "", cachedImgLink: "https://i.imgur.com/h93eVLr.png", cachedTime: "Sun Jun 17 2018 22:47:48 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "aura", cachedItem: "Pistol Scavenger", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Sun Jun 17 2018 23:37:55 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "alloyPlate", cachedItem: "", cachedImgLink: "https://i.imgur.com/E8K3fOI.png", cachedTime: "Mon Jun 18 2018 00:11:55 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "helmet", cachedItem: "Equinox Solstice Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Mon Jun 18 2018 01:23:37 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "gallium", cachedItem: "", cachedImgLink: "https://i.imgur.com/pvpc73S.png", cachedTime: "Mon Jun 18 2018 01:37:32 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "nanoSpores", cachedItem: "", cachedImgLink: "https://i.imgur.com/bb71Cy7.png", cachedTime: "Mon Jun 18 2018 09:08:42 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "endo", cachedItem: "100 Endo", cachedImgLink: "https://i.imgur.com/mS8oSwx.png", cachedTime: "Mon Jun 18 2018 09:08:42 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "endo", cachedItem: "80 Endo", cachedImgLink: "https://i.imgur.com/mS8oSwx.png", cachedTime: "Mon Jun 18 2018 09:08:42 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "aura", cachedItem: "Infested Impedance", cachedImgLink: "https://github.com/Warframe-Community-Developers/w…dstate-parser/raw/master/resources/aura_thumb.png", cachedTime: "Mon Jun 18 2018 09:57:03 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "argonCrystal", cachedItem: "", cachedImgLink: "https://i.imgur.com/DdJJYSB.png", cachedTime: "Mon Jun 18 2018 10:18:38 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "neuralSensors", cachedItem: "", cachedImgLink: "https://i.imgur.com/Gq6cz9p.png", cachedTime: "Mon Jun 18 2018 10:39:30 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "nitain", cachedItem: "", cachedImgLink: "https://i.imgur.com/3Db4PHh.png", cachedTime: "Mon Jun 18 2018 17:15:45 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "helmet", cachedItem: "Wukong Macak Helmet Blueprint", cachedImgLink: "https://raw.githubusercontent.com/Warframe-Communi…tate-parser/master/resources/alt_helmet_thumb.png", cachedTime: "Mon Jun 18 2018 17:15:45 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "endo", cachedItem: "150 Endo", cachedImgLink: "https://i.imgur.com/mS8oSwx.png", cachedTime: "Mon Jun 18 2018 17:15:45 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "Latron Wraith Barrel", cachedImgLink: "https://i.imgur.com/B5sv3mQ.png", cachedTime: "Mon Jun 18 2018 17:15:45 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "Snipetron Vandal Barrel", cachedImgLink: "https://i.imgur.com/kPQcg5B.png", cachedTime: "Mon Jun 18 2018 17:15:45 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "Snipetron Vandal Receiver", cachedImgLink: "https://i.imgur.com/kPQcg5B.png", cachedTime: "Mon Jun 18 2018 17:15:45 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "Strun Wraith Barrel", cachedImgLink: "https://i.imgur.com/B5sv3mQ.png", cachedTime: "Mon Jun 18 2018 17:15:45 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "Mutalist Alad V Nav Coordinate", cachedImgLink: "https://i.imgur.com/96AWqr8.png", cachedTime: "Mon Jun 18 2018 17:15:45 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "credits", cachedItem: "", cachedImgLink: "https://i.imgur.com/JCKyUXJ.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "salvage", cachedItem: "", cachedImgLink: "https://i.imgur.com/3L7xLYg.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "traces", cachedItem: "", cachedImgLink: "https://i.imgur.com/vvZGMPv.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "tellurium", cachedItem: "", cachedImgLink: "https://i.imgur.com/ocjnGU8.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "3 Detonite Injector", cachedImgLink: "https://i.imgur.com/rV6lN4W.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "3 Fieldron", cachedImgLink: "https://i.imgur.com/qlrlfft.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "2 Mutagen Mass", cachedImgLink: "https://i.imgur.com/vV7kzub.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"},
+	{cachedType: "invasion", cachedItem: "Mutagen Mass", cachedImgLink: "https://i.imgur.com/vV7kzub.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"}
+];
+
 function checkCampeon(){
 	campeon=getCookie('campeon');
 	if(campeon!=undefined&&campeon!=''){
@@ -69,7 +224,12 @@ function getJson(url='',viaCors=true){
 }
 
 function startAll(){
+	//llamo el worldstate
 	getWFWorldstate();
+
+	//Cargo las cookies por defecto
+	setCachedDefaultData();
+
 	// busco en las cookies las completadas de los ultimos 7 dias
 	completado=completado.concat(getCookieArray("completas"));
 	// console.log('completado:');
@@ -1122,4 +1282,13 @@ function holdTimer(hold){
 		//lo dejo en el estado que lo encontre
 		toggleTimer(autoUpdateHiddenCheckbox.checked);
 	}
+}
+
+function setCachedDefaultData(){
+	historicCachedData.forEach(function (hcd){
+		var cookieStore="t_"+hcd.cachedType+'_i_'+hcd.cachedItem+'_l_'+hcd.cachedImgLink;
+		if(getCookie(cookieStore)==""){
+			setCookie(cookieStore,hcd.cachedTime,365*24*60*60*1000);
+		}
+	});
 }
