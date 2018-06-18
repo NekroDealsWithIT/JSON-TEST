@@ -37,7 +37,7 @@
 			<div id="botonera-desplegable" class="hidden ucase negrita">
 				<ul>
 					<li>
-						<label class="active" id="autoUpdateCheckbox"><input type="checkbox" id="autoUpdateHiddenCheckbox" name="autoUpdate"	checked onclick="toggleTimer(this.checked);toggleClass('autoUpdateCheckbox','active',this.checked);">Actualizar		</label>
+						<label class="active" id="autoUpdateCheckbox"><input type="checkbox" id="autoUpdateHiddenCheckbox" name="autoUpdate"	checked onclick="toggleTimer(this.checked);toggleClass('autoUpdateCheckbox','active',this.checked);">Actualizar</label>
 					</li>
 					<li>
 						<a href="#C">▼</a>
@@ -94,7 +94,7 @@
 		<div id="datosPagina"><img class="loading" src="static/img/loading.gif"></div>
 		<div id="timeStamp"></div>
 		<div id="workingOn" class="hidden"></div>
-		<hr>
+		
 		<div id="sonidos" class="sonidos hidden">
 			<a id="S"></a>
 			<h3>Sonidos, notificaciones</h3>
@@ -254,26 +254,36 @@
 			</div>
 		</div>
 		<a id="NOTI"></a>
-		<div id="notificaciones"></div>
+		<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">Notificaciones</h3>
+		<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
 		<a id="T"></a>
-		<section id="timers"></section>
+		<h3 id="timersTitle" onclick="toggleHide('timers');">Timers</h3>
+		<section id="timers"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="E"></a>
-		<section id="events"></section>
+		<h3 id="eventsTitle" onclick="toggleHide('events');">Eventos</h3>
+		<section id="events"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="A"></a>
-		<section id="alerts"></section>
+		<h3 id="alertsTitle" onclick="toggleHide('alerts');">Alertas</h3>
+		<section id="alerts"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="I"></a>
-		<section id="invasions"></section>
+		<h3 id="invasionsTitle" onclick="toggleHide('invasions');">Invasiones</h3>
+		<section id="invasions"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="S"></a>
-		<section id="sortie"></section>
+		<h3 id="sortieTitle" onclick="toggleHide('sortie');">Sortie</h3>
+		<section id="sortie"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="F"></a>
-		<section id="fissures"></section>
+		<h3 id="fissuresTitle" onclick="toggleHide('fissures');">Fisuras</h3>
+		<section id="fissures"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="B"></a>
-		<section id="baro"></section>
+		<h3 id="baroTitle" onclick="toggleHide('baro');">Baro</h3>
+		<section id="baro"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="SYN"></a>
-		<section id="syndicates"></section>
+		<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">Sindicatos</h3>
+		<section id="syndicates"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="N"></a>
-		<section id="news"></section>
-		<br><hr><br>	
+		<h3 id="newsTitle" onclick="toggleHide('news');">News</h3>
+		<section id="news"><img class="loading" src="static/img/loading.gif"></section>
+		<br>
 	</div>
 	
 	<!-- Global site tag (gtag.js) - Google Analytics -->

@@ -101,7 +101,7 @@ function startAll(){
 		workingOn.innerHTML+='(realidad)<br><img class="ahhhhhhhhhhhhhh" src="static/img/bug.gif" alt="yo tampoco cargo."><br><br>';
 		workingOn.innerHTML+='Discord:Nekro#0089<br>'+'serioMode=true;';
 	}	
-	//fin de en que estoy trabajando?1
+	//fin de en que estoy trabajando?
 
 	timer1=setClock(1000,timerTime,timer1);
 }
@@ -161,7 +161,7 @@ function rellenarDatos(){
 		cookiesShow.innerHTML+='<h2>Completas:</h2>';
 		cookiesShow.innerHTML+=getCookie("completas");
 		cookiesShow.innerHTML+='<h2>Data cacheada(notificaciones):</h2>';
-		cookiesShow.inne1rHTML+=arrayToPipedString(getCachedData());
+		cookiesShow.innerHTML+=arrayToPipedString(getCachedData());
 
 
 		//Timestamp
@@ -173,7 +173,7 @@ function rellenarDatos(){
 		// timeStamp.innerHTML+= '<BR>DIFF<BR>'+diff;
 		
 		//CetusTimer
-		timers.innerHTML='<h3>Timers</h3>';
+		timers.innerHTML='';
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
 		
@@ -181,8 +181,8 @@ function rellenarDatos(){
 		var cacheado=[];
 		cacheado=getCachedData();
 		if (cacheado.length>0){
-			notificaciones.innerHTML='<h3>Notificar ('+cacheado.length+' Items cacheados | '+(informarArrChecked.length-1)+' Items seleccionados)</h3>';
-			notificaciones.innerHTML+='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
+			notificacionesTitle.innerHTML='Notificar ('+cacheado.length+' Items cacheados | '+(informarArrChecked.length-1)+' Items seleccionados)';
+			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			var tipos=[];
 			cacheado.forEach(function(c){
 				if(c.cachedItem!=''){
@@ -304,10 +304,12 @@ function rellenarDatos(){
 		//Events
 		var eventsData=resultJson.events;
 		if (eventsData.length>0){
+
+			eventsTitle.innerHTML="Eventos ("+eventsData.length+' activo)';
 			removeClass('eventsCheckbox','hidden');
 			parseado='';
 			// parseado='<a id="E"></a>';
-			parseado+='<h3>Eventos</h3>';
+			// parseado+='<h3>Eventos</h3>';
 			
 			eventsData.forEach(function(e){
 				parseado +='<article>';
@@ -363,8 +365,9 @@ function rellenarDatos(){
 			// parseado += '<hr>';
 			events.innerHTML=parseado;
 		}else{
-			addClass('eventsCheckbox','hidden');
-			events.innerHTML='';
+			// addClass('eventsCheckbox','hidden');
+			events.innerHTML='<h2>No hay eventos activos</h2>';
+			eventsTitle.innerHTML="Eventos (No hay eventos activos)"
 		}
 
 		//Alerts
@@ -372,7 +375,7 @@ function rellenarDatos(){
 		tds=[];
 		parseado='';
 		// parseado='<a id="A"></a>';
-		parseado+='<h3>Alertas</h3>';
+		// parseado+='<h3>Alertas</h3>';
 		
 		var alertsData=resultJson.alerts;
 		ths.push([['Tiempo','alertTH'],['Mods','alertTH'],['Tipo Mision','alertTH'],['Nodo','alertTH'],['Faccion','alertTH'],['Nivel','alertTH'],['Reward','alertTH']])
@@ -430,13 +433,13 @@ function rellenarDatos(){
 		parseado += generateTable(tds,ths,'tableAlerts enlargeMe','','');
 		parseado += '<hr>';
 		alerts.innerHTML=parseado;
-		
+		alertsTitle.innerHTML='Alertas ['+alertaActivaArr.length+']';
 		//Invasions
 		ths=[];
 		tds=[];
 		parseado='';
 		// parseado='<a id="I"></a>';
-		parseado+='<h3>Invasiones</h3>'
+		// parseado+='<h3>Invasiones</h3>'
 		
 		parseado+='<div>Construcciones:'
 		parseado+='<ul><li class="grineer">Fomorian: '+resultJson.constructionProgress.fomorianProgress+'%</li>'
@@ -487,7 +490,7 @@ function rellenarDatos(){
 		parseado += '<div class="tableInvasion enlargeMe">'+generateTable(tds,ths,'tableInvasion','','border="1px solid white"')+'</div>';
 		parseado += '<hr>';
 		invasions.innerHTML=parseado;
-
+		invasionsTitle.innerHTML='Invasiones ['+invasionActivaArr.length+']';
 		//Sortie
 		ths=[];
 		tds=[];
@@ -495,8 +498,9 @@ function rellenarDatos(){
 		var sortieData=resultJson.sortie;
 		// parseado ='<a id="S"></a>';
 		if (sortieData!=undefined){
-			parseado += '<h3>(Sortie '+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
-			
+			// parseado += '<h3>(Sortie '+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
+			sortieTitle.innerHTML = 'Sortie '+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')';
+			parseado += '<div>Jefe: '+sortieData.boss
 			parseado += '<BR>Faccion: '+sortieData.faction;
 			parseado += '<BR>Tiempo Restante: '+strDiff((sortieData.eta),diff)+'('+sortieData.eta+')</div>';
 			var sortieFaction=sortieData.faction.toLowerCase();
@@ -528,7 +532,7 @@ function rellenarDatos(){
 		parseado='';
 		var fisureData=resultJson.fissures;
 		// parseado ='<a id="F"></a>';
-		parseado +='<h3>Fisures</h3>';
+		// parseado +='<h3>Fisures</h3>';
 		
 		ths=[];
 		tds=[];
@@ -554,12 +558,12 @@ function rellenarDatos(){
 		parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
 		parseado +='<hr>';
 		fissures.innerHTML=parseado;
-		
+		fissuresTitle.innerHTML='Fisuras ['+fisureData.length+']';
 		//Baro
 		var baroData=resultJson.voidTrader;
 		parseado='';
-		// parseado ='<a id="B"></a>';
-		parseado +='<h3>'+baroData.character+'</h3>'
+		// parseado ='<a id="B"></a>';		
+		// parseado +='<h3>'+baroData.character+'</h3>'
 
 		var itemsBaro='';
 		if(baroData.active){
@@ -606,11 +610,12 @@ function rellenarDatos(){
 		}			
 		parseado +='<hr>';
 		baro.innerHTML=parseado;
-		
+		baroTitle.innerHTML=baroData.character +' '+baroData.location+' Activo: '+baroData.active;
+
 		//Syndicates
 		var synData=resultJson.syndicateMissions;
 		parseado="";
-		parseado +='<h3>Sindicatos</h3>'
+		// parseado +='<h3>Sindicatos</h3>'
 		synData.forEach	(function(s){
 			parseado+="<h2>"+s.syndicate+" | "+strDiff(s.eta,diff)+"</h2>";
 			
@@ -674,7 +679,7 @@ function rellenarDatos(){
 		var newsData=resultJson.news;
 		parseado='';
 		// parseado='<a id="N"></a>';
-		parseado='<h3>News</h3>';
+		// parseado='<h3>News</h3>';
 		
 		parseado+='<ul class="news enlargeMe">';
 		newsData.forEach(function(n){
@@ -682,6 +687,7 @@ function rellenarDatos(){
 		});
 		parseado +='</ul><hr>';
 		news.innerHTML=parseado;
+		newsTitle='News ['+newsData.length+']';
 
 		limpiarCompletasFinalizadas();
 	}
@@ -1112,7 +1118,7 @@ function holdTimer(hold){
 	if(hold){
 		// tengo que detener los timers
 		toggleTimer(false);
-	}else{111
+	}else{
 		//lo dejo en el estado que lo encontre
 		toggleTimer(autoUpdateHiddenCheckbox.checked);
 	}
