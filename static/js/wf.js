@@ -687,7 +687,7 @@ function rellenarDatos(){
 		});
 		parseado +='</ul><hr>';
 		news.innerHTML=parseado;
-		newsTitle='News ['+newsData.length+']';
+		newsTitle.innerHTML='News ['+newsData.length+']';
 
 		limpiarCompletasFinalizadas();
 	}
