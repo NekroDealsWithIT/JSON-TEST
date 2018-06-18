@@ -1288,7 +1288,8 @@ function setCachedDefaultData(){
 	historicCachedData.forEach(function (hcd){
 		var cookieStore="t_"+hcd.cachedType+'_i_'+hcd.cachedItem+'_l_'+hcd.cachedImgLink;
 		if(getCookie(cookieStore)==""){
-			setCookie(cookieStore,hcd.cachedTime,365*24*60*60*1000);
+			console.log("Agregaria:"+cookieStore+"-"+hcd.cachedTime);
+			//setCookie(cookieStore,hcd.cachedTime,365*24*60*60*1000);
 		}
 	});
 }
