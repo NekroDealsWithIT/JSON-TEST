@@ -181,7 +181,7 @@ function rellenarDatos(){
 		var cacheado=[];
 		cacheado=getCachedData();
 		if (cacheado.length>0){
-			notificacionesTitle.innerHTML='Notificar ('+cacheado.length+' Items cacheados | '+(informarArrChecked.length-1)+' Items seleccionados)';
+			notificacionesTitle.innerHTML='Notificar ['+(informarArrChecked.length-1)+'/'+(cacheado.length)+']';
 			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			var tipos=[];
 			cacheado.forEach(function(c){
@@ -610,7 +610,7 @@ function rellenarDatos(){
 		}			
 		parseado +='<hr>';
 		baro.innerHTML=parseado;
-		baroTitle.innerHTML=baroData.character +' '+baroData.location+' Activo: '+baroData.active;
+		baroTitle.innerHTML=baroData.character +' - '+(baroData.active?"ESTA ACTIVO":"NO ESTA ACTIVO");
 
 		//Syndicates
 		var synData=resultJson.syndicateMissions;
