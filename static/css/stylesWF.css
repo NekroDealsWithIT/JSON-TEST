@@ -23,8 +23,13 @@ h3{
   	position: sticky;
   	background:#4992cc;
   	color:#0F0;
-  	padding: 2px 0 0 12px;
+  	padding: 3px 0;
   	top:-1px;
+  	cursor: pointer;
+}
+h5{
+	padding: 10px 0;
+	cursor: pointer;
 }
 
 .loading{
@@ -251,11 +256,12 @@ h3{
 	border: 1px dashed red;
 	margin: auto;
 }
-.tableAlerts, .tableInvasion, .tableFisures, .tableSortie, .tableBaro{
+.tableDrops, .tableAlerts, .tableInvasion, .tableFisures, .tableSortie, .tableBaro{
 	border: 1px dashed red;
 	width: 90%; 
 	margin: auto;
 	margin-top: 15px;
+	margin-bottom: 15px;
 	font-size:.8rem;
 }
 .thumbnail{
@@ -321,6 +327,32 @@ h3{
 .orokin a, .corrupted a, .orokin a:visited, .corrupted a:visited{
 	color: #11d6ea;
 }
+
+/*Colores de relics*/
+.axi,.lith,.meso,.neo{
+	color:black;
+}
+
+.axi:hover,
+.lith:hover,
+.meso:hover,
+.neo:hover{
+	font-weight: 900;
+}
+
+.axi{
+	background-color: tomato;
+}
+.neo{
+	background-color: gold;	
+}
+.meso{
+	background-color: darkgreen;
+}
+.lith{
+	background-color: green;	
+}
+
 /*formularios*/
 .formulario{
     max-width: 500px;
@@ -406,8 +438,12 @@ h3{
     max-width: 428px;
     min-width: 428px;	
 }
+.formulario ul li select{
+	margin: 0 5px;
+}
 .formulario ul li input[type="button"], 
-.formulario ul li input[type="submit"] {
+.formulario ul li input[type="submit"],
+.formulario ul li select {
     -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
     -webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
     box-shadow: inset 0px 1px 0px 0px #3985B1;
@@ -440,7 +476,7 @@ h3{
 .formulario:focus-within a::after,
 .formulario:focus-within a:visited::after{
 	font-size:.6rem;
-	content: " -- Editado por el contenedor padre! \1F497"
+	/*content: " -- Editado por el contenedor padre! \1F497"*/
 }
 /*Formato de texto*/
 .lineThrough{

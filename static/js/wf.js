@@ -9,7 +9,10 @@ var trabajandoEn=[
 					[3,'12-06-2018 Migre el manejo del desarrollo a trello!']
 				];
 var fetching=false;
+var fetchingDrops=false;
 var resultJson='';
+var resultJsonDrops='';
+var dropsEncontrados=0;
 
 var setsToCheck=['vigilante','gladiator','blueprint','relic','augur'];
 
@@ -204,7 +207,6 @@ function checkCampeon(){
 function getWFWorldstate(proxy=false){
 	var dataJson=getJson("https://ws.warframestat.us/pc",proxy);
 }
-
 function getJson(url='',viaCors=true){
 	fetching=true;
 	if(viaCors){
@@ -222,6 +224,105 @@ function getJson(url='',viaCors=true){
 	  return request.response;
 	}
 }
+function updateJsonDrops(proxy=false){
+	drops.innerHTML='<img class="loading" src="static/img/loading.gif">';
+	formItem.disabled=true;
+	formTipo.disabled=true;
+	dropsMetrics.innerText='';
+	getJsonDrops('https://drops.warframestat.us/data/all.json',false);
+}
+function getJsonDrops(url='',viaCors=true){
+	fetchingDrops=true;
+	if(viaCors){
+		// cors sirve como proxy externo
+		//http://cors.io/?u=http://content.warframe.com/dynamic/worldState.php
+		url="http://cors.io/?u="+url;
+	}
+	var request = new XMLHttpRequest();
+	request.open('GET', url);
+	request.responseType = 'json';
+	request.send();
+	request.onload = function() {
+	  resultJsonDrops = request.response;
+	  fetchingDrops=false;
+
+	  habemusDrops();		  
+	  return request.response;
+	}
+}
+function habemusDrops(){
+	if(resultJsonDrops!=''){
+		drops.innerHTML='';
+		formItem.disabled=false;
+		formTipo.disabled=true;
+		var cantidadItems=resultJsonDrops.blueprintLocations.length
+		cantidadItems+=resultJsonDrops.relics.length;
+		cantidadItems+=resultJsonDrops.cetusBountyRewards.length
+		cantidadItems+=resultJsonDrops.transientRewards.length;
+		cantidadItems+=resultJsonDrops.blueprintLocations.length;
+		cantidadItems+=resultJsonDrops.enemyBlueprintTables.length;
+		cantidadItems+=resultJsonDrops.modLocations.length;
+		cantidadItems+=resultJsonDrops.enemyModTables.length;
+		cantidadItems+=resultJsonDrops.keyRewards.length;
+		cantidadItems+=resultJsonDrops.miscItems.length;
+		cantidadItems+=resultJsonDrops.sortieRewards.length;
+		dropsMetrics.innerHTML='Cantidad de nodos cargados: '+(cantidadItems)+'<br>Ultimo update:<br>'+new Date();
+	}else{
+		console.log('Hubo un error al buscar los drops');
+	}
+}
+
+function buscarDrop(item, tipo){
+	dropsFormBuscando.innerHTML='<p>Buscando item: '+item+' ('+formTipo.selectedOptions[0].innerText+')</p>'
+	dropsEncontrados=0;
+	if(item!=''){
+		switch (tipo){
+			case 'relics':
+				dropResult.innerHTML=buscarDropRelics(item);
+				break;
+			default:
+
+				break;
+		}
+		dropsFormBuscando.innerHTML+='(Encontrados: '+dropsEncontrados+')';
+	}else{
+		dropResult.innerHTML='';
+	}
+}
+
+function buscarDropRelics(item){
+	var ths=[];
+	ths.push([['Item','dropsTH'],['Relic','dropsTH'],['Estado','dropsTH'],['Rareza','dropsTH'],['Chance','dropsTH']]);
+	var tds=[];
+	var result;
+	item=item.toLowerCase();
+	resultJsonDrops.relics.forEach(function (r){
+		r.rewards.forEach(function (rew){
+			var itemAnalizado=rew.itemName.toLowerCase();
+			if(itemAnalizado.includes(item)){
+				var td=[];
+				var tier=r.tier.toLowerCase();
+				td.push([rew.itemName,tier]);
+				td.push([r.tier+' '+r.relicName,tier]);
+				td.push([r.state,tier]);
+				td.push([rew.rarity,tier]);
+				td.push([rew.chance+'%',tier]);
+				tds.push(td);
+				dropsEncontrados++;
+			}
+		});
+	});
+	console.log(tds.length);
+	if (tds.length>0){
+		result='<h4>Relics ('+tds.length+' resultados)</h4>'
+		result+=generateTable(tds,ths,'tableDrops enlargeMe','','border="1px solid white"');
+		return result
+	}else{
+		return '';
+	}
+
+}
+
 
 function startAll(){
 	//llamo el worldstate
@@ -229,6 +330,9 @@ function startAll(){
 
 	//Cargo las cookies por defecto
 	setCachedDefaultData();
+
+	//busco el json de drops
+	updateJsonDrops();
 
 	// busco en las cookies las completadas de los ultimos 7 dias
 	completado=completado.concat(getCookieArray("completas"));
@@ -1295,12 +1399,14 @@ function setCachedDefaultData(){
 		}
 		
 		if(getCookie(cookieStore)==""){
-			console.log("Agrego:"+cookieStore+"-"+hcd.cachedTime);
+			if (document.cookie!=''){
+				console.log("Agrego:"+cookieStore+"-"+hcd.cachedTime);	
+			}
 			setCookie(cookieStore,hcd.cachedTime,365*24*60*60*1000);
 			agregados++;
 		}
 	});
-	if (agregados>0){
+	if (agregados>0&&document.cookie!=''){
 		console.log(agregados+" agregados!");	
 	}
 }
