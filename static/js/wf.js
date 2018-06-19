@@ -545,7 +545,7 @@ function rellenarDatos(){
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
 
-			var txtCopiar="'"+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" [Nightmare]":"")+(a.mission.archwingRequired?" [Archwing]":"")+" ["+strDiff((a.eta),diff)+"]"+' {http://nekro-warframe.netlify.com}'+"'";
+			var txtCopiar="'"+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" {Nightmare}":"")+(a.mission.archwingRequired?" {Archwing}":"")+" {"+strDiff((a.eta),diff)+"}"+' {http://nekro-warframe.netlify.com}'+"'";
 			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 			// agrego a la lista la alertaActiva
@@ -732,7 +732,7 @@ function rellenarDatos(){
 			});
 		}
 		itemsBaro=strReplaceAllNonPrintable(itemsBaro);
-		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' ['+strDiff((baroData.startString),diff)+"] "+" | "+' Se va:['+strDiff((baroData.endString),diff)+"]"+(baroData.active?' | Items: '+itemsBaro:'')+' {http://nekro-warframe.netlify.com}'+"'";
+		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' {'+strDiff((baroData.startString),diff)+"} "+" | "+' Se va:{'+strDiff((baroData.endString),diff)+"}"+(baroData.active?' | Items: '+itemsBaro:'')+' {http://nekro-warframe.netlify.com}'+"'";
 		var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 		parseado +='<p class='+(baroData.active?'"baroEsta"':'"baroNoEsta"')+'>'+(baroData.active?'Se va: '+strDiff((baroData.endString),diff):'Llega: '+strDiff((baroData.startString),diff))+imgCopiar+'</p>';
