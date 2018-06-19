@@ -1296,9 +1296,11 @@ function setCachedDefaultData(){
 		
 		if(getCookie(cookieStore)==""){
 			console.log("Agrego:"+cookieStore+"-"+hcd.cachedTime);
-			//setCookie(cookieStore,hcd.cachedTime,365*24*60*60*1000);
+			setCookie(cookieStore,hcd.cachedTime,365*24*60*60*1000);
 			agregados++;
 		}
 	});
-	console.log(agregados)
+	if (agregados>0){
+		console.log(agregados+" agregados!");	
+	}
 }
