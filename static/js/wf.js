@@ -272,13 +272,14 @@ function habemusDrops(){
 	}
 }
 
-function buscarDrop(item, tipo){
+function buscarDrop(item, tipo, subtipo=''){
 	dropsFormBuscando.innerHTML='<p>Buscando item: '+item+' ('+formTipo.selectedOptions[0].innerText+')</p>'
 	dropsEncontrados=0;
 	if(item!=''){
 		switch (tipo){
 			case 'relics':
-				dropResult.innerHTML=buscarDropRelics(item);
+				console.log(item+subtipo);
+				dropResult.innerHTML=buscarDropRelics(item,subtipo);
 				break;
 			default:
 
@@ -290,7 +291,7 @@ function buscarDrop(item, tipo){
 	}
 }
 
-function buscarDropRelics(item){
+function buscarDropRelics(item,subtipo='All'){
 	var ths=[];
 	ths.push([['Item','dropsTH'],['Relic','dropsTH'],['Estado','dropsTH'],['Rareza','dropsTH'],['Chance','dropsTH']]);
 	var tds=[];
@@ -299,16 +300,18 @@ function buscarDropRelics(item){
 	resultJsonDrops.relics.forEach(function (r){
 		r.rewards.forEach(function (rew){
 			var itemAnalizado=rew.itemName.toLowerCase();
-			if(itemAnalizado.includes(item)){
-				var td=[];
-				var tier=r.tier.toLowerCase();
-				td.push([rew.itemName,tier]);
-				td.push([r.tier+' '+r.relicName,tier]);
-				td.push([r.state,tier]);
-				td.push([rew.rarity,tier]);
-				td.push([rew.chance+'%',tier]);
-				tds.push(td);
-				dropsEncontrados++;
+			if(r.state==subtipo||subtipo=='All'){
+				if(itemAnalizado.includes(item)||(r.tier+' '+r.relicName).toLowerCase().includes(item)){
+					var td=[];
+					var tier=r.tier.toLowerCase();
+					td.push([rew.itemName,tier]);
+					td.push([r.tier+' '+r.relicName,tier]);
+					td.push([r.state,tier]);
+					td.push([rew.rarity,tier]);
+					td.push([rew.chance+'%',tier]);
+					tds.push(td);
+					dropsEncontrados++;
+				}
 			}
 		});
 	});

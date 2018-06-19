@@ -259,9 +259,9 @@
 			<form id="dropsForm" class='formulario'>
 			<ul>
 				<li>
-					<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop(this.value, formTipo.value);" />
+					<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop(this.value, formTipo.value, formTipoRelic.value);" />
 					
-					<select id="formTipo" onchange="buscarDrop(formItem.value, this.value);">
+					<select id="formTipo" onchange="buscarDrop(formItem.value, this.value, formTipoRelic.value);">
 					  <option value="all" selected>Todo tipo</option>
 					  <option value="relics" selected>Relics</option>
 					  <option value="missionRewards">Misiones</option>
@@ -274,6 +274,18 @@
 					  <option value="keyRewards">De Npc</option>
 					  <option value="miscItems">Miscelaneos</option>
 					  <option value="sortieRewards">Sortie</option>
+					</select>
+
+				</li>
+
+				<li>
+					Tipo de relic:
+					<select id="formTipoRelic" onchange="buscarDrop(formItem.value, formTipo.value, this.value);">
+					  <option value="All" selected>Todas</option>
+					  <option value="Intact">Intact</option>
+					  <option value="Exceptional">Exceptional</option>
+					  <option value="Flawless">Flawless</option>
+					  <option value="Radiant">Radiant</option>
 					</select>
 				</li>
 				<li>
