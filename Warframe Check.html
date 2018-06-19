@@ -259,40 +259,56 @@
 			<form id="dropsForm" class='formulario'>
 			<ul>
 				<li>
-					<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop(this.value, formTipo.value, formTipoRelic.value);" />
-					
-					<select id="formTipo" onchange="buscarDrop(formItem.value, this.value, formTipoRelic.value);">
-					  <option value="all" selected>Todo tipo</option>
-					  <option value="relics" selected>Relics</option>
-					  <option value="missionRewards">Misiones</option>
-					  <option value="cetusBountyRewards">Cetus</option>
-					  <option value="transientRewards">Temporales</option>
-					  <option value="blueprintLocations">Planos</option>
-					  <option value="enemyBlueprintTables">Planos enemigos</option>
-					  <option value="modLocations">Mods misiones</option>
-					  <option value="enemyModTables">Mods enemigos</option>
-					  <option value="keyRewards">De Npc</option>
-					  <option value="miscItems">Miscelaneos</option>
-					  <option value="sortieRewards">Sortie</option>
-					</select>
-
+					<span id='dropsFormBuscando'></span>
 				</li>
-
 				<li>
+					<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop();" />
+					
+					<select id="formTipo" class="field-split" onchange="buscarDrop();">
+						<option value="all" selected>Todo tipo</option>
+						<option value="relics">Relics</option>
+						<option value="missionRewards">Misiones</option>
+						<option value="cetusBountyRewards">Cetus</option>
+						<!-- <option value="transientRewards">Temporales</option>
+						<option value="blueprintLocations">Planos</option>
+						<option value="enemyBlueprintTables">Planos enemigos</option>
+						<option value="modLocations">Mods misiones</option>
+						<option value="enemyModTables">Mods enemigos</option>
+						<option value="keyRewards">De Npc</option>
+						<option value="miscItems">Miscelaneos</option>
+						<option value="sortieRewards">Sortie</option> -->
+					</select>
+
+				</li>
+
+				<li id="liTipoRelic">
 					Tipo de relic:
-					<select id="formTipoRelic" onchange="buscarDrop(formItem.value, formTipo.value, this.value);">
-					  <option value="All" selected>Todas</option>
-					  <option value="Intact">Intact</option>
-					  <option value="Exceptional">Exceptional</option>
-					  <option value="Flawless">Flawless</option>
-					  <option value="Radiant">Radiant</option>
+					<select id="formTipoRelic" class="field-split" onchange="buscarDrop();">
+						<option value="All" selected>Todas</option>
+						<option value="Intact">Intact</option>
+						<option value="Exceptional">Exceptional</option>
+						<option value="Flawless">Flawless</option>
+						<option value="Radiant">Radiant</option>
 					</select>
 				</li>
+				
+				<li id="liPlanetaMision">
+					Planeta:
+					<select id="formPlanetaMision" class="field-split" onchange="buscarDrop();">
+						<option value="All" selected>Todos</option>
+					</select>
+				</li>
+				
+				<li id="liPlanetaMision">
+					Tipo Mision:
+					<select id="formTipoMision" class="field-split" onchange="buscarDrop();">
+						<option value="All" selected>Todas</option>
+					</select>
+				</li>
+				
+
 				<li>
 					<span id="dropsMetrics"></span>
-				</li>
-				<li>
-					<span id='dropsFormBuscando'></span>
 				</li>
 				<li>
 					Datos extraidos de la <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html">pagina oficial de Digital Extremes</a>

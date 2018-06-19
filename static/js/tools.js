@@ -209,7 +209,36 @@ function generateTable(arrayTable,arrayTH='',claseTable='',idTable='',atribsTabl
 	table+='</table>'
 	return table
 }
+/*
+-----------------------------------------------------
+	Manejo de combos
+-----------------------------------------------------
+*/
+function comboRemoveAllOptions(comboID,preservarSeleccionado=false){
+	if(comboID==''){return false;}
+	var frm=document.getElementById(comboID);
+	// For existing Types remove all options from the Type field (except the selected) so it can't be changed
+	for (i=frm.options.length-1;i>=0;i--){
+		if (frm.options[i].value!=frm.value||!preservarSeleccionado){
+			frm.options[i]=null;
+		}
+	}
+	return true;
+}
 
+  function comboAddOption(comboID,text,value,selected=false){
+	if(comboID==''){return false;}
+	var option = document.createElement("option");
+	var combo = document.getElementById(comboID);
+
+	option.text = text;
+	option.value = value;
+	option.selected = selected;
+	
+	combo.appendChild(option);
+
+	return true;
+  }
 /*
 -----------------------------------------------------
 	Funciones de texto
@@ -693,9 +722,10 @@ function arraySortByKey(array, key) {
 
 function arrayUnique(array){
 	return array.filter(
-					function (item, pos){
-						return array.indexOf(item) == pos}
-					);
+		function (item, pos){
+			return array.indexOf(item) == pos
+		}
+	);
 }
 function arrayRemove(array,remove=''){
 	var auxArray

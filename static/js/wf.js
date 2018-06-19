@@ -14,6 +14,11 @@ var resultJson='';
 var resultJsonDrops='';
 var dropsEncontrados=0;
 
+//var planetasArr=['Derelict','Earth','Eris','Europa','Jupiter','Kuva','Lua','Mars','Mercury','Neptune','Phobos','Pluto','Sanctuary','Saturn','Sedna','Uranus','Venus','Void']
+var missionTypesArr=[];
+var planetasArr=[];
+
+
 var setsToCheck=['vigilante','gladiator','blueprint','relic','augur'];
 
 var timer1='';
@@ -226,8 +231,7 @@ function getJson(url='',viaCors=true){
 }
 function updateJsonDrops(proxy=false){
 	drops.innerHTML='<img class="loading" src="static/img/loading.gif">';
-	formItem.disabled=true;
-	formTipo.disabled=true;
+	dropsDisable(true);
 	dropsMetrics.innerText='';
 	getJsonDrops('https://drops.warframestat.us/data/all.json',false);
 }
@@ -253,8 +257,7 @@ function getJsonDrops(url='',viaCors=true){
 function habemusDrops(){
 	if(resultJsonDrops!=''){
 		drops.innerHTML='';
-		formItem.disabled=false;
-		formTipo.disabled=true;
+		dropsDisable(false);
 		var cantidadItems=resultJsonDrops.blueprintLocations.length
 		cantidadItems+=resultJsonDrops.relics.length;
 		cantidadItems+=resultJsonDrops.cetusBountyRewards.length
@@ -266,41 +269,199 @@ function habemusDrops(){
 		cantidadItems+=resultJsonDrops.keyRewards.length;
 		cantidadItems+=resultJsonDrops.miscItems.length;
 		cantidadItems+=resultJsonDrops.sortieRewards.length;
-		dropsMetrics.innerHTML='Cantidad de nodos cargados: '+(cantidadItems)+'<br>Ultimo update:<br>'+new Date();
+		dropsMetrics.innerHTML='Cantidad de nodos cargados: '+(cantidadItems)+'<br>Ultimo update:<br>'+dateToString(new Date());
+		getDropsComboLists();
 	}else{
 		console.log('Hubo un error al buscar los drops');
 	}
 }
 
-function buscarDrop(item, tipo, subtipo=''){
+function getDropsComboLists(){
+	planetasArr=[];
+	missionTypesArr=[];
+
+	key0=resultJsonDrops.missionRewards;
+	Object.keys(key0).forEach( function(key1) { 
+		// Planeta
+		planetasArr.push(key1);
+		Object.keys(key0[key1]).forEach( function(key2) { 
+			// Nodo
+			var itemNodo=[key2];
+			var itemNodeGameMode=key0[key1][key2]['gameMode'];
+			var itemNodeIsEvent=key0[key1][key2]['isEvent'];
+
+			missionTypesArr.push(itemNodeGameMode);
+		});
+	});
+
+	planetasArr=arrayUnique(planetasArr);
+	missionTypesArr=arrayUnique(missionTypesArr);
+
+	// seteo a todos (defecto)
+	formPlanetaMision.value="All";
+	formTipoMision.value="All";
+
+	// Remuevo todas las option
+	comboRemoveAllOptions('formPlanetaMision',true);
+	comboRemoveAllOptions('formTipoMision',true);
+
+	// Agrego las option
+	planetasArr.forEach(function(p){
+		comboAddOption('formPlanetaMision',p,p,selected=false);	
+	});
+	
+	missionTypesArr.forEach(function(p){
+		comboAddOption('formTipoMision',p,p,selected=false);	
+	});
+
+}
+
+function dropsDisable(disable=true){
+	formItem.disabled=disable;
+	formTipo.disabled=disable;
+
+	liTipoRelic.disabled=disable;
+	liPlanetaMision.disabled=disable;
+}
+
+function buscarDrop(){
+	var item=formItem.value;
+	var tipo=formTipo.value;
+	
+	addClass('liTipoRelic','hidden');
+	addClass('liPlanetaMision','hidden');
+	addClass('formTipoMision','hidden');
+
+	switch(tipo){
+		case 'relics':
+			removeClass('liTipoRelic','hidden');
+			
+			break;
+		case 'all':
+			removeClass('liTipoRelic','hidden');
+			removeClass('liPlanetaMision','hidden');
+			removeClass('formTipoMision','hidden');
+			break;
+		case 'missionRewards':
+			removeClass('liPlanetaMision','hidden');
+			removeClass('formTipoMision','hidden');
+			break;
+		case 'cetusBountyRewards':
+			
+			break;
+		case 'transientRewards':
+			
+			break;
+		case 'blueprintLocations':
+			
+			break;
+		case 'enemyBlueprintTables':
+			
+			break;
+		case 'modLocations':
+			
+			break;
+		case 'enemyModTables':
+			
+			break;
+		case 'keyRewards':
+			
+			break;
+		case 'miscItems':
+			
+			break;
+		case 'sortieRewards':
+			
+			break;
+		default:
+			
+			break;
+	}
+
+	var subtipo=[];
+
+	// relics
+	// missionRewards
+	// cetusBountyRewards
+	// transientRewards
+	// blueprintLocations
+	// enemyBlueprintTables
+	// modLocations
+	// enemyModTables
+	// keyRewards
+	// miscItems
+	// sortieRewards
+	
+	subtipo['relics']=formTipoRelic.value;
+	subtipo['planet']=formPlanetaMision.value;
+	subtipo['missionType']=formTipoMision.value;
+
 	dropsFormBuscando.innerHTML='<p>Buscando item: '+item+' ('+formTipo.selectedOptions[0].innerText+')</p>'
 	dropsEncontrados=0;
-	if(item!=''){
+	
+	var result='';
+
+	if(item!=''&&item.length>2){
 		switch (tipo){
+			case 'all':
+				result=buscarDropRelics(item,subtipo);
+				result+=buscarDropMisiones(item,subtipo);
+				result+=buscarDropsCetusBounty(item,subtipo);
+				break;
 			case 'relics':
-				console.log(item+subtipo);
-				dropResult.innerHTML=buscarDropRelics(item,subtipo);
+				result=buscarDropRelics(item,subtipo);
+				break;
+			case 'missionRewards':
+				result=buscarDropMisiones(item,subtipo);
+				break;
+			case 'cetusBountyRewards':
+				result=buscarDropsCetusBounty(item,subtipo);
+				break;
+			case 'transientRewards':
+				
+				break;
+			case 'blueprintLocations':
+				
+				break;
+			case 'enemyBlueprintTables':
+				
+				break;
+			case 'modLocations':
+				
+				break;
+			case 'enemyModTables':
+				
+				break;
+			case 'keyRewards':
+				
+				break;
+			case 'miscItems':
+				
+				break;
+			case 'sortieRewards':
+				
 				break;
 			default:
 
 				break;
 		}
-		dropsFormBuscando.innerHTML+='(Encontrados: '+dropsEncontrados+')';
+		dropsFormBuscando.innerHTML+=' ('+dropsEncontrados+' matchs)';
+		dropResult.innerHTML=result;
 	}else{
 		dropResult.innerHTML='';
 	}
 }
 
-function buscarDropRelics(item,subtipo='All'){
+function buscarDropRelics(item,subtipo){
 	var ths=[];
 	ths.push([['Item','dropsTH'],['Relic','dropsTH'],['Estado','dropsTH'],['Rareza','dropsTH'],['Chance','dropsTH']]);
 	var tds=[];
-	var result;
+	var result='';
 	item=item.toLowerCase();
 	resultJsonDrops.relics.forEach(function (r){
 		r.rewards.forEach(function (rew){
 			var itemAnalizado=rew.itemName.toLowerCase();
-			if(r.state==subtipo||subtipo=='All'){
+			if(r.state==subtipo.relics||subtipo.relics=='All'){
 				if(itemAnalizado.includes(item)||(r.tier+' '+r.relicName).toLowerCase().includes(item)){
 					var td=[];
 					var tier=r.tier.toLowerCase();
@@ -315,17 +476,151 @@ function buscarDropRelics(item,subtipo='All'){
 			}
 		});
 	});
-	console.log(tds.length);
 	if (tds.length>0){
-		result='<h4>Relics ('+tds.length+' resultados)</h4>'
+		result='<h4>Relics ('+tds.length+' resultados)</h4>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe','','border="1px solid white"');
-		return result
+		return result;
 	}else{
 		return '';
 	}
-
 }
 
+	
+function buscarDropMisiones(item,subtipo){
+	var ths=[];
+	ths.push([
+				['Item','dropsTH'],
+				['Planeta','dropsTH'],
+				['Nodo','dropsTH'],
+				['Tipo','dropsTH'],
+				['Rotacion','dropsTH'],
+				['Evento','dropsTH'],
+				['Rareza','dropsTH'],
+				['Chance','dropsTH']
+			]);
+	var tds=[];
+	var result='';
+	item=item.toLowerCase();
+	
+
+	key0=resultJsonDrops.missionRewards;
+	Object.keys(key0).forEach( function(key1) { 
+		// Planeta
+		var itemPlaneta=key1;
+		if(itemPlaneta==subtipo.planet||subtipo.planet=='All'){
+			Object.keys(key0[key1]).forEach( function(key2) { 
+				// Nodo
+				var itemNodo=[key2];
+				var itemNodeGameMode=key0[key1][key2]['gameMode'];
+				var itemNodeIsEvent=key0[key1][key2]['isEvent'];
+				var rotacionArray=['A','B','C'];
+				if(itemNodeGameMode==subtipo.missionType||subtipo.missionType=='All'){
+					rotacionArray.forEach(function(itemRotacion){
+						if(key0[key1][key2]['rewards'][itemRotacion]!=undefined){
+							Object.keys(key0[key1][key2]['rewards'][itemRotacion]).forEach( function(key3) { 
+								//llegamos al itemName
+								var itemName=key0[key1][key2]['rewards'][itemRotacion][key3]['itemName'];
+								var itemRarity=key0[key1][key2]['rewards'][itemRotacion][key3]['rarity'];
+								var itemChance=key0[key1][key2]['rewards'][itemRotacion][key3]['chance'];
+
+								//console.log('valido:'+itemPlaneta+' Subtipo:'+subtipo.planet+' Item:'+itemName+' Rotacion:'+itemRotacion);
+								if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
+									var td=[];
+									td.push([itemName,itemNodeGameMode]);
+									td.push([itemPlaneta,itemNodeGameMode]);
+									td.push([itemNodo,itemNodeGameMode]);
+									td.push([itemNodeGameMode,itemNodeGameMode]);
+									td.push([itemRotacion,itemNodeGameMode]);
+									td.push([itemNodeIsEvent,itemNodeGameMode]);
+									td.push([itemRarity,itemNodeGameMode]);
+									td.push([itemChance,itemNodeGameMode]);
+
+									tds.push(td);
+									dropsEncontrados++;
+								}
+							});
+						}				
+					});
+					
+					if(key0[key1][key2]['rewards']!=undefined){
+						Object.keys(key0[key1][key2]['rewards']).forEach( function(key3) { 
+							var itemName=key0[key1][key2]['rewards'][key3]['itemName'];
+							var itemRarity=key0[key1][key2]['rewards'][key3]['rarity'];
+							var itemChance=key0[key1][key2]['rewards'][key3]['chance'];
+							var itemRotacion='---';
+							if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
+								var td=[];
+								td.push([itemName,itemNodeGameMode]);
+								td.push([itemPlaneta,itemNodeGameMode]);
+								td.push([itemNodo,itemNodeGameMode]);
+								td.push([itemNodeGameMode,itemNodeGameMode]);
+								td.push([itemRotacion,itemNodeGameMode]);
+								td.push([itemNodeIsEvent,itemNodeGameMode]);
+								td.push([itemRarity,itemNodeGameMode]);
+								td.push([itemChance,itemNodeGameMode]);
+
+								tds.push(td);
+								dropsEncontrados++;
+							}
+						});
+					}
+				}
+			});
+		}
+	});
+
+	if (tds.length>0){
+		var result='<h4>Misiones ('+tds.length+' resultados)</h4>';
+		result+=generateTable(tds,ths,'tableDrops enlargeMe','','border="1px solid white"');
+		return result;
+	}else{
+		return '';
+	}
+}
+
+function buscarDropsCetusBounty(item,subtipo){
+	var ths=[];
+	ths.push([['Item','dropsTH'],
+			  ['Bounty','dropsTH'],
+			  ['Stage','dropsTH'],
+			  ['Rotacion','dropsTH'],
+			  ['Rareza','dropsTH'],
+			  ['Chance','dropsTH']]);
+	var tds=[];
+	var result='';
+	item=item.toLowerCase();
+	resultJsonDrops.cetusBountyRewards.forEach(function (r){
+		var rotacionArray=['A','B','C'];
+		rotacionArray.forEach(function (itemRotacion){
+			r.rewards[itemRotacion].forEach(function (rew){
+				var itemName=rew.itemName;
+				var itemRarity=rew.rarity;
+				var itemChance=rew.chance;
+				var itemStage=rew.stage;
+
+				if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
+					var td=[];
+					td.push([itemName,'']);
+					td.push([r.bountyLevel,'']);
+					td.push([itemStage,'']);
+					td.push([itemRotacion,'']);
+					td.push([itemRarity,'']);
+					td.push([itemChance,'']);
+
+					tds.push(td);
+					dropsEncontrados++;
+				}
+			});
+		});
+	});
+	if (tds.length>0){
+		result='<h4>Cetus Bounty ('+tds.length+' resultados)</h4>';
+		result+=generateTable(tds,ths,'tableDrops enlargeMe','','border="1px solid white"');
+		return result;
+	}else{
+		return '';
+	}	
+}
 
 function startAll(){
 	//llamo el worldstate

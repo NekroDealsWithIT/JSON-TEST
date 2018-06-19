@@ -263,6 +263,11 @@ h5{
 	margin-top: 15px;
 	margin-bottom: 15px;
 	font-size:.8rem;
+	transition-duration:.5s;
+}
+.tableDrops tr:hover{
+	font-weight: 800;
+	text-decoration: underline;
 }
 .thumbnail{
 	width: 50px;
@@ -353,6 +358,13 @@ h5{
 	background-color: green;	
 }
 
+/*Colores de tipos de mision*/
+.Capture{
+	color:red;
+}
+.Survival{
+
+}
 /*formularios*/
 .formulario{
     max-width: 500px;
@@ -379,9 +391,11 @@ h5{
     list-style:none;
 }
 .formulario ul li{
-    display: block;
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
     min-height: 35px;
+
 }
 .formulario ul li  .field-style{
     box-sizing: border-box; 
@@ -499,7 +513,7 @@ h5{
 }
 /*estados*/
 .hidden{
-	display: none;
+	display: none!important;
 }
 .pDay{
 	color:yellow;
