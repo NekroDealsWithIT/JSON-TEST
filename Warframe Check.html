@@ -205,11 +205,17 @@
 			<audio id="sound5"></audio>
 		</div>
 
+		<a id="C"></a>
+		<h3 onclick="toggleHide('formContacto')">Contactame</h3>
 		<div id="formContacto" class="hidden">
- 			<a id="C"></a>
- 			<h3>Contactame</h3>
 			<form class="formulario" action="#" method="get">
 				<ul>
+					<li>
+						<h2>En desarrollo - todavia no funciona :'(</h2>
+					</li>
+					<li>
+						<img src="https://i.imgur.com/zW3PePg.png&key=1b190708073b6a3daa0a08c767613194a0f2c8a0d06cf59e301c423d2b558f4e">
+					</li>
 					<li>
 						<input type="text" name="nombre" id="formNombre" class="field-style field-split align-left" placeholder="* Nombre" required />
 						<input type="email" name="email" class="field-style field-split align-right" required placeholder="* Email" />
@@ -221,14 +227,14 @@
 						<textarea name="mensaje" class="field-style" placeholder="Mensaje"></textarea>
 					</li>
 					<li>
-						<input type="submit" value="Enviar mensaje"  onclick="setCookie('campeon',formNombre.value,(1000*60*1))" />
+						<input type="submit" disabled="true" value="Enviar mensaje"  onclick="alert('En desarrollo');return false;//setCookie('campeon',formNombre.value,(1000*60*1))" />
 					</li>
 					<li>
-						<a href="https://www.sanwebe.com/2014/08/css-html-forms-designs/comment-page-2" target="blank">Plantilla utlizada utilizada(Form Style 9)</a>
+						<!-- <a href="https://www.sanwebe.com/2014/08/css-html-forms-designs/comment-page-2" target="blank">Plantilla utlizada utilizada(Form Style 9)</a> -->
 					</li>
 				</ul>
 			</form>
-			<div id="cookiesShow"></div>
+			<div id="cookiesShow" class="hidden"></div>
 
 			<div id="sinImplementar" class="hidden">
 				<div id="descripcionForm"></div>
@@ -237,19 +243,20 @@
 			</div>
 
 			<script type="text/javascript">
-				checkCampeon();
+				//checkCampeon();
 			</script>
 		</div>
+		<a id="V"></a>
+		<h3 onclick="toggleHide('whatsWarframe')">Que es warframe?</h3>
 		<div id="whatsWarframe" class="hidden">
-			<a id="V"></a>
 			<div>
-				<h3>Que es warframe?</h3>
 				<a href="https://www.warframe.com/">Pagina del juego</a> 
 				<!-- <h2>Ejemplo de uso</h2> -->
 				<!-- <img src="static/img/ejemplo de uso.jpg"> -->
 				<h2>Video intro</h2>
 				<div class="whatsWarframeDiv">
-					<iframe width="100%" height="600px" src="https://www.youtube.com/embed/IN1Xyrj1F8k?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<iframe width="100%" height="600px" src="https://www.youtube-nocookie.com/embed/IN1Xyrj1F8k?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<iframe width="100%" height="600px" src="https://www.youtube-nocookie.com/embed/ztbRJm19BUo?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 				</div>
 			</div>
 		</div>
