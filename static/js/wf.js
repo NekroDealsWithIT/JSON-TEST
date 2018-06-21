@@ -345,7 +345,8 @@ function filtroAplicadoColor(){
 	combos.push(formTipoRelic);
 	combos.push(formPlanetaMision);
 	combos.push(formTipoMision);
-
+	combos.push(formRotacion);
+	
 	combos.forEach(function (combo){
 		if(combo.value.toLowerCase()!='all'){
 			combo.style="color: tomato;"
@@ -362,26 +363,28 @@ function buscarDrop(){
 	addClass('liTipoRelic','hidden');
 	addClass('liPlanetaMision','hidden');
 	addClass('liTipoMision','hidden');
-
+	addClass('liRotacion','hidden');
 	switch(tipo){
-		case 'relics':
-			removeClass('liTipoRelic','hidden');
-			
-			break;
 		case 'all':
 			removeClass('liTipoRelic','hidden');
 			removeClass('liPlanetaMision','hidden');
 			removeClass('liTipoMision','hidden');
+			removeClass('liRotacion','hidden');
+			break;
+		case 'relics':
+			removeClass('liTipoRelic','hidden');
+
 			break;
 		case 'missionRewards':
 			removeClass('liPlanetaMision','hidden');
 			removeClass('liTipoMision','hidden');
+			removeClass('liRotacion','hidden');
 			break;
 		case 'cetusBountyRewards':
-			
+			removeClass('liRotacion','hidden');
 			break;
 		case 'transientRewards':
-			
+			removeClass('liRotacion','hidden');
 			break;
 		case 'blueprintLocations':
 			
@@ -427,6 +430,7 @@ function buscarDrop(){
 	subtipo['planet']=formPlanetaMision.value;
 	subtipo['missionType']=formTipoMision.value;
 	subtipo['itemRarity']=formRareza.value
+	subtipo['rotacion']=formRotacion.value
 
 	filtroAplicadoColor();
 
@@ -522,6 +526,7 @@ function llenarFarmingFocus(){
 		subtipo['planet']='All';
 		subtipo['missionType']='All';
 		subtipo['itemRarity']='All';
+		subtipo['rotacion']='All';
 		
 		result+=buscarDropsRelics('',subtipo,farmingMark,"tableDropsRelicsFarming",sectionTitle='Relics para farmear');
 		result+=buscarDropsMisiones('',subtipo,farmingMark,"tableDropsMisionesFarming",sectionTitle='Misiones para farmear');
@@ -643,17 +648,18 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 									td.push([itemRarity,itemRarity]);
 									td.push([itemChance,itemRarity]);
 
-
-									if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
-										if (idList.length>0){
-											if(isFarmingChecked(itemFarmingID)){
+									if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
+										if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
+											if (idList.length>0){
+												if(isFarmingChecked(itemFarmingID)){
+													tds.push(td);
+													dropsEncontrados++;							
+												}
+											}else{
 												tds.push(td);
-												dropsEncontrados++;							
-											}
-										}else{
-											tds.push(td);
-											dropsEncontrados++;
-										}			
+												dropsEncontrados++;
+											}			
+										}
 									}
 									// tds.push(td);
 									// dropsEncontrados++;
@@ -687,16 +693,18 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								td.push([itemRarity,itemRarity]);
 								td.push([itemChance,itemRarity]);
 
-								if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
-									if (idList.length>0){
-										if(isFarmingChecked(itemFarmingID)){
+								if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
+									if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
+										if (idList.length>0){
+											if(isFarmingChecked(itemFarmingID)){
+												tds.push(td);
+												dropsEncontrados++;							
+											}
+										}else{
 											tds.push(td);
-											dropsEncontrados++;							
-										}
-									}else{
-										tds.push(td);
-										dropsEncontrados++;
-									}			
+											dropsEncontrados++;
+										}			
+									}
 								}
 								// tds.push(td);
 								// dropsEncontrados++;
@@ -754,17 +762,18 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 					td.push([itemRotacion,itemRotacion]);
 					td.push([itemRarity,itemRarity]);
 					td.push([itemChance,itemRarity]);
-
-					if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
-						if (idList.length>0){
-							if(isFarmingChecked(itemFarmingID)){
+					if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
+						if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
+							if (idList.length>0){
+								if(isFarmingChecked(itemFarmingID)){
+									tds.push(td);
+									dropsEncontrados++;							
+								}
+							}else{
 								tds.push(td);
-								dropsEncontrados++;							
-							}
-						}else{
-							tds.push(td);
-							dropsEncontrados++;
-						}			
+								dropsEncontrados++;
+							}			
+						}
 					}
 					// tds.push(td);
 					// dropsEncontrados++;
@@ -818,17 +827,18 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 				td.push([itemRotacion,itemRotacion]);
 				td.push([itemRarity,itemRarity]);
 				td.push([itemChance,itemRarity]);
-
-				if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
-					if (idList.length>0){
-						if(isFarmingChecked(itemFarmingID)){
+				if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
+					if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
+						if (idList.length>0){
+							if(isFarmingChecked(itemFarmingID)){
+								tds.push(td);
+								dropsEncontrados++;							
+							}
+						}else{
 							tds.push(td);
-							dropsEncontrados++;							
-						}
-					}else{
-						tds.push(td);
-						dropsEncontrados++;
-					}			
+							dropsEncontrados++;
+						}			
+					}
 				}
 				// tds.push(td);
 				// dropsEncontrados++;
