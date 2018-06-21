@@ -356,6 +356,17 @@ function filtroAplicadoColor(){
 	});
 }
 
+function agregarBusqueda(busquedaActual){
+	result=busquedaActual;
+
+	if(result.length>2&&result.substr(result.length - 2).indexOf("|")<0){
+		result+='|';
+		formItem.value=result;
+	}
+
+	formItem.focus()
+}
+
 function buscarDrop(){
 	var item=formItem.value;
 	var tipo=formTipo.value;
@@ -438,56 +449,79 @@ function buscarDrop(){
 	dropsEncontrados=0;
 	
 	var result='';
+	var arrayItems=[];
+	arrayItems=pipedStringToArray(item);
+	
+	console.log(arrayItems);
 
-	if(item!=''&&item.length>2){
-		switch (tipo){
-			case 'all':
-				result=buscarDropsRelics(item,subtipo);
-				result+=buscarDropsMisiones(item,subtipo);
-				result+=buscarDropsCetusBounty(item,subtipo);
-				result+=buscarDropsEventos(item,subtipo);
-				result+=buscarDropsModEnemigo(item,subtipo);
-				result+=buscarDropsSortieReward(item,subtipo);
-				break;
-			case 'relics':
-				result=buscarDropsRelics(item,subtipo);
-				break;
-			case 'missionRewards':
-				result=buscarDropsMisiones(item,subtipo);
-				break;
-			case 'cetusBountyRewards':
-				result=buscarDropsCetusBounty(item,subtipo);
-				break;
-			case 'transientRewards':
-				result=buscarDropsEventos(item,subtipo);
-				break;
-			case 'blueprintLocations':
-				
-				break;
-			case 'enemyBlueprintTables':
-				
-				break;
-			case 'modLocations':
-				
-				break;
-			case 'enemyModTables':
-				result=buscarDropsModEnemigo(item,subtipo);
-				break;
-			case 'keyRewards':
-				
-				break;
-			case 'miscItems':
-				
-				break;
-			case 'sortieRewards':
-				result+=buscarDropsSortieReward(item,subtipo);
-				break;
-			default:
+	dropResult.innerHTML='';
+	if(item.length>2){
+		arrayItems.forEach(function (i){
+			var titulo='';
+			if(i!=''&&i.length>2){
+				dropResult.innerHTML='';
+				switch (tipo){
+					case 'all':
+						titulo='Relics';
+						result+=buscarDropsRelics(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						titulo='Misiones';
+						result+=buscarDropsMisiones(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						titulo='Cetus Bounty';
+						result+=buscarDropsCetusBounty(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						titulo='Eventos';
+						result+=buscarDropsEventos(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						titulo='Mods de enemigo';
+						result+=buscarDropsModEnemigo(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						titulo='Sortie';
+						result+=buscarDropsSortieReward(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						break;
+					case 'relics':
+						titulo='Relics';
+						result+=buscarDropsRelics(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						break;
+					case 'missionRewards':
+						titulo='Misiones';
+						result+=buscarDropsMisiones(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						break;
+					case 'cetusBountyRewards':
+						titulo='Cetus Bounty';
+						result+=buscarDropsCetusBounty(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						break;
+					case 'transientRewards':
+						titulo='Eventos';
+						result+=buscarDropsEventos(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						break;
+					case 'blueprintLocations':
+						
+						break;
+					case 'enemyBlueprintTables':
+						
+						break;
+					case 'modLocations':
+						
+						break;
+					case 'enemyModTables':
+						titulo='Mods de enemigo';
+						result+=buscarDropsModEnemigo(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						break;
+					case 'keyRewards':
+						
+						break;
+					case 'miscItems':
+						
+						break;
+					case 'sortieRewards':
+						result+=buscarDropsSortieReward(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						break;
+					default:
 
-				break;
-		}
-		dropsFormBuscando.innerHTML+=' ('+dropsEncontrados+' matchs)';
-		dropResult.innerHTML=result;
+						break;
+				}
+				dropsFormBuscando.innerHTML+='<br>* '+i.toUpperCase()+' ('+dropsEncontrados+' matchs)';
+				dropsEncontrados=0;
+				dropResult.innerHTML+=result;
+			}
+		});
 	}else{
 		dropResult.innerHTML='';
 	}
@@ -556,9 +590,9 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 					var itemRareza=rew.rarity;
 					var itemFarmingID=r._id+rew.itemName;
 					var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-					var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);">Farm</label>&nbsp;';
+					var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 					var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-					var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);">Completa</label>&nbsp;';
+					var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
 
 					td.push([checkboxFarming+checkboxFarmingComplete+rew.itemName,tier]);
 					td.push([r.tier+' '+r.relicName,tier]);
@@ -632,9 +666,9 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								var itemRareza=itemRarity;
 								var itemFarmingID=key0[key1][key2]['rewards'][itemRotacion][key3]['_id']+itemName+itemPlaneta+itemNodo+itemNodeGameMode+itemRotacion;
 								var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-								var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);">Farm</label>&nbsp;';
+								var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 								var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-								var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);">Completa</label>&nbsp;';
+								var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
 
 								//console.log('valido:'+itemPlaneta+' Subtipo:'+subtipo.planet+' Item:'+itemName+' Rotacion:'+itemRotacion);
 								if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
@@ -678,9 +712,9 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 							var itemRareza=itemRarity;
 							var itemFarmingID=key0[key1][key2]['rewards'][key3]['_id']+itemName+itemPlaneta+itemNodo+itemNodeGameMode;
 							var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-							var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);">Farm</label>&nbsp;';
+							var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 							var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-							var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);">Completa</label>&nbsp;';
+							var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
 
 							if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 								var td=[];
@@ -749,9 +783,9 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 				var itemRareza=rew.rarity;
 				var itemFarmingID=r._id+itemName+itemStage+itemRarity;
 				var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-				var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);">Farm</label>&nbsp;';
+				var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 				var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-				var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);">Completa</label>&nbsp;';
+				var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
 
 
 				if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
@@ -815,9 +849,9 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 			var itemRareza=rew.rarity;
 			var itemFarmingID=rew._id+itemName+itemObjetivo+itemRotacion+itemRarity;
 			var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);">Farm</label>&nbsp;';
+			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 			var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);">Completa</label>&nbsp;';
+			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
 
 
 			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
@@ -878,9 +912,9 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 			var itemRareza=rew.rarity;
 			var itemFarmingID=id1+id2+itemName;
 			var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);">Farm</label>&nbsp;';
+			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 			var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);">Completa</label>&nbsp;';
+			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
 
 
 			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
@@ -935,9 +969,9 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 		var itemRareza=r.rarity;
 		var itemFarmingID=id1+itemName;
 		var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-		var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);">Farm</label>&nbsp;';
+		var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 		var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-		var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);">Completa</label>&nbsp;';
+		var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
 
 		if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 			var td=[];

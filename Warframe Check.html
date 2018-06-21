@@ -271,7 +271,10 @@
 				</li>
 				<li>
 					<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop();" />
-					
+					<input type="button" name="itemPipe" id="formAddPipe" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
+				</li>
+				<li id="liTipo">
+					Tipo:
 					<select id="formTipo" class="field-split" onchange="buscarDrop();">
 						<option value="all" selected>Todo tipo</option>
 						<option value="relics">Relics</option>
@@ -289,21 +292,10 @@
 						<option value="miscItems">Miscelaneos</option>-->
 
 					</select>
-
 				</li>
-
-				<li id="liRareza">
-					Rareza:
-					<select id="formRareza" class="field-split" onchange="buscarDrop();">
-						<option value="All" selected>Todas</option>
-						<option value="Common">Common</option>
-						<option value="Uncommon">Uncommon</option>
-						<option value="Rare">Rare</option>
-						<option value="Legendary">Legendary</option>
-					</select>
-				</li>
+				
 				<li id="liTipoRelic">
-					Tipo de relic:
+					Estado de relic:
 					<select id="formTipoRelic" class="field-split" onchange="buscarDrop();">
 						<option value="All" selected>Todas</option>
 						<option value="Intact">Intact</option>
@@ -312,7 +304,6 @@
 						<option value="Radiant">Radiant</option>
 					</select>
 				</li>
-				
 				<li id="liPlanetaMision">
 					Planeta:
 					<select id="formPlanetaMision" class="field-split" onchange="buscarDrop();">
@@ -338,6 +329,17 @@
 					</select>
 				</li>
 
+				<li id="liRareza">
+					Rareza:
+					<select id="formRareza" class="field-split" onchange="buscarDrop();">
+						<option value="All" selected>Todas</option>
+						<option value="Common">Common</option>
+						<option value="Uncommon">Uncommon</option>
+						<option value="Rare">Rare</option>
+						<option value="Legendary">Legendary</option>
+					</select>
+				</li>
+				
 				<li>
 					<span id="dropsMetrics"></span>
 				</li>
