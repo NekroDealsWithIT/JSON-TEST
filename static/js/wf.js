@@ -15,7 +15,6 @@ var resultJsonDrops='';
 var dropsEncontrados=0;
 
 var availableNodes=[];
-
 var farmingMark=[];
 var farmingMarkComplete=[];
 
@@ -276,10 +275,17 @@ function habemusDrops(){
 		cantidadItems+=resultJsonDrops.sortieRewards.length;
 		dropsMetrics.innerHTML='Cantidad de nodos cargados: '+(cantidadItems)+'<br>Ultimo update:<br>'+dateToString(new Date());
 		getDropsComboLists();
+		getFarmingMarks();
 	}else{
 		console.log('Hubo un error al buscar los drops');
 	}
 }
+function getFarmingMarks(){
+	farmingMark=pipedStringToArray(getCookie('farmingMark'));
+	farmingMarkComplete=pipedStringToArray(getCookie('farmingMarkComplete'));
+	llenarFarmingFocus();
+}
+
 
 function getDropsComboLists(){
 	planetasArr=[];
@@ -488,6 +494,7 @@ function setFarmingCheck(itemID,add=true){
 	}else{
 		arrayRemove(farmingMark,itemID);
 	}
+	setCookie('farmingMark',arrayToPipedString(farmingMark),365*24*60*60*1000)
 	llenarFarmingFocus();
 }
 function setFarmingCompleteCheck(itemID,add=true){
@@ -496,6 +503,7 @@ function setFarmingCompleteCheck(itemID,add=true){
 	}else{
 		arrayRemove(farmingMarkComplete,itemID);
 	}
+	setCookie('farmingMarkComplete',arrayToPipedString(farmingMarkComplete),365*24*60*60*1000)
 	llenarFarmingFocus();
 }
 function isFarmingChecked(itemID){
@@ -1073,7 +1081,7 @@ function rellenarDatos(){
 		var cacheado=[];
 		cacheado=getCachedData();
 		if (cacheado.length>0){
-			notificacionesTitle.innerHTML='Notificar ['+(informarArrChecked.length-1)+'/'+(cacheado.length)+']';
+			notificacionesTitle.innerHTML='Notificar ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
 			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			var tipos=[];
 			cacheado.forEach(function(c){
