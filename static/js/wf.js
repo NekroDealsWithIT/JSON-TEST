@@ -361,7 +361,7 @@ function buscarDrop(){
 	
 	addClass('liTipoRelic','hidden');
 	addClass('liPlanetaMision','hidden');
-	addClass('formTipoMision','hidden');
+	addClass('liTipoMision','hidden');
 
 	switch(tipo){
 		case 'relics':
@@ -371,11 +371,11 @@ function buscarDrop(){
 		case 'all':
 			removeClass('liTipoRelic','hidden');
 			removeClass('liPlanetaMision','hidden');
-			removeClass('formTipoMision','hidden');
+			removeClass('liTipoMision','hidden');
 			break;
 		case 'missionRewards':
 			removeClass('liPlanetaMision','hidden');
-			removeClass('formTipoMision','hidden');
+			removeClass('liTipoMision','hidden');
 			break;
 		case 'cetusBountyRewards':
 			
