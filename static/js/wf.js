@@ -330,6 +330,10 @@ function getDropsComboLists(){
 }
 
 function dropsDisable(disable=true){
+	formUpdateButton.disabled=disable;
+	formClearButton.disabled=disable;
+	formAddPipeButton.disabled=disable;
+
 	formItem.disabled=disable;
 	formTipo.disabled=disable;
 
@@ -366,7 +370,25 @@ function agregarBusqueda(busquedaActual){
 
 	formItem.focus()
 }
+function clearForm(){
+	formItem.value='';
+	
+	var combos=[];
+	combos.push(formTipo);
+	combos.push(formRareza);
+	
+	combos.push(formTipoRelic);
+	combos.push(formPlanetaMision);
+	combos.push(formTipoMision);
+	combos.push(formRotacion);
 
+	combos.forEach(function (combo){
+		combo.value='All';
+	});
+
+	filtroAplicadoColor();
+	buscarDrop();
+}
 function buscarDrop(){
 	var item=formItem.value;
 	var tipo=formTipo.value;
@@ -376,7 +398,7 @@ function buscarDrop(){
 	addClass('liTipoMision','hidden');
 	addClass('liRotacion','hidden');
 	switch(tipo){
-		case 'all':
+		case 'All':
 			removeClass('liTipoRelic','hidden');
 			removeClass('liPlanetaMision','hidden');
 			removeClass('liTipoMision','hidden');
@@ -451,8 +473,6 @@ function buscarDrop(){
 	var result='';
 	var arrayItems=[];
 	arrayItems=pipedStringToArray(item);
-	
-	console.log(arrayItems);
 
 	dropResult.innerHTML='';
 	if(item.length>2){
@@ -461,7 +481,7 @@ function buscarDrop(){
 			if(i!=''&&i.length>2){
 				dropResult.innerHTML='';
 				switch (tipo){
-					case 'all':
+					case 'All':
 						titulo='Relics';
 						result+=buscarDropsRelics(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
 						titulo='Misiones';
@@ -592,7 +612,7 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 					var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
 					var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 					var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-					var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
+					var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
 					td.push([checkboxFarming+checkboxFarmingComplete+rew.itemName,tier]);
 					td.push([r.tier+' '+r.relicName,tier]);
@@ -616,7 +636,7 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 		});
 	});
 	if (tds.length>0){
-		var result='<h4 onclick="toggleHide('+"'"+idTable+"'"+')">'+sectionTitle+' ('+tds.length+' resultados)</h4>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
 		return result;
@@ -668,7 +688,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
 								var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 								var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-								var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
+								var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
 								//console.log('valido:'+itemPlaneta+' Subtipo:'+subtipo.planet+' Item:'+itemName+' Rotacion:'+itemRotacion);
 								if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
@@ -714,7 +734,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 							var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
 							var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 							var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-							var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
+							var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
 							if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 								var td=[];
@@ -751,7 +771,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 	});
 
 	if (tds.length>0){
-		var result='<h4 onclick="toggleHide('+"'"+idTable+"'"+')">'+sectionTitle+' ('+tds.length+' resultados)</h4>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
 		return result;
@@ -785,7 +805,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 				var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
 				var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 				var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-				var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
+				var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
 
 				if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
@@ -816,7 +836,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 		});
 	});
 	if (tds.length>0){
-		var result='<h4 onclick="toggleHide('+"'"+idTable+"'"+')">'+sectionTitle+' ('+tds.length+' resultados)</h4>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
 		return result;
@@ -851,7 +871,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 			var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
 			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 			var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
+			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
 
 			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
@@ -880,7 +900,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 		});
 	});
 	if (tds.length>0){
-		var result='<h4 onclick="toggleHide('+"'"+idTable+"'"+')">'+sectionTitle+' ('+tds.length+' resultados)</h4>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
 		return result;
@@ -914,7 +934,7 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 			var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
 			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 			var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
+			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
 
 			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
@@ -942,7 +962,7 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 		});
 	});
 	if (tds.length>0){
-		var result='<h4 onclick="toggleHide('+"'"+idTable+"'"+')">'+sectionTitle+' ('+tds.length+' resultados)</h4>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
 		return result;
@@ -971,7 +991,7 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 		var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
 		var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 		var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
-		var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label>&nbsp;';
+		var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
 		if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 			var td=[];
@@ -995,7 +1015,7 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 		}
 	});
 	if (tds.length>0){
-		var result='<h4 onclick="toggleHide('+"'"+idTable+"'"+')">'+sectionTitle+' ('+tds.length+' resultados)</h4>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
 		return result;
@@ -1125,7 +1145,7 @@ function rellenarDatos(){
 		var cacheado=[];
 		cacheado=getCachedData();
 		if (cacheado.length>0){
-			notificacionesTitle.innerHTML='Notificar ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
+			notificacionesTitle.innerHTML='🌑 Notificar ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
 			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			var tipos=[];
 			cacheado.forEach(function(c){
@@ -1249,7 +1269,7 @@ function rellenarDatos(){
 		var eventsData=resultJson.events;
 		if (eventsData.length>0){
 
-			eventsTitle.innerHTML="Eventos ("+eventsData.length+' activo)';
+			eventsTitle.innerHTML="🌑 Eventos ("+eventsData.length+' activo)';
 			removeClass('eventsCheckbox','hidden');
 			parseado='';
 			// parseado='<a id="E"></a>';
@@ -1311,7 +1331,7 @@ function rellenarDatos(){
 		}else{
 			// addClass('eventsCheckbox','hidden');
 			events.innerHTML='<h2>No hay eventos activos</h2>';
-			eventsTitle.innerHTML="Eventos (No hay eventos activos)"
+			eventsTitle.innerHTML="❌ Eventos (No hay eventos activos)"
 		}
 
 		//Alerts
@@ -1377,7 +1397,7 @@ function rellenarDatos(){
 		parseado += generateTable(tds,ths,'tableAlerts enlargeMe','','');
 		parseado += '<hr>';
 		alerts.innerHTML=parseado;
-		alertsTitle.innerHTML='Alertas ['+alertaActivaArr.length+']';
+		alertsTitle.innerHTML='🌑 Alertas ['+alertaActivaArr.length+']';
 		//Invasions
 		ths=[];
 		tds=[];
@@ -1434,7 +1454,8 @@ function rellenarDatos(){
 		parseado += '<div class="tableInvasion enlargeMe">'+generateTable(tds,ths,'tableInvasion','','border="1px solid white"')+'</div>';
 		parseado += '<hr>';
 		invasions.innerHTML=parseado;
-		invasionsTitle.innerHTML='Invasiones ['+invasionActivaArr.length+']';
+		invasionsTitle.innerHTML='🌑 Invasiones ['+invasionActivaArr.length+']';
+		
 		//Sortie
 		ths=[];
 		tds=[];
@@ -1443,7 +1464,7 @@ function rellenarDatos(){
 		// parseado ='<a id="S"></a>';
 		if (sortieData!=undefined){
 			// parseado += '<h3>(Sortie '+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
-			sortieTitle.innerHTML = 'Sortie '+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')';
+			sortieTitle.innerHTML = '🌑 Sortie '+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')';
 			parseado += '<div>Jefe: '+sortieData.boss
 			parseado += '<BR>Faccion: '+sortieData.faction;
 			parseado += '<BR>Tiempo Restante: '+strDiff((sortieData.eta),diff)+'('+sortieData.eta+')</div>';
@@ -1502,7 +1523,7 @@ function rellenarDatos(){
 		parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
 		parseado +='<hr>';
 		fissures.innerHTML=parseado;
-		fissuresTitle.innerHTML='Fisuras ['+fisureData.length+']';
+		fissuresTitle.innerHTML='🌑 Fisuras ['+fisureData.length+']';
 		//Baro
 		var baroData=resultJson.voidTrader;
 		parseado='';
@@ -1554,7 +1575,7 @@ function rellenarDatos(){
 		}			
 		parseado +='<hr>';
 		baro.innerHTML=parseado;
-		baroTitle.innerHTML=baroData.character +' - '+(baroData.active?"ESTA ACTIVO":"NO ESTA ACTIVO");
+		baroTitle.innerHTML='🌑 '+baroData.character +' - '+(baroData.active?"ESTA ACTIVO":"NO ESTA ACTIVO");
 
 		//Syndicates
 		var synData=resultJson.syndicateMissions;
@@ -1631,7 +1652,7 @@ function rellenarDatos(){
 		});
 		parseado +='</ul><hr>';
 		news.innerHTML=parseado;
-		newsTitle.innerHTML='News ['+newsData.length+']';
+		newsTitle.innerHTML='🌑 News ['+newsData.length+']';
 
 		limpiarCompletasFinalizadas();
 	}

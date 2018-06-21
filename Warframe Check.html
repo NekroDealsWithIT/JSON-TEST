@@ -97,7 +97,7 @@
 		
 		<div id="sonidos" class="sonidos hidden">
 			<a id="S"></a>
-			<h3>Sonidos, notificaciones</h3>
+			<h3>🌑 Sonidos, notificaciones</h3>
 			
 			<ul>
 				<li>
@@ -206,7 +206,7 @@
 		</div>
 
 		<a id="C"></a>
-		<h3 onclick="toggleHide('formContacto')">Contactame</h3>
+		<h3 onclick="toggleHide('formContacto')">🌑 Contactame</h3>
 		<div id="formContacto" class="hidden">
 			<form class="formulario" action="#" method="get">
 				<ul>
@@ -247,7 +247,7 @@
 			</script>
 		</div>
 		<a id="V"></a>
-		<h3 onclick="toggleHide('whatsWarframe')">Que es warframe?</h3>
+		<h3 onclick="toggleHide('whatsWarframe')">🌑 Que es warframe?</h3>
 		<div id="whatsWarframe" class="hidden">
 			<div>
 				<a href="https://www.warframe.com/">Pagina del juego</a> 
@@ -262,7 +262,7 @@
 		</div>
 
 		<a id="DROPS"></a>
-		<h3 id="dropsTitle" onclick="toggleHide('dropsList');">Drops</h3>
+		<h3 id="dropsTitle" onclick="toggleHide('dropsList');">🌑 Drops</h3>
 		<div id="dropsList">
 			<form id="dropsForm" class='formulario'>
 			<ul>
@@ -271,12 +271,12 @@
 				</li>
 				<li>
 					<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop();" />
-					<input type="button" name="itemPipe" id="formAddPipe" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
+					<input type="button" name="itemPipe" id="formAddPipeButton" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
 				</li>
 				<li id="liTipo">
 					Tipo:
 					<select id="formTipo" class="field-split" onchange="buscarDrop();">
-						<option value="all" selected>Todo tipo</option>
+						<option value="All" selected>Todo tipo</option>
 						<option value="relics">Relics</option>
 						<option value="missionRewards">Misiones</option>
 						<option value="cetusBountyRewards">Cetus</option>
@@ -347,7 +347,8 @@
 					Datos extraidos de la <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html">pagina oficial de Digital Extremes</a>
 				</li>
 				<li>
-					<input type="button" value="Actualizar datos" onclick="updateJsonDrops();"/>
+					<input type="button" id="formUpdateButton" class="field-split" value="Actualizar datos" onclick="updateJsonDrops();buscarDrop();"/>
+					<input type="button" id="formClearButton" class="field-split" value="Borrar consulta" onclick="clearForm();"/>
 				</li>
 			</ul>
 			</form>
@@ -356,38 +357,38 @@
 		</div>
 		
 		<a id="FARMING"></a>
-		<h3 id="farmingTitle" onclick="toggleHide('farmingList');">Lista para farming</h3>
+		<h3 id="farmingTitle" onclick="toggleHide('farmingList');">🌑 Lista para farming</h3>
 		<div id="farmingList"><h2>No hay items seleccionados para farming en drops</h2></div>
 
 		<a id="NOTI"></a>
-		<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">Notificaciones</h3>
+		<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">🌑 Notificaciones</h3>
 		<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
 		<a id="T"></a>
-		<h3 id="timersTitle" onclick="toggleHide('timers');">Timers</h3>
+		<h3 id="timersTitle" onclick="toggleHide('timers');">🌑 Timers</h3>
 		<section id="timers"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="E"></a>
-		<h3 id="eventsTitle" onclick="toggleHide('events');">Eventos</h3>
+		<h3 id="eventsTitle" onclick="toggleHide('events');">🌑 Eventos</h3>
 		<section id="events"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="A"></a>
-		<h3 id="alertsTitle" onclick="toggleHide('alerts');">Alertas</h3>
+		<h3 id="alertsTitle" onclick="toggleHide('alerts');">🌑 Alertas</h3>
 		<section id="alerts"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="I"></a>
-		<h3 id="invasionsTitle" onclick="toggleHide('invasions');">Invasiones</h3>
+		<h3 id="invasionsTitle" onclick="toggleHide('invasions');">🌑 Invasiones</h3>
 		<section id="invasions"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="S"></a>
-		<h3 id="sortieTitle" onclick="toggleHide('sortie');">Sortie</h3>
+		<h3 id="sortieTitle" onclick="toggleHide('sortie');">🌑 Sortie</h3>
 		<section id="sortie"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="F"></a>
-		<h3 id="fissuresTitle" onclick="toggleHide('fissures');">Fisuras</h3>
+		<h3 id="fissuresTitle" onclick="toggleHide('fissures');">🌑 Fisuras</h3>
 		<section id="fissures"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="B"></a>
-		<h3 id="baroTitle" onclick="toggleHide('baro');">Baro</h3>
+		<h3 id="baroTitle" onclick="toggleHide('baro');">🌑 Baro</h3>
 		<section id="baro"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="SYN"></a>
-		<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">Sindicatos</h3>
+		<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">🌑 Sindicatos</h3>
 		<section id="syndicates"><img class="loading" src="static/img/loading.gif"></section>
 		<a id="N"></a>
-		<h3 id="newsTitle" onclick="toggleHide('news');">News</h3>
+		<h3 id="newsTitle" onclick="toggleHide('news');">🌑 News</h3>
 		<section id="news"><img class="loading" src="static/img/loading.gif"></section>
 		<br>
 	</div>
