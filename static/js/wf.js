@@ -426,10 +426,10 @@ function buscarDrop(){
 			
 			break;
 		case 'modLocations':
-			
+
 			break;
 		case 'enemyModTables':
-			
+
 			break;
 		case 'keyRewards':
 			
@@ -492,6 +492,8 @@ function buscarDrop(){
 						result+=buscarDropsEventos(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
 						titulo='Mods de enemigo';
 						result+=buscarDropsModEnemigo(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
+						titulo='Enemy droptable';
+						result+=buscarDropsEnemigoMod(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
 						titulo='Sortie';
 						result+=buscarDropsSortieReward(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
 						break;
@@ -518,7 +520,8 @@ function buscarDrop(){
 						
 						break;
 					case 'modLocations':
-						
+						titulo='Enemy droptable';
+						result+=buscarDropsEnemigoMod(i,subtipo,[],'tableDrops'+titulo,'DROPS '+titulo+" para '"+i.toUpperCase()+"'");
 						break;
 					case 'enemyModTables':
 						titulo='Mods de enemigo';
@@ -587,6 +590,8 @@ function llenarFarmingFocus(){
 		result+=buscarDropsCetusBounty('',subtipo,farmingMark,"tableDropsCetusBountyFarming",sectionTitle='Cetus Bounty para farmear');
 		result+=buscarDropsEventos('',subtipo,farmingMark,"tableDropsEventosFarming",sectionTitle='Eventos para farmear');
 		result+=buscarDropsModEnemigo('',subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Mods de Enemigo para farmear');
+		result+=buscarDropsEnemigoMod('',subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemy Drop para farmear');
+		result+=buscarDropsEnemigoMod('',subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemigos para farmear');
 		result+=buscarDropsSortieReward('',subtipo,farmingMark,"tableDropsSortieRewardFarming",sectionTitle='Sortie Rewards para farmear');
 	}else{
 		result='<h2>No hay items seleccionados para farming en drops</h2>'
@@ -941,6 +946,70 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 				var td=[];
 				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity]);
 				td.push([itemEnemigo,itemRarity]);
+				td.push([itemEnemigoModDropChance+"%",itemRarity]);
+				td.push([itemRarity,itemRarity]);
+				td.push([itemChance,itemRarity]);
+
+				if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
+					if (idList.length>0){
+						if(isFarmingChecked(itemFarmingID)){
+							tds.push(td);
+							dropsEncontrados++;							
+						}
+					}else{
+						tds.push(td);
+						dropsEncontrados++;
+					}			
+				}
+				// tds.push(td);
+				// dropsEncontrados++;
+			}
+		});
+	});
+	if (tds.length>0){
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
+		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
+		availableNodes[idTable]=tds.length;
+		return result;
+	}else{
+		return '';
+	}	
+}
+
+function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnemigoExtendido",sectionTitle='Enemigo - Mod'){
+	var ths=[];
+	ths.push([
+			  ['Enemigo','dropsTH'],
+			  ['MOD','dropsTH'],
+			  ['Mod Drop Chance','dropsTH'],
+			  ['Rareza','dropsTH'],
+			  ['Chance','dropsTH']]);
+	var tds=[];
+	var result='';
+	item=item.toLowerCase();
+	resultJsonDrops.modLocations.forEach(function (r){
+		var itemName=r.modName;
+		var id1=r['_id'];
+		r['enemies'].forEach(function (rew){
+			var itemEnemigo=rew['enemyName'];
+			var itemEnemigoModDropChance=rew['enemyModDropChance'];
+			var itemRarity=rew.rarity;
+			var itemChance=rew.chance;
+			var id2=rew._id;
+			// var itemRotacion=rew.rotation;
+
+			var itemRareza=rew.rarity;
+			var itemFarmingID=id1+id2+itemName;
+			var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
+			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
+			var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
+			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
+
+
+			if(itemEnemigo!=undefined&&itemEnemigo.toLowerCase().includes(item.toLowerCase())){
+				var td=[];
+				td.push([checkboxFarming+checkboxFarmingComplete+itemEnemigo,itemRarity]);
+				td.push([itemName,itemRarity]);
 				td.push([itemEnemigoModDropChance+"%",itemRarity]);
 				td.push([itemRarity,itemRarity]);
 				td.push([itemChance,itemRarity]);
