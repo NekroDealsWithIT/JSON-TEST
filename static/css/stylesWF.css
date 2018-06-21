@@ -17,6 +17,10 @@ a{
 a:visited{
 	color: red;
 }
+h1,h2,h3,h4,h5{
+	cursor: pointer;
+}
+
 h3{
 	margin:auto;
 	position: -webkit-sticky;
@@ -25,11 +29,13 @@ h3{
   	color:#0F0;
   	padding: 3px 0;
   	top:-1px;
-  	cursor: pointer;
+}
+h4{
+	padding: 10px 0;
+	color:#0F0;
 }
 h5{
 	padding: 10px 0;
-	cursor: pointer;
 }
 
 .loading{
@@ -266,8 +272,20 @@ h5{
 	transition-duration:.5s;
 }
 .tableDrops tr:hover{
-	font-weight: 800;
+	/*font-weight: 800;*/
 	text-decoration: underline;
+}
+
+.tableDrops td{
+	text-align: center;
+}
+.tableDrops td:first-child{
+	text-align: left;
+}
+.dropsTH{
+	color:tomato;
+	background-color:#333399; 
+	background-color:#3c3c3c;
 }
 .thumbnail{
 	width: 50px;
@@ -332,17 +350,55 @@ h5{
 .orokin a, .corrupted a, .orokin a:visited, .corrupted a:visited{
 	color: #11d6ea;
 }
+/*colores de farming*/
+.farm{
+	color:#F00;
+	background-color: #000;
+	border-radius: 3px;
+	padding: 5px 8px 1px 0;
+	cursor: pointer;
+
+}
+
+.farmComplete{
+	color:#0F0;
+	background-color: #000;
+	border-radius: 3px;
+	padding: 5px 8px 1px 0;
+	cursor: pointer;
+}
+/*colores de rotacion*/
+.---,.Common{
+	color:#FFF;
+	background-color: #000;	
+}
+.A,.Uncommon{
+	color:#0F0;
+	background-color: #000;
+}
+.B,.Rare{
+	color:gold;
+	background-color: #000;
+}
+.C,.Legendary{
+	color:#F00;
+	background-color: #000;
+}
+
+/*Colores de misiones de eventos especiales*/
+.NodeIsNotEvent{
+	color:#0F0;
+	background-color:#333399;
+}
+.NodeIsEvent{
+	color:#F00;
+	background-color:#333399;
+	font-weight:900;
+}
 
 /*Colores de relics*/
 .axi,.lith,.meso,.neo{
 	color:black;
-}
-
-.axi:hover,
-.lith:hover,
-.meso:hover,
-.neo:hover{
-	font-weight: 900;
 }
 
 .axi{

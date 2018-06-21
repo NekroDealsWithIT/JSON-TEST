@@ -260,8 +260,9 @@
 				</div>
 			</div>
 		</div>
+
 		<a id="DROPS"></a>
-		<h3 id="dropsTitle" onclick="toggleHide('dropsList')">Drops</h3>
+		<h3 id="dropsTitle" onclick="toggleHide('dropsList');">Drops</h3>
 		<div id="dropsList">
 			<form id="dropsForm" class='formulario'>
 			<ul>
@@ -276,18 +277,31 @@
 						<option value="relics">Relics</option>
 						<option value="missionRewards">Misiones</option>
 						<option value="cetusBountyRewards">Cetus</option>
-						<!-- <option value="transientRewards">Temporales</option>
-						<option value="blueprintLocations">Planos</option>
+						<option value="transientRewards">Eventos</option>
+						<option value="enemyModTables">Mods enemigos</option>
+						<option value="sortieRewards">Sortie</option> 
+						
+						<!--<option value="blueprintLocations">Planos</option>
 						<option value="enemyBlueprintTables">Planos enemigos</option>
 						<option value="modLocations">Mods misiones</option>
-						<option value="enemyModTables">Mods enemigos</option>
+						
 						<option value="keyRewards">De Npc</option>
-						<option value="miscItems">Miscelaneos</option>
-						<option value="sortieRewards">Sortie</option> -->
+						<option value="miscItems">Miscelaneos</option>-->
+
 					</select>
 
 				</li>
 
+				<li id="liRareza">
+					Rareza:
+					<select id="formRareza" class="field-split" onchange="buscarDrop();">
+						<option value="All" selected>Todas</option>
+						<option value="Common">Common</option>
+						<option value="Uncommon">Uncommon</option>
+						<option value="Rare">Rare</option>
+						<option value="Legendary">Legendary</option>
+					</select>
+				</li>
 				<li id="liTipoRelic">
 					Tipo de relic:
 					<select id="formTipoRelic" class="field-split" onchange="buscarDrop();">
@@ -329,6 +343,10 @@
 			<div id="drops"><img class="loading" src="static/img/loading.gif"></div>
 		</div>
 		
+		<a id="FARMING"></a>
+		<h3 id="farmingTitle" onclick="toggleHide('farmingList');">Lista para farming</h3>
+		<div id="farmingList"><h2>No hay items seleccionados para farming en drops</h2></div>
+
 		<a id="NOTI"></a>
 		<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">Notificaciones</h3>
 		<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>

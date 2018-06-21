@@ -728,32 +728,53 @@ function arrayUnique(array){
 	);
 }
 function arrayRemove(array,remove=''){
-	var auxArray
-	array.forEach(function(a){
-		if(a!=remove){
-			auxArray.push(a);
-		}
-	});
-	return auxArray;
+	var auxArray=[];
+	// array.forEach(function(a){
+	// 	console.log(a+'-'+remove);
+	// 	if(a!=remove){
+	// 		auxArray.push(a);
+	// 	}
+	// });
+	// return auxArray;
+	
+	var index = array.indexOf(remove);
+    if (index > -1) {
+       array.splice(index, 1);
+    }
+	return array;
 }
 
-function arrayToPipedString(array,separador='|'){
+function arrayToPipedString(array,separador='|',allowBlanks=false){
 	var result="";
 	var i=0;
 	array.forEach(function (item){
-		if(i=0){
-			result=item;
+		if(allowBlanks){
+			if(i=0){
+				result=item;
+			}else{
+				result+=separador+item;
+			}
+			i++;
 		}else{
-			result+=separador+item;
+			if(item!=''){
+				if(i=0){
+					result=item;
+				}else{
+					result+=separador+item;
+				}
+				i++;
+			}
 		}
-		i++
 	});
 	return result;
 }
 
-function pipedStringToArray(pipedString,separador='|'){
+function pipedStringToArray(pipedString,separador='|',allowBlanks=false){
 	var result=[];
 	result = pipedString.split(separador);
+	if(!allowBlanks){
+		result=arrayRemove(result);
+	}
 	return result;
 }
 
