@@ -279,7 +279,12 @@ h5{
 .tableDrops td{
 	text-align: center;
 }
-.tableDrops td:first-child{
+.tableDrops td:first-child,
+.tableAlerts td:first-child,
+.tableInvasion td:first-child,
+.tableFisures, td:first-child,
+.tableSortie td:first-child, 
+.tableBaro td:first-child{
 	text-align: left;
 }
 .dropsTH{
@@ -789,7 +794,8 @@ Sets para checkear
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
 	body{
-		background:url('../img/stars.gif')  repeat fixed;
+		/*background:url('../img/stars.gif')  repeat fixed;*/
+		background:url('../img/Starfield.gif')  repeat fixed;
 	}
 } 
 
