@@ -231,6 +231,8 @@ function getJson(url='',viaCors=true){
 	request.send();
 	request.onload = function() {
 	  resultJson = request.response;
+	  // checkear la version sino recargar la pagina
+	  versionCheck();
 	  fetching=false;
 	  return request.response;
 	}
@@ -256,8 +258,6 @@ function getJsonDrops(url='',viaCors=true){
 	  resultJsonDrops = request.response;
 	  fetchingDrops=false;
 	  habemusDrops();		  
-	  // checkear la version sino recargar la pagina
-	  versionCheck();
 	  return request.response;
 	}
 }
