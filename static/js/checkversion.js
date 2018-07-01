@@ -5,7 +5,10 @@ function versionCheck(){
 	//fetchVersion(window.location.href+"/../static/version");
 	fetchVersion("http://nekro-warframe.netlify.com/static/version");
 	if (version!=''&&fetchedVersion!=version){
-		location.reload();	
+		//location.reload();	
+		console.log('voy a hacer reload');
+		console.log(version);
+		console.log(fetchedVersion);
 	}else{
 		version=fetchedVersion;
 		console.log(version);
