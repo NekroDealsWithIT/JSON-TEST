@@ -1219,9 +1219,9 @@ function rellenarDatos(){
 			notificacionesTitle.innerHTML='🌑 Notificar ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
 			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			
-			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyActive?"checked":"")+' onClick="notifOnlyActive=this.checked;">Mostrar solo activas actualmente</label><br>';
-			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyNonCompleted?"checked":"")+' onClick="notifOnlyNonCompleted=this.checked;">Mostrar solo no completadas</label><br>';
-			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifShowLastDate?"checked":"")+' onClick="notifShowLastDate=this.checked;">Mostrar ultima fecha de aparicion</label><br>';
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyActive?"checked":"")+' onClick="notifOnlyActive=this.checked;rellenarDatos();">Mostrar solo activas actualmente</label><br>';
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyNonCompleted?"checked":"")+' onClick="notifOnlyNonCompleted=this.checked;rellenarDatos();">Mostrar solo no completadas</label><br>';
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifShowLastDate?"checked":"")+' onClick="notifShowLastDate=this.checked;rellenarDatos();">Mostrar ultima fecha de aparicion</label><br>';
 			notificacionesTitle.innerHTML+=(notifOnlyActive?" (Mostrando solo activas)":"")+(notifOnlyNonCompleted?" (Mostrando solo no completas)":"")+(notifShowLastDate?"":" (Ocultando fechas)");
 			var tipos=[];
 			cacheado.forEach(function(c){
@@ -1309,11 +1309,12 @@ function rellenarDatos(){
 							
 							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-									'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
+									'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'></label>'+
 									'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
 									'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
 									'<span class="capitalize">'+c.cachedType+'</span>'+
 									'</a>'+
+									(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+actual+'"' +'>Completa?)</label>')+
 									(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a> (eta: '+timerNotificacion+')':'')+
 									'</li>';
 							}
@@ -1324,11 +1325,12 @@ function rellenarDatos(){
 							var isCompleted=(completa?' completed':'');
 							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-									'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
+									'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'></label>'+
 									'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
 									'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
 									'<span class="capitalize">'+c.cachedItem+'</span>'+
 									'</a>'+
+									(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+actual+'"' +'>Completa?)</label>')+
 									(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
 									'</li>';
 							}
