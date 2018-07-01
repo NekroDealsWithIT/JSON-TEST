@@ -255,8 +255,9 @@ function getJsonDrops(url='',viaCors=true){
 	request.onload = function() {
 	  resultJsonDrops = request.response;
 	  fetchingDrops=false;
-
 	  habemusDrops();		  
+	  // checkear la version sino recargar la pagina
+	  versionCheck();
 	  return request.response;
 	}
 }

@@ -1,35 +1,33 @@
 var version='';
+var fetchedVersion='';
 
-function checkVersion(){
+function versionCheck(){
+	fetchVersion(window.location.href+"../static/version");
 	if (version!=''&&fetchedVersion!=version){
 		location.reload();	
 	}else{
 		version=fetchedVersion;
+		console.log(version);
 	}
-}
-
-function versionCheck(){
-	fetchVersion("../static/version");
 }
 function fetchVersion(url){
 fetch(url)
-.then(function(response) {
-  // When the page is loaded convert it to text
-  version = response.text();
-  return response.text();
-})
-.then(function(html) {
-  // Initialize the DOM parser
-  var parser = new DOMParser();
-  // Parse the text
-  var doc = parser.parseFromString(html, "text/html");
-  
-  // You can now even select part of that html as you would in the regular DOM 
-  // Example:
-  // var docArticle = doc.querySelector('article').innerHTML;
+	.then(function(response) {
+	  // When the page is loaded convert it to text
+	  fetchedVersion = response.text();
+	})
+	.then(function(html) {
+	  // Initialize the DOM parser
+	  var parser = new DOMParser();
+	  // Parse the text
+	  var doc = parser.parseFromString(html, "text/html");
+	  
+	  // You can now even select part of that html as you would in the regular DOM 
+	  // Example:
+	  // var docArticle = doc.querySelector('article').innerHTML;
 
-  console.log(doc);
-})
+	  console.log(doc);
+	})
 }
 
 function fetchVersion1(){
