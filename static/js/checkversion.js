@@ -2,12 +2,14 @@ var version='';
 var fetchedVersion='';
 
 function versionCheck(){
-	fetchVersion(window.location.href+"../static/version");
+	//fetchVersion(window.location.href+"/../static/version");
+	fetchVersion("http://nekro-warframe.netlify.com/static/version");
 	if (version!=''&&fetchedVersion!=version){
 		location.reload();	
 	}else{
 		version=fetchedVersion;
 		console.log(version);
+		console.log(fetchedVersion);
 	}
 }
 function fetchVersion(url){
