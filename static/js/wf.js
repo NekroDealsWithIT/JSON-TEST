@@ -21,7 +21,9 @@ var farmingMarkComplete=[];
 var missionTypesArr=[];
 var planetasArr=[];
 
-
+var notifOnlyActive=false;
+var notifOnlyNonCompleted=false;
+var notifShowLastDate=true;
 
 var setsToCheck=['vigilante','gladiator','blueprint','relic','augur'];
 
@@ -1216,6 +1218,11 @@ function rellenarDatos(){
 		if (cacheado.length>0){
 			notificacionesTitle.innerHTML='🌑 Notificar ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
 			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
+			
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyActive?"checked":"")+' onClick="notifOnlyActive=this.checked;">Mostrar solo activas actualmente</label><br>';
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyNonCompleted?"checked":"")+' onClick="notifOnlyNonCompleted=this.checked;">Mostrar solo no completadas</label><br>';
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifShowLastDate?"checked":"")+' onClick="notifShowLastDate=this.checked;">Mostrar ultima fecha de aparicion</label><br>';
+			notificacionesTitle.innerHTML+=(notifOnlyActive?" (Mostrando solo activas)":"")+(notifOnlyNonCompleted?" (Mostrando solo no completas)":"")+(notifShowLastDate?"":" (Ocultando fechas)");
 			var tipos=[];
 			cacheado.forEach(function(c){
 				if(c.cachedItem!=''){
@@ -1300,28 +1307,31 @@ function rellenarDatos(){
 							var notificar=chequearInformar(c.cachedType);
 							var isCompleted=(completa?' completed':'');
 							
-							notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
-								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
-								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
-								'<span class="capitalize">'+c.cachedType+'</span>'+
-								'</a>'+
-								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a> (eta: '+timerNotificacion+')':'')+
-								'</li>';
+							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
+								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
+									'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'>'+
+									'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
+									'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
+									'<span class="capitalize">'+c.cachedType+'</span>'+
+									'</a>'+
+									(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a> (eta: '+timerNotificacion+')':'')+
+									'</li>';
+							}
 					}else{
 						if(t==c.cachedType){
 							if(actual!=''){listaActiva=true;}
 							var notificar=chequearInformar(c.cachedItem);
 							var isCompleted=(completa?' completed':'');
-							
-							notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-								'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
-								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
-								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
-								'<span class="capitalize">'+c.cachedItem+'</span>'+
-								'</a>'+
-								' ('+dateToString(c.cachedTime)+')'+(actual!=''?' <a href="#'+actual+'">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
-								'</li>';
+							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
+								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
+									'<input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'>'+
+									'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
+									'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
+									'<span class="capitalize">'+c.cachedItem+'</span>'+
+									'</a>'+
+									(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
+									'</li>';
+							}
 						}
 					}
 
