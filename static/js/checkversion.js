@@ -19,7 +19,7 @@ function fetchVersion(url){
 fetch(url)
 	.then(function(response) {
 	  // When the page is loaded convert it to text
-	  fetchedVersion = response.text();
+	  return = response.text();
 	})
 	.then(function(html) {
 	  // Initialize the DOM parser
@@ -30,7 +30,7 @@ fetch(url)
 	  // You can now even select part of that html as you would in the regular DOM 
 	  // Example:
 	  // var docArticle = doc.querySelector('article').innerHTML;
-
+	  fetchedVersion=html;
 	  console.log(doc);
 	})
 }
