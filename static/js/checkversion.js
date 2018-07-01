@@ -9,7 +9,7 @@ function getVersion(){
 }
 
 function fetchVersion(){
-	var url=window.location.href+"static/version";
+	var url=window.location.href+"../static/version";
 	var request = new XMLHttpRequest();
 	request.open('GET', url);
 	request.responseType = 'json';
