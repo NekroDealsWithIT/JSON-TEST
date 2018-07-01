@@ -9,7 +9,7 @@ function versionCheck(){
 	}else{
 		version=fetchedVersion;
 		if (version!=''){
-			ultimaVersion.innerHTML="<h3>Ultima version: "+version+"</h3>";
+			ultimaVersion.innerHTML="<h3>Ultima version: "+version+" ultimo chequeo: "+tiempoStr()+"</h3>";
 		}
 	}
 }
@@ -29,6 +29,6 @@ fetch(url)
 	  // Example:
 	  // var docArticle = doc.querySelector('article').innerHTML;
 	  fetchedVersion=html;
-	  console.log(doc);
+	  //console.log(doc);
 	})
 }
