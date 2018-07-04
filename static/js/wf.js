@@ -619,7 +619,7 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 					
 					var itemRareza=rew.rarity;
 					var itemFarmingID=r._id+rew.itemName;
-					var checkedFarming=( (itemFarmingID)?" checked":"");
+					var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
 					var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 					var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 					var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
