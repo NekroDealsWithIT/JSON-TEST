@@ -3,15 +3,16 @@
 var version='';
 var fetchedVersion='';
 
-function versionCheck(){
+function versionCheck(callback=false){
 	//fetchVersion(window.location.href+"/../static/version");
-	fetchVersion("static/version");
+	if (!callback){fetchVersion("static/version");}
+	
 	if (version!=''&&fetchedVersion!=version){
 		location.reload();	
 	}else{
 		version=fetchedVersion;
 		if (version!=''){
-			ultimaVersion.innerHTML="<h3>Ultima version: "+version+" ultimo chequeo: "+tiempoStr()+"</h3>";
+			ultimaVersion.innerHTML="<h3>Ultima version:<br>"+version+"<br>Ultimo chequeo: "+tiempoStr()+"</h3>";
 		}
 	}
 }
@@ -35,6 +36,7 @@ fetch(url,
 	  // Example:
 	  // var docArticle = doc.querySelector('article').innerHTML;
 	  fetchedVersion=html;
+	  versionCheck(true);
 	  //console.log(doc);
 	})
 }
