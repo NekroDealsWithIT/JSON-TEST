@@ -1268,6 +1268,7 @@ function rellenarDatos(){
 				var comboSonido=getComboSound(t);
 				cacheado.forEach(function (c){
 					var actual='';
+					var actualId='';
 					var completa=false;
 					var timerNotificacion='';
 					// hay que recorrer las alertas!
@@ -1294,11 +1295,13 @@ function rellenarDatos(){
 							if (!i.completed){
 								if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
 									actual=i.attackerReward.asString;
+									actualId=i.id;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
 								}
 								if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
 									actual=i.defenderReward.asString;
+									actualId=i.id;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
 								}
@@ -1342,9 +1345,10 @@ function rellenarDatos(){
 							if(actual!=''){listaActiva=true;}
 							var notificar=chequearInformar(c.cachedItem);
 							var isCompleted=(completa?' completed':'');
+							var notifId=(actualId!=''?actualId:c.cachedItem);
 							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-									'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'></label>'+
+									'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+notifId+'"' + (notificar?" checked":"")+'></label>'+
 									'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
 									'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
 									'<span class="capitalize">'+c.cachedItem+'</span>'+
