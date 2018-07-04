@@ -17,6 +17,7 @@ var dropsEncontrados=0;
 var availableNodes=[];
 var farmingMark=[];
 var farmingMarkComplete=[];
+var farmingOnlyNonCompleted=false;
 
 var missionTypesArr=[];
 var planetasArr=[];
@@ -579,6 +580,7 @@ function isFarmingCompleteChecked(itemID){
 }
 function llenarFarmingFocus(){
 	var result='';
+	result+='<label><input type="checkbox" '+(farmingOnlyNonCompleted?"checked":"")+' onClick="farmingOnlyNonCompleted=this.checked;llenarFarmingFocus();">Mostrar solo no completado</label><br>';
 	if (farmingMark.length>0){
 		
 		var subtipo=[];
@@ -617,7 +619,7 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 					
 					var itemRareza=rew.rarity;
 					var itemFarmingID=r._id+rew.itemName;
-					var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
+					var checkedFarming=( (itemFarmingID)?" checked":"");
 					var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label>&nbsp;';
 					var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 					var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
@@ -631,8 +633,10 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 					if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 						if (idList.length>0){
 							if(isFarmingChecked(itemFarmingID)){
-								tds.push(td);
-								dropsEncontrados++;							
+								if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
+									tds.push(td);
+									dropsEncontrados++;							
+								}
 							}
 						}else{
 							tds.push(td);
@@ -714,8 +718,10 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 										if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 											if (idList.length>0){
 												if(isFarmingChecked(itemFarmingID)){
-													tds.push(td);
-													dropsEncontrados++;							
+													if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
+														tds.push(td);
+														dropsEncontrados++;							
+													}
 												}
 											}else{
 												tds.push(td);
@@ -759,8 +765,10 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 									if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 										if (idList.length>0){
 											if(isFarmingChecked(itemFarmingID)){
-												tds.push(td);
-												dropsEncontrados++;							
+												if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
+													tds.push(td);
+													dropsEncontrados++;							
+												}
 											}
 										}else{
 											tds.push(td);
@@ -828,8 +836,10 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 						if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 							if (idList.length>0){
 								if(isFarmingChecked(itemFarmingID)){
-									tds.push(td);
-									dropsEncontrados++;							
+									if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
+										tds.push(td);
+										dropsEncontrados++;							
+									}
 								}
 							}else{
 								tds.push(td);
@@ -893,8 +903,10 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 					if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 						if (idList.length>0){
 							if(isFarmingChecked(itemFarmingID)){
-								tds.push(td);
-								dropsEncontrados++;							
+								if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
+									tds.push(td);
+									dropsEncontrados++;							
+								}
 							}
 						}else{
 							tds.push(td);
@@ -956,8 +968,10 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 				if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 					if (idList.length>0){
 						if(isFarmingChecked(itemFarmingID)){
-							tds.push(td);
-							dropsEncontrados++;							
+							if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
+								tds.push(td);
+								dropsEncontrados++;							
+							}						
 						}
 					}else{
 						tds.push(td);
@@ -1020,8 +1034,10 @@ function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnem
 				if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 					if (idList.length>0){
 						if(isFarmingChecked(itemFarmingID)){
-							tds.push(td);
-							dropsEncontrados++;							
+							if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
+								tds.push(td);
+								dropsEncontrados++;							
+							}						
 						}
 					}else{
 						tds.push(td);
@@ -1074,8 +1090,10 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 			if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 				if (idList.length>0){
 					if(isFarmingChecked(itemFarmingID)){
-						tds.push(td);
-						dropsEncontrados++;							
+						if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
+							tds.push(td);
+							dropsEncontrados++;							
+						}					
 					}
 				}else{
 					tds.push(td);
