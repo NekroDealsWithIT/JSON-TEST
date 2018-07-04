@@ -1348,12 +1348,12 @@ function rellenarDatos(){
 							var notifId=(actualId!=''?actualId:c.cachedItem);
 							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-									'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+notifId+'"' + (notificar?" checked":"")+'></label>'+
+									'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'></label>'+
 									'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
 									'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
 									'<span class="capitalize">'+c.cachedItem+'</span>'+
 									'</a>'+
-									(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+actual+'"' +'>Completa?)</label>')+
+									(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+notifId+'"' +'>Completa?)</label>')+
 									(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
 									'</li>';
 							}
