@@ -1381,53 +1381,61 @@ function rellenarDatos(){
 			
 			eventsData.forEach(function(e){
 				parseado +='<article>';
-				parseado +='<span class="subrayado"><h2>' +e.description+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+e.affiliatedWith+'" target="blank">'+e.affiliatedWith+'</a>)</h2></span>';
-				parseado +='<p>' +e.tooltip+'</p>';
-				parseado +='<p>Nodo: ' +e.victimNode+'('+e.health+'%)</p>';
-				parseado += '<hr>';
-				if(e.jobs!=null&&e.jobs.length>0){
-					parseado+='<span class="subrayado"><h4>&#8227; Misiones</h4></span><div class="eventMission">';
-					e.jobs.forEach(function(j){
+				if(e.jobs!=null){
+					parseado +='<span class="subrayado"><h2>' +e.description+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+e.affiliatedWith+'" target="blank">'+e.affiliatedWith+'</a>)</h2></span>';
+					parseado +='<p>' +e.tooltip+'</p>';
+					parseado +='<p>Nodo: ' +e.victimNode+'('+e.health+'%)</p>';
+					parseado += '<hr>';
+					if(e.jobs!=null&&e.jobs.length>0){
+						parseado+='<span class="subrayado"><h4>&#8227; Misiones</h4></span><div class="eventMission">';
+						e.jobs.forEach(function(j){
 
-						var idEvent="'"+j.id+"'";
-						var eventoCompleta=chequearCompleto(j.id);
-						
-						//agrego eventActiva
-						eventActivaArr.push(j.id);
+							var idEvent="'"+j.id+"'";
+							var eventoCompleta=chequearCompleto(j.id);
+							
+							//agrego eventActiva
+							eventActivaArr.push(j.id);
 
-						var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idEvent+')"'+(eventoCompleta?' checked':'')+'>Completa?</label><br>'
-						var isCompleted=(eventoCompleta?' completed':'');
-						
-						parseado+=checkBoxCompleted+' Tipo: '+j.type;
-						if(j.enemyLevels.length>0){
-							parseado+='<p class='+isCompleted+'>Nivel:';
-							j.enemyLevels.forEach(function(el){
-								parseado+= ' '+el;
-							});
-							parseado+='</p>';
-						}
-						if(j.rewardPool.length>0){
-							parseado+='<p class='+isCompleted+'>Recompensas: ';
-							j.rewardPool.forEach(function(rp){
-								parseado+= '[<a href="http://warframe.wikia.com/wiki/Special:Search?search='+rp+'" target="blank">'+rp+'</a>]';
-							});
-							parseado+='</p>';
-						}
-						if(j.standingStages.length>0){
-							parseado+='<p class='+isCompleted+'>Reputacion: ';
-							var suma=0;
-							j.standingStages.forEach(function(ss){
-								parseado+= '['+ss+']';
-								suma+=ss;
-							});
-							parseado+=' <b>(Total: '+suma+')</b>';
-							parseado+='</p>';
-						}
-						parseado+='<hr>';
-					});
+							var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idEvent+')"'+(eventoCompleta?' checked':'')+'>Completa?</label><br>'
+							var isCompleted=(eventoCompleta?' completed':'');
+							
+							parseado+=checkBoxCompleted+' Tipo: '+j.type;
+							if(j.enemyLevels.length>0){
+								parseado+='<p class='+isCompleted+'>Nivel:';
+								j.enemyLevels.forEach(function(el){
+									parseado+= ' '+el;
+								});
+								parseado+='</p>';
+							}
+							if(j.rewardPool.length>0){
+								parseado+='<p class='+isCompleted+'>Recompensas: ';
+								j.rewardPool.forEach(function(rp){
+									parseado+= '[<a href="http://warframe.wikia.com/wiki/Special:Search?search='+rp+'" target="blank">'+rp+'</a>]';
+								});
+								parseado+='</p>';
+							}
+							if(j.standingStages.length>0){
+								parseado+='<p class='+isCompleted+'>Reputacion: ';
+								var suma=0;
+								j.standingStages.forEach(function(ss){
+									parseado+= '['+ss+']';
+									suma+=ss;
+								});
+								parseado+=' <b>(Total: '+suma+')</b>';
+								parseado+='</p>';
+							}
+							parseado+='<hr>';
+						});
+					}
+
+					parseado +='</article>';
+				}else{
+					parseado +='<span class="subrayado"><h2>'+e.description+' (Expira:'+e.expiry+')</h2></span>';
+					parseado +='<p>'+e.asString+'</p>';
+					parseado+='<hr>';
+					parseado +='</article>';
+
 				}
-
-				parseado +='</article>';
 			});
 
 			// parseado += '<hr>';
