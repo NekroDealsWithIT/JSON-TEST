@@ -1385,7 +1385,7 @@ function rellenarDatos(){
 				parseado +='<p>' +e.tooltip+'</p>';
 				parseado +='<p>Nodo: ' +e.victimNode+'('+e.health+'%)</p>';
 				parseado += '<hr>';
-				if(e.jobs.length>0){
+				if(e.jobs!=null&&e.jobs.length>0){
 					parseado+='<span class="subrayado"><h4>&#8227; Misiones</h4></span><div class="eventMission">';
 					e.jobs.forEach(function(j){
 
