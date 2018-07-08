@@ -1430,7 +1430,7 @@ function rellenarDatos(){
 
 					parseado +='</article>';
 				}else{
-					parseado +='<span class="subrayado"><h2>'+e.description+' (Expira:'+e.expiry+')</h2></span>';
+					parseado +='<span class="subrayado"><h2>'+e.description+' (Expira:'+dateToString(e.expiry)+')</h2></span>';
 					parseado +='<p>'+e.asString+'</p>';
 					parseado+='<hr>';
 					parseado +='</article>';
@@ -2203,15 +2203,18 @@ function holdTimer(hold){
 
 function setCachedDefaultData(){
 	var agregados=0;
+	//t_neuralSensors_l_https://i.imgur.com/Gq6cz9p.png
+	var cookies=document.cookie;
 	historicCachedData.forEach(function (hcd){
-		var cookieStore
+		var cookieStore='';
 		if(hcd.cachedItem!=''){
 			cookieStore='t_'+hcd.cachedType+'_i_'+hcd.cachedItem+'_l_'+hcd.cachedImgLink;
 		}else{
 			cookieStore='t_'+hcd.cachedType+'_l_'+hcd.cachedImgLink;
 		}
 		
-		if(getCookie(cookieStore)==""){
+		//if(getCookie(cookieStore)==""){
+		if(!cookies.includes(cookieStore)){
 			if (document.cookie!=''){
 				console.log("Agrego:"+cookieStore+"-"+hcd.cachedTime);	
 			}
