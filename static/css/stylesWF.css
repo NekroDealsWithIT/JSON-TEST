@@ -464,6 +464,7 @@ h5{
 .tab button.active {
     background-color: #16da47;
     color:#000;
+    font-weight: 800;
 }
 
 /* Style the tab content */
