@@ -434,6 +434,7 @@ h5{
     margin:20px 0!important;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .tabFrame{
 	border: 2px solid #9037ca;
