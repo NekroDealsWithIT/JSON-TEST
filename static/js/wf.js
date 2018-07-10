@@ -10,6 +10,7 @@ var trabajandoEn=[
 				];
 var fetching=false;
 var fetchingDrops=false;
+var firstRun=true;
 var resultJson='';
 var resultJsonDrops='';
 var dropsEncontrados=0;
@@ -235,6 +236,9 @@ function getJson(url='',viaCors=true){
 	  // checkear la version sino recargar la pagina
 	  versionCheck();
 	  fetching=false;
+	  if (firstRun){
+	  	checkSystems();
+	  }
 	  return request.response;
 	}
 }
@@ -290,6 +294,15 @@ function getFarmingMarks(){
 	llenarFarmingFocus();
 }
 
+function checkSystems(){
+	if (firstRun){
+		if(resultJson!=''){
+			firstRun=false;
+			//notificationGeneralSound.play();
+			generateToast("Welcome back, Operator!","","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWlywyQP08F1llP_JfBsuvQbp4z6n6t2lxCr9G-C3liEviKzuC",5000,"info");
+		}
+	}
+}
 
 function getDropsComboLists(){
 	planetasArr=[];
@@ -1236,6 +1249,8 @@ function rellenarDatos(){
 		cacheado=getCachedData();
 		if (cacheado.length>0){
 			notificacionesTitle.innerHTML='🌑 Notificar ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
+			tabTitleNotificaciones.innerHTML='Notificaciones ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
+
 			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			
 			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyActive?"checked":"")+' onClick="notifOnlyActive=this.checked;rellenarDatos();">Mostrar solo activas actualmente</label><br>';
@@ -1374,6 +1389,8 @@ function rellenarDatos(){
 		if (eventsData.length>0){
 
 			eventsTitle.innerHTML="🌑 Eventos ("+eventsData.length+' activo)';
+			tabTitleEventos.innerHTML="Eventos ["+eventsData.length+']';
+
 			removeClass('eventsCheckbox','hidden');
 			parseado='';
 			// parseado='<a id="E"></a>';
@@ -1444,6 +1461,7 @@ function rellenarDatos(){
 			// addClass('eventsCheckbox','hidden');
 			events.innerHTML='<h2>No hay eventos activos</h2>';
 			eventsTitle.innerHTML="❌ Eventos (No hay eventos activos)"
+			tabTitleEventos.innerHTML='Eventos [0]';
 		}
 
 		//Alerts
@@ -1510,6 +1528,7 @@ function rellenarDatos(){
 		parseado += '<hr>';
 		alerts.innerHTML=parseado;
 		alertsTitle.innerHTML='🌑 Alertas ['+alertaActivaArr.length+']';
+		tabTitleAlertas.innerHTML='Alertas ['+alertaActivaArr.length+']';
 		//Invasions
 		ths=[];
 		tds=[];
@@ -1567,6 +1586,7 @@ function rellenarDatos(){
 		parseado += '<hr>';
 		invasions.innerHTML=parseado;
 		invasionsTitle.innerHTML='🌑 Invasiones ['+invasionActivaArr.length+']';
+		tabTitleInvasiones.innerHTML='Invasiones ['+invasionActivaArr.length+']';
 		
 		//Sortie
 		ths=[];
@@ -1577,6 +1597,7 @@ function rellenarDatos(){
 		if (sortieData!=undefined){
 			// parseado += '<h3>(Sortie '+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
 			sortieTitle.innerHTML = '🌑 Sortie '+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')';
+			tabTitleSortie.innerHTML='Sortie ['+strDiff((sortieData.eta),diff)+']';
 			parseado += '<div>Jefe: '+sortieData.boss
 			parseado += '<BR>Faccion: '+sortieData.faction;
 			parseado += '<BR>Tiempo Restante: '+strDiff((sortieData.eta),diff)+'('+sortieData.eta+')</div>';
@@ -1636,6 +1657,8 @@ function rellenarDatos(){
 		parseado +='<hr>';
 		fissures.innerHTML=parseado;
 		fissuresTitle.innerHTML='🌑 Fisuras ['+fisureData.length+']';
+		tabTitleFisuras.innerHTML='Fisuras ['+fisureData.length+']';
+
 		//Baro
 		var baroData=resultJson.voidTrader;
 		parseado='';
@@ -1647,6 +1670,9 @@ function rellenarDatos(){
 			baroData.inventory.forEach(function (i){
 				itemsBaro+="("+i.item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+") ";
 			});
+			tabTitleBaro.innerHTML="Baro ["+baroData.inventory.length+']('+strDiff((baroData.endString),diff)+')';
+		}else{
+			tabTitleBaro.innerHTML='Baro ('+strDiff((baroData.startString),diff)+')';
 		}
 		itemsBaro=strReplaceAllNonPrintable(itemsBaro);
 		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' {'+strDiff((baroData.startString),diff)+"} "+" | "+' Se va:{'+strDiff((baroData.endString),diff)+"}"+(baroData.active?' | Items: '+itemsBaro:'')+' {http://nekro-warframe.netlify.com}'+"'";
@@ -1695,7 +1721,7 @@ function rellenarDatos(){
 		// parseado +='<h3>Sindicatos</h3>'
 		synData.forEach	(function(s){
 			parseado+="<h2>"+s.syndicate+" | "+strDiff(s.eta,diff)+"</h2>";
-			
+			/* saco los nodos porque no tiene mucho sentido
 			if(s.nodes.length>0){
 				parseado+='<h4 class="syndicateTitle">Nodos:</h4><ul>';
 
@@ -1708,6 +1734,7 @@ function rellenarDatos(){
 				});
 				parseado+="</ul>";
 			}
+			*/
 			
 			if(s.jobs.length>0){
 				parseado+="<ul>";
@@ -2225,4 +2252,24 @@ function setCachedDefaultData(){
 	if (agregados>0&&document.cookie!=''){
 		console.log(agregados+" agregados!");	
 	}
+}
+
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        if(tabName!="showAllTab"){
+        	tabcontent[i].style.display = "none";
+        }else{
+        	tabcontent[i].style.display = "block";
+        }
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {       
+    	tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    if(tabName!="showAllTab"){
+    	document.getElementById(tabName).style.display = "block";
+ 	}
+    evt.currentTarget.className += " active";
 }
