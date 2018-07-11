@@ -4,9 +4,9 @@
 	<!-- charset -->
 	<meta charset="utf-8">
 	<meta name="description" content="Warframe check, alerts, invasions, info">
-  	<meta name="keywords" content="warframe">
-  	<meta name="author" content="Nekro - ShadowOfNekro (PC)">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="warframe">
+	<meta name="author" content="Nekro - ShadowOfNekro (PC)">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<title>Nekro's WF Check</title>
 	<!-- favicon -->
@@ -33,108 +33,105 @@
 		<nav class="botonera">
 			<div id="barraProgreso"></div>
 			<div id="test"></div>
-			
-<!-- 			ver esta barra
-			https://codepen.io/mindfullsilence/pen/DtzjE -->
-			<div>
-				<label id="botoneraCheckbox"><img src="static/img/favicon/favicon-32x32.png" ><input type="checkbox" name="botonera-desplegable" class="hidden" onclick="toggleHide(this.name);toggleClass('botoneraCheckbox','active',this.checked);">Controles<img src="static/img/favicon/favicon-32x32.png" ></label>
-			</div>
-			<div id="botonera-desplegable" class="hidden ucase negrita">
-				<ul>
-					<li>
-						<label class="active" id="autoUpdateCheckbox"><input type="checkbox" id="autoUpdateHiddenCheckbox" name="autoUpdate"	checked onclick="toggleTimer(this.checked);toggleClass('autoUpdateCheckbox','active',this.checked);">Actualizar</label>
-					</li>
-					<li>
-						<a href="#C">▼</a>
-						<label 				  id="formContactoCheckbox">	<input type="checkbox" name="formContacto" 			onclick="toggleHide(this.name);toggleClass('formContactoCheckbox','active',this.checked 	);">Form contacto 	</label>
-					</li>
-					<li>
-						<a href="#V">▼</a>
-						<label 				  id="whatsWarframeCheckbox">	<input type="checkbox" name="whatsWarframe" 		onclick="toggleHide(this.name);toggleClass('whatsWarframeCheckbox','active',this.checked	);">Video Intro 	</label>
-					</li>
-					<li>
-						<a href="#NOTI">▼</a>
-						<label class="active" id="notificacionesCheckbox">	<input type="checkbox" name="notificaciones"checked onclick="toggleHide(this.name);toggleClass('notificacionesCheckbox','active',this.checked 	);">Notificaciones</label>
-					</li>
-				</ul>
-				<ul>
-					<!-- no queda otra que JS porque el checkbox es son y tengo que moficar su parent. -->
-					<li>	
-						<a href="#T">▼</a>
-						<label class="active" id="cetusTimerCheckbox">		<input type="checkbox" name="timers" 		checked onclick="toggleHide(this.name);toggleClass('cetusTimerCheckbox','active',this.checked 		);">Timers</label>
-					 	<a href="#A">▼</a>
-					 	<label class="active" id="alertsCheckbox">			<input type="checkbox" name="alerts" 		checked onclick="toggleHide(this.name);toggleClass('alertsCheckbox','active',this.checked 			);">Alerta</label>
-					</li>
-					<li>	
-						<a href="#E">▼</a>
-						<label class="active" id="eventsCheckbox">			<input type="checkbox" name="events" 		checked onclick="toggleHide(this.name);toggleClass('eventsCheckbox','active',this.checked 			);">Evento</label>
-						<a href="#I">▼</a>
-						<label class="active" id="invasionsCheckbox">		<input type="checkbox" name="invasions" 	checked onclick="toggleHide(this.name);toggleClass('invasionsCheckbox','active',this.checked 		);">Invasion</label>
-					</li>
-					<li>	
-						<a href="#S">▼</a>
-						<label class="active" id="sortieCheckbox">			<input type="checkbox" name="sortie" 		checked onclick="toggleHide(this.name);toggleClass('sortieCheckbox','active',this.checked 			);">Sortie</label>
-						<a href="#F">▼</a>
-						<label class="active" id="fissuresCheckbox">		<input type="checkbox" name="fissures" 		checked onclick="toggleHide(this.name);toggleClass('fissuresCheckbox','active',this.checked 		);">Fisura</label>
-					</li>
-					<li>	
-						<a href="#B">▼</a>
-						<label class="active" id="baroCheckbox">			<input type="checkbox" name="baro" 			checked onclick="toggleHide(this.name);toggleClass('baroCheckbox','active',this.checked 			);">Baro</label>
-						<a href="#N">▼</a>
-						<label class="active" id="newsCheckbox">			<input type="checkbox" name="news" 			checked onclick="toggleHide(this.name);toggleClass('newsCheckbox','active',this.checked 			);">News</label>
-					</li>																																																															
-				</ul>
-			</div>
-		</nav>
+	<div>
+		<!-- <label id="botoneraCheckbox"><img src="static/img/favicon/favicon-32x32.png" ><input type="checkbox" name="botonera-desplegable" class="hidden" onclick="toggleHide(this.name);toggleClass('botoneraCheckbox','active',this.checked);">Controles<img src="static/img/favicon/favicon-32x32.png" ></label> -->
 	</div>
+	<div id="botonera-desplegable" class="hidden ucase negrita">
+		<ul>
+			<li>
+				<label class="active" id="autoUpdateCheckbox"><input type="checkbox" id="autoUpdateHiddenCheckbox" name="autoUpdate"	checked onclick="toggleTimer(this.checked);toggleClass('autoUpdateCheckbox','active',this.checked);">Actualizar</label>
+			</li>
+			<li>
+				<a href="#C">▼</a>
+				<label 				  id="formContactoCheckbox">	<input type="checkbox" name="formContacto" 			onclick="toggleHide(this.name);toggleClass('formContactoCheckbox','active',this.checked 	);">Form contacto 	</label>
+			</li>
+			<li>
+				<a href="#V">▼</a>
+				<label 				  id="whatsWarframeCheckbox">	<input type="checkbox" name="whatsWarframe" 		onclick="toggleHide(this.name);toggleClass('whatsWarframeCheckbox','active',this.checked	);">Video Intro 	</label>
+			</li>
+			<li>
+				<a href="#NOTI">▼</a>
+				<label class="active" id="notificacionesCheckbox">	<input type="checkbox" name="notificaciones"checked onclick="toggleHide(this.name);toggleClass('notificacionesCheckbox','active',this.checked 	);">Notificaciones</label>
+			</li>
+		</ul>
+		<ul>
+			<!-- no queda otra que JS porque el checkbox es son y tengo que moficar su parent. -->
+			<li>	
+				<a href="#T">▼</a>
+				<label class="active" id="cetusTimerCheckbox">		<input type="checkbox" name="timers" 		checked onclick="toggleHide(this.name);toggleClass('cetusTimerCheckbox','active',this.checked 		);">Timers</label>
+				<a href="#A">▼</a>
+				<label class="active" id="alertsCheckbox">			<input type="checkbox" name="alerts" 		checked onclick="toggleHide(this.name);toggleClass('alertsCheckbox','active',this.checked 			);">Alerta</label>
+			</li>
+			<li>	
+				<a href="#E">▼</a>
+				<label class="active" id="eventsCheckbox">			<input type="checkbox" name="events" 		checked onclick="toggleHide(this.name);toggleClass('eventsCheckbox','active',this.checked 			);">Evento</label>
+				<a href="#I">▼</a>
+				<label class="active" id="invasionsCheckbox">		<input type="checkbox" name="invasions" 	checked onclick="toggleHide(this.name);toggleClass('invasionsCheckbox','active',this.checked 		);">Invasion</label>
+			</li>
+			<li>	
+				<a href="#S">▼</a>
+				<label class="active" id="sortieCheckbox">			<input type="checkbox" name="sortie" 		checked onclick="toggleHide(this.name);toggleClass('sortieCheckbox','active',this.checked 			);">Sortie</label>
+				<a href="#F">▼</a>
+				<label class="active" id="fissuresCheckbox">		<input type="checkbox" name="fissures" 		checked onclick="toggleHide(this.name);toggleClass('fissuresCheckbox','active',this.checked 		);">Fisura</label>
+			</li>
+			<li>	
+				<a href="#B">▼</a>
+				<label class="active" id="baroCheckbox">			<input type="checkbox" name="baro" 			checked onclick="toggleHide(this.name);toggleClass('baroCheckbox','active',this.checked 			);">Baro</label>
+				<a href="#N">▼</a>
+				<label class="active" id="newsCheckbox">			<input type="checkbox" name="news" 			checked onclick="toggleHide(this.name);toggleClass('newsCheckbox','active',this.checked 			);">News</label>
+			</li>																																																															
+		</ul>
+	</div>
+</nav>
+</div>
 
-	<div class="content">
-		<header class="headLogo">
-			<h1 onclick="toggleHide('workingOn');">Warframe check by Nekro (click para ver que se esta gestando)</h1>
-		</header>
-		<div id="ultimaVersion"></div>
-		<div id="datosPagina"><img class="loading" src="static/img/loading.gif"></div>
-		<div id="timeStamp"></div>
-		<div id="workingOn" class="hidden"></div>
+<div class="content">
+	<header class="headLogo">
+		<h1 onclick="toggleHide('workingOn');">Warframe check by Nekro (click para ver que se esta gestando)</h1>
+	</header>
+	<div id="ultimaVersion"></div>
+	<div id="datosPagina"><img class="loading" src="static/img/loading.gif"></div>
+	<div id="timeStamp"></div>
+	<div id="workingOn" class="hidden"></div>
 
-		<a id="C"></a>
-		<h3 onclick="toggleHide('formContacto')">🌑 Contactame</h3>
-		<div id="formContacto" class="hidden">
-			<form class="formulario" action="#" method="get">
-				<ul>
-					<li>
-						<h2>En desarrollo - todavia no funciona :'(</h2>
-					</li>
-					<li>
-						<img src="https://i.imgur.com/zW3PePg.png&key=1b190708073b6a3daa0a08c767613194a0f2c8a0d06cf59e301c423d2b558f4e">
-					</li>
-					<li>
-						<input type="text" name="nombre" id="formNombre" class="field-style field-split align-left" placeholder="* Nombre" required />
-						<input type="email" name="email" class="field-style field-split align-right" required placeholder="* Email" />
-					</li>
-					<li>
-						<input type="text" name="asunto" class="field-style field-full align-none" placeholder="Asunto" />
-					</li>
-					<li>
-						<textarea name="mensaje" class="field-style" placeholder="Mensaje"></textarea>
-					</li>
-					<li>
-						<input type="submit" disabled="true" value="Enviar mensaje"  onclick="alert('En desarrollo');return false;//setCookie('campeon',formNombre.value,(1000*60*1))" />
-					</li>
-					<li>
-						<!-- <a href="https://www.sanwebe.com/2014/08/css-html-forms-designs/comment-page-2" target="blank">Plantilla utlizada utilizada(Form Style 9)</a> -->
-					</li>
-				</ul>
-			</form>
-			<div id="cookiesShow" class="hidden"></div>
+	<a id="C"></a>
+	<h3 onclick="toggleHide('formContacto')">🌑 Contactame</h3>
+	<div id="formContacto" class="hidden">
+		<form class="formulario" action="#" method="get">
+			<ul>
+				<li>
+					<h2>En desarrollo - todavia no funciona :'(</h2>
+				</li>
+				<li>
+					<img src="https://i.imgur.com/zW3PePg.png&key=1b190708073b6a3daa0a08c767613194a0f2c8a0d06cf59e301c423d2b558f4e">
+				</li>
+				<li>
+					<input type="text" name="nombre" id="formNombre" class="field-style field-split align-left" placeholder="* Nombre" required />
+					<input type="email" name="email" class="field-style field-split align-right" required placeholder="* Email" />
+				</li>
+				<li>
+					<input type="text" name="asunto" class="field-style field-full align-none" placeholder="Asunto" />
+				</li>
+				<li>
+					<textarea name="mensaje" class="field-style" placeholder="Mensaje"></textarea>
+				</li>
+				<li>
+					<input type="submit" disabled="true" value="Enviar mensaje"  onclick="alert('En desarrollo');return false;//setCookie('campeon',formNombre.value,(1000*60*1))" />
+				</li>
+				<li>
+					<!-- <a href="https://www.sanwebe.com/2014/08/css-html-forms-designs/comment-page-2" target="blank">Plantilla utlizada utilizada(Form Style 9)</a> -->
+				</li>
+			</ul>
+		</form>
+		<div id="cookiesShow" class="hidden"></div>
 
-			<div id="sinImplementar" class="hidden">
-				<div id="descripcionForm"></div>
-				<!-- <img src="https://78.media.tumblr.com/f6f47e10cf1e76b3a55b2147c218a4d2/tumblr_mqs90xiuRU1r2kb4qo1_500.gif"> -->
-				<!-- <iframe id="jaja" width="560" height="315" src="https://www.youtube-nocookie.com/embed/gWLbn--n17g?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-			</div>
+		<div id="sinImplementar" class="hidden">
+			<div id="descripcionForm"></div>
+			<!-- <img src="https://78.media.tumblr.com/f6f47e10cf1e76b3a55b2147c218a4d2/tumblr_mqs90xiuRU1r2kb4qo1_500.gif"> -->
+			<!-- <iframe id="jaja" width="560" height="315" src="https://www.youtube-nocookie.com/embed/gWLbn--n17g?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+		</div>
 
-			<script type="text/javascript">
+		<script type="text/javascript">
 				//checkCampeon();
 			</script>
 		</div>
@@ -152,6 +149,8 @@
 				</div>
 			</div>
 		</div>
+		
+
 		<a id="N"></a>
 		<h3 id="newsTitle" onclick="toggleHide('news');">🌑 News</h3>
 		<section id="news"><img class="loading" src="static/img/loading.gif"></section>
@@ -165,51 +164,61 @@
 		<div id="farmingList"><h2>No hay items seleccionados para farming en drops</h2></div>
 
 		<audio id="notificationGeneralSound" src='static/sound/allSystemNominal.wav'></audio>
+
+		<h3>🌑 Plataformas</h3>
+		<h4>(SE PUEDEN SELECCIONAR DISTINTAS PLATAFORMAS A LA VEZ CARGANDO LA PAGINA EN DISTINTAS PESTA&Ntilde;AS)</h4>
+		<div class="tabFrame">
+			<div class="tab">
+				<button class="tablinks active" data-idGroupName="platformSelectorTab" name="pc" onclick="openTab(event, this.name,false);changePlatform(this.name);">PC</button>
+				<button class="tablinks" data-idGroupName="platformSelectorTab" name="ps4" onclick="openTab(event, this.name,false);changePlatform(this.name);">PS4</button>
+				<button class="tablinks" data-idGroupName="platformSelectorTab" name="xb1" onclick="openTab(event, this.name,false);changePlatform(this.name);">XBOX1</button>
+			</div>
+		</div> 
 		<!-- implementacion de tabs -->
 		<div class="tabFrame">
 			<div class="tab">
-			  <button class="tablinks active" name="hideAllTab" onclick="openTab(event, this.name)">Ocultar</button>
-			  <button class="tablinks" name="showAllTab" onclick="openTab(event, this.name)">TODO</button>
-			  <button id="tabTitleDrops" class="tablinks" name="dropsTab" onclick="openTab(event, this.name)">Drops</button>
-			  <button id="tabTitleNotificaciones" class="tablinks" name="notificacionesTab" onclick="openTab(event, this.name)">Notificaciones</button>
-			  <button id="tabTitleEventos" class="tablinks" name="eventosTab" onclick="openTab(event, this.name)">Eventos</button>
-			  <button id="tabTitleAlertas" class="tablinks" name="alertasTab" onclick="openTab(event, this.name)">Alertas</button>
-			  <button id="tabTitleInvasiones" class="tablinks" name="invasionesTab" onclick="openTab(event, this.name)">Invasiones</button>
-			  <button id="tabTitleSortie" class="tablinks" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
-			  <button id="tabTitleFisuras" class="tablinks" name="fissuresTab" onclick="openTab(event, this.name)">Fisuras</button>
-			  <button id="tabTitleBaro" class="tablinks" name="baroTab" onclick="openTab(event, this.name)">Baro</button>
-			  <button id="tabTitleSindicatos" class="tablinks" name="sindicatosTab" onclick="openTab(event, this.name)">Sindicatos</button>
+				<button data-idGroupName="generalTab" class="tablinks active subrayado" data-idGroupName="generalTab" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>
+				<button data-idGroupName="generalTab" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleDrops" name="dropsTab" onclick="openTab(event, this.name)">Drops</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNotificaciones" name="notificacionesTab" onclick="openTab(event, this.name)">Notificaciones</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleEventos" name="eventosTab" onclick="openTab(event, this.name)">Eventos</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleAlertas" name="alertasTab" onclick="openTab(event, this.name)">Alertas</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleInvasiones" name="invasionesTab" onclick="openTab(event, this.name)">Invasiones</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSortie" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFisuras" name="fissuresTab" onclick="openTab(event, this.name)">Fisuras</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleBaro" name="baroTab" onclick="openTab(event, this.name)">Baro</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSindicatos" name="sindicatosTab" onclick="openTab(event, this.name)">Sindicatos</button>
 <!-- 			  <button class="tablinks" name="" onclick="openTab(event, 'London')">London</button>
 			  <button class="tablinks" name="" onclick="openTab(event, 'Paris')">Paris</button>
 			  <button class="tablinks" name="" onclick="openTab(event, 'Tokyo')">Tokyo</button> -->
 			</div>
-			<div id="hideAllTab" class="tabcontent"></div>
-			<div id="showAllTab" class="tabcontent"></div>
-			<div id="dropsTab" class="tabcontent">
-				<a id="DROPS"></a>
-				<h3 id="dropsTitle" onclick="toggleHide('dropsList');">🌑 Drops</h3>
-				<div id="dropsList">
-					<form id="dropsForm" class='formulario'>
-					<ul>
-						<li>
-							<span id='dropsFormBuscando'></span>
-						</li>
-						<li>
-							<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop();" />
-							<input type="button" name="itemPipe" id="formAddPipeButton" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
-						</li>
-						<li id="liTipo">
-							Tipo:
-							<select id="formTipo" class="field-split" onchange="buscarDrop();">
-								<option value="All" selected>Todo tipo</option>
-								<option value="relics">Relics</option>
-								<option value="missionRewards">Misiones</option>
-								<option value="cetusBountyRewards">Cetus</option>
-								<option value="transientRewards">Eventos</option>
-								<option value="enemyModTables">Mods enemigos</option>
-								<option value="modLocations">Drops de enemigos</option>
-								<option value="sortieRewards">Sortie</option> 
-								
+<!-- 			<div id="hideAllTab" class="tabcontent"></div>
+	<div id="showAllTab" class="tabcontent"></div> -->
+	<div data-idGroupName="generalTab" id="dropsTab" class="tabcontent">
+		<a id="DROPS"></a>
+		<h3 id="dropsTitle" onclick="toggleHide('dropsList');">🌑 Drops</h3>
+		<div id="dropsList">
+			<form id="dropsForm" class='formulario'>
+				<ul>
+					<li>
+						<span id='dropsFormBuscando'></span>
+					</li>
+					<li>
+						<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop();" />
+						<input type="button" name="itemPipe" id="formAddPipeButton" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
+					</li>
+					<li id="liTipo">
+						Tipo:
+						<select id="formTipo" class="field-split" onchange="buscarDrop();">
+							<option value="All" selected>Todo tipo</option>
+							<option value="relics">Relics</option>
+							<option value="missionRewards">Misiones</option>
+							<option value="cetusBountyRewards">Cetus</option>
+							<option value="transientRewards">Eventos</option>
+							<option value="enemyModTables">Mods enemigos</option>
+							<option value="modLocations">Drops de enemigos</option>
+							<option value="sortieRewards">Sortie</option> 
+
 								<!--<option value="blueprintLocations">Planos</option>
 								<option value="enemyBlueprintTables">Planos enemigos</option>
 								
@@ -277,63 +286,63 @@
 							<input type="button" id="formClearButton" class="field-split" value="Borrar consulta" onclick="clearForm();"/>
 						</li>
 					</ul>
-					</form>
-					<div id="dropResult"></div>
-					<div id="drops"><img class="loading" src="static/img/loading.gif"></div>
-				</div>
-			</div>
-			<div id="notificacionesTab" class="tabcontent">
-				<a id="NOTI"></a>
-				<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">🌑 Notificaciones</h3>
-				<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
-			</div>
-
-			<div id="eventosTab" class="tabcontent">
-				<a id="E"></a>
-				<h3 id="eventsTitle" onclick="toggleHide('events');">🌑 Eventos</h3>
-				<section id="events"><img class="loading" src="static/img/loading.gif"></section>
-			</div>
-			<div id="alertasTab" class="tabcontent">
-				<a id="A"></a>
-				<h3 id="alertsTitle" onclick="toggleHide('alerts');">🌑 Alertas</h3>
-				<section id="alerts"><img class="loading" src="static/img/loading.gif"></section>
-			</div>
-			<div id="invasionesTab" class="tabcontent">
-				<a id="I"></a>
-				<h3 id="invasionsTitle" onclick="toggleHide('invasions');">🌑 Invasiones</h3>
-				<section id="invasions"><img class="loading" src="static/img/loading.gif"></section>
-			</div>
-			<div id="sortieTab" class="tabcontent">
-				<a id="S"></a>
-				<h3 id="sortieTitle" onclick="toggleHide('sortie');">🌑 Sortie</h3>
-				<section id="sortie"><img class="loading" src="static/img/loading.gif"></section>
-			</div>
-			<div id="fissuresTab" class="tabcontent">
-				<a id="F"></a>
-				<h3 id="fissuresTitle" onclick="toggleHide('fissures');">🌑 Fisuras</h3>
-				<section id="fissures"><img class="loading" src="static/img/loading.gif"></section>
-			</div>
-			<div id="baroTab" class="tabcontent">
-				<a id="B"></a>
-				<h3 id="baroTitle" onclick="toggleHide('baro');">🌑 Baro</h3>
-				<section id="baro"><img class="loading" src="static/img/loading.gif"></section>
-			</div>
-			<div id="sindicatosTab" class="tabcontent">
-				<a id="SYN"></a>
-				<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">🌑 Sindicatos</h3>
-				<section id="syndicates"><img class="loading" src="static/img/loading.gif"></section>
+				</form>
+				<div id="dropResult"></div>
+				<div id="drops"><img class="loading" src="static/img/loading.gif"></div>
 			</div>
 		</div>
-	</div>
-	
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120746637-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+		<div id="notificacionesTab" data-idGroupName="generalTab" class="tabcontent">
+			<a id="NOTI"></a>
+			<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">🌑 Notificaciones</h3>
+			<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
+		</div>
 
-	  gtag('config', 'UA-120746637-1');
-	</script>
+		<div id="eventosTab" data-idGroupName="generalTab" class="tabcontent">
+			<a id="E"></a>
+			<h3 id="eventsTitle" onclick="toggleHide('events');">🌑 Eventos</h3>
+			<section id="events"><img class="loading" src="static/img/loading.gif"></section>
+		</div>
+		<div id="alertasTab" data-idGroupName="generalTab" class="tabcontent">
+			<a id="A"></a>
+			<h3 id="alertsTitle" onclick="toggleHide('alerts');">🌑 Alertas</h3>
+			<section id="alerts"><img class="loading" src="static/img/loading.gif"></section>
+		</div>
+		<div id="invasionesTab" data-idGroupName="generalTab" class="tabcontent">
+			<a id="I"></a>
+			<h3 id="invasionsTitle" onclick="toggleHide('invasions');">🌑 Invasiones</h3>
+			<section id="invasions"><img class="loading" src="static/img/loading.gif"></section>
+		</div>
+		<div id="sortieTab" data-idGroupName="generalTab" class="tabcontent">
+			<a id="S"></a>
+			<h3 id="sortieTitle" onclick="toggleHide('sortie');">🌑 Sortie</h3>
+			<section id="sortie"><img class="loading" src="static/img/loading.gif"></section>
+		</div>
+		<div id="fissuresTab" data-idGroupName="generalTab" class="tabcontent">
+			<a id="F"></a>
+			<h3 id="fissuresTitle" onclick="toggleHide('fissures');">🌑 Fisuras</h3>
+			<section id="fissures"><img class="loading" src="static/img/loading.gif"></section>
+		</div>
+		<div id="baroTab" data-idGroupName="generalTab" class="tabcontent">
+			<a id="B"></a>
+			<h3 id="baroTitle" onclick="toggleHide('baro');">🌑 Baro</h3>
+			<section id="baro"><img class="loading" src="static/img/loading.gif"></section>
+		</div>
+		<div id="sindicatosTab" data-idGroupName="generalTab" class="tabcontent">
+			<a id="SYN"></a>
+			<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">🌑 Sindicatos</h3>
+			<section id="syndicates"><img class="loading" src="static/img/loading.gif"></section>
+		</div>
+	</div>
+</div>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120746637-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-120746637-1');
+</script>
 </body>
 </html>

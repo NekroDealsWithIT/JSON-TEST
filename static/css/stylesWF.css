@@ -29,6 +29,8 @@ h3{
   	color:#0F0;
   	padding: 3px 0;
   	top:-1px;
+  	z-index: 5;
+  	color:#fff900;
 }
 h4{
 	padding: 10px 0;
@@ -452,6 +454,8 @@ h5{
     transition: 0.3s;
     font-size: 17px;
     color:#0F0;
+    transition: border-radius 4s, background-color 1s;
+    will-change: transform;
 }
 
 /* Change background color of buttons on hover */
@@ -465,6 +469,7 @@ h5{
     background-color: #16da47;
     color:#000;
     font-weight: 800;
+    border-radius: 13px;
 }
 
 /* Style the tab content */
