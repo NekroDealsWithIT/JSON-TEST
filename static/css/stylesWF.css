@@ -725,7 +725,7 @@ h5{
 	border: 3px solid rebeccapurple;
 	border-radius: 30px;
 	font-size: .9rem;
-	width: 90%;
+	width: 100%;
 	margin:auto;
 	margin-bottom: 10px;
 	background: #000;
@@ -868,5 +868,3 @@ Sets para checkear
 @media only screen and (min-width: 1200px) {
 
 }
-
-
