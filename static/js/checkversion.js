@@ -8,7 +8,8 @@ function versionCheck(callback=false){
 	if (!callback){fetchVersion("static/version");}
 	
 	if (version!=''&&fetchedVersion!=version){
-		location.reload();	
+		//location.reload();
+		window.location.href=urlSetParameter("platform",platform);
 	}else{
 		version=fetchedVersion;
 		if (version!=''){

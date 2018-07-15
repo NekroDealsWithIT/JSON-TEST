@@ -51,13 +51,29 @@ function loadExternalHTML(){
 		}
 	}
 }
-
-function getParameter(parametro){
-	var url_string = window.location.href;
-	var url = new URL(url_string);
+/*
+-----------------------------------------------------
+	Funciones de Parametros en URL
+-----------------------------------------------------
+*/
+function urlGetParameter(parametro,urlToCheck=window.location.href){
+	var url = new URL(urlToCheck);
 	var p = url.searchParams.get(parametro);
 	return p;
 }
+function urlSetParameter(parametro,valor,update=true,urlToCheck=window.location.href){
+	var url = new URL(urlToCheck);
+	(update?url.searchParams.delete(parametro):"");
+	url.searchParams.append(parametro,valor);
+	return url;	
+}
+function urlDeleteParameter(parametro,urlToCheck=window.location.href){
+	var url = new URL(urlToCheck);
+	var p = url.searchParams.get(parametro);
+	url.searchParams.delete(parametro)
+	return url;	
+}
+
 /*
 -----------------------------------------------------
 	Funciones de clipboard

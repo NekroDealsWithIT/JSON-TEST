@@ -843,12 +843,23 @@ Sets para checkear
 @media only screen and (max-width: 600px) {
 	body{
 		background:black;
+	}	
+	.content{
+		width: 100%;
+	}
+	.pNight::before, .pDay::before{
+		content: "";
 	}
 } 
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
+	.content{
+		width: 100%;
+	}
+	.pNight::before, .pDay::before{
+		content: "";
+	}
 } 
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -861,6 +872,15 @@ Sets para checkear
 	body{
 		/*background:url('../img/stars.gif')  repeat fixed;*/
 		background:url('../img/Starfield.gif')  repeat fixed;
+	}
+	.content{
+		width: 90%;
+	}
+	.pDay::after, .pDay::before{
+		content: "(\263C)";
+	}
+	.pNight::after, .pNight::before{
+		content: "(\1F319)";
 	}
 } 
 

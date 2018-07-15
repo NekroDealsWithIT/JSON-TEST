@@ -8,7 +8,8 @@
 	var trabajandoEn=[
 	[3,'12-06-2018 Migre el manejo del desarrollo a trello!']
 	];
-	var platform="pc";
+	
+	var platform='';
 
 	var fetching=false;
 	var fetchingDrops=false;
@@ -1130,14 +1131,30 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 }
 
 function startAll(){
-	//inicio en PC
-	changePlatform('pc');
+	//Busco la plataforma y la cargo sino... pc.
+	platform=urlGetParameter("platform");
+	switch(platform){
+		case "ps4":
+			platformSelectorPS.click();
+			break;
+		case "xb1":
+			platformSelectorXB.click();
+			break;
+		case "pc":
+		default:
+			platformSelectorPC.click();
+	}
+
+	((platform==null)?platform="pc":"");
+
+
+	//changePlatform('pc');
 	
 	//llamo el worldstate
 	getWFWorldstate();
 
 	//Cargo las cookies por defecto
-	setCachedDefaultData();
+	//setCachedDefaultData();
 
 	//busco el json de drops
 	updateJsonDrops();
