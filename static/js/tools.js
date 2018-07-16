@@ -139,6 +139,27 @@ const copyToClipboard = str => {
 };
 /*
 -----------------------------------------------------
+	Funciones de fetch
+-----------------------------------------------------
+*/
+function fetchJSONCallback(url, options, callback) {
+  if (typeof options === 'function') {
+    callback = options
+    options = {}
+  }
+
+  options = options || {}
+
+  const headers = (options.headers || (options.headers = {}))
+  headers.Accept = 'application/json'
+
+  fetch(url, options)
+    .then(response => response.json())
+    .then(json => callback(json), callback)
+}
+
+/*
+-----------------------------------------------------
 	Funciones de tablas
 -----------------------------------------------------
 */

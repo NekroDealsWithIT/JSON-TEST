@@ -644,7 +644,7 @@ h5{
 .pDay{
 	color:yellow;
 	display: inline;
-	font-size:3rem;
+	font-size:2rem;
 }
 .pDay::after, .pDay::before{
 	content: "(\263C)";
@@ -653,7 +653,7 @@ h5{
 .pNight{
 	color:red;
 	display: inline;
-	font-size:3rem;
+	font-size:2rem;
 }
 .pNight::after, .pNight::before{
 	content: "(\1F319)";
@@ -833,6 +833,24 @@ Sets para checkear
 	font-size: 1.3rem;
 	color:#11f9fb;
 }
+
+/*
+----------------------------
+		WarframeProfiler
+----------------------------
+*/
+.patchAdicion{
+	color:green;
+}
+.patchCambio{
+	color:yellow;
+}
+.patchFix{
+	color:red;
+}
+
+
+
 /*
 ----------------------------
 		MediaQueries

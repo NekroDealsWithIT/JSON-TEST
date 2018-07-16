@@ -213,6 +213,9 @@ var historicCachedData=[
 {cachedType: "invasion", cachedItem: "Mutagen Mass", cachedImgLink: "https://i.imgur.com/vV7kzub.png", cachedTime: "Mon Jun 18 2018 17:18:27 GMT-0300 (hora estándar de Argentina)"}
 ];
 
+function sendToConsole(itm){
+	console.log(itm);
+}
 function checkCampeon(){
 	campeon=getCookie('campeon');
 	if(campeon!=undefined&&campeon!=''){

@@ -18,7 +18,7 @@ function versionCheck(callback=false){
 	}
 }
 function fetchVersion(url){
-fetch(url,
+	fetch(url,
 		{
 		mode: "no-cors"
 		}
@@ -41,13 +41,7 @@ fetch(url,
 	  //console.log(doc);
 	})
 }
-
-function fetchVersion3(url){
-	postData(url, {answer: 42})
-	  .then(data => fetchedVersion=data) // JSON from `response.json()` call
-	  .catch(error => console.error(error));
-}
-
+/*
 const postData = (url = ``, data = {}) => {
   // Default options are marked with *
     return fetch(url, {
@@ -66,3 +60,4 @@ const postData = (url = ``, data = {}) => {
     .then(response => response.json()) // parses response to JSON
     .catch(error => console.error(`Fetch Error =\n`, error));
 };
+*/
