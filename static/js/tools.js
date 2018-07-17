@@ -661,6 +661,8 @@ function toggleClass(id,clase,aplicar=''){
 /*
 -----------------------------------------------------
 	Cookies
+	Verificar el maximo en esta url:
+	http://browsercookielimits.squawky.net/
 -----------------------------------------------------
 */
 

@@ -100,15 +100,39 @@ wallAttack:50
 wikiaUrl:"htt:/warframe.wikia.com/wiki/Ack_%26_Brunt"
 */
 function weaponToHTML(wea){
-	var parseado="<h4>"+wea.name+"</h4>"+
+	var parseado="<h4>"+wea.name+(wea.vaulted?" [VAULTED]":"")+"</h4>"+
+	'<p>description: '+wea.description+'</p>'+
 	'<p>Category:'+wea.category+'</p>'+
 	'<p>Type:'+wea.type+'</p>'+
+	
+	'<p>noise: '+wea.noise+'</p>'+
+	
 	(wea.buildTime!=undefined?'<p>Build Time:'+wea.buildTime/60/60+" hs"+'</p>':"")+
-	'<p>vaulted: '+wea.vaulted+'</p>'+
+	(wea.buildTime!=undefined?'<p>Skip Build Time:'+wea.skipBuildTimePrice+" plat"+'</p>':"")+
+
+
+	'<p>accuracy: '+wea.accuracy+'</p>'+
+	'<p>magazineSize: '+wea.magazineSize+'</p>'+
+	'<p>reloadTime: '+wea.reloadTime+'</p>'+
+	'<p>trigger: '+wea.trigger+'</p>'+
 	'<p>damage: '+wea.damage+'</p>'+
 	'<p>damagePerSecond: '+wea.damagePerSecond+'</p>'+
-	'<p>accuracy: '+wea.accuracy+'</p>'+
-	'<p>fireRate: '+wea.fireRate+'</p>';
+	'<p>totalDamage: '+wea.totalDamage+'</p>'+
+	'<p>fireRate: '+wea.fireRate+'</p>'+
+	'<p>secondsPerShot: '+wea.secondsPerShot+'</p>'+
+	
+	'<p>criticalChance: '+wea.criticalChance+'</p>'+
+	'<p>criticalMultiplier: '+wea.criticalMultiplier+'</p>'+
+
+	'<p>procChance: '+wea.procChance+'</p>'+
+	'<p>chargeAttack: '+wea.chargeAttack+'</p>'+
+	(wea.spinAttack!=0?'<p>spinAttack: '+wea.spinAttack+'</p>':'')+
+	(wea.leapAttack!=0?'<p>leapAttack: '+wea.leapAttack+'</p>':'')+
+	(wea.wallAttack!=0?'<p>wallAttack: '+wea.wallAttack+'</p>':'')+
+
+	'<p>slot: '+wea.slot+'</p>'+
+
+	""
 	//"<img src="+wea.wikiaThumbnail+">"+"|";
 	if(wea.components!=undefined){
 		//console.log(war.name,war.components);
@@ -182,7 +206,7 @@ function generatePatchlogsHTML(pl,id,nombre,hidden=true){
 	var parseado='';
 	id="patchlogs"+id;
 	
-	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">V Patchlogs de '+nombre+' ['+pl.length+"] [&Uacute;ltimo: "+dateToString(pl[0].date)+"]</h4>";
+	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Patchlogs de '+nombre+' ['+pl.length+"] [&Uacute;ltimo: "+dateToString(pl[0].date)+"]</h4>";
 	parseado+='<ul>';
 	parseado+='<div id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	pl.forEach(function (p){
@@ -201,11 +225,11 @@ function generateComponentsHTML(comp,id,nombre,hidden=true){
 	var parseado='';
 	id="components"+id;
 	
-	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">V Componentes de '+nombre+' ['+comp.length+"]</h4>";
+	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Componentes de '+nombre+' ['+comp.length+"]</h4>";
 	parseado+='<ul>';
 	parseado+='<div id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	comp.forEach(function (p){
-		parseado+="<li><h5>"+p.name+" (Tradeable: "+p.tradable+")</h5>";
+		parseado+="<li><h5>"+p.name+" ["+p.itemCount+"] (Tradeable: "+p.tradable+")</h5>";
 		parseado+="<p>"+p.description+"</p>"
 		if(p.drops!=undefined){
 			parseado+=generateDropsHTML(p.drops,id+p.name,p.name);
@@ -219,7 +243,7 @@ function generateDropsHTML(drop,id,nombre,hidden=true){
 	var parseado='';
 	id="drops"+id;
 	
-	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">V Drops de '+nombre+' ['+drop.length+"]</h4>";
+	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Drops de '+nombre+' ['+drop.length+"]</h4>";
 	parseado+='<ul>';
 	parseado+='<div id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	drop.forEach(function (p){
