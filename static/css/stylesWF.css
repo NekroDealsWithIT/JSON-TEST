@@ -848,8 +848,18 @@ Sets para checkear
 .patchFix{
 	color:red;
 }
+.spanPolarity{
+	background: aquamarine;
+}
 
-
+.spanPolarity img{
+	background: #00bcd4;
+	border-radius: 5px;
+}
+.profilerVaulted{
+	background-color: #651a1a;
+	border-radius: 10px;
+}
 
 /*
 ----------------------------
