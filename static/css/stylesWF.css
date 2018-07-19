@@ -479,7 +479,10 @@ h5{
     -webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
 }
-
+.tabcontent img{
+	max-width: 150px;
+	width: 100%;
+}
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {
     from {opacity: 0;}
@@ -855,6 +858,7 @@ Sets para checkear
 .spanPolarity img{
 	background: #00bcd4;
 	border-radius: 5px;
+	max-width: 20px;
 }
 .profilerVaulted{
 	background-color: #651a1a;

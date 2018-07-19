@@ -30,31 +30,40 @@
 </head>
 <body>
 	<!-- <script type="text/javascript">startAll();</script> -->
-	<div id="botonera">
+<!-- 	<div id="botonera">
 		<nav class="botonera">
 			<div id="barraProgreso"></div>
 			<div id="test"></div>
 		</nav>
-	</div>
+	</div> -->
 <div class="content">
 	<h1>Warframe profiler</h1>
 	<h4>Aqui se ve toda la info tanto de Warframes como de armas</h4>
+	<p><label><input type="checkbox" onclick="showAllImages=this.checked;redrawItems(we);redrawItems(wa);">Mostrar imagenes</label></p>
 	<!-- 
 		chequear precios warframe.market
 		https://api.warframe.market/v1/items/[ID]/orders?include=item 
 		https://api.warframe.market/v1/items/peculiar_bloom/orders?include=item 
 	-->
 	<div id="tabSelectorGeneral" class="tab">
-		<button data-idgroupname="generalTabSelector" class="tablinks" name="warframesGeneralTab" onclick="openTab(event, this.name,true)">Warframes</button>
-		<button data-idgroupname="generalTabSelector" class="tablinks" name="weaponsGeneralTab" onclick="openTab(event, this.name,true)">Weapons</button>
-	
+		<button data-idgroupname="generalTabSelector" id="generalTabSelectorWarframes" class="tablinks" name="warframesGeneralTab" onclick="openTab(event, this.name,true)">Warframes</button>
+		<button data-idgroupname="generalTabSelector" id="generalTabSelectorWeapons" class="tablinks" name="weaponsGeneralTab" onclick="openTab(event, this.name,true)">Armas</button>
 	</div>
 	<div data-idgroupname="generalTabSelector" id="warframesGeneralTab" class="tabcontent">
+		<p><label>Nombre de warframe: <input type="text" id='txtWarframeName' oninput="redrawItems(wa);"></label></p>
+		<div id="tabResultadoWarframesGroup" class="tab"></div>
 		<div id="tabResultadoWarframes" class="tab"></div>
 		<div id="resultadoWarframes" class="listaNotificaciones"></div>
 		<div id="comparacionWarframes" class="listaNotificaciones"></div>
 	</div>
 	<div data-idgroupname="generalTabSelector" id="weaponsGeneralTab" class="tabcontent">
+		<p><label class="field-split"><input type="checkbox" onclick="weaponsOcultarSentinelas=this.checked;redrawItems(we);">Ocultar centinelas</label></p>
+		<p><label class="field-split">Nombre de arma: <input type="text" id='txtWeaponName' oninput="redrawItems(we);"></label></p>
+		
+		<p><label class="field-split">Mastery minima: <input type="text" id='txtWeaponType' oninput="redrawItems(we);"></label></p>
+		<p><label class="field-split">Tipo de arma: <input type="text" id='txtWeaponType' oninput="redrawItems(we);"></label></p>
+		<p><label class="field-split">Subtipo de arma: <input type="text" id='txtWeaponSubType' oninput="redrawItems(we);"></label></p>
+		<div id="tabResultadoArmasGroup" class="tab"></div>
 		<div id="tabResultadoArmas" class="tab"></div>
 		<div id="resultadoArmas" class="listaNotificaciones"></div>
 		<div id="comparacionArmas" class="listaNotificaciones"></div>

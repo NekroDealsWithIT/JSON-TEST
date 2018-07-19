@@ -1,6 +1,15 @@
 var weapons=[];
 var warframes=[];
 var prices=[];
+
+var arrWeaponsType=[];
+var arrSubWeaponsType=[];
+var arrWeaponMastery=[];
+
+var weaponsOcultarSentinelas=false;
+var weaponsOcultarVaulted=false;
+var showAllImages=false;
+
 var we='weapons';
 var wa='warframes';
 var pr='prices';
@@ -17,7 +26,6 @@ var polarities=[
 updateWeapons();
 updateWarframes();
 //updatePrices();
-
 
 function updatePrices(result=''){
 	if (result==''){
@@ -52,6 +60,7 @@ function updateWarframes(result=''){
 		warframes=result;
 		if(warframes.length!=0&&warframes.length!=undefined){
 			generateToast("Contenido cargado ["+warframes.length+"]",wa.toUpperCase(),"",5000,'info',"nfc-bottom-right");
+			generalTabSelectorWarframes.click();
 			redrawItems(wa);
 		}else{
 			generateToast("Error cargando contenido",wa.toUpperCase()+"<br>"+warframes,"",5000,'error',"nfc-bottom-right");
@@ -68,22 +77,49 @@ function redrawItems(tipo,filters=[]){
 
 			var tabGroupName='weaponsTab';
 
-			tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>';
-			tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>';
+			tabResultadoArmasGroup.innerHTML='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR TODO</button>';
+			tabResultadoArmasGroup.innerHTML+='<button data-idgroupname="'+tabGroupName+'" id="'+tabGroupName+'ShowAllTab" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR TODO</button>';
 			
 			var weaponsHTML='';
-			weapons.forEach(function (weapon){
-				var id=strReplaceAll(weapon.uniqueName,"/","_");
-				var vaultedMark=(weapon.vaulted==true?' VAULTED':'');
 
-				tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks'+vaultedMark.toLowerCase()+'" id="" name="'+id+'" onclick="openTab(event, this.name)">'+weapon.name+vaultedMark+'</button>';
-				
-				weaponsHTML+='<div id="'+id+'" data-idgroupname="'+tabGroupName+'" class="tabcontent">';
-				weaponsHTML+=weaponToHTML(weapon);
-				weaponsHTML+='</div>';
+			arrWeaponMastery=[];
+			arrWeaponsType=[];
+			arrSubWeaponsType=[];
+
+			var wn=txtWeaponName.value.toUpperCase();
+			var counter=0;
+
+			weapons.forEach(function (weapon){
+				if(
+					(weapon.name.toUpperCase().indexOf(wn)>-1)&&
+					(weapon.sentinel==false||(weapon.sentinel&&!weaponsOcultarSentinelas))
+				){
+					arrWeaponMastery.push(weapon.masteryReq);
+					arrWeaponsType.push(weapon.category);
+					arrSubWeaponsType.push(weapon.category+'|'+weapon.type);
+
+					var id=strReplaceAll(weapon.uniqueName,"/","_");
+					var vaultedMark=(weapon.vaulted==true?' VAULTED':'');
+
+					tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks'+vaultedMark.toLowerCase()+'" id="" name="'+id+'" onclick="openTab(event, this.name)">'+weapon.name+vaultedMark+(weapon.sentinel==false?'':' (Sentinel)')+'</button>';
+					
+					weaponsHTML+='<div id="'+id+'" data-idgroupname="'+tabGroupName+'" class="tabcontent">';
+					weaponsHTML+=weaponToHTML(weapon);
+					weaponsHTML+='</div>';
+
+					counter++;
+				}
 			});
 			resultadoArmas.innerHTML=weaponsHTML;
 			tabResultadoArmas.innerHTML=tabs;
+			
+			arrWeaponMastery=bubbleSorting(arrayUnique(arrWeaponMastery));
+			arrWeaponsType=arrayUnique(arrWeaponsType).sort();
+			arrSubWeaponsType=arrayUnique(arrSubWeaponsType).sort();
+
+			generalTabSelectorWeapons.innerText='Armas ['+counter+']';
+
+			document.getElementById(tabGroupName+'ShowAllTab').click();
 			break;
 		case wa:
 			resultadoWarframes.innerHTML='';
@@ -92,22 +128,38 @@ function redrawItems(tipo,filters=[]){
 
 			var tabGroupName='warframesTab';
 
-			tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>';
-			tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>';			
+			tabResultadoWarframesGroup.innerHTML='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR TODO</button>';
+			tabResultadoWarframesGroup.innerHTML+='<button data-idgroupname="'+tabGroupName+'" id="'+tabGroupName+'ShowAllTab" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR TODO</button>';
 
+			arrWarframeMastery=[];
+
+			var counter=0;
 			var warframesHTML='';
+			var wn=txtWarframeName.value.toUpperCase();
+			
 			warframes.forEach(function (warframe){
-				var id=strReplaceAll(warframe.uniqueName,"/","_");
-				var vaultedMark=(warframe.vaulted==true?' VAULTED':'');
+				if((warframe.name.toUpperCase().indexOf(wn)>-1)){
+					var id=strReplaceAll(warframe.uniqueName,"/","_");
+					var vaultedMark=(warframe.vaulted==true?' VAULTED':'');
 
-				tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks'+vaultedMark.toLowerCase()+'" id="" name="'+id+'" onclick="openTab(event, this.name)">'+warframe.name+vaultedMark+'</button>';
+					arrWarframeMastery.push(warframe.masteryReq);
 
-				warframesHTML+='<div id="'+id+'" data-idgroupname="'+tabGroupName+'" class="tabcontent">';
-				warframesHTML+=warframeToHTML(warframe);
-				warframesHTML+='</div>';
+					tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks'+vaultedMark.toLowerCase()+'" id="" name="'+id+'" onclick="openTab(event, this.name)">'+warframe.name+vaultedMark+'</button>';
+
+					warframesHTML+='<div id="'+id+'" data-idgroupname="'+tabGroupName+'" class="tabcontent">';
+					warframesHTML+=warframeToHTML(warframe);
+					warframesHTML+='</div>';
+					counter++;
+				}
 			});
 			resultadoWarframes.innerHTML=warframesHTML;
 			tabResultadoWarframes.innerHTML=tabs;
+
+			arrWarframeMastery=bubbleSorting(arrayUnique(arrWarframeMastery));
+
+			generalTabSelectorWarframes.innerText='Warframes ['+counter+']';
+
+			document.getElementById(tabGroupName+'ShowAllTab').click();
 			break;
 		default:
 			console.log(tipo);
@@ -168,10 +220,12 @@ function weaponToHTML(wea){
 	if(wea.vaulted!=undefined){
 		vaulted=(wea.vaulted==true?'"profilerVaulted"':'');
 	}
-	var parseado="<div class="+vaulted+"><h4>"+wea.name+(vaulted==''?'':' [VAULTED] ')+" (<a href="+wea.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>"+
-	'<p>Description: '+wea.description+'</p>'+
+	var parseado="<div class="+vaulted+"><h4>"+wea.name+(vaulted==''?'':' [VAULTED] ')+(wea.sentinel==false?'':' [SENTINEL] ')+" (<a href="+wea.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>";
+	(showAllImages==true&&wea.wikiaThumbnail!=undefined?parseado+='<img src='+wea.wikiaThumbnail+'>':'');
+	parseado+='<p>Description: '+wea.description+'</p>'+
 	'<p>Category:'+wea.category+'</p>'+
 	'<p>Type:'+wea.type+'</p>'+
+	'<p>Mastery Req:'+wea.masteryReq+'</p>'+
 	'<p>Sentinel:'+wea.sentinel+'</p>'+
 	'<p>Disposition:'+wea.disposition+'</p>';
 	if(wea.polarities!=undefined&&wea.polarities.length>0){
@@ -212,7 +266,6 @@ function weaponToHTML(wea){
 
 	'<p>slot: '+wea.slot+'</p>'+
 	""
-	//"<img src="+wea.wikiaThumbnail+">"+"|";
 	if(wea.components!=undefined){
 		//console.log(war.name,war.components);
 		parseado+=generateComponentsHTML(wea.components,new Date().getTime()+wea.category+wea.name,wea.name);
@@ -221,7 +274,7 @@ function weaponToHTML(wea){
 	if(wea.patchlogs!=undefined){
 		parseado+=generatePatchlogsHTML(wea.patchlogs,new Date().getTime()+wea.category+wea.name,wea.name);
 	}
-	parseado+="</div>"
+	parseado+="</div><hr>"
 	return parseado;
 }
 /*
@@ -262,6 +315,7 @@ function warframeToHTML(war){
 		vaulted=(war.vaulted==true?'"profilerVaulted"':'');
 	}
 	var parseado="<div class="+vaulted+"><h4>"+war.name+(vaulted==''?'':' [VAULTED] ')+" (<a href="+war.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>"+
+	(showAllImages==true&&war.wikiaThumbnail!=undefined?'<img src='+war.wikiaThumbnail+'>':'')+
 	'<p>Description: '+war.description+'</p>'+
 	'<p>Aura: '+war.aura+'</p>'+
 	'<p>Introduced: '+war.introduced+'</p>';
@@ -285,7 +339,7 @@ function warframeToHTML(war){
 	if(war.patchlogs!=undefined){
 		parseado+=generatePatchlogsHTML(war.patchlogs,new Date().getTime()+war.category+war.name,war.name);
 	}
-	parseado+='</div>';
+	parseado+='</div><hr>';
 	return parseado;
 }
 
@@ -316,9 +370,9 @@ function generateComponentsHTML(comp,id,nombre,hidden=true){
 	parseado+='<ul id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	parseado+='<div>';
 	comp.forEach(function (p){
-		var linkWM=' <a href="https://warframe.market/items/'+strReplaceAll(nombre.toLowerCase()+' '+p.name.toLowerCase()," ","_")+'" target="blank">(Tradeable)</a>';
+		var linkWM=' <a href="https://warframe.market/items/'+strReplaceAll(nombre.toLowerCase()+' '+p.name.toLowerCase()," ","_")+'" target="blank">(Tradeable, Link a WM)</a>';
 		parseado+='<li><h4 class="'+(p.tradable?'tradable':'noTradable')+'">'+p.name+" ["+p.itemCount+"]"+(p.tradable?linkWM:'')+"</h4>";
-		parseado+="<p>"+p.description+"</p>"
+		parseado+="<p>"+p.description+"</p>";
 		if(p.drops!=undefined){
 			parseado+=generateDropsHTML(p.drops,id+p.name,p.name);
 		}
@@ -360,6 +414,6 @@ function generatePolaritiesHTML(polarityData,id,nombre,hidden=true){
 	});
 	parseado+="</div></ul>";
 	
-	parseadoFinal="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Polarities de '+nombre+' ['+polarityData.length+': ('+auxTitle+")]</h4>"+parseado;
+	parseadoFinal="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Polarities de '+nombre+' ['+polarityData.length+' ('+auxTitle+")]</h4>"+parseado;
 	return parseadoFinal;	
 }

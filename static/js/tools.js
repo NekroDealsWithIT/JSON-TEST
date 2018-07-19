@@ -751,7 +751,7 @@ function cookieTest(){
 -----------------------------------------------------
 */
 // ordenamiento burbuja
-function bubbleSorting(arr,ordenarZA) {
+function bubbleSorting(arr,ordenarZA=false) {
 	var len = arr.length;
 	for (var i = 0; i < len ; i++) {
 		for(var j = 0 ; j < len - i - 1; j++){
