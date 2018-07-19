@@ -16,7 +16,7 @@ var polarities=[
 
 updateWeapons();
 updateWarframes();
-updatePrices();
+//updatePrices();
 
 
 function updatePrices(result=''){
@@ -63,19 +63,51 @@ function redrawItems(tipo,filters=[]){
 	switch(tipo){
 		case we:
 			resultadoArmas.innerHTML='';
+			tabResultadoArmas.innerHTML='';
+			var tabs='';
+
+			var tabGroupName='weaponsTab';
+
+			tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>';
+			tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>';
+			
 			var weaponsHTML='';
 			weapons.forEach(function (weapon){
+				var id=strReplaceAll(weapon.uniqueName,"/","_");
+				var vaultedMark=(weapon.vaulted==true?' VAULTED':'');
+
+				tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks'+vaultedMark.toLowerCase()+'" id="" name="'+id+'" onclick="openTab(event, this.name)">'+weapon.name+vaultedMark+'</button>';
+				
+				weaponsHTML+='<div id="'+id+'" data-idgroupname="'+tabGroupName+'" class="tabcontent">';
 				weaponsHTML+=weaponToHTML(weapon);
+				weaponsHTML+='</div>';
 			});
 			resultadoArmas.innerHTML=weaponsHTML;
+			tabResultadoArmas.innerHTML=tabs;
 			break;
 		case wa:
 			resultadoWarframes.innerHTML='';
+			tabResultadoWarframes.innerHTML='';
+			var tabs='';
+
+			var tabGroupName='warframesTab';
+
+			tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>';
+			tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>';			
+
 			var warframesHTML='';
 			warframes.forEach(function (warframe){
+				var id=strReplaceAll(warframe.uniqueName,"/","_");
+				var vaultedMark=(warframe.vaulted==true?' VAULTED':'');
+
+				tabs+='<button data-idgroupname="'+tabGroupName+'" class="tablinks'+vaultedMark.toLowerCase()+'" id="" name="'+id+'" onclick="openTab(event, this.name)">'+warframe.name+vaultedMark+'</button>';
+
+				warframesHTML+='<div id="'+id+'" data-idgroupname="'+tabGroupName+'" class="tabcontent">';
 				warframesHTML+=warframeToHTML(warframe);
+				warframesHTML+='</div>';
 			});
 			resultadoWarframes.innerHTML=warframesHTML;
+			tabResultadoWarframes.innerHTML=tabs;
 			break;
 		default:
 			console.log(tipo);
@@ -134,7 +166,7 @@ wikiaUrl:"htt:/warframe.wikia.com/wiki/Ack_%26_Brunt"
 function weaponToHTML(wea){
 	var vaulted='';
 	if(wea.vaulted!=undefined){
-		vaulted=(wea.vaulted?'"profilerVaulted"':'');
+		vaulted=(wea.vaulted==true?'"profilerVaulted"':'');
 	}
 	var parseado="<div class="+vaulted+"><h4>"+wea.name+(vaulted==''?'':' [VAULTED] ')+" (<a href="+wea.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>"+
 	'<p>Description: '+wea.description+'</p>'+
@@ -179,7 +211,6 @@ function weaponToHTML(wea){
 	(wea.wallAttack!=0?'<p>wallAttack: '+wea.wallAttack+'</p>':'')+
 
 	'<p>slot: '+wea.slot+'</p>'+
-
 	""
 	//"<img src="+wea.wikiaThumbnail+">"+"|";
 	if(wea.components!=undefined){
@@ -228,7 +259,7 @@ wikiaUrl:"http://warframe.wikia.com/wiki/Ash"
 function warframeToHTML(war){
 	var vaulted='';
 	if(war.vaulted!=undefined){
-		vaulted=(war.vaulted?'"profilerVaulted"':'');
+		vaulted=(war.vaulted==true?'"profilerVaulted"':'');
 	}
 	var parseado="<div class="+vaulted+"><h4>"+war.name+(vaulted==''?'':' [VAULTED] ')+" (<a href="+war.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>"+
 	'<p>Description: '+war.description+'</p>'+
@@ -285,7 +316,8 @@ function generateComponentsHTML(comp,id,nombre,hidden=true){
 	parseado+='<ul id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	parseado+='<div>';
 	comp.forEach(function (p){
-		parseado+="<li><h5>"+p.name+" ["+p.itemCount+"] (Tradeable: "+p.tradable+")</h5>";
+		var linkWM=' <a href="https://warframe.market/items/'+strReplaceAll(nombre.toLowerCase()+' '+p.name.toLowerCase()," ","_")+'" target="blank">(Tradeable)</a>';
+		parseado+='<li><h4 class="'+(p.tradable?'tradable':'noTradable')+'">'+p.name+" ["+p.itemCount+"]"+(p.tradable?linkWM:'')+"</h4>";
 		parseado+="<p>"+p.description+"</p>"
 		if(p.drops!=undefined){
 			parseado+=generateDropsHTML(p.drops,id+p.name,p.name);
@@ -303,7 +335,7 @@ function generateDropsHTML(drop,id,nombre,hidden=true){
 	parseado+='<ul id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	parseado+='<div>';
 	drop.forEach(function (p){
-		parseado+="<li><p>"+p.type+" - "+p.location+" - "+p.rarity+"</p></li>";
+		parseado+='<li><p class="'+p.rarity+'">'+p.type+" - "+p.location+" - "+p.rarity+"</p></li>";
 	});
 	parseado+="</div></ul>";
 	return parseado;

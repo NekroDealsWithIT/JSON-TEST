@@ -23,7 +23,7 @@
 	
 	<!-- javascript -->
 	<script type="text/javascript" src="static/js/tools.js"></script>
-	<!-- <script type="text/javascript" src="static/js/wf.js"></script> -->
+	<script type="text/javascript" src="static/js/wf.js"></script>
 	<script type="text/javascript" src="static/js/profiler.js"></script>
 	<script type="text/javascript" src="static/js/checkversion.js"></script>
 	<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
@@ -44,12 +44,21 @@
 		https://api.warframe.market/v1/items/[ID]/orders?include=item 
 		https://api.warframe.market/v1/items/peculiar_bloom/orders?include=item 
 	-->
-
-	<div id="resultadoArmas" class="listaNotificaciones"></div>
-	<div id="comparacionArmas" class="listaNotificaciones"></div>
-	<div id="resultadoWarframes" class="listaNotificaciones"></div>
-	<div id="comparacionWarframes" class="listaNotificaciones"></div>
-
+	<div id="tabSelectorGeneral" class="tab">
+		<button data-idgroupname="generalTabSelector" class="tablinks" name="warframesGeneralTab" onclick="openTab(event, this.name,true)">Warframes</button>
+		<button data-idgroupname="generalTabSelector" class="tablinks" name="weaponsGeneralTab" onclick="openTab(event, this.name,true)">Weapons</button>
+	
+	</div>
+	<div data-idgroupname="generalTabSelector" id="warframesGeneralTab" class="tabcontent">
+		<div id="tabResultadoWarframes" class="tab"></div>
+		<div id="resultadoWarframes" class="listaNotificaciones"></div>
+		<div id="comparacionWarframes" class="listaNotificaciones"></div>
+	</div>
+	<div data-idgroupname="generalTabSelector" id="weaponsGeneralTab" class="tabcontent">
+		<div id="tabResultadoArmas" class="tab"></div>
+		<div id="resultadoArmas" class="listaNotificaciones"></div>
+		<div id="comparacionArmas" class="listaNotificaciones"></div>
+	</div>
 </div>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
