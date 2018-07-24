@@ -156,6 +156,7 @@ function fetchJSONCallback(url, options, callback) {
   fetch(url, options)
     .then(response => response.json())
     .then(json => callback(json), callback)
+    .catch(err=>{console.error("Error al buscar fetch de "+url,err.message);})
 }
 
 /*
