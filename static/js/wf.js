@@ -1136,6 +1136,8 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 function startAll(){
 	//Busco la plataforma y la cargo sino... pc.
 	platform=urlGetParameter("platform");
+	//changePlatform('pc');
+	((platform==null)?platform="pc":"");
 	switch(platform){
 		case "ps4":
 			platformSelectorPS.click();
@@ -1148,11 +1150,6 @@ function startAll(){
 			platformSelectorPC.click();
 	}
 
-	((platform==null)?platform="pc":"");
-
-
-	//changePlatform('pc');
-	
 	//llamo el worldstate
 	getWFWorldstate();
 
@@ -1311,6 +1308,7 @@ function rellenarDatos(){
 					var actualId='';
 					var completa=false;
 					var timerNotificacion='';
+					var tipo='';
 					// hay que recorrer las alertas!
 					alertasActuales.forEach(function(a){
 						if(!a.expired){
@@ -1319,12 +1317,14 @@ function rellenarDatos(){
 									actual=a.id;
 									completa=chequearCompleto(a.id);
 									timerNotificacion=strDiff((a.eta),diff);
+									tipo='alerta';
 								}
 							}else{
 								if(a.mission!=undefined&&a.mission.reward.items!=undefined&&a.mission.reward.items.includes(c.cachedItem)){
 									actual=a.id;	
 									completa=chequearCompleto(a.id);
 									timerNotificacion=strDiff((a.eta),diff);
+									tipo='alerta';
 								}
 							}
 						}
@@ -1338,12 +1338,14 @@ function rellenarDatos(){
 									actualId=i.id;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
+									tipo='invasion';
 								}
 								if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
 									actual=i.defenderReward.asString;
 									actualId=i.id;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
+									tipo='invasion';
 								}
 							}
 						});
@@ -1356,6 +1358,7 @@ function rellenarDatos(){
 									actual=i.item;
 									completa=chequearCompleto(actual);
 									timerNotificacion=strDiff(itemsBaroActuales.endString,diff);
+									tipo='baro';
 								}
 							});
 						}
@@ -1377,7 +1380,7 @@ function rellenarDatos(){
 								'<span class="capitalize">'+c.cachedType+'</span>'+
 								'</a>'+
 								(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+actual+'"' +'>Completa?)</label>')+
-								(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'">ACTIVA!!</a> (eta: '+timerNotificacion+')':'')+
+								(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'" data-idgrouptype="'+tipo+'" onclick="clickAnchorLink(event);">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
 								'</li>';
 							}
 						}else{
@@ -1394,19 +1397,19 @@ function rellenarDatos(){
 									'<span class="capitalize">'+c.cachedItem+'</span>'+
 									'</a>'+
 									(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+notifId+'"' +'>Completa?)</label>')+
-									(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
+									(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'" data-idgrouptype="'+tipo+'" onclick="clickAnchorLink(event);">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
 									'</li>';
 								}
 							}
 						}
 
 					});
-var idLista="'typeNotif"+t.toUpperCase()+"'";
-var ocultarTipo=chequearInformarNotif("typeNotif"+t.toUpperCase());
+				var idLista="'typeNotif"+t.toUpperCase()+"'";
+				var ocultarTipo=chequearInformarNotif("typeNotif"+t.toUpperCase());
 				// crear un array que guarde que tipo mostrar
 				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+comboSonido+notificacion+'</ul></article></div>';
 			});
-notificaciones.innerHTML+='</div>'
+		notificaciones.innerHTML+='</div>'
 }
 
 		//Events
@@ -2276,6 +2279,23 @@ function setCachedDefaultData(){
 		});
 	if (agregados>0&&document.cookie!=''){
 		console.log(agregados+" agregados!");	
+	}
+}
+
+function clickAnchorLink(e){
+	var id=e.target.dataset.idgrouptype;
+	switch (id){
+		case 'baro':
+			tabTitleBaro.click();
+			break;
+		case 'alerta':
+			tabTitleAlertas.click();
+			break;
+		case 'invasion':
+			tabTitleInvasiones.click();
+			break;
+		default:
+			tabShowAll.click();
 	}
 }
 
