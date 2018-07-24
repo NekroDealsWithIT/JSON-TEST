@@ -1193,6 +1193,8 @@ function startAll(){
 	//fin de en que estoy trabajando?
 
 	timer1=setClock(1000,timerTime,timer1);
+
+	tabShowAll.click();
 }
 function timerTime(){
 	rellenarDatos();

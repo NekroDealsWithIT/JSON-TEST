@@ -480,7 +480,7 @@ h5{
     animation: fadeEffect 1s;
 }
 .tabcontent img{
-	max-width: 150px;
+	max-width: 35px!important;
 	width: 100%;
 }
 /* Fade in tabs */
@@ -734,7 +734,7 @@ h5{
 	background: #000;
 }
 .thumbnailNotif{
-	width: 40px !important;
+	width: 25px !important;
 }
 .thumbnailCopiar{
 	width: 25px!important;
