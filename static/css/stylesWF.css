@@ -734,7 +734,7 @@ h5{
 	background: #000;
 }
 .thumbnailNotif{
-	width: 25px;
+	width: 40px !important;
 }
 .thumbnailCopiar{
 	width: 25px!important;
