@@ -2426,5 +2426,5 @@ function compressItemType(data,decompress=false){
 }
 
 function persistInfo(data){
-	setCookie(data,new Date(),365*24*60*60*1000);
+	setCookie(data,convertDateLocalToIso(new Date()),30*24*60*60*1000);
 }
