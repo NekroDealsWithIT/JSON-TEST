@@ -476,6 +476,9 @@ Date.prototype.format = function (mask, utc) {
 };
 
 function dateToString(date){
+	if(date==null||date==undefined){
+		return '---';
+	}else{
 	date=new Date(date);
 	return 	date.getDate() + "/"
 	        + (date.getMonth()+1)  + "/" 
@@ -483,6 +486,7 @@ function dateToString(date){
 	        + date.getHours() + ":"  
 	        + date.getMinutes() + ":" 
 	        + date.getSeconds();
+	}
 }
 /*
 -----------------------------------------------------

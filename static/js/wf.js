@@ -26,32 +26,32 @@
 		{i:'#@7',t:'skin'},
 		{i:'#@8',t:'catalyst'},
 		{i:'#@9',t:'kubrowEgg'},
-		{i:'#@10',t:'morphics'},
-		{i:'#@11',t:'resource'},
-		{i:'#@12',t:'vauban'},
-		{i:'#@13',t:'synthula'},
-		{i:'#@14',t:'plastis'},
-		{i:'#@15',t:'controlModule'},
-		{i:'#@16',t:'baro'},
-		{i:'#@17',t:'circuits'},
-		{i:'#@18',t:'oxium'},
-		{i:'#@19',t:'polymerBundle'},
-		{i:'#@20',t:'orokinCell'},
-		{i:'#@21',t:'rubedo'},
-		{i:'#@22',t:'ferrite'},
-		{i:'#@23',t:'alloyPlate'},
-		{i:'#@24',t:'gallium'},
-		{i:'#@24',t:'gallium'},
-		{i:'#@25',t:'nanoSpores'},
-		{i:'#@26',t:'endo'},
-		{i:'#@27',t:'argonCrystal'},
-		{i:'#@28',t:'neuralSensors'},
-		{i:'#@29',t:'nitain'},
-		{i:'#@30',t:'credits'},
-		{i:'#@31',t:'salvage'},
-		{i:'#@32',t:'traces'},
-		{i:'#@33',t:'tellurium'},
-		{i:'#@33',t:'plastids'}
+		{i:'#@a',t:'morphics'},
+		{i:'#@b',t:'resource'},
+		{i:'#@c',t:'vauban'},
+		{i:'#@d',t:'synthula'},
+		{i:'#@f',t:'plastis'},
+		{i:'#@g',t:'controlModule'},
+		{i:'#@h',t:'baro'},
+		{i:'#@i',t:'circuits'},
+		{i:'#@j',t:'oxium'},
+		{i:'#@k',t:'polymerBundle'},
+		{i:'#@l',t:'orokinCell'},
+		{i:'#@m',t:'rubedo'},
+		{i:'#@n',t:'ferrite'},
+		{i:'#@o',t:'alloyPlate'},
+		{i:'#@p',t:'gallium'},
+		{i:'#@q',t:'gallium'},
+		{i:'#@r',t:'nanoSpores'},
+		{i:'#@s',t:'endo'},
+		{i:'#@t',t:'argonCrystal'},
+		{i:'#@u',t:'neuralSensors'},
+		{i:'#@v',t:'nitain'},
+		{i:'#@w',t:'credits'},
+		{i:'#@x',t:'salvage'},
+		{i:'#@y',t:'traces'},
+		{i:'#@z',t:'tellurium'},
+		{i:'#@A',t:'plastids'}
 	];
 
 	var platform='';
@@ -1328,7 +1328,7 @@ function rellenarDatos(){
 			notificacionesTitle.innerHTML+=(notifOnlyActive?" (Mostrando solo activas)":"")+(notifOnlyNonCompleted?" (Mostrando solo no completas)":"")+(notifShowLastDate?"":" (Ocultando fechas)");
 			var tipos=[];
 			cacheado.forEach(function(c){
-				if(c['t']!=''&&c['t']!=undefined&&c['i']!=undefined){
+				if(c['t']!=undefined&&c['t']!=''&&c['i']!=undefined&&c['i']!=''){
 					tipos.push(c['t']);
 				}
 			});
@@ -1410,7 +1410,7 @@ function rellenarDatos(){
 							});
 						}
 					}
-					if(t=='recursos'&&c['i']==undefined){
+					if(t=='recursos'&&(c['i']==undefined||c['i']=='')){
 						//de paso revisamos si esta completa para marcarlo tambien!
 						
 						// chequeo si hay alguno en la lista para remarcar la lista entera
@@ -2094,8 +2094,8 @@ function limpiarCompletasFinalizadas(){
 
 function getCachedData(){
 	var cachedData=[];
-	var cookieData="BCSI-CS-53631f2127934e24=2; BCSI-CS-170bdc07205ed45e=2; completas=5b19335af3cc7f49b2e101fc; t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina)"
-	cookieData="t_endo_i_100 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 09:43:41 GMT-0300 (Argentina Standard Time); t_catalyst_i_Orokin Catalyst Blueprint_l_https://i.imgur.com/C4X9NWm.png=Thu Jun 07 2018 09:48:41 GMT-0300 (Argentina Standard Time); completas=; t_oxium_l_https://i.imgur.com/hY8NCjk.png=Thu Jun 07 2018 09:49:41 GMT-0300 (Argentina Standard Time); t_traces_l_https://i.imgur.com/vvZGMPv.png=Thu Jun 07 2018 10:04:30 GMT-0300 (Argentina Standard Time); t_endo_i_80 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 10:15:34 GMT-0300 (Argentina Standard Time); t_argonCrystal_l_https://i.imgur.com/DdJJYSB.png=Thu Jun 07 2018 10:41:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:42 GMT-0300 (Argentina Standard Time); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 11:18:43 GMT-0300 (Argentina Standard Time); t_nitain_l_https://i.imgur.com/3Db4PHh.png=Thu Jun 07 2018 11:49:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Valkyr Kara Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 12:41:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Ember Backdraft Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 14:10:40 GMT-0300 (Argentina Standard Time); t_endo_i_150 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 14:35:00 GMT-0300 (Argentina Standard Time); t_helmet_i_Oberon Oryx Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 14:40:33 GMT-0300 (Argentina Standard Time); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 14:40:33 GMT-0300 (Argentina Standard Time)"
+	var cookieData="BCSI-CS-53631f2127934e24=2; BCSI-CS-170bdc07205ed45e=2; completas=5b19335af3cc7f49b2e101fc; t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); "
+	cookieData+="t_endo_i_100 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 09:43:41 GMT-0300 (Argentina Standard Time); t_catalyst_i_Orokin Catalyst Blueprint_l_https://i.imgur.com/C4X9NWm.png=Thu Jun 07 2018 09:48:41 GMT-0300 (Argentina Standard Time); completas=; t_oxium_l_https://i.imgur.com/hY8NCjk.png=Thu Jun 07 2018 09:49:41 GMT-0300 (Argentina Standard Time); t_traces_l_https://i.imgur.com/vvZGMPv.png=Thu Jun 07 2018 10:04:30 GMT-0300 (Argentina Standard Time); t_endo_i_80 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 10:15:34 GMT-0300 (Argentina Standard Time); t_argonCrystal_l_https://i.imgur.com/DdJJYSB.png=Thu Jun 07 2018 10:41:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:42 GMT-0300 (Argentina Standard Time); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 11:18:43 GMT-0300 (Argentina Standard Time); t_nitain_l_https://i.imgur.com/3Db4PHh.png=Thu Jun 07 2018 11:49:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Valkyr Kara Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 12:41:41 GMT-0300 (Argentina Standard Time); t_helmet_i_Ember Backdraft Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 14:10:40 GMT-0300 (Argentina Standard Time); t_endo_i_150 Endo_l_https://i.imgur.com/mS8oSwx.png=Thu Jun 07 2018 14:35:00 GMT-0300 (Argentina Standard Time); t_helmet_i_Oberon Oryx Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 14:40:33 GMT-0300 (Argentina Standard Time); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 14:40:33 GMT-0300 (Argentina Standard Time)"
 	// busco esto: t_helmet_i_Zephyr Cierzo Helmet Blueprint_l_https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources/alt_helmet_thumb.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_plastids_l_https://i.imgur.com/5yVfTEF.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina); t_credits_l_https://i.imgur.com/JCKyUXJ.png=Thu Jun 07 2018 10:57:25 GMT-0300 (hora estándar de Argentina)
 
 	if (document.cookie==''){
@@ -2154,9 +2154,9 @@ function getCachedData(){
             cV='t_';
             cachedType=cM.substring(cM.indexOf(cV), cM.length);
             cachedType=cachedType.replace(cV,'');
-            if(cachedPlatform==platform){
+            //if(cachedPlatform==platform){
             	cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime,cachedPlatform});
-            }
+            //}
         }
     }
     return compressNotification(cachedData,true);
