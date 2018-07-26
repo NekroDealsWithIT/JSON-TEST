@@ -10,49 +10,79 @@
 	];
 	
 	const compressedURL=[
-		{id:'#@1',url:'https://i.imgur.com'},
-		{id:'#@2',url:'https://github.com/Warframe-Community-Developers/warframe-worldstate-parser/raw/master/resources'},
-		{id:'#@3',url:'https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources'},
-		{id:'#@4',url:'static/img/factions'}
+		{id:';1;',url:'https://i.imgur.com'},
+		{id:';2;',url:'https://github.com/Warframe-Community-Developers/warframe-worldstate-parser/raw/master/resources'},
+		{id:';3;',url:'https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources'},
+		{id:';4;',url:'static/img/factions'}
+	];
+
+	const compressedItemName=[
+		{i:';1;',t:'Blueprint'},
+		{i:';2;',t:'Helmet '},
+		{i:';3;',t:'Aura'},
+		{i:';4;',t:'Systems '},
+		{i:';5;',t:'Orokin Catalyst'},
+		{i:';6;',t:'Orokin Reactor'},
+		{i:';7;',t:'Exilus Adapter '},
+		{i:';8;',t:'Detonite Injector'},
+		{i:';9;',t:'Fieldron'},
+		{i:';a;',t:'Mutagen Mass'},
+		{i:';b;',t:'Endo'},
+		{i:';c;',t:'Kubrow Egg'},
+		{i:';d;',t:'Skin'},
+		{i:';e;',t:'Baro'},
+		{i:';f;',t:'Booster'},
+		{i:';g;',t:'Syandana'},
+		{i:';h;',t:'Scavenger'},
+		{i:';i;',t:'Stock'},
+		{i:';j;',t:'Barrel'},
+		{i:';k;',t:'Receiver'},
+		{i:';l;',t:'Hilt'},
+		{i:';m;',t:'Wraith'},
+		{i:';n;',t:'Vandal'},
+		{i:';o;',t:'Prisma'},
+		{i:';p;',t:'Mutalist Alad V Nav Coordinate'},
+		{i:';q;',t:'Dagger'},
+		{i:';r;',t:'Sword'}
 	];
 
 	const compressedItemType=[
-		{i:'@1@',t:'nightmare'},
-		{i:'@2@',t:'aura'},
-		{i:'@3@',t:'helmet'},
-		{i:'@4@',t:'weapon'},
-		{i:'@5@',t:'invasion'},
-		{i:'@6@',t:'forma'},
-		{i:'@7@',t:'skin'},
-		{i:'@8@',t:'catalyst'},
-		{i:'@9@',t:'kubrowEgg'},
-		{i:'@a@',t:'morphics'},
-		{i:'@b@',t:'resource'},
-		{i:'@c@',t:'vauban'},
-		{i:'@d@',t:'synthula'},
-		{i:'@f@',t:'plastis'},
-		{i:'@g@',t:'controlModule'},
-		{i:'@h@',t:'baro'},
-		{i:'@i@',t:'circuits'},
-		{i:'@j@',t:'oxium'},
-		{i:'@k@',t:'polymerBundle'},
-		{i:'@l@',t:'orokinCell'},
-		{i:'@m@',t:'rubedo'},
-		{i:'@n@',t:'ferrite'},
-		{i:'@o@',t:'alloyPlate'},
-		{i:'@p@',t:'gallium'},
-		{i:'@q@',t:'gallium'},
-		{i:'@r@',t:'nanoSpores'},
-		{i:'@s@',t:'endo'},
-		{i:'@t@',t:'argonCrystal'},
-		{i:'@u@',t:'neuralSensors'},
-		{i:'@v@',t:'nitain'},
-		{i:'@w@',t:'credits'},
-		{i:'@x@',t:'salvage'},
-		{i:'@y@',t:'traces'},
-		{i:'@z@',t:'tellurium'},
-		{i:'@A@',t:'plastids'},
-		{i:'@B@',t:'reactor'}
+		{i:';1;',t:'nightmare'},
+		{i:';2;',t:'aura'},
+		{i:';3;',t:'helmet'},
+		{i:';4;',t:'weapon'},
+		{i:';5;',t:'invasion'},
+		{i:';6;',t:'forma'},
+		{i:';7;',t:'skin'},
+		{i:';8;',t:'catalyst'},
+		{i:';9;',t:'kubrowEgg'},
+		{i:';a;',t:'morphics'},
+		{i:';b;',t:'resource'},
+		{i:';c;',t:'vauban'},
+		{i:';d;',t:'synthula'},
+		{i:';f;',t:'plastis'},
+		{i:';g;',t:'controlModule'},
+		{i:';h;',t:'baro'},
+		{i:';i;',t:'circuits'},
+		{i:';j;',t:'oxium'},
+		{i:';k;',t:'polymerBundle'},
+		{i:';l;',t:'orokinCell'},
+		{i:';m;',t:'rubedo'},
+		{i:';n;',t:'ferrite'},
+		{i:';o;',t:'alloyPlate'},
+		{i:';p;',t:'gallium'},
+		{i:';q;',t:'gallium'},
+		{i:';r;',t:'nanoSpores'},
+		{i:';s;',t:'endo'},
+		{i:';t;',t:'argonCrystal'},
+		{i:';u;',t:'neuralSensors'},
+		{i:';v;',t:'nitain'},
+		{i:';w;',t:'credits'},
+		{i:';x;',t:'salvage'},
+		{i:';y;',t:'traces'},
+		{i:';z;',t:'tellurium'},
+		{i:';A;',t:'plastids'},
+		{i:';B;',t:'reactor'}
 	];
 
 	var platform='';
@@ -1563,11 +1593,13 @@ function rellenarDatos(){
 			var isCompleted=(alertaCompleta?' completed':'');
 			
 			var cookieStore='';
+			var persistObject={};
 			if(a.rewardTypes.length>0){
 				a.rewardTypes.forEach(function(rt){
 					// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
 					if(rt!=''){
 						cookieStore+='t_'+compressItemType(rt);
+						persistObject.t=rt
 					}
 				});
 			}
@@ -1575,13 +1607,16 @@ function rellenarDatos(){
 				a.mission.reward.items.forEach(function(ri){
 					// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
 					if(ri!=''){
-						cookieStore+='_i_'+ri;
+						cookieStore+='_i_'+compressItemName(ri);
+						persistObject.i=ri;
 					}
 				});
 			}
 			cookieStore+='_l_'+compressURL(a.mission.reward.thumbnail);
+			persistObject.l=a.mission.reward.thumbnail;
+			persistObject[platform]=new Date();
 			
-			persistInfo(cookieStore);
+			persistInfo(cookieStore,persistObject);
 
 			td.push([checkBoxCompleted+'<img src="'+compressURL(a.mission.reward.thumbnail,true) +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
 			var modifs='';
@@ -1625,11 +1660,13 @@ function rellenarDatos(){
 				//Agregado a la lista de notificaciones de cookies
 				var cookieStore='';
 				if(!inv.vsInfestation){
-					cookieStore='t_'+compressItemType('invasion')+'_i_'+inv.attackerReward.asString+'_l_'+compressURL(inv.attackerReward.thumbnail);
-					persistInfo(cookieStore);
+					cookieStore='t_'+compressItemType('invasion')+'_i_'+compressItemName(inv.attackerReward.asString)+'_l_'+compressURL(inv.attackerReward.thumbnail);
+					var persistObject={'t':'invasion','i':inv.attackerReward.asString,'l':inv.attackerReward.thumbnail,platform:new Date()}
+					persistInfo(cookieStore,persistObject);
 				}
-				cookieStore='t_'+compressItemType('invasion')+'_i_'+inv.defenderReward.asString+'_l_'+compressURL(inv.defenderReward.thumbnail);
-				persistInfo(cookieStore);
+				cookieStore='t_'+compressItemType('invasion')+'_i_'+compressItemName(inv.defenderReward.asString)+'_l_'+compressURL(inv.defenderReward.thumbnail);
+				var persistObject={'t':'invasion','i':inv.defenderReward.asString,'l':inv.defenderReward.thumbnail,platform:new Date()}
+				persistInfo(cookieStore,persistObject);
 
 				var atk=inv.attackingFaction.toLowerCase();
 				var def=inv.defendingFaction.toLowerCase();
@@ -1769,7 +1806,8 @@ function rellenarDatos(){
 				//Agregado a la lista de notificaciones de cookies
 				var cookieStore='';
 				cookieStore='t_'+compressItemType('baro')+'_i_'+item+'_l_'+compressURL('static/img/factions/Baro.png');
-				persistInfo(cookieStore);
+				var persistObject={'t':'baro','i':item,'l':'static/img/factions/Baro.png',platform:new Date()}
+				persistInfo(cookieStore,persistObject);
 
 				//Agrego copiar
 				var txtCopiar="'"+"Baro: "+item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+" | Ubicacion: "+baroData.location+' ('+strDiff((baroData.endString),diff)+') {http://nekro-warframe.netlify.com}'+"'";
@@ -2397,12 +2435,12 @@ function compressNotification (notifArray,decompress=false){
 		let notif={};
 		if(n['t']==undefined){
 			notif['t']=compressItemType(n['cachedType'],decompress); //t
-			notif['i']=n['cachedItem']; //i
+			notif['i']=compressItemName(n['cachedItem'],decompress); //i
 			notif['l']=compressURL(n['cachedImgLink'],decompress); //l
 			notif[n['cachedPlatform']]=convertDateLocalToIso(n['cachedTime'],decompress);
 		}else{
 			notif['t']=compressItemType(n['t'],decompress); //t
-			notif['i']=n['i']; //i
+			notif['i']=compressItemName(n['i'],decompress); //i
 			notif['l']=compressURL(n['l'],decompress); //l
 			notif['pc']=convertDateLocalToIso(n['pc'],decompress);
 			notif['ps4']=convertDateLocalToIso(n['ps4'],decompress);
@@ -2438,7 +2476,18 @@ function compressItemType(data,decompress=false){
 	});
 	return data;
 }
+function compressItemName(data,decompress=false){
+	compressedItemName.forEach(c=>{
+		if(!decompress){
+			data=strReplaceAll(data,c['t'],c['i']);
+		}else{
+			data=strReplaceAll(data,c['i'],c['t']);
+		}
+	});
+	return data;
+}
 
-function persistInfo(data){
+function persistInfo(data,clase=[]){
 	setCookie(data+'_p_'+platform,convertDateLocalToIso(new Date()),30*24*60*60*1000);
+	//if(clase!=[]){console.log('persistInfo',data,clase,compressNotification([clase]))}
 }
