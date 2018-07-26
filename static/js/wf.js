@@ -2154,7 +2154,9 @@ function getCachedData(){
             cV='t_';
             cachedType=cM.substring(cM.indexOf(cV), cM.length);
             cachedType=cachedType.replace(cV,'');
-            cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime,cachedPlatform});
+            if(cachedPlatform==platform){
+            	cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime,cachedPlatform});
+            }
         }
     }
     return compressNotification(cachedData,true);
