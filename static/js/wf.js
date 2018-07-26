@@ -2132,8 +2132,8 @@ function getCachedData(){
             
             cV='_p_';
             if (cM.indexOf(cV) > -1) {
-            	cachedImgLink=cM.substring(cM.indexOf(cV), cM.length);
-            	cM=cM.substring(0, cM.length-cachedImgLink.length);
+            	cachedPlatform=cM.substring(cM.indexOf(cV), cM.length);
+            	cM=cM.substring(0, cM.length-cachedPlatform.length);
             	cachedPlatform=cachedPlatform.replace(cV,'');
             }
 
