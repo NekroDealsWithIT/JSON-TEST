@@ -2489,5 +2489,5 @@ function compressItemName(data,decompress=false){
 
 function persistInfo(data,clase=[]){
 	setCookie(data+'_p_'+platform,convertDateLocalToIso(new Date()),30*24*60*60*1000);
-	//if(clase!=[]){console.log('persistInfo',data,clase,compressNotification([clase]))}
+	if(clase!=[]){console.log('persistInfo',data,clase,compressNotification([clase]))}
 }
