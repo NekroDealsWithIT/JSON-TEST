@@ -2119,6 +2119,7 @@ function getCachedData(){
         	var cachedItem='';
         	var cachedImgLink='';
         	var cachedTime='';
+        	var cachedPlatform='';
             // (cookieMasticada)
             var cM=cookie;
 
@@ -2127,6 +2128,13 @@ function getCachedData(){
             	cachedTime=cM.substring(cM.indexOf(cV), cM.length);
             	cM=cM.substring(0, cM.length-cachedTime.length);
             	cachedTime=cachedTime.replace(cV,'');
+            }
+            
+            cV='_p_';
+            if (cM.indexOf(cV) > -1) {
+            	cachedImgLink=cM.substring(cM.indexOf(cV), cM.length);
+            	cM=cM.substring(0, cM.length-cachedImgLink.length);
+            	cachedPlatform=cachedPlatform.replace(cV,'');
             }
 
             cV='_l_';
@@ -2146,7 +2154,7 @@ function getCachedData(){
             cV='t_';
             cachedType=cM.substring(cM.indexOf(cV), cM.length);
             cachedType=cachedType.replace(cV,'');
-            cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime});
+            cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime,cachedPlatform});
         }
     }
     return compressNotification(cachedData,true);
@@ -2388,9 +2396,7 @@ function compressNotification (notifArray,decompress=false){
 			notif['t']=compressItemType(n['cachedType'],decompress); //t
 			notif['i']=compressItemType(n['cachedItem'],decompress); //i
 			notif['l']=compressURL(n['cachedImgLink'],decompress); //l
-			notif['pc']=convertDateLocalToIso(n['cachedTime'],decompress);
-			notif['ps4']=null;
-			notif['xb1']=null;
+			notif[n['cachedPlatform']]=convertDateLocalToIso(n['cachedTime'],decompress);
 		}else{
 			notif['t']=compressItemType(n['t'],decompress); //t
 			notif['i']=compressItemType(n['i'],decompress); //i
@@ -2426,5 +2432,5 @@ function compressItemType(data,decompress=false){
 }
 
 function persistInfo(data){
-	setCookie(data,convertDateLocalToIso(new Date()),30*24*60*60*1000);
+	setCookie(data+'_p_'+platform,convertDateLocalToIso(new Date()),30*24*60*60*1000);
 }
