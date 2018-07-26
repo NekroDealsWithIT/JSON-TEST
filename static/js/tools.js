@@ -305,6 +305,8 @@ function strReplaceAll(texto,reemplazar,por,escape=false){
 		} else {
 			return texto.split(reemplazar).join(por);	
 		}
+	}else{
+		return texto;
 	}
 }
 

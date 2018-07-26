@@ -1583,7 +1583,7 @@ function rellenarDatos(){
 			
 			persistInfo(cookieStore);
 
-			td.push([checkBoxCompleted+'<img src="'+a.mission.reward.thumbnail +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
+			td.push([checkBoxCompleted+'<img src="'+compressURL(a.mission.reward.thumbnail,true) +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
 			var modifs='';
 			(a.mission.nightmare?modifs+='N ':'');
 			(a.mission.archwingRequired?modifs+='Aw ':'');
@@ -1648,9 +1648,9 @@ function rellenarDatos(){
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push(['<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
 				td.push([inv.attackingFaction.toUpperCase(),'tdInvasion '+atk+isCompleted]);
-				td.push([(!inv.vsInfestation?'<a id="'+inv.attackerReward.asString+'"></a><img src="'+inv.attackerReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>':'❌'),'tdInvasion '+atk+isCompleted]);
+				td.push([(!inv.vsInfestation?'<a id="'+inv.attackerReward.asString+'"></a><img src="'+compressURL(inv.attackerReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>':'❌'),'tdInvasion '+atk+isCompleted]);
 				td.push([inv.defendingFaction.toUpperCase(),'tdInvasion '+def+isCompleted]);
-				td.push(['<a id="'+inv.defenderReward.asString+'"></a><img src="'+inv.defenderReward.thumbnail +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
+				td.push(['<a id="'+inv.defenderReward.asString+'"></a><img src="'+compressURL(inv.defenderReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
 				//td.push([inv.vsInfestation,'tdInvasion '+def+isCompleted]);
 				tds.push(td);	
 			}
@@ -2414,6 +2414,9 @@ function compressNotification (notifArray,decompress=false){
 }
 
 function compressURL(data,decompress=false){
+	if (data==undefined||data==''){
+		data='static/img/factions/stevie_wonder.png';
+	}
 	compressedURL.forEach(c=>{
 		if(!decompress){
 			data=strReplaceAll(data,c['url'],c['id']);
@@ -2421,6 +2424,8 @@ function compressURL(data,decompress=false){
 			data=strReplaceAll(data,c['id'],c['url']);
 		}
 	});
+
+	
 	return data;
 }
 function compressItemType(data,decompress=false){
