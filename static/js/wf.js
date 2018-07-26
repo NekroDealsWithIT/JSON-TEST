@@ -17,41 +17,41 @@
 	];
 
 	const compressedItemType=[
-		{i:'#1',t:'nightmare'},
-		{i:'#2',t:'aura'},
-		{i:'#3',t:'helmet'},
-		{i:'#4',t:'weapon'},
-		{i:'#5',t:'invasion'},
-		{i:'#6',t:'forma'},
-		{i:'#7',t:'skin'},
-		{i:'#8',t:'catalyst'},
-		{i:'#9',t:'kubrowEgg'},
-		{i:'#10',t:'morphics'},
-		{i:'#11',t:'resource'},
-		{i:'#12',t:'vauban'},
-		{i:'#13',t:'synthula'},
-		{i:'#14',t:'plastis'},
-		{i:'#15',t:'controlModule'},
-		{i:'#16',t:'baro'},
-		{i:'#17',t:'circuits'},
-		{i:'#18',t:'oxium'},
-		{i:'#19',t:'polymerBundle'},
-		{i:'#20',t:'orokinCell'},
-		{i:'#21',t:'rubedo'},
-		{i:'#22',t:'ferrite'},
-		{i:'#23',t:'alloyPlate'},
-		{i:'#24',t:'gallium'},
-		{i:'#24',t:'gallium'},
-		{i:'#25',t:'nanoSpores'},
-		{i:'#26',t:'endo'},
-		{i:'#27',t:'argonCrystal'},
-		{i:'#28',t:'neuralSensors'},
-		{i:'#29',t:'nitain'},
-		{i:'#30',t:'credits'},
-		{i:'#31',t:'salvage'},
-		{i:'#32',t:'traces'},
-		{i:'#33',t:'tellurium'},
-		{i:'#33',t:'plastids'}
+		{i:'#@1',t:'nightmare'},
+		{i:'#@2',t:'aura'},
+		{i:'#@3',t:'helmet'},
+		{i:'#@4',t:'weapon'},
+		{i:'#@5',t:'invasion'},
+		{i:'#@6',t:'forma'},
+		{i:'#@7',t:'skin'},
+		{i:'#@8',t:'catalyst'},
+		{i:'#@9',t:'kubrowEgg'},
+		{i:'#@10',t:'morphics'},
+		{i:'#@11',t:'resource'},
+		{i:'#@12',t:'vauban'},
+		{i:'#@13',t:'synthula'},
+		{i:'#@14',t:'plastis'},
+		{i:'#@15',t:'controlModule'},
+		{i:'#@16',t:'baro'},
+		{i:'#@17',t:'circuits'},
+		{i:'#@18',t:'oxium'},
+		{i:'#@19',t:'polymerBundle'},
+		{i:'#@20',t:'orokinCell'},
+		{i:'#@21',t:'rubedo'},
+		{i:'#@22',t:'ferrite'},
+		{i:'#@23',t:'alloyPlate'},
+		{i:'#@24',t:'gallium'},
+		{i:'#@24',t:'gallium'},
+		{i:'#@25',t:'nanoSpores'},
+		{i:'#@26',t:'endo'},
+		{i:'#@27',t:'argonCrystal'},
+		{i:'#@28',t:'neuralSensors'},
+		{i:'#@29',t:'nitain'},
+		{i:'#@30',t:'credits'},
+		{i:'#@31',t:'salvage'},
+		{i:'#@32',t:'traces'},
+		{i:'#@33',t:'tellurium'},
+		{i:'#@33',t:'plastids'}
 	];
 
 	var platform='';
@@ -2396,12 +2396,12 @@ function compressNotification (notifArray,decompress=false){
 		let notif={};
 		if(n['t']==undefined){
 			notif['t']=compressItemType(n['cachedType'],decompress); //t
-			notif['i']=compressItemType(n['cachedItem'],decompress); //i
+			notif['i']=n['cachedItem']; //i
 			notif['l']=compressURL(n['cachedImgLink'],decompress); //l
 			notif[n['cachedPlatform']]=convertDateLocalToIso(n['cachedTime'],decompress);
 		}else{
 			notif['t']=compressItemType(n['t'],decompress); //t
-			notif['i']=compressItemType(n['i'],decompress); //i
+			notif['i']=n['i']; //i
 			notif['l']=compressURL(n['l'],decompress); //l
 			notif['pc']=convertDateLocalToIso(n['pc'],decompress);
 			notif['ps4']=convertDateLocalToIso(n['ps4'],decompress);
