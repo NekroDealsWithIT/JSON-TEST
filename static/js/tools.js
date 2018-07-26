@@ -297,13 +297,15 @@ function fillStr(string,positions=0,char='0',left=true){
 
 function strReplaceAll(texto,reemplazar,por,escape=false){
 	//return str.replace(new RegExp(find, 'g'), replace);
-	if (escape){
-		por="\\"+reemplazar;
-		return texto.split(reemplazar).join(por);	
-	} else {
-		return texto.split(reemplazar).join(por);	
+	//console.log(texto,reemplazar,por);
+	if (texto!=undefined&&texto.length>0){
+		if (escape){
+			por="\\"+reemplazar;
+			return texto.split(reemplazar).join(por);	
+		} else {
+			return texto.split(reemplazar).join(por);	
+		}
 	}
-	
 }
 
 function strReplaceAllNonPrintable(texto,reemplazarPor=' '){
@@ -335,6 +337,18 @@ function tiempoStr(tiempo=new Date(),mascara=''){
 	}
 	return resultado;
 }
+function convertDateLocalToIso(fecha,revertir=false){
+	try{
+		if(!revertir){
+			return new Date(fecha).toISOString();
+		}else{
+			return new Date(fecha);
+		}
+	}catch(e){
+		return null;
+	}
+}
+
 /*
  * Date Format 1.2.3
  * (c) 2007-2009 Steven Levithan <stevenlevithan.com>

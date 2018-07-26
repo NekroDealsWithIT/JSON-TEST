@@ -5,7 +5,7 @@ var fetchedVersion='';
 
 function versionCheck(callback=false){
 	//fetchVersion(window.location.href+"/../static/version");
-	if (!callback){fetchVersion("static/version");}
+	if (!callback&&location.href.indexOf('file:///')==-1){fetchVersion("static/version");}
 	
 	if (version!=''&&fetchedVersion!=version){
 		//location.reload();

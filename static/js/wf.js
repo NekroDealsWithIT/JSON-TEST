@@ -9,6 +9,51 @@
 	[3,'12-06-2018 Migre el manejo del desarrollo a trello!']
 	];
 	
+	const compressedURL=[
+		{id:'#@1',url:'https://i.imgur.com'},
+		{id:'#@2',url:'https://github.com/Warframe-Community-Developers/warframe-worldstate-parser/raw/master/resources'},
+		{id:'#@3',url:'https://raw.githubusercontent.com/Warframe-Community-Developers/warframe-worldstate-parser/master/resources'},
+		{id:'#@4',url:'static/img/factions'}
+	];
+
+	const compressedItemType=[
+		{i:'#1',t:'nightmare'},
+		{i:'#2',t:'aura'},
+		{i:'#3',t:'helmet'},
+		{i:'#4',t:'weapon'},
+		{i:'#5',t:'invasion'},
+		{i:'#6',t:'forma'},
+		{i:'#7',t:'skin'},
+		{i:'#8',t:'catalyst'},
+		{i:'#9',t:'kubrowEgg'},
+		{i:'#10',t:'morphics'},
+		{i:'#11',t:'resource'},
+		{i:'#12',t:'vauban'},
+		{i:'#13',t:'synthula'},
+		{i:'#14',t:'plastis'},
+		{i:'#15',t:'controlModule'},
+		{i:'#16',t:'baro'},
+		{i:'#17',t:'circuits'},
+		{i:'#18',t:'oxium'},
+		{i:'#19',t:'polymerBundle'},
+		{i:'#20',t:'orokinCell'},
+		{i:'#21',t:'rubedo'},
+		{i:'#22',t:'ferrite'},
+		{i:'#23',t:'alloyPlate'},
+		{i:'#24',t:'gallium'},
+		{i:'#24',t:'gallium'},
+		{i:'#25',t:'nanoSpores'},
+		{i:'#26',t:'endo'},
+		{i:'#27',t:'argonCrystal'},
+		{i:'#28',t:'neuralSensors'},
+		{i:'#29',t:'nitain'},
+		{i:'#30',t:'credits'},
+		{i:'#31',t:'salvage'},
+		{i:'#32',t:'traces'},
+		{i:'#33',t:'tellurium'},
+		{i:'#33',t:'plastids'}
+	];
+
 	var platform='';
 
 	var fetching=false;
@@ -1283,8 +1328,8 @@ function rellenarDatos(){
 			notificacionesTitle.innerHTML+=(notifOnlyActive?" (Mostrando solo activas)":"")+(notifOnlyNonCompleted?" (Mostrando solo no completas)":"")+(notifShowLastDate?"":" (Ocultando fechas)");
 			var tipos=[];
 			cacheado.forEach(function(c){
-				if(c.cachedItem!=''){
-					tipos.push(c.cachedType);
+				if(c['t']!=''&&c['t']!=undefined&&c['i']!=undefined){
+					tipos.push(c['t']);
 				}
 			});
 			// Agrego clase generica
@@ -1294,9 +1339,9 @@ function rellenarDatos(){
 			// hago un ordenamiento burbuja (A-Z) para los titulos
 			tipos=bubbleSorting(tipos);
 			// hago un ordenamiento para los items
-			cacheado=arraySortByKey(cacheado,'cachedType');
-			cacheado=arraySortByKey(cacheado,'cachedItem');
-			
+			cacheado=arraySortByKey(cacheado,'t');
+			cacheado=arraySortByKey(cacheado,'i');
+
 			var alertasActuales=resultJson.alerts;
 			var invasionesActuales=resultJson.invasions;
 			var itemsBaroActuales=resultJson.voidTrader;
@@ -1314,15 +1359,15 @@ function rellenarDatos(){
 					// hay que recorrer las alertas!
 					alertasActuales.forEach(function(a){
 						if(!a.expired){
-							if (c.cachedItem==''){
-								if(a.rewardTypes!=undefined&&a.rewardTypes.includes(c.cachedType)){
+							if (c['i']==undefined){
+								if(a.rewardTypes!=undefined&&a.rewardTypes.includes(c['t'])){
 									actual=a.id;
 									completa=chequearCompleto(a.id);
 									timerNotificacion=strDiff((a.eta),diff);
 									tipo='alerta';
 								}
 							}else{
-								if(a.mission!=undefined&&a.mission.reward.items!=undefined&&a.mission.reward.items.includes(c.cachedItem)){
+								if(a.mission!=undefined&&a.mission.reward.items!=undefined&&a.mission.reward.items.includes(c['i'])){
 									actual=a.id;	
 									completa=chequearCompleto(a.id);
 									timerNotificacion=strDiff((a.eta),diff);
@@ -1335,14 +1380,14 @@ function rellenarDatos(){
 					if(t=='invasion'){
 						invasionesActuales.forEach(function(i){
 							if (!i.completed){
-								if(i.attackerReward!=undefined&&i.attackerReward.asString==c.cachedItem){
+								if(i.attackerReward!=undefined&&i.attackerReward.asString==c['i']){
 									actual=i.attackerReward.asString;
 									actualId=i.id;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
 									tipo='invasion';
 								}
-								if(i.defenderReward!=undefined&&i.defenderReward.asString==c.cachedItem){
+								if(i.defenderReward!=undefined&&i.defenderReward.asString==c['i']){
 									actual=i.defenderReward.asString;
 									actualId=i.id;
 									completa=chequearCompleto(i.id);
@@ -1356,7 +1401,7 @@ function rellenarDatos(){
 					if(t=='baro'){
 						if(itemsBaroActuales.inventory!=undefined){
 							itemsBaroActuales.inventory.forEach(function(i){
-								if(strReplaceAllNonPrintable(i.item)==strReplaceAllNonPrintable(c.cachedItem)){
+								if(strReplaceAllNonPrintable(i.item)==strReplaceAllNonPrintable(c['i'])){
 									actual=i.item;
 									completa=chequearCompleto(actual);
 									timerNotificacion=strDiff(itemsBaroActuales.endString,diff);
@@ -1365,54 +1410,52 @@ function rellenarDatos(){
 							});
 						}
 					}
-
-					if(t=='recursos'&&c.cachedItem==''){
-							//de paso revisamos si esta completa para marcarlo tambien!
-
-							// chequeo si hay alguno en la lista para remarcar la lista entera
-							if(actual!=''){listaActiva=true;}
-							var notificar=chequearInformar(c.cachedType);
-							var isCompleted=(completa?' completed':'');
+					if(t=='recursos'&&c['i']==undefined){
+						//de paso revisamos si esta completa para marcarlo tambien!
+						
+						// chequeo si hay alguno en la lista para remarcar la lista entera
+						if(actual!=''){listaActiva=true;}
+						var notificar=chequearInformar(c['t']);
+						var isCompleted=(completa?' completed':'');
 							
+						if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
+							notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
+							'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['t']+'"' + (notificar?" checked":"")+'></label>'+
+							'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c['t']+'" target="blank">'+
+							'<img class="thumbnailNotif" src="'+c['l']+'">'+
+							'<span class="capitalize">'+c['t']+'</span>'+
+							'</a>'+
+							(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+actual+'"' +'>Completa?)</label>')+
+							(notifShowLastDate?' ('+dateToString(c[platform])+')':"")+(actual!=''?' <a href="#'+actual+'" data-idgrouptype="'+tipo+'" onclick="clickAnchorLink(event);">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
+							'</li>';
+						}
+					}else{
+						if(t==c['t']){
+							if(actual!=''){listaActiva=true;}
+							var notificar=chequearInformar(c['i']);
+							var isCompleted=(completa?' completed':'');
+							var notifId=(actualId!=''?actualId:c['i']);
 							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-								'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedType+'"' + (notificar?" checked":"")+'></label>'+
-								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedType+'" target="blank">'+
-								'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
-								'<span class="capitalize">'+c.cachedType+'</span>'+
+								'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['i']+'"' + (notificar?" checked":"")+'></label>'+
+								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c['i']+'" target="blank">'+
+								'<img class="thumbnailNotif" src="'+c['l']+'">'+
+								'<span class="capitalize">'+c['i']+'</span>'+
 								'</a>'+
-								(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+actual+'"' +'>Completa?)</label>')+
-								(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'" data-idgrouptype="'+tipo+'" onclick="clickAnchorLink(event);">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
+								(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+notifId+'"' +'>Completa?)</label>')+
+								(notifShowLastDate?' ('+dateToString(c[platform])+')':"")+(actual!=''?' <a href="#'+actual+'" data-idgrouptype="'+tipo+'" onclick="clickAnchorLink(event);">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
 								'</li>';
 							}
-						}else{
-							if(t==c.cachedType){
-								if(actual!=''){listaActiva=true;}
-								var notificar=chequearInformar(c.cachedItem);
-								var isCompleted=(completa?' completed':'');
-								var notifId=(actualId!=''?actualId:c.cachedItem);
-								if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
-									notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-									'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c.cachedItem+'"' + (notificar?" checked":"")+'></label>'+
-									'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c.cachedItem+'" target="blank">'+
-									'<img class="thumbnailNotif" src="'+c.cachedImgLink+'">'+
-									'<span class="capitalize">'+c.cachedItem+'</span>'+
-									'</a>'+
-									(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+notifId+'"' +'>Completa?)</label>')+
-									(notifShowLastDate?' ('+dateToString(c.cachedTime)+')':"")+(actual!=''?' <a href="#'+actual+'" data-idgrouptype="'+tipo+'" onclick="clickAnchorLink(event);">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
-									'</li>';
-								}
-							}
 						}
-
-					});
+					}
+				});
 				var idLista="'typeNotif"+t.toUpperCase()+"'";
 				var ocultarTipo=chequearInformarNotif("typeNotif"+t.toUpperCase());
 				// crear un array que guarde que tipo mostrar
 				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+comboSonido+notificacion+'</ul></article></div>';
 			});
-		notificaciones.innerHTML+='</div>'
-}
+			notificaciones.innerHTML+='</div>'
+		}
 
 		//Events
 		var eventsData=resultJson.events;
@@ -1523,7 +1566,7 @@ function rellenarDatos(){
 				a.rewardTypes.forEach(function(rt){
 					// setCookie('a_'+rt,new Date(),365*24*60*60*1000);
 					if(rt!=''){
-						cookieStore+='t_'+rt;
+						cookieStore+='t_'+compressItemType(rt);
 					}
 				});
 			}
@@ -1535,9 +1578,9 @@ function rellenarDatos(){
 					}
 				});
 			}
-			cookieStore+='_l_'+a.mission.reward.thumbnail;
+			cookieStore+='_l_'+compressURL(a.mission.reward.thumbnail);
 			
-			setCookie(cookieStore,new Date(),365*24*60*60*1000);
+			persistInfo(cookieStore);
 
 			td.push([checkBoxCompleted+'<img src="'+a.mission.reward.thumbnail +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
 			var modifs='';
@@ -1581,11 +1624,11 @@ function rellenarDatos(){
 				//Agregado a la lista de notificaciones de cookies
 				var cookieStore='';
 				if(!inv.vsInfestation){
-					cookieStore='t_'+'invasion_i_'+inv.attackerReward.asString+'_l_'+inv.attackerReward.thumbnail;
-					setCookie(cookieStore,new Date(),365*24*60*60*1000);
+					cookieStore='t_'+compressItemType('invasion')+'_i_'+inv.attackerReward.asString+'_l_'+compressURL(inv.attackerReward.thumbnail);
+					persistInfo(cookieStore);
 				}
-				cookieStore='t_'+'invasion_i_'+inv.defenderReward.asString+'_l_'+inv.defenderReward.thumbnail;
-				setCookie(cookieStore,new Date(),365*24*60*60*1000);
+				cookieStore='t_'+compressItemType('invasion')+'_i_'+inv.defenderReward.asString+'_l_'+compressURL(inv.defenderReward.thumbnail);
+				persistInfo(cookieStore);
 
 				var atk=inv.attackingFaction.toLowerCase();
 				var def=inv.defendingFaction.toLowerCase();
@@ -1724,8 +1767,8 @@ function rellenarDatos(){
 
 				//Agregado a la lista de notificaciones de cookies
 				var cookieStore='';
-				cookieStore='t_'+'baro_i_'+item+'_l_'+'static/img/factions/Baro.png';
-				setCookie(cookieStore,new Date(),365*24*60*60*1000);
+				cookieStore='t_'+compressItemType('baro')+'_i_'+item+'_l_'+compressURL('static/img/factions/Baro.png');
+				persistInfo(cookieStore);
 
 				//Agrego copiar
 				var txtCopiar="'"+"Baro: "+item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+" | Ubicacion: "+baroData.location+' ('+strDiff((baroData.endString),diff)+') {http://nekro-warframe.netlify.com}'+"'";
@@ -2106,7 +2149,7 @@ function getCachedData(){
             cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime});
         }
     }
-    return cachedData;
+    return compressNotification(cachedData,true);
 }
 function cargarSonidos(){
 	var auxArr=[];
@@ -2265,9 +2308,9 @@ function setCachedDefaultData(){
 	historicCachedData.forEach(function (hcd){
 		var cookieStore='';
 		if(hcd.cachedItem!=''){
-			cookieStore='t_'+hcd.cachedType+'_i_'+hcd.cachedItem+'_l_'+hcd.cachedImgLink;
+			cookieStore='t_'+compressItemType(hcd.cachedType)+'_i_'+hcd.cachedItem+'_l_'+compressedURL(hcd.cachedImgLink);
 		}else{
-			cookieStore='t_'+hcd.cachedType+'_l_'+hcd.cachedImgLink;
+			cookieStore='t_'+compressItemType(hcd.cachedType)+'_l_'+compressedURL(hcd.cachedImgLink);
 		}
 		
 		//if(getCookie(cookieStore)==""){
@@ -2335,4 +2378,53 @@ function changePlatform(to){
 	platform=to;
 	counter1=counter1Max-1;
 	document.title='['+platform.toUpperCase()+']'+ " Nekro's WF Check";
+}
+
+function compressNotification (notifArray,decompress=false){
+	let res=[];
+	notifArray.forEach(n=>{
+		let notif={};
+		if(n['t']==undefined){
+			notif['t']=compressItemType(n['cachedType'],decompress); //t
+			notif['i']=compressItemType(n['cachedItem'],decompress); //i
+			notif['l']=compressURL(n['cachedImgLink'],decompress); //l
+			notif['pc']=convertDateLocalToIso(n['cachedTime'],decompress);
+			notif['ps4']=null;
+			notif['xb1']=null;
+		}else{
+			notif['t']=compressItemType(n['t'],decompress); //t
+			notif['i']=compressItemType(n['i'],decompress); //i
+			notif['l']=compressURL(n['l'],decompress); //l
+			notif['pc']=convertDateLocalToIso(n['pc'],decompress);
+			notif['ps4']=convertDateLocalToIso(n['ps4'],decompress);
+			notif['xb1']=convertDateLocalToIso(n['xb1'],decompress);
+		}
+		res.push(notif);
+	});
+	return res;
+}
+
+function compressURL(data,decompress=false){
+	compressedURL.forEach(c=>{
+		if(!decompress){
+			data=strReplaceAll(data,c['url'],c['id']);
+		}else{
+			data=strReplaceAll(data,c['id'],c['url']);
+		}
+	});
+	return data;
+}
+function compressItemType(data,decompress=false){
+	compressedItemType.forEach(c=>{
+		if(!decompress){
+			data=strReplaceAll(data,c['t'],c['i']);
+		}else{
+			data=strReplaceAll(data,c['i'],c['t']);
+		}
+	});
+	return data;
+}
+
+function persistInfo(data){
+	setCookie(data,new Date(),365*24*60*60*1000);
 }
