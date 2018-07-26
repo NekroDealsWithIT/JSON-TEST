@@ -51,7 +51,8 @@
 		{i:'@x@',t:'salvage'},
 		{i:'@y@',t:'traces'},
 		{i:'@z@',t:'tellurium'},
-		{i:'@A@',t:'plastids'}
+		{i:'@A@',t:'plastids'},
+		{i:'@B@',t:'reactor'}
 	];
 
 	var platform='';
