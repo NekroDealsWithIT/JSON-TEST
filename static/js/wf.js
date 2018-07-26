@@ -1360,7 +1360,7 @@ function rellenarDatos(){
 					// hay que recorrer las alertas!
 					alertasActuales.forEach(function(a){
 						if(!a.expired){
-							if (c['i']==undefined){
+							if (c['i']==undefined||c['i']==''){
 								if(a.rewardTypes!=undefined&&a.rewardTypes.includes(c['t'])){
 									actual=a.id;
 									completa=chequearCompleto(a.id);
@@ -2155,7 +2155,7 @@ function getCachedData(){
             cV='t_';
             cachedType=cM.substring(cM.indexOf(cV), cM.length);
             cachedType=cachedType.replace(cV,'');
-            if(cachedPlatform==platform){
+            if(cachedPlatform==platform||document.cookie==''){
             	cachedData.push({cachedType,cachedItem,cachedImgLink,cachedTime,cachedPlatform});
             }
         }
