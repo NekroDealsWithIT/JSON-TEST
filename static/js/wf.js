@@ -1206,16 +1206,16 @@ function startAll(){
 	updateJsonDrops();
 
 	// busco en las cookies las completadas de los ultimos 7 dias
-	completado=completado.concat(getCookieArray("completas"));
+	completado=arrayRemove(completado.concat(getCookieArray("completas")));
 	// console.log('completado:');
 	// console.log(completado);
-	informarArr=informarArr.concat(getCachedData());
+	informarArr=arrayRemove(informarArr.concat(getCachedData()));
 	// console.log('informarArr:');
 	// console.log(informarArr);
-	informarArrChecked=informarArrChecked.concat(getCookieArray("informarArrChecked"));
+	informarArrChecked=arrayRemove(informarArrChecked.concat(getCookieArray("informarArrChecked")));
 	// console.log('informarArrChecked:');
 	// console.log(informarArrChecked);
-	informarArrMostrar=informarArrMostrar.concat(getCookieArray("informarArrMostrar"));
+	informarArrMostrar=arrayRemove(informarArrMostrar.concat(getCookieArray("informarArrMostrar")));
 	// console.log('informarArrMostrar:');
 	// console.log(informarArrMostrar);
 	cargarSonidos();
