@@ -119,22 +119,22 @@ function urlDeleteParameter(parametro,urlToCheck=window.location.href){
 */
 
 const copyToClipboard = str => {
-	const el = document.createElement('textarea');  // Create a <textarea> element
-	el.value = str;                                 // Set its value to the string that you want copied
-	el.setAttribute('readonly', '');                // Make it readonly to be tamper-proof
+	const el = document.createElement('textarea');  	// Create a <textarea> element
+	el.value = str;                                 	// Set its value to the string that you want copied
+	el.setAttribute('readonly', '');                	// Make it readonly to be tamper-proof
 	el.style.position = 'absolute';                 
-	el.style.left = '-9999px';                      // Move outside the screen to make it invisible
-	document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
+	el.style.left = '-9999px';                      	// Move outside the screen to make it invisible
+	document.body.appendChild(el);                  	// Append the <textarea> element to the HTML document
 	const selected =            
-	document.getSelection().rangeCount > 0        // Check if there is any content selected previously
-	? document.getSelection().getRangeAt(0)     // Store selection if found
-	: false;                                    // Mark as false to know no selection existed before
-	el.select();                                    // Select the <textarea> content
+	document.getSelection().rangeCount > 0        		// Check if there is any content selected previously
+	? document.getSelection().getRangeAt(0)     		// Store selection if found
+	: false;                                    		// Mark as false to know no selection existed before
+	el.select();                                    	// Select the <textarea> content
 		document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
 		document.body.removeChild(el);                  // Remove the <textarea> element
-	if (selected) {                                 // If a selection existed before copying
-		document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
-		document.getSelection().addRange(selected);   // Restore the original selection
+	if (selected) {                                 	// If a selection existed before copying
+		document.getSelection().removeAllRanges();    	// Unselect everything on the HTML document
+		document.getSelection().addRange(selected);   	// Restore the original selection
 	}
 };
 /*
@@ -142,7 +142,24 @@ const copyToClipboard = str => {
 	Funciones de fetch
 -----------------------------------------------------
 */
-function fetchJSONCallback(url, options, callback) {
+/*
+ejemplo de options 
+[{
+	method: "POST", // *GET, POST, PUT, DELETE, etc.
+	mode: "cors", // no-cors, cors, *same-origin
+	cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+	credentials: "same-origin", // include, same-origin, *omit
+	headers: {
+			"Content-Type": "application/json; charset=utf-8",
+			// "Content-Type": "application/x-www-form-urlencoded",
+		},
+	redirect: "follow", // manual, *follow, error
+	referrer: "no-referrer", // no-referrer, *client
+}]
+
+fetchJSONCallback('https://api.warframe.market/v1/items/vitality/orders',[{method: "GET",credentials: "omit",mode: "no-cors",headers: {"Content-Type": "application/json; charset=utf-8"},redirect: "follow",referrer: "no-referrer"}],console.log)
+*/
+function fetchJSONCallback(url, options, callback,errCallback=console.log) {
   if (typeof options === 'function') {
     callback = options
     options = {}
@@ -152,11 +169,11 @@ function fetchJSONCallback(url, options, callback) {
 
   const headers = (options.headers || (options.headers = {}))
   headers.Accept = 'application/json'
-
-  fetch(url, options)
+    fetch(url, options)
+    .catch(err=>{errCallback("Error al buscar fetch de "+url,err.message);})
     .then(response => response.json())
     .then(json => callback(json), callback)
-    .catch(err=>{console.error("Error al buscar fetch de "+url,err.message);})
+    .catch(err=>{console.log("Error al buscar fetch de "+url,err.message);})
 }
 
 /*

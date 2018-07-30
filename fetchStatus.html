@@ -1,0 +1,86 @@
+<!-- fetchStatus.html -->
+<!DOCTYPE html>
+<html>
+<head lang="es">
+	<!-- charset -->
+	<meta charset="utf-8">
+	<meta name="description" content="fetchingSandbox">
+	<meta name="keywords" content="warframe">
+	<meta name="author" content="Nekro - ShadowOfNekro (PC)">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>Nekro's WF Profiler</title>
+	<!-- favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="static/img/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="static/img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="static/img/favicon/favicon-16x16.png">
+	<link rel="manifest" href="static/img/favicon/site.webmanifest">
+	<link rel="mask-icon" href="static/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- styles -->
+	<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">
+	<style>
+		#txtUrl{
+			width: 75%;
+		}
+		textarea{
+			width: 100%;
+			height: 100px;	
+		}
+		pre {outline: 1px solid #ccc; padding: 5px; margin: 5px;background-color: #000;opacity: 1; }
+		.string { color: green; }
+		.number { color: darkorange; }
+		.boolean { color: blue; }
+		.null { color: magenta; }
+		.key { color: red; 
+	</style>
+</head>
+<body onload="loadFetchData();">
+	<!-- <script type="text/javascript">startAll();</script> -->
+<!-- 	<div id="botonera">
+		<nav class="botonera">
+			<div id="barraProgreso"></div>
+			<div id="test"></div>
+		</nav>
+	</div> -->
+<div class="content">
+	<h1>Fetch Check</h1>
+	<h4>URLS</h4>
+	<div id='urls'></div>
+	<input type="text" id="txtUrl">
+	<input type="button" id="btnFetch" value="fetch!">
+	<div id='comboOptions'></div>
+	<h4>Estadisticas</h4>
+	<p id='estadisticas'></p>
+	<h4>Respuesta</h4>
+	<p><a href='http://jsonviewer.stack.hu/' target='blank'>Json viewer</a></p>
+	<p><input type="button" onclick="copyToClipboard(txtRespuesta.innerHTML);" value="Copiar contenido"></p>
+	<p><textarea id='txtRespuesta'></textarea></p>
+	<h4>Human redeable</h4>
+	<p><input type="button" onclick="copyToClipboard(txtHumanRedeable.innerText);console.log(txtHumanRedeable.innerText);" value="Copiar contenido"></p>
+	<pre id='txtHumanRedeable'></pre>
+	<h4>Error</h4>
+	<p><textarea id='txtError'></textarea></p>
+</div>
+
+<!-- javascript -->
+<script type="text/javascript" src="static/js/fetchingSandbox.js"></script>
+<script type="text/javascript" src="static/js/tools.js"></script>
+<script type="text/javascript" src="static/js/wf.js"></script>
+<script type="text/javascript" src="static/js/profiler.js"></script>
+<script type="text/javascript" src="static/js/checkversion.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120746637-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-120746637-1');
+</script>
+</body>
+</html>
