@@ -43,7 +43,8 @@ const uris=[
 	{d:'weapons',b:'aHR0cHM6Ly93cy53YXJmcmFtZXN0YXQudXMvd2VhcG9ucw=='},
 	{d:'warframes',b:'aHR0cHM6Ly93cy53YXJmcmFtZXN0YXQudXMvd2FyZnJhbWVz'},
 	{d:'nexus',b:'aHR0cHM6Ly9uZXh1cy1zdGF0cy5jb20vYXBp'},
-	{d:'wfm pricecheck',b:'aHR0cHM6Ly93YXJmcmFtZWNoYXJ0LmN0OC5wbC9yZXNvdXJjZXMvanNvbi9tYXJrZXQvc2VsbC9jdXJyZW50Lmpzb24='}
+	{d:'wfm pricecheck',b:'aHR0cHM6Ly93YXJmcmFtZWNoYXJ0LmN0OC5wbC9yZXNvdXJjZXMvanNvbi9tYXJrZXQvc2VsbC9jdXJyZW50Lmpzb24='},
+	{d:'check ip',b:'aHR0cHM6Ly9nZW8ucXVhbGFyb28uY29tL2pzb24v'}
 ];
 
 const options=[
