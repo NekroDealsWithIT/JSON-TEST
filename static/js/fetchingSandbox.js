@@ -73,8 +73,12 @@ function loadFetchData(){
 	Object.keys(options).forEach(function(k){
 		Object.keys(options[k]).forEach(function(k2){
 			//console.log(options[k][k2]);
-			parseado+='<h5>'+k2.toUpperCase()+'</h5>';
-
+			parseado+='<h4>'+k2.toUpperCase()+'</h4>';
+			if(k2!='headers'){
+				parseado+='<label><input id="'+k2+'_none" type="radio" value="none" name="'+k2+'" checked>NINGUNA</label>';	
+			}else{
+				parseado+='<label><input id="'+k2+'_none" type="radio" value="none" name="Content-Type" checked>NINGUNA</label>';	
+			}
 			options[k][k2].forEach(o=>{
 				if(k2!='headers'){
 					parseado+='<label><input id="'+k2+'_'+o+'" type="radio" value="'+o+'" name="'+k2+'">'+o+'</label>';	
@@ -84,15 +88,53 @@ function loadFetchData(){
 					parseado+='<label><input id="'+k2+'_'+o+'" type="radio" value="'+o['Content-Type']+'" name="Content-Type">'+o['Content-Type']+'</label>';		
 				}
 			});
+			parseado+='<label><input id="'+k2+'_custom" type="radio" value="" name="'+k2+'">CUSTOM</label><input type="text" onkeyup="'+k2+'_custom.value=this.value">';	
 		});		
 	});
 	comboOptions.innerHTML=parseado;
 };
 
+function generateOptions(){
+	let newOptions={};
+	if(!generateFetchOptions.checked){return newOptions;}
+	Object.keys(defaultOptions).forEach(function(k){
+		Object.keys(defaultOptions[k]).forEach(function(k2){
+			let selected='';
+			if(k2!='headers'){
+				selected=document.querySelector('input[name="'+k2+'"]:checked').value;
+				if(selected!='none'){
+					newOptions[k2]=selected;
+				}
+			}else{
+				selected=document.querySelector('input[name="Content-Type"]:checked').value;
+				if(selected!='none'){
+					let content={'Content-Type':selected};
+					//newOptions['headers']['Content-Type']=selected;
+					newOptions['headers']=content;
+				}
+			}
+			/*
+			newOptions[k][k2].forEach(o=>{
+				
+				if(k2!='headers'){		
+					//parseado+='<label><input id="'+k2+'_'+o+'" type="radio" value="'+o+'" name="'+k2+'">'+o+'</label>';	
+				}else{
+					//console.log(newOptions[k][k2],o);
+					console.log(o['Content-Type']);
+					//parseado+='<label><input id="'+k2+'_'+o+'" type="radio" value="'+o['Content-Type']+'" name="Content-Type">'+o['Content-Type']+'</label>';		
+				}
+			});
+			*/
+		});		
+	});
+
+	return newOptions;
+
+}
 function doFetch(callback=false){
 	if(!callback){
 		inicio=new Date();
-		fetchJSONCallback(txtUrl.value,doFetch,doFetch);
+		fetchJSONCallback(txtUrl.value,generateOptions(),doFetch,doFetch);
 	}else{
 		fin=new Date();
 		txtRespuesta.innerText=JSON.stringify(callback)

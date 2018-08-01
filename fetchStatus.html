@@ -49,11 +49,16 @@
 	<h1>Fetch Check</h1>
 	<h4>URLS</h4>
 	<div id='urls'></div>
+	<p id='estadisticas'></p>
 	<input type="text" id="txtUrl">
 	<input type="button" id="btnFetch" value="fetch!">
-	<div id='comboOptions'></div>
+	<label><input type="checkbox" id='generateFetchOptions' checked onclick="toggleHide('selectOptions')">Editar options</label>
+	<div id='selectOptions'>
+		<input type='button' value='Actualizar options' onclick="optionsUpdated.innerHTML=syntaxHighlight(JSON.stringify(generateOptions(),undefined, 4));">
+		<div id='optionsUpdated'></div>
+		<div id='comboOptions'></div>
+	</div>
 	<h4>Estadisticas</h4>
-	<p id='estadisticas'></p>
 	<h4>Respuesta</h4>
 	<p><a href='http://jsonviewer.stack.hu/' target='blank'>Json viewer</a></p>
 	<p><input type="button" onclick="copyToClipboard(txtRespuesta.innerHTML);" value="Copiar contenido"></p>

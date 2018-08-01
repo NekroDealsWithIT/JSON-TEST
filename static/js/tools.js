@@ -838,10 +838,14 @@ function bubbleSorting(arr,ordenarZA=false) {
 	return arr;
 }
 
-function arraySortByKey(array, key) {
+function arraySortByKey(array, key,reverse=false) {
     return array.sort(function(a, b) {
         var x = a[key]; var y = b[key]
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        if(reverse){
+        	return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+	    }else{
+	    	return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+	    }
     });
 }
 

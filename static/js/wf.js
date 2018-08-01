@@ -358,6 +358,7 @@ function getJson(url='',viaCors=true){
 	request.send();
 	request.onload = function() {
 		resultJson = request.response;
+		resultJson.news.reverse();
 	  // checkear la version sino recargar la pagina
 	  versionCheck();
 	  fetching=false;
@@ -1968,7 +1969,13 @@ function rellenarDatos(){
 		parseado+='<h4 style="text-align:center;">DE TIMEZONE<br>||| EDT(-4): '+calcActualTimeTimezone(-4)+' <|||> EST(-5): '+calcActualTimeTimezone(-5)+' |||</h4>';
 		parseado+='<ul class="news enlargeMe">';
 		newsData.forEach(function(n){
-			parseado+='<li><img src="'+n.imageLink+'" alt="'+n.message+'">&nbsp;&nbsp;<a href="'+n.link+'" target="blank">'+n.message+'</a>&nbsp;&nbsp;&nbsp;&nbsp;['+strDiff(n.eta, diff*-1)+']</li>'
+			let tipoNews=''
+			tipoNews+=n.primeAccess!=undefined&&n.primeAccess==true?' PRIME ACCESS ':'';
+			tipoNews+=n.priority!=undefined&&n.priority==true?' PRIORIDAD ':'';
+			tipoNews+=n.stream!=undefined&&n.stream==true?' STREAM ':'';
+			tipoNews+=n.update!=undefined&&n.update==true?' UPDATE ':'';
+
+			parseado+='<li><img src="'+n.imageLink+'" alt="'+n.message+'">&nbsp;'+(tipoNews!=''?'<span class="infested">'+tipoNews+'</span> ':'')+'&nbsp;<a href="'+n.link+'" target="blank">'+n.message+'</a>&nbsp;&nbsp;&nbsp;&nbsp;['+strDiff(n.eta, diff*-1)+']</li>'
 		});
 		parseado +='</ul><hr>';
 		news.innerHTML=parseado;
