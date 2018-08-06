@@ -131,6 +131,7 @@ const copyToClipboard = str => {
 	: false;                                    		// Mark as false to know no selection existed before
 	el.select();                                    	// Select the <textarea> content
 		document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
+		//console.log(str);
 		document.body.removeChild(el);                  // Remove the <textarea> element
 	if (selected) {                                 	// If a selection existed before copying
 		document.getSelection().removeAllRanges();    	// Unselect everything on the HTML document

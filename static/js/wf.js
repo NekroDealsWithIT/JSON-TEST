@@ -4,6 +4,9 @@
 /*
 	Variables globales
 	*/
+	var timerCopy=0
+	var timersWindow=undefined;
+
 	var estadosDesarrollo=['analisis','desarrollo','test','prod','pruebas','completo','bug','rollback'];
 	var trabajandoEn=[
 	[3,'12-06-2018 Migre el manejo del desarrollo a trello!']
@@ -1269,7 +1272,16 @@ function startAll(){
 		default:
 			platformSelectorPC.click();
 	}
-
+	window.addEventListener('beforeunload', function(event) {
+  		timersWindow.close();
+	}, false);
+	/*
+	window.onbeforeunload = confirmExit;
+	function confirmExit(){
+	    alert("confirm exit is being called");
+	    return false;
+	}
+	*/
 	//llamo el worldstate
 	getWFWorldstate();
 
@@ -1379,17 +1391,39 @@ function rellenarDatos(){
 
 		//Timestamp
 		timeStamp.innerHTML='Timestamp: '+resultJson.timestamp;
-		// timeStamp.innerHTML+= '<BR>Local UTF<BR> '+new Date(new Date().toUTCString()).getTime();
-		// timeStamp.innerHTML+= '<BR>Local<BR> '+(new Date()).getTime();
-		// timeStamp.innerHTML+= '<BR>JSON<BR> '+new Date(resultJson.timestamp).getTime();
-		// timeStamp.innerHTML+= '<BR>UTC JSON<BR> '+moment(resultJson.timestamp).utc();
-		// timeStamp.innerHTML+= '<BR>DIFF<BR>'+diff;
 		
 		//CetusTimer
 		timers.innerHTML='';
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
 		
+		//let timerStr='Cetus: '+strDiff(resultJson.cetusCycle.timeLeft,diff)+ ' to ' + (resultJson.cetusCycle.isDay?'NIGHT':'DAY');
+		try{
+			if (timersWindow==undefined){
+				//timersWindow = window.open("", "Timers", "width=350,height=150");
+    		}
+    		if (timersWindow!=undefined&&timersWindow.closed==false){
+	    		if(timersWindow.timerCetus==undefined){
+		    		timersWindow.document.write('<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">');
+		    		timersWindow.document.write('<h4>Timers</h4>');
+		    		timersWindow.document.write('<div id="windowTimersContent">')
+		    		timersWindow.document.write('<div id="timerCetus" >Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>');
+		    		timersWindow.document.write('<div id="timerEarth" >Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>');
+		    		timersWindow.document.write('</div>')
+	    			timersWindow.document.title='Timers';
+	    			//console.log(timersWindow)
+	    		}else{
+	    			timersWindow.timerCetus.innerHTML='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
+	    			timersWindow.timerEarth.innerHTML='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
+	    			timersWindow.document.title='Time: [C'+((resultJson.cetusCycle.isDay)?'☼':'🌙')+':'+strDiff(resultJson.cetusCycle.timeLeft,diff)+']'+'[E'+((resultJson.earthCycle.isDay)?'☼':'🌙')+':'+strDiff(resultJson.earthCycle.timeLeft,diff)+']';
+	    		}
+    		}
+    	}catch(e){
+    		//console.log(e);
+    		timersWindow.close();
+    	}
+
+
 		//Manejo de sonidos
 		var cacheado=[];
 		cacheado=getCachedData();
@@ -1651,7 +1685,7 @@ function rellenarDatos(){
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
 
-			var txtCopiar="'Alerta: "+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" {Nightmare}":"")+(a.mission.archwingRequired?" {Archwing}":"")+" {"+strDiff((a.eta),diff)+"}"+' (http://nekro-warframe.netlify.com)'+"'";
+			var txtCopiar="'Alerta: "+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" {Nightmare}":"")+(a.mission.archwingRequired?" {Archwing}":"")+" {"+strDiff((a.eta),diff)+"}"+(alertaCompleta?' (Completa) ':'')+' (http://nekro-warframe.netlify.com)'+"'";
 			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 
 			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
@@ -1756,7 +1790,7 @@ function rellenarDatos(){
 				// agrego la invasionActiva
 				invasionActivaArr.push(inv.id);
 
-				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
+				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+(invasionCompleta?' (Completa) ':'')+' {http://nekro-warframe.netlify.com}'+"'";
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
@@ -1804,7 +1838,7 @@ function rellenarDatos(){
 				// agego la sortieActiva
 				sortieActivaArr.push(v.missionType+v.node+v.modifier);
 
-				var txtCopiar="'"+"Sortie: "+v.missionType+"|"+v.node+"|"+sortieFaction.toUpperCase()+"|"+v.modifier+"|"+sortieData.eta+' {http://nekro-warframe.netlify.com}'+"'";
+				var txtCopiar="'"+"Sortie: "+v.missionType+"|"+v.node+"|"+sortieFaction.toUpperCase()+"|"+v.modifier+"|"+sortieData.eta+(sortieCompleta?' (Completa) ':'')+' {http://nekro-warframe.netlify.com}'+"'";
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
@@ -1943,6 +1977,7 @@ function rellenarDatos(){
 			if(s.jobs.length>0){
 				parseado+="<ul>";
 				s.jobs.forEach(function (j){
+					txtCopyAll='';
 					var enemyLevels	="";
 					j.enemyLevels.forEach(function (el){
 						if (enemyLevels==""){
@@ -1966,7 +2001,7 @@ function rellenarDatos(){
 					var rewards="<h4>Rewards"+" | ("+strDiff(s.eta,diff)+"):</h4><ol>";
 					j.rewardPool.forEach(function (rp){
 						//Agrego copiar
-						var txtCopiar="'Syndicate Faction: "+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+j.type+" | "+enemyLevels+" | "+rp+' {http://nekro-warframe.netlify.com}'+"'";						
+						var txtCopiar="'Syndicate Faction: "+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+j.type+" | "+enemyLevels+" | "+"Standing ["+j.standingStages.length+"]: "+standingStages+" | "+rp+' {http://nekro-warframe.netlify.com}'+"'";						
 						txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 						generalSyndicateCopy+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 						var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";

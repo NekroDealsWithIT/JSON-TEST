@@ -152,6 +152,11 @@
 		<a id="T"></a>
 		<h3 id="timersTitle" onclick="toggleHide('timers');">🌑 Timers</h3>
 		<section id="timers"><img class="loading" src="static/img/loading.gif"></section>
+		<div class="tabFrame">
+			<div class="tab">
+				<button class="tablinks" class='active' id="activateProfiler" onclick="if(timersWindow==undefined||timersWindow.closed==true){timersWindow=window.open('', 'Timers', 'width=350,height=150')}else{timersWindow.close()};">Abrir Ventana de timers</button>
+			</div>
+		</div> 
 
 		<a id="FARMING"></a>
 		<h3 id="farmingTitle" onclick="toggleHide('farmingList');">🌑 Lista para farming</h3>

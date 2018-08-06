@@ -172,6 +172,9 @@ h5{
 	margin: auto;
 	padding: 9px;
 }
+#windowTimersContent{
+	text-align: center;
+}
 #botonera{
 	display: flex;
 	/*margin:auto;*/
@@ -658,7 +661,7 @@ h5{
 	font-size:2rem;
 }
 .pDay::after, .pDay::before{
-	content: "(\263C)";
+	content: "\263C";
 	color:red;
 }
 .pNight{
@@ -667,7 +670,7 @@ h5{
 	font-size:2rem;
 }
 .pNight::after, .pNight::before{
-	content: "(\1F319)";
+	content: "\1F319";
 	color:green;
 }
 
