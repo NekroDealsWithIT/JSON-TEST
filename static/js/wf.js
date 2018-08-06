@@ -335,16 +335,10 @@ var historicCachedData=[
 {cachedType: "weapon", cachedItem: "Plasma Sword Blueprint", cachedImgLink: "https://i.imgur.com/A2gbH8k.png", cachedTime: "Thu Jun 14 2018 18:02:20 GMT-0300 (Argentina Standard Time)"}
 ];
 
-function sendToConsole(itm){
-	console.log(itm);
+function onExit(){
+	timersWindow.close();
 }
-function checkCampeon(){
-	campeon=getCookie('campeon');
-	if(campeon!=undefined&&campeon!=''){
-		removeClass("sinImplementar","hidden");
-		descripcionForm.innerHTML='<h1>Lince/lincesa, no esta implementado todavia pero al menos me acuerdo de vos campeon ('+campeon+')</h1>(aguanten las galletitas)';
-	}
-}
+
 function getWFWorldstate(proxy=false){
 	var dataJson=getJson("https://ws.warframestat.us/"+platform,proxy);
 }
@@ -1273,7 +1267,7 @@ function startAll(){
 			platformSelectorPC.click();
 	}
 	window.addEventListener('beforeunload', function(event) {
-  		timersWindow.close();
+  		onExit();
 	}, false);
 	/*
 	window.onbeforeunload = confirmExit;
@@ -1405,17 +1399,17 @@ function rellenarDatos(){
     		if (timersWindow!=undefined&&timersWindow.closed==false){
 	    		if(timersWindow.timerCetus==undefined){
 		    		timersWindow.document.write('<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">');
-		    		timersWindow.document.write('<h4>Timers</h4>');
+		    		//timersWindow.document.write('<h4>Timers</h4>');
 		    		timersWindow.document.write('<div id="windowTimersContent">')
-		    		timersWindow.document.write('<div id="timerCetus" >Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>');
-		    		timersWindow.document.write('<div id="timerEarth" >Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>');
+		    		timersWindow.document.write('<div id="timerCetus" >Cetus: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>');
+		    		timersWindow.document.write('<div id="timerEarth" >Earth: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>');
 		    		timersWindow.document.write('</div>')
 	    			timersWindow.document.title='Timers';
 	    			//console.log(timersWindow)
 	    		}else{
-	    			timersWindow.timerCetus.innerHTML='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
-	    			timersWindow.timerEarth.innerHTML='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
-	    			timersWindow.document.title='Time: [C'+((resultJson.cetusCycle.isDay)?'☼':'🌙')+':'+strDiff(resultJson.cetusCycle.timeLeft,diff)+']'+'[E'+((resultJson.earthCycle.isDay)?'☼':'🌙')+':'+strDiff(resultJson.earthCycle.timeLeft,diff)+']';
+	    			timersWindow.timerCetus.innerHTML='<div>Cetus: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
+	    			timersWindow.timerEarth.innerHTML='<div>Earth: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
+	    			timersWindow.document.title='Time: [C'+((resultJson.cetusCycle.isDay)?'☼':'☾')+':'+strDiff(resultJson.cetusCycle.timeLeft,diff)+']'+'[E'+((resultJson.earthCycle.isDay)?'☼':'☾')+':'+strDiff(resultJson.earthCycle.timeLeft,diff)+']';
 	    		}
     		}
     	}catch(e){
@@ -2653,3 +2647,12 @@ function warframeCopyToClipboard(data,title=''){
 	copyToClipboard(data);
 	generateToast("Datos copiados al clipboard",title,"",5000,'success',"nfc-bottom-left");
 }
+
+function toggleChildTimerWindow(){
+	if(timersWindow==undefined||timersWindow.closed==true){
+		timersWindow=window.open('', 'Timers', 'top='+window.screenY+',left='+window.screenX+',width=260,height=70')
+	}else{
+		timersWindow.close()
+	};
+}
+
