@@ -2613,8 +2613,8 @@ function warframeCopyToClipboard(data,title=''){
 	data=strReplaceAll(data,'{http://nekro-warframe.netlify.com}','');
 	data=strReplaceAll(data,'(http://nekro-warframe.netlify.com)','');
 	
-	console.log(items);
 	title=title+' {'+items.length+'} ('+ dateToString(new Date()) +') '+url+'\n';
 	data=title+data;
 	copyToClipboard(data);
+	generateToast("Datos copiados al clipboard",title,"",5000,'success',"nfc-bottom-left");
 }
