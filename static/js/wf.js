@@ -1706,7 +1706,7 @@ function rellenarDatos(){
 			td.push(['<a href="http://warframe.wikia.com/wiki/Special:Search?search='+a.mission.reward.asString+'" target="blank">'+a.mission.reward.asString+'</a>','tdAlert '+idFaction+ isCompleted]);
 			if (!a.expired){tds.push(td);}
 		});
-		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+"'"+txtCopyAll+"'"+')"'+"></img>Copiar todo ["+tds.length+']';
+		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Alerts'"+')"'+"></img>Copiar todo ["+tds.length+']';
 		parseado += generateTable(tds,ths,'tableAlerts enlargeMe','','');
 		parseado += '<hr>';
 		alerts.innerHTML=parseado;
@@ -1772,7 +1772,7 @@ function rellenarDatos(){
 			}
 		});
 
-		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+"'"+txtCopyAll+"'"+')"'+"></img>Copiar todo ["+tds.length+']';
+		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Invasion'"+')"'+"></img>Copiar todo ["+tds.length+']';
 		parseado += '<div class="tableInvasion enlargeMe">'+generateTable(tds,ths,'tableInvasion','','border="1px solid white"')+'</div>';
 		parseado += '<hr>';
 		invasions.innerHTML=parseado;
@@ -1815,7 +1815,7 @@ function rellenarDatos(){
 				td.push([v.modifierDescription,'tdSortie '+sortieFaction+isCompleted]);
 				tds.push(td);	
 			});
-			parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+"'"+txtCopyAll+"'"+')"'+"></img>Copiar todo ["+tds.length+']';
+			parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Sortie'"+')"'+"></img>Copiar todo ["+tds.length+']';
 			parseado += generateTable(tds,ths,'tableSortie enlargeMe','','');
 			parseado +='<hr>';
 			sortie.innerHTML=parseado;
@@ -1850,7 +1850,7 @@ function rellenarDatos(){
 			td.push([f.node,'tdFisure '+fisureFaction]);
 			tds.push(td);	
 		});
-		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+"'"+txtCopyAll+"'"+')"'+"></img>Copiar todo ["+tds.length+']';
+		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Fissure'"+')"'+"></img>Copiar todo ["+tds.length+']';
 		parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
 		parseado +='<hr>';
 		fissures.innerHTML=parseado;
@@ -1911,7 +1911,7 @@ function rellenarDatos(){
 
 				tds.push(td);
 			});
-			parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+"'"+txtCopyAll+"'"+')"'+"></img>Copiar todo ["+tds.length+']';
+			parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Baro'"+')"'+"></img>Copiar todo ["+tds.length+']';
 			parseado +=generateTable(tds,ths,'tableBaro enlargeMe','','');
 		}			
 		parseado +='<hr>';
@@ -1977,13 +1977,13 @@ function rellenarDatos(){
 					rewards+="</ol>";
 
 					standingStages="Standing: "+standingStages;
-					parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+"'"+txtCopyAll+"'"+')"'+"></img>Copiar todo ["+tds.length+']';
+					parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Syndicate'"+')"'+"></img>Copiar todo";
 					parseado+='<li class="syndicateTitle">'+j.type+"<br>"+enemyLevels+"<br>"+standingStages+rewards+"<br><hr></li>";
 				});
 				parseado+="</ul>";
 			}
 		});
-		syndicates.innerHTML= '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+"'"+generalSyndicateCopy+"'"+')"'+"></img>Copiar todas las rewards";
+		syndicates.innerHTML= '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+generalSyndicateCopy+"','Syndicate'"+')"'+"></img>Copiar todas las rewards";
 		syndicates.innerHTML+= parseado;
 
 		//News
@@ -2604,4 +2604,17 @@ function persistInfo(data,clase=[]){
 		//console.log(clase[0]);
 		//console.log('persistInfo',data,clase,compressNotification([clase]));
 	}
+}
+
+function warframeCopyToClipboard(data,title=''){
+	let url='{http://nekro-warframe.netlify.com}';
+	let items=pipedStringToArray(data,'\n');
+
+	data=strReplaceAll(data,'{http://nekro-warframe.netlify.com}','');
+	data=strReplaceAll(data,'(http://nekro-warframe.netlify.com)','');
+	
+	console.log(items);
+	title=title+' {'+items.length+'} ('+ dateToString(new Date()) +') '+url+'\n';
+	data=title+data;
+	copyToClipboard(data);
 }
