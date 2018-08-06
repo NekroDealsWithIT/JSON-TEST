@@ -40,6 +40,7 @@
 	<h1>Warframe profiler</h1>
 	<h4>Aqui se ve toda la info tanto de Warframes como de armas</h4>
 	<p><label><input type="checkbox" onclick="showAllImages=this.checked;redrawItems(we);redrawItems(wa);">Mostrar imagenes</label></p>
+	<p><label><input type="checkbox" onclick="showVideos=this.checked;redrawItems(we);redrawItems(wa);">Mostrar Videos</label></p>
 	<!-- 
 		chequear precios warframe.market
 		https://api.warframe.market/v1/items/[ID]/orders?include=item 
@@ -50,19 +51,54 @@
 		<button data-idgroupname="generalTabSelector" id="generalTabSelectorWeapons" class="tablinks" name="weaponsGeneralTab" onclick="openTab(event, this.name,true)">Armas</button>
 	</div>
 	<div data-idgroupname="generalTabSelector" id="warframesGeneralTab" class="tabcontent">
-		<p><label>Nombre de warframe: <input type="text" id='txtWarframeName' oninput="redrawItems(wa);"></label></p>
+		<div class='formulario'>
+			<ul>
+				<li>
+					<label class="field-split"><input type="radio" name='warVaulted' value='all' checked onclick="redrawItems(wa);">Mostrar vaulted</label>
+					<label class="field-split"><input type="radio" name='warVaulted' value='vaultedHide' onclick="redrawItems(wa);">Ocultar vaulted</label>
+					<label class="field-split"><input type="radio" name='warVaulted' value='vaultedExclusive' onclick="redrawItems(wa);">Mostrar SOLO vaulted</label>
+				</li>
+				<li>
+					Nombre de warframe: <input class="field-split" type="text" id='txtWarframeName' onkeyup="redrawItems(wa);">
+				</li>
+				<div id='combosWarframes' class='formulario'></div>
+			</ul>
+		</div>
+
+		
+
 		<div id="tabResultadoWarframesGroup" class="tab"></div>
 		<div id="tabResultadoWarframes" class="tab"></div>
 		<div id="resultadoWarframes" class="listaNotificaciones"></div>
 		<div id="comparacionWarframes" class="listaNotificaciones"></div>
 	</div>
 	<div data-idgroupname="generalTabSelector" id="weaponsGeneralTab" class="tabcontent">
-		<p><label class="field-split"><input type="checkbox" onclick="weaponsOcultarSentinelas=this.checked;redrawItems(we);">Ocultar centinelas</label></p>
-		<p><label class="field-split">Nombre de arma: <input type="text" id='txtWeaponName' oninput="redrawItems(we);"></label></p>
-		
-		<p><label class="field-split">Mastery minima: <input type="text" id='txtWeaponType' oninput="redrawItems(we);"></label></p>
-		<p><label class="field-split">Tipo de arma: <input type="text" id='txtWeaponType' oninput="redrawItems(we);"></label></p>
-		<p><label class="field-split">Subtipo de arma: <input type="text" id='txtWeaponSubType' oninput="redrawItems(we);"></label></p>
+
+		<div class='formulario'>
+			<ul>
+				<li>
+					<label class="field-split"><input type="radio" name='wpnVaulted' value='all' checked onclick="redrawItems(we);">Mostrar vaulted</label>
+					<label class="field-split"><input type="radio" name='wpnVaulted' value='vaultedHide' onclick="redrawItems(we);">Ocultar vaulted</label>
+					<label class="field-split"><input type="radio" name='wpnVaulted' value='vaultedExclusive' onclick="redrawItems(we);">Mostrar SOLO vaulted</label>
+				</li>
+				<li>
+					<label class="field-split"><input type="radio" name='wpnSentinel' value='all' checked onclick="redrawItems(we);">Mostrar Sentinel</label>
+					<label class="field-split"><input type="radio" name='wpnSentinel' value='sentinelHide' onclick="redrawItems(we);">Ocultar Sentinel</label>
+					<label class="field-split"><input type="radio" name='wpnSentinel' value='sentinelExclusive' onclick="redrawItems(we);">Mostrar SOLO Sentinel</label></li>
+				</li>
+				<li>
+					<label class="field-split"><input type="radio" name='wpnNoise' value='all' checked onclick="redrawItems(we);">Todas</label>
+					<label class="field-split"><input type="radio" name='wpnNoise' value='noiseSilent' onclick="redrawItems(we);">Silent</label>
+					<label class="field-split"><input type="radio" name='wpnNoise' value='noiseAlarming' onclick="redrawItems(we);">Alarming</label></li>
+				</li>
+				<li>
+					Nombre de arma: <input  class="field-split" type="text" id='txtWeaponName' oninput="redrawItems(we);">
+				</li>
+			
+			<div id='combosWeapons' class='formulario'></div>
+			</ul>
+		</div>
+
 		<div id="tabResultadoArmasGroup" class="tab"></div>
 		<div id="tabResultadoArmas" class="tab"></div>
 		<div id="resultadoArmas" class="listaNotificaciones"></div>

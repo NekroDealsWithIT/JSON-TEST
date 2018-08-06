@@ -159,6 +159,13 @@
 
 		<audio id="notificationGeneralSound" src='static/sound/allSystemNominal.wav'></audio>
 
+		<h3>🌑 Profiler (Arsenal)</h3>
+		<h4>Profiler nos muestra todo el detalle tanto de armas como de warframes. Dentro encontraran seguimiento de los patchlogs, estado del vault, ademas los stats especificos de cada item.</h4>
+		<div class="tabFrame">
+			<div class="tab">
+				<button class="tablinks" class='active' id="activateProfiler" onclick="window.open('warframeprofiler.html');">Abrir Profiler (Arsenal)</button>
+			</div>
+		</div> 
 		<h3>🌑 Plataformas</h3>
 		<h4>(SE PUEDEN SELECCIONAR DISTINTAS PLATAFORMAS A LA VEZ CARGANDO LA PAGINA EN DISTINTAS PESTA&Ntilde;AS)</h4>
 		<div class="tabFrame">
@@ -182,12 +189,8 @@
 				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFisuras" name="fissuresTab" onclick="openTab(event, this.name)">Fisuras</button>
 				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleBaro" name="baroTab" onclick="openTab(event, this.name)">Baro</button>
 				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSindicatos" name="sindicatosTab" onclick="openTab(event, this.name)">Sindicatos</button>
-<!-- 			  <button class="tablinks" name="" onclick="openTab(event, 'London')">London</button>
-			  <button class="tablinks" name="" onclick="openTab(event, 'Paris')">Paris</button>
-			  <button class="tablinks" name="" onclick="openTab(event, 'Tokyo')">Tokyo</button> -->
+
 			</div>
-<!-- 			<div id="hideAllTab" class="tabcontent"></div>
-	<div id="showAllTab" class="tabcontent"></div> -->
 	<div data-idGroupName="generalTab" id="dropsTab" class="tabcontent">
 		<a id="DROPS"></a>
 		<h3 id="dropsTitle" onclick="toggleHide('dropsList');">🌑 Drops</h3>

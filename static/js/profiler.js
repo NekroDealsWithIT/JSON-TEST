@@ -3,25 +3,71 @@ var warframes=[];
 var prices=[];
 
 var arrWeaponsType=[];
-var arrSubWeaponsType=[];
+var arrWeaponsSubType=[];
 var arrWeaponMastery=[];
 
+var arrWarframeMastery=[];
+
+/*
 var weaponsOcultarSentinelas=false;
+var weaponsSoloSentinelas=false;
 var weaponsOcultarVaulted=false;
+var weaponsSoloVaulted=false;
+*/
 var showAllImages=false;
 
 var we='weapons';
 var wa='warframes';
 var pr='prices';
+
+var showVideos=false;
+var videosArr=[
+		{wf:'Khora', p:'jaK6cZk-Ris'},
+		{wf:'Gara',	p:'UM0KhiQVOa0'},
+		{wf:'Oberon', p:'bKUC9XyrhRQ', t:'Ij8Ql_RbdT8'},
+		{wf:'Hydroid', p:'b9ZdmGmpPFY'},
+		{wf:'Harrow', p:'p2HXpeUh2QY'},
+		{wf:'Limbo', p:'Yaj_FuKkGWM'},
+		{wf:'Octavia', p:'v2kzd1OCHXw'},
+		{wf:'Nidus', p:'cmw4le23JX0'},
+		{wf:'Titania', p:'Shm1Yvo2PHI'},
+		{wf:'Inaros', p:'vYi1ETSjrFM'},
+		{wf:'Nezha', p:'sPkSgfenxfo'},
+		{wf:'Ivara', p:'22RpqR-nCCA'},
+		{wf:'Wukong', p:'7n4bjy0PbxY'},
+		{wf:'Saryn', p:'f0Ufldkykko', t:'qO4ldsvVbjA'},
+		{wf:'Atlas', p:'oiLFg1dPum4'},
+		{wf:'Equinox', p:'Ln-VsCtDVBU'},
+		{wf:'Excalibur', p:'II8Up3NnZpI'},
+		{wf:'Chroma', p:'tseneCFkq24'},
+		{wf:'Mesa',	p:'29nFicujxn4'},
+		{wf:'Mirage', p:'3U8mcBd6yE0', t:'LP9xH9hqC04'},
+		{wf:'Zephyr', p:'KurbStEIqrQ'},
+		{wf:'Ember', p:'MdM8nUNOASg'},
+		{wf:'Valkyr', p:'K-jH6mP37_k', t:'9ubZLPNE4Lk'},
+		{wf:'Trinity', p:'1dm7pNIHANo', t:'mtBCbdezpks'},
+		{wf:'Nekros', p:'rOO5vS0BpoQ', t:'InN07z-8LwE'},
+		{wf:'Ash', p:'wOakp4nbIzw', t:'fKfb8An3t90'},
+		{wf:'Volt', p:'ccQ9456TTuo'},
+		{wf:'Frost', p:'tecVALgPOFg'},
+		{wf:'Nyx', p:'JoyQo38BZf4'},
+		{wf:'Rhino', p:'24wDtcTwGvc'},
+		{wf:'Nova', p:'TxJMDv4dYIU'},
+		{wf:'Mag', p:'TS05wxbrNts'},
+		{wf:'Banshee', p:'pJz7ZB0RLhY', t:'OUVNonCWIaM'},
+		{wf:'Loki',	p:'VXsg-rMTvAM'},
+		{wf:'Vauban', p:'pQgp_dfJ_oI', t:'lm6DS3IDYqI'}
+	];
+
 var polarities=[
-				["madurai","V","(Damage, Powers) - Commonly dropped by Grineer.","https://vignette.wikia.nocookie.net/warframe/images/b/b2/Madurai_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
-				["vazarin","D","(Defensive, Health, Armor) - Dropped by all factions.","https://vignette.wikia.nocookie.net/warframe/images/6/6f/Vazarin_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001231"],
-				["naramon","Dash","(Utiliy, Misc.) - Commonly dropped by Corpus.","https://vignette.wikia.nocookie.net/warframe/images/6/60/Naramon_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
-				["zenurik","Scratch","(Warframe Augments and Channeling Mods).","https://vignette.wikia.nocookie.net/warframe/images/8/8c/Zenurik_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001231"],
-				["unairu","R","Introduced in Update 13.0 and used for certain Melee Stance Mods.","https://vignette.wikia.nocookie.net/warframe/images/6/61/Unairu_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
-				["penjaga","Y","(Companion Abilities) - Dropped by all factions.","https://vignette.wikia.nocookie.net/warframe/images/5/5f/Penjaga_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
-				["umbra","U","(Anti-Sentient Mods) - Obtained upon completion of The Sacrifice.","https://vignette.wikia.nocookie.net/warframe/images/a/a8/Umbra_Pol.png/revision/latest/scale-to-width-down/20?cb=20180615163632"]
-			];
+		["madurai","V","(Damage, Powers) - Commonly dropped by Grineer.","https://vignette.wikia.nocookie.net/warframe/images/b/b2/Madurai_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
+		["vazarin","D","(Defensive, Health, Armor) - Dropped by all factions.","https://vignette.wikia.nocookie.net/warframe/images/6/6f/Vazarin_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001231"],
+		["naramon","Dash","(Utiliy, Misc.) - Commonly dropped by Corpus.","https://vignette.wikia.nocookie.net/warframe/images/6/60/Naramon_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
+		["zenurik","Scratch","(Warframe Augments and Channeling Mods).","https://vignette.wikia.nocookie.net/warframe/images/8/8c/Zenurik_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001231"],
+		["unairu","R","Introduced in Update 13.0 and used for certain Melee Stance Mods.","https://vignette.wikia.nocookie.net/warframe/images/6/61/Unairu_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
+		["penjaga","Y","(Companion Abilities) - Dropped by all factions.","https://vignette.wikia.nocookie.net/warframe/images/5/5f/Penjaga_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
+		["umbra","U","(Anti-Sentient Mods) - Obtained upon completion of The Sacrifice.","https://vignette.wikia.nocookie.net/warframe/images/a/a8/Umbra_Pol.png/revision/latest/scale-to-width-down/20?cb=20180615163632"]
+	];
 
 updateWeapons();
 updateWarframes();
@@ -84,19 +130,107 @@ function redrawItems(tipo,filters=[]){
 
 			arrWeaponMastery=[];
 			arrWeaponsType=[];
-			arrSubWeaponsType=[];
+			arrWeaponsSubType=[];
+
+			var selectedType='all';
+			var selectedSubType='all';
+			var selectedMastery='all';
+			if(combosWeapons.innerHTML!=''){
+				selectedType=weaponTipo.value;
+				selectedSubType=weaponSubTipo.value
+				selectedMastery=weaponMastery.value
+			}
 
 			var wn=txtWeaponName.value.toUpperCase();
 			var counter=0;
 
 			weapons.forEach(function (weapon){
+				let wpnRadioVaulted=true;	
+				let wpnRadioSentinel=true;	
+				let wpnRadioNoise=true;
+				wpnRadioVaulted=getRadioSelectedByName('wpnVaulted');
+				if(wpnRadioVaulted=='all'){
+					wpnRadioVaulted=true;
+				}else{
+					switch(wpnRadioVaulted){
+					case 'vaultedExclusive':
+						if(weapon.vaulted==false&&weapon.vaulted!=undefined){
+							wpnRadioVaulted=false;
+						}else{
+							wpnRadioVaulted=(weapon.vaulted!=undefined?true:false);
+							console.log(weapon);
+						}
+						break;
+					case 'vaultedHide':
+						if(weapon.vaulted==false&&weapon.vaulted!=undefined){
+							wpnRadioVaulted=true;
+						}else{
+							wpnRadioVaulted=false;
+						}
+						break;
+					default:
+					}
+				}
+
+				wpnRadioSentinel=getRadioSelectedByName('wpnSentinel');
+				if(wpnRadioSentinel=='all'){
+					wpnRadioSentinel=true;
+				}else{
+					switch(wpnRadioSentinel){
+					case 'sentinelExclusive':
+						if(weapon.sentinel==false){
+							wpnRadioSentinel=false;
+						}else{
+							wpnRadioSentinel=true;
+						}
+						break;
+					case 'sentinelHide':
+						if(weapon.sentinel==false){
+							wpnRadioSentinel=true;
+						}else{
+							wpnRadioSentinel=false;
+						}
+						break;
+					default:
+					}
+				}
+
+				wpnRadioNoise=getRadioSelectedByName('wpnNoise');
+				if(wpnRadioNoise=='all'){
+					wpnRadioNoise=true;
+				}else{
+					switch(wpnRadioNoise){
+					case 'noiseSilent':
+						if(weapon.noise=='Silent'||weapon.noise==undefined){
+							wpnRadioNoise=true;
+						}else{
+							wpnRadioNoise=false;
+						}
+						break;
+					case 'noiseAlarming':
+						if(weapon.noise=='Alarming'){
+							wpnRadioNoise=true;
+						}else{
+							wpnRadioNoise=false;
+						}
+						break;
+					default:
+					}
+				}
+
 				if(
+					(wpnRadioVaulted==true)&&
+					(wpnRadioSentinel==true)&&
+					(wpnRadioNoise==true)&&
 					(weapon.name.toUpperCase().indexOf(wn)>-1)&&
-					(weapon.sentinel==false||(weapon.sentinel&&!weaponsOcultarSentinelas))
+					//(weapon.sentinel==false||(weapon.sentinel&&!weaponsOcultarSentinelas))&&
+					(selectedType=='all'||selectedType==(weapon.category))&&
+					(selectedSubType=='all'||selectedSubType==(weapon.type))&&
+					(selectedMastery=='all'||selectedMastery==(weapon.masteryReq))
 				){
 					arrWeaponMastery.push(weapon.masteryReq);
 					arrWeaponsType.push(weapon.category);
-					arrSubWeaponsType.push(weapon.category+'|'+weapon.type);
+					arrWeaponsSubType.push(weapon.category+'|'+weapon.type);
 
 					var id=strReplaceAll(weapon.uniqueName,"/","_");
 					var vaultedMark=(weapon.vaulted==true?' VAULTED':'');
@@ -115,11 +249,12 @@ function redrawItems(tipo,filters=[]){
 			
 			arrWeaponMastery=bubbleSorting(arrayUnique(arrWeaponMastery));
 			arrWeaponsType=arrayUnique(arrWeaponsType).sort();
-			arrSubWeaponsType=arrayUnique(arrSubWeaponsType).sort();
+			arrWeaponsSubType=arrayUnique(arrWeaponsSubType).sort();
 
 			generalTabSelectorWeapons.innerText='Armas ['+counter+']';
 
 			document.getElementById(tabGroupName+'ShowAllTab').click();
+			refreshWeaponsCombos();
 			break;
 		case wa:
 			resultadoWarframes.innerHTML='';
@@ -136,9 +271,41 @@ function redrawItems(tipo,filters=[]){
 			var counter=0;
 			var warframesHTML='';
 			var wn=txtWarframeName.value.toUpperCase();
-			
+
+			var selectedMastery='all';
+			if(combosWarframes.innerHTML!=''){
+				selectedMastery=warframeMastery.value
+			}
+
 			warframes.forEach(function (warframe){
-				if((warframe.name.toUpperCase().indexOf(wn)>-1)){
+				let warRadioVaulted=getRadioSelectedByName('warVaulted');
+
+				if(warRadioVaulted=='all'){
+					warRadioVaulted=true;
+				}else{
+					switch(warRadioVaulted){
+					case 'vaultedHide':
+						if(warframe.vaulted==false||warframe.vaulted==undefined){
+							warRadioVaulted=true;
+						}else{
+							warRadioVaulted=false;
+						}
+						break;
+					case 'vaultedExclusive':
+						if(warframe.vaulted==true){
+							warRadioVaulted=true;
+						}else{
+							warRadioVaulted=false;
+						}
+						break;
+					default:
+					}
+				}
+
+
+				if((warframe.name.toUpperCase().indexOf(wn)>-1)&&
+					(warRadioVaulted==true)&&
+					(selectedMastery=='all'||selectedMastery==(warframe.masteryReq))){
 					var id=strReplaceAll(warframe.uniqueName,"/","_");
 					var vaultedMark=(warframe.vaulted==true?' VAULTED':'');
 
@@ -160,6 +327,8 @@ function redrawItems(tipo,filters=[]){
 			generalTabSelectorWarframes.innerText='Warframes ['+counter+']';
 
 			document.getElementById(tabGroupName+'ShowAllTab').click();
+
+			refreshWarframeCombos();
 			break;
 		default:
 			console.log(tipo);
@@ -218,16 +387,17 @@ wikiaUrl:"htt:/warframe.wikia.com/wiki/Ack_%26_Brunt"
 function weaponToHTML(wea){
 	var vaulted='';
 	if(wea.vaulted!=undefined){
-		vaulted=(wea.vaulted==true?'"profilerVaulted"':'');
+		vaulted=(wea.vaulted==true?' profilerVaulted':'');
 	}
-	var parseado="<div class="+vaulted+"><h4>"+wea.name+(vaulted==''?'':' [VAULTED] ')+(wea.sentinel==false?'':' [SENTINEL] ')+" (<a href="+wea.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>";
-	(showAllImages==true&&wea.wikiaThumbnail!=undefined?parseado+='<img src='+wea.wikiaThumbnail+'>':'');
+
+	var parseado='<div class="tabFrame'+vaulted+'"'+"><h4>"+wea.name+(vaulted==''?'':' [VAULTED] ')+(wea.sentinel==false?'':' [SENTINEL] ')+" (<a href="+wea.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>";
+	(showAllImages==true&&wea.wikiaThumbnail!=undefined?parseado+='<img class="imgWeapon" src='+wea.wikiaThumbnail+'>':'');
 	parseado+='<p>Description: '+wea.description+'</p>'+
 	'<p>Category:'+wea.category+'</p>'+
 	'<p>Type:'+wea.type+'</p>'+
 	'<p>Mastery Req:'+wea.masteryReq+'</p>'+
 	'<p>Sentinel:'+wea.sentinel+'</p>'+
-	'<p>Disposition:'+wea.disposition+'</p>';
+	'<p>Riven Disposition:'+wea.disposition+'</p>';
 	if(wea.polarities!=undefined&&wea.polarities.length>0){
 		parseado+=generatePolaritiesHTML(wea.polarities,new Date().getTime()+wea.category+wea.name,wea.name);
 	}
@@ -312,13 +482,27 @@ wikiaUrl:"http://warframe.wikia.com/wiki/Ash"
 function warframeToHTML(war){
 	var vaulted='';
 	if(war.vaulted!=undefined){
-		vaulted=(war.vaulted==true?'"profilerVaulted"':'');
+		vaulted=(war.vaulted==true?' profilerVaulted':'');
 	}
-	var parseado="<div class="+vaulted+"><h4>"+war.name+(vaulted==''?'':' [VAULTED] ')+" (<a href="+war.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>"+
-	(showAllImages==true&&war.wikiaThumbnail!=undefined?'<img src='+war.wikiaThumbnail+'>':'')+
+	var parseado='<div class="tabFrame'+vaulted+'"'+"><h4>"+war.name+(vaulted==''?'':' [VAULTED] ')+" (<a href="+war.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>"+
+	(showAllImages==true&&war.wikiaThumbnail!=undefined?'<img class="imgWarframe" src='+war.wikiaThumbnail+'>':'')+
 	'<p>Description: '+war.description+'</p>'+
 	'<p>Aura: '+war.aura+'</p>'+
 	'<p>Introduced: '+war.introduced+'</p>';
+	if (showVideos==true){
+		videosArr.forEach(v=>{
+			if(v.wf.indexOf(war.name)>-1||(v.wf+' Prime').indexOf(war.name)>-1||(v.wf+' Umbra').indexOf(war.name)>-1){
+				if (v.t!=undefined&&v.t!=''){
+					parseado+="<h4>Teaser</h4>";
+					parseado+='<p class="video"><iframe width="100%" height="400" src="https://www.youtube-nocookie.com/embed/'+v.t+'?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></p>';
+				}
+				if (v.p!=undefined&&v.p!=''){
+					parseado+="<h4>Profile</h4>";
+					parseado+='<p class="video"><iframe width="100%" height="400" src="https://www.youtube-nocookie.com/embed/'+v.p+'?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></p>';
+				}
+			}
+		})
+	}
 	if(war.polarities!=undefined){
 		parseado+=generatePolaritiesHTML(war.polarities,new Date().getTime()+war.category+war.name,war.name);
 	}
@@ -416,4 +600,70 @@ function generatePolaritiesHTML(polarityData,id,nombre,hidden=true){
 	
 	parseadoFinal="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Polarities de '+nombre+' ['+polarityData.length+' ('+auxTitle+")]</h4>"+parseado;
 	return parseadoFinal;	
+}
+
+
+function refreshWeaponsCombos(){
+	let parseado='';
+	let selectedType='all';
+	let selectedSubType='all';
+	let selectedMastery='all';
+
+	if (combosWeapons.innerHTML!=''){
+		/*
+			comboRemoveAllOptions(comboID,preservarSeleccionado=false)
+			comboAddOption(comboID,text,value,selected=false)
+		*/
+		selectedType=weaponTipo.value;
+		selectedSubType=weaponSubTipo.value
+		selectedMastery=weaponMastery.value
+	}
+
+	combosWeapons.innerHTML='<ul>';
+	combosWeapons.innerHTML+='<li>Tipo:<select id="weaponTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
+	combosWeapons.innerHTML+='<li>SubTipo:<select id="weaponSubTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
+	combosWeapons.innerHTML+='<li>Mastery Req:<select id="weaponMastery" class="field-split" onchange="redrawItems(we);"></li><br>';
+	combosWeapons.innerHTML+='</ul>'
+	
+	comboAddOption("weaponTipo",'All','all',true);
+	arrWeaponsType=["Primary", "Secondary","Melee"]
+	arrWeaponsType.forEach(wt=>{
+		let selected= (wt==selectedType?true:false);
+		comboAddOption("weaponTipo",wt,wt,selected);
+	});
+
+	comboAddOption("weaponSubTipo",'All','all',true);
+	arrWeaponsSubType.forEach(swt=>{
+		let realSwt=pipedStringToArray(swt)
+		if(realSwt[0]==selectedType||selectedType=='all'){
+			let selected= (realSwt[1]==selectedSubType?true:false);
+			comboAddOption("weaponSubTipo",realSwt[1],realSwt[1],selected);
+		}
+	});
+
+	comboAddOption("weaponMastery",'All','all',true);
+	arrWeaponMastery.forEach(wm=>{
+		let selected= (wm==selectedMastery?true:false);
+		comboAddOption("weaponMastery",wm,wm,selected);
+	});
+}
+
+function refreshWarframeCombos(){
+	let parseado='';
+	let selectedMastery='all';
+
+	if (combosWarframes.innerHTML!=''){
+		selectedMastery=warframeMastery.value;
+	}
+
+	combosWarframes.innerHTML='<ul>';
+	combosWarframes.innerHTML+='<li>MasteryReq:<select id="warframeMastery" class="field-split" onchange="redrawItems(wa);"></li><br>';
+	combosWarframes.innerHTML+='</ul>'
+
+	comboAddOption("warframeMastery",'All','all',true);
+	arrWarframeMastery.forEach(wm=>{
+		let selected= (wm==selectedMastery?true:false);
+		comboAddOption("warframeMastery",wm,wm,selected);
+	});
+
 }

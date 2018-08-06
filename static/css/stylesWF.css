@@ -483,6 +483,14 @@ h5{
 	max-width: 35px!important;
 	width: 100%;
 }
+
+.tabcontent .imgWarframe,
+.tabcontent .imgWeapon {
+	max-width: 300px!important;
+	width: 100%;
+	display: flex;
+	margin: auto;
+}
 /* Fade in tabs */
 @-webkit-keyframes fadeEffect {
     from {opacity: 0;}

@@ -294,6 +294,15 @@ function comboRemoveAllOptions(comboID,preservarSeleccionado=false){
 
 	return true;
   }
+
+/*
+-----------------------------------------------------
+	Manejo de radios
+-----------------------------------------------------
+*/
+  function getRadioSelectedByName(name){
+  	return document.querySelector('input[name="'+name+'"]:checked').value
+  }
 /*
 -----------------------------------------------------
 	Funciones de texto
@@ -1103,3 +1112,4 @@ function pedirPermiso(){
 		});
 	}
 }
+
