@@ -8,12 +8,6 @@ var arrWeaponMastery=[];
 
 var arrWarframeMastery=[];
 
-/*
-var weaponsOcultarSentinelas=false;
-var weaponsSoloSentinelas=false;
-var weaponsOcultarVaulted=false;
-var weaponsSoloVaulted=false;
-*/
 var showAllImages=false;
 
 var we='weapons';
