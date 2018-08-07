@@ -760,6 +760,25 @@ h5{
 	transform: scale(2.5);
 	transition-duration: 0.001s;
 }
+
+.persistentEnemyFound{
+	background-color: #0F0;
+	color: #08064c;
+	font-size: 1.5rem;
+	text-align:center;
+}
+.persistentEnemyHidden{
+	background-color: #FF0;
+	color: #0006ff;
+	text-align:center;
+}
+.persistentEnemyDead{
+	background-color: #000;
+	color: #FFF;
+	text-decoration: line-through;
+	text-align:center;
+}
+
 /*referente a audio*/
 .audioCombo{
 

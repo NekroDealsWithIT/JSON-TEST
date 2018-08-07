@@ -5,6 +5,7 @@ var prices=[];
 var arrWeaponsType=[];
 var arrWeaponsSubType=[];
 var arrWeaponMastery=[];
+var arrWeaponDamageType=[];
 
 var arrWarframeMastery=[];
 
@@ -63,6 +64,23 @@ var polarities=[
 		["umbra","U","(Anti-Sentient Mods) - Obtained upon completion of The Sacrifice.","https://vignette.wikia.nocookie.net/warframe/images/a/a8/Umbra_Pol.png/revision/latest/scale-to-width-down/20?cb=20180615163632"]
 	];
 
+var imagesDamageTypes={
+	'impact':'https://vignette.wikia.nocookie.net/warframe/images/c/c9/Impact_b.svg/revision/latest/scale-to-width-down/18?cb=20150811174304',
+	'puncture':'https://vignette.wikia.nocookie.net/warframe/images/8/89/Puncture_b.svg/revision/latest/scale-to-width-down/18?cb=20150810075255',
+	'slash':'https://vignette.wikia.nocookie.net/warframe/images/5/54/Slash_b.svg/revision/latest/scale-to-width-down/18?cb=20150811174234',
+	'cold':'https://vignette.wikia.nocookie.net/warframe/images/1/11/Cold_b.png/revision/latest/scale-to-width-down/18?cb=20140124221425',
+	'electricity':'https://vignette.wikia.nocookie.net/warframe/images/c/c6/Electricity_b.png/revision/latest/scale-to-width-down/18?cb=20140124221426',
+	'heat':'https://vignette.wikia.nocookie.net/warframe/images/8/88/Heat_b.png/revision/latest/scale-to-width-down/18?cb=20140124221428',
+	'toxin':'https://vignette.wikia.nocookie.net/warframe/images/5/57/Toxin_b.png/revision/latest/scale-to-width-down/18?cb=20140124221459',
+	'blast':'https://vignette.wikia.nocookie.net/warframe/images/f/f0/Blast_b.png/revision/latest/scale-to-width-down/18?cb=20140124221425',
+	'corrosive':'https://vignette.wikia.nocookie.net/warframe/images/f/fc/Corrosive_b.png/revision/latest/scale-to-width-down/18?cb=20140124221426',
+	'gas':'https://vignette.wikia.nocookie.net/warframe/images/4/43/Gas_b.png/revision/latest/scale-to-width-down/18?cb=20140124221427',
+	'magnetic':'https://vignette.wikia.nocookie.net/warframe/images/6/64/Magnetic_b.png/revision/latest/scale-to-width-down/18?cb=20140124221429',
+	'radiation':'https://vignette.wikia.nocookie.net/warframe/images/7/76/Radiation_b.png/revision/latest/scale-to-width-down/18?cb=20140124221430',
+	'viral':'https://vignette.wikia.nocookie.net/warframe/images/4/45/Viral_b.png/revision/latest/scale-to-width-down/18?cb=20140124221459',
+	'true':'https://vignette.wikia.nocookie.net/warframe/images/7/75/LotusBlack.png/revision/latest/scale-to-width-down/18?cb=20140311074920',
+	'void':'https://vignette.wikia.nocookie.net/warframe/images/5/57/VoidTearIcon_b.png/revision/latest/scale-to-width-down/18?cb=20160713085454'
+};
 updateWeapons();
 updateWarframes();
 //updatePrices();
@@ -125,14 +143,16 @@ function redrawItems(tipo,filters=[]){
 			arrWeaponMastery=[];
 			arrWeaponsType=[];
 			arrWeaponsSubType=[];
-
+			arrWeaponDamageType=[];
 			var selectedType='all';
 			var selectedSubType='all';
 			var selectedMastery='all';
+			var selectedDamageType='all';
 			if(combosWeapons.innerHTML!=''){
 				selectedType=weaponTipo.value;
-				selectedSubType=weaponSubTipo.value
-				selectedMastery=weaponMastery.value
+				selectedSubType=weaponSubTipo.value;
+				selectedMastery=weaponMastery.value;
+				selectedDamageType=weaponDamageType.value;
 			}
 
 			var wn=txtWeaponName.value.toUpperCase();
@@ -142,6 +162,7 @@ function redrawItems(tipo,filters=[]){
 				let wpnRadioVaulted=true;	
 				let wpnRadioSentinel=true;	
 				let wpnRadioNoise=true;
+				let wpnDamageType=true;
 				wpnRadioVaulted=getRadioSelectedByName('wpnVaulted');
 				if(wpnRadioVaulted=='all'){
 					wpnRadioVaulted=true;
@@ -212,7 +233,19 @@ function redrawItems(tipo,filters=[]){
 					}
 				}
 
+				if(selectedDamageType=='all'){
+					wpnDamageType=true;
+				}else{
+					if(weapon.damageTypes!=undefined&&selectedDamageType in weapon.damageTypes){
+						wpnDamageType=true;
+					}else{
+						wpnDamageType=false;
+					}
+				}
+
+
 				if(
+					(wpnDamageType==true)&&
 					(wpnRadioVaulted==true)&&
 					(wpnRadioSentinel==true)&&
 					(wpnRadioNoise==true)&&
@@ -225,6 +258,11 @@ function redrawItems(tipo,filters=[]){
 					arrWeaponMastery.push(weapon.masteryReq);
 					arrWeaponsType.push(weapon.category);
 					arrWeaponsSubType.push(weapon.category+'|'+weapon.type);
+					if(weapon.damageTypes!=undefined){
+						for (var key in weapon.damageTypes) {
+							arrWeaponDamageType.push(key);
+						};
+					}
 
 					var id=strReplaceAll(weapon.uniqueName,"/","_");
 					var vaultedMark=(weapon.vaulted==true?' VAULTED':'');
@@ -244,7 +282,7 @@ function redrawItems(tipo,filters=[]){
 			arrWeaponMastery=bubbleSorting(arrayUnique(arrWeaponMastery));
 			arrWeaponsType=arrayUnique(arrWeaponsType).sort();
 			arrWeaponsSubType=arrayUnique(arrWeaponsSubType).sort();
-
+			arrWeaponDamageType=arrayUnique(arrWeaponDamageType).sort();
 			generalTabSelectorWeapons.innerText='Armas ['+counter+']';
 
 			document.getElementById(tabGroupName+'ShowAllTab').click();
@@ -379,51 +417,62 @@ wallAttack:50
 wikiaUrl:"htt:/warframe.wikia.com/wiki/Ack_%26_Brunt"
 */
 function weaponToHTML(wea){
-	var vaulted='';
+	let vaulted='';
 	if(wea.vaulted!=undefined){
 		vaulted=(wea.vaulted==true?' profilerVaulted':'');
+	}
+
+	let rivenRadios='';
+	for(i=1;i<=wea.disposition;i++){
+		rivenRadios+=' 🌑 ';
+	}
+	
+	let masteryRadios='';
+	for(i=1;i<=wea.masteryReq;i++){
+		masteryRadios+=' 🌑 ';
 	}
 
 	var parseado='<div class="tabFrame'+vaulted+'"'+"><h4>"+wea.name+(vaulted==''?'':' [VAULTED] ')+(wea.sentinel==false?'':' [SENTINEL] ')+" (<a href="+wea.wikiaUrl+" target="+'"blank"'+">wiki</a>)</h4>";
 	(showAllImages==true&&wea.wikiaThumbnail!=undefined?parseado+='<img class="imgWeapon" src='+wea.wikiaThumbnail+'>':'');
 	parseado+='<p>Description: '+wea.description+'</p>'+
-	'<p>Category:'+wea.category+'</p>'+
-	'<p>Type:'+wea.type+'</p>'+
-	'<p>Mastery Req:'+wea.masteryReq+'</p>'+
-	'<p>Sentinel:'+wea.sentinel+'</p>'+
-	'<p>Riven Disposition:'+wea.disposition+'</p>';
+	'<p>Category: '+wea.category+'</p>'+
+	'<p>Type: '+wea.type+'</p>'+
+	'<p>Mastery Req: ('+wea.masteryReq+') '+masteryRadios+'</p>'+
+	// '<p>Sentinel: '+wea.sentinel+'</p>'+
+	'<p>Riven Disposition: '+'('+wea.disposition+') '+rivenRadios+'</p>';
 	if(wea.polarities!=undefined&&wea.polarities.length>0){
 		parseado+=generatePolaritiesHTML(wea.polarities,new Date().getTime()+wea.category+wea.name,wea.name);
 	}
-	parseado+='<p>noise: '+wea.noise+'</p>'+
+	parseado+='<p>Noise: '+wea.noise+'</p>'+
 	
-	(wea.buildTime!=undefined?'<p>Build Time:'+wea.buildTime/60/60+" hs"+'</p>':"")+
-	(wea.buildTime!=undefined?'<p>Skip Build Time:'+wea.skipBuildTimePrice+" plat"+'</p>':"")+
+	(wea.buildTime!=undefined?'<p>Build Time: '+wea.buildTime/60/60+" hs"+'</p>':"")+
+	(wea.buildTime!=undefined?'<p>Skip Build Time: '+wea.skipBuildTimePrice+" plat"+'</p>':"")+
 
 	(wea.proyectile!=undefined?'<p>Proyectile:'+wea.proyectile/60/60+" hs"+'</p>':"")+
-	'<p>accuracy: '+wea.accuracy+'</p>'+
+	'<p>Accuracy: '+wea.accuracy+'</p>'+
 	(wea.ammo!=undefined?'<p>Ammo:'+wea.ammo+'</p>':"")+
-	'<p>magazineSize: '+wea.magazineSize+'</p>'+
-	'<p>reloadTime: '+wea.reloadTime+'</p>'+
-	'<p>trigger: '+wea.trigger+'</p>';
-	if(wea.damageTypes!=undefined&&wea.damageTypes.length>0){
+	'<p>Magazine Size: '+wea.magazineSize+'</p>'+
+	'<p>Reload Time: '+wea.reloadTime+'</p>'+
+	'<p>Trigger: '+wea.trigger+'</p>';
+	
+	if(wea.damageTypes!=undefined){
 		parseado+='<h4>DamageTypes</h4><ul>';
-		wea.damageTypes.forEach(function (dt){
-			parseado+='<li>'+dt+'</li>';
-		});
+		for (var key in wea.damageTypes) {
+			parseado+='<li><span class="spanPolarity"><img src="'+imagesDamageTypes[key]+'"></span> '+key.toUpperCase()+': '+wea.damageTypes[key]+'</li>';
+		};
 		parseado+='</ul>';
 	}
-	parseado+='<p>damage: '+wea.damage+'</p>'+
-	'<p>damagePerSecond: '+wea.damagePerSecond+'</p>'+
-	'<p>totalDamage: '+wea.totalDamage+'</p>'+
-	'<p>fireRate: '+wea.fireRate+'</p>'+
-	'<p>secondsPerShot: '+wea.secondsPerShot+'</p>'+
+	parseado+='<p>Damage: '+wea.damage+'</p>'+
+	'<p>Damage Per Second: '+wea.damagePerSecond+'</p>'+
+	'<p>Total Damage: '+wea.totalDamage+'</p>'+
+	'<p>Fire Rate: '+wea.fireRate+'</p>'+
+	'<p>Seconds Per Shot: '+wea.secondsPerShot+'</p>'+
 	
-	'<p>criticalChance: '+wea.criticalChance+'</p>'+
-	'<p>criticalMultiplier: '+wea.criticalMultiplier+'</p>'+
+	'<p>Critical Chance: '+Math.round(wea.criticalChance*100)+'%</p>'+
+	'<p>Critical Multiplier: '+wea.criticalMultiplier+'</p>'+
 
-	'<p>procChance: '+wea.procChance+'</p>'+
-	'<p>chargeAttack: '+wea.chargeAttack+'</p>'+
+	'<p>Proc Chance: '+Math.round(wea.procChance*100)+'%</p>'+
+	(wea.chargeAttack!=0?'<p>Charge Attack: '+wea.chargeAttack+'</p>':'')+
 	(wea.spinAttack!=0?'<p>spinAttack: '+wea.spinAttack+'</p>':'')+
 	(wea.leapAttack!=0?'<p>leapAttack: '+wea.leapAttack+'</p>':'')+
 	(wea.wallAttack!=0?'<p>wallAttack: '+wea.wallAttack+'</p>':'')+
@@ -602,6 +651,7 @@ function refreshWeaponsCombos(){
 	let selectedType='all';
 	let selectedSubType='all';
 	let selectedMastery='all';
+	let selectedDamageType='all';
 
 	if (combosWeapons.innerHTML!=''){
 		/*
@@ -609,14 +659,16 @@ function refreshWeaponsCombos(){
 			comboAddOption(comboID,text,value,selected=false)
 		*/
 		selectedType=weaponTipo.value;
-		selectedSubType=weaponSubTipo.value
-		selectedMastery=weaponMastery.value
+		selectedSubType=weaponSubTipo.value;
+		selectedMastery=weaponMastery.value;
+		selectedDamageType=weaponDamageType.value;
 	}
 
 	combosWeapons.innerHTML='<ul>';
 	combosWeapons.innerHTML+='<li>Tipo:<select id="weaponTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='<li>SubTipo:<select id="weaponSubTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='<li>Mastery Req:<select id="weaponMastery" class="field-split" onchange="redrawItems(we);"></li><br>';
+	combosWeapons.innerHTML+='<li>Damage Type:<select id="weaponDamageType" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='</ul>'
 	
 	comboAddOption("weaponTipo",'All','all',true);
@@ -639,6 +691,12 @@ function refreshWeaponsCombos(){
 	arrWeaponMastery.forEach(wm=>{
 		let selected= (wm==selectedMastery?true:false);
 		comboAddOption("weaponMastery",wm,wm,selected);
+	});
+
+	comboAddOption("weaponDamageType",'All','all',true);
+	arrWeaponDamageType.forEach(dt=>{
+		let selected= (dt==selectedDamageType?true:false);
+		comboAddOption("weaponDamageType",dt.toUpperCase(),dt,selected);
 	});
 }
 

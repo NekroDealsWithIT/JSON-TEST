@@ -1417,7 +1417,6 @@ function rellenarDatos(){
     		timersWindow.close();
     	}
 
-
 		//Manejo de sonidos
 		var cacheado=[];
 		cacheado=getCachedData();
@@ -1740,6 +1739,66 @@ function rellenarDatos(){
 		alerts.innerHTML=parseado;
 		alertsTitle.innerHTML='🌑 Alertas ['+alertaActivaArr.length+']';
 		tabTitleAlertas.innerHTML='Alertas ['+alertaActivaArr.length+']';
+    	
+    	//Persistent enemies
+    	if(resultJson.persistentEnemies!=undefined&&resultJson.persistentEnemies.length>0){
+	    	removeClass('persistentEnemiesTab','hidden');
+	    	tds=[];
+	    	ths=[];
+	    	ths.push([['Nombre','alertTH'],['HP %','alertTH'],['Status','alertTH'],['Nodo','alertTH'],['Ultima vez visto','alertTH'],['Nivel','alertTH']]);
+	    	resultJson.persistentEnemies.forEach(e=>{
+	    		let diffPersistent=new Date(new Date().toUTCString())-moment(e.lastDiscoveredTime);
+	    		
+	    		//console.log(diffPersistent);
+	    		var td=[];
+	    		let status='';
+	    		if(e.healthPercent>0){
+	    			status=(e.isDiscovered?'Found':'Hidden');
+	    		}else{
+	    			status='Dead';
+	    		}
+	    		let gameMode='';
+	    		if(resultJsonDrops!=''&&resultJsonDrops!=undefined){
+	    			if(e.lastDiscoveredAt!=''){
+		    			let dato= pipedStringToArray(e.lastDiscoveredAt," (");
+		    			let planeta=strReplaceAll(dato[1],')');
+		    			planeta=planeta.split(",")[0];
+		    			let nodo=dato[0];
+		    			//console.log("+"+planeta+"+"+nodo+"+");
+		    			gameMode=' - {'+resultJsonDrops.missionRewards[planeta][nodo].gameMode+'}';
+	    			}
+	    		}
+
+	    		let classTD='persistentEnemy'+status;
+	    		td.push([e.agentType,classTD]);
+	    		td.push([e.healthPercent*100+'%',classTD]);
+	    		td.push([status,classTD]);
+	    		td.push([e.lastDiscoveredAt+gameMode,classTD]);
+	    		td.push([strDiff(e.lastDiscoveredTime,diffPersistent*-1),classTD]);
+	    		//td.push([e.lastDiscoveredTime,classTD]);
+	    		td.push([e.rank,classTD]);
+	    		tds.push(td);
+	    		
+	    		/*
+	    		agentType:"Angst"
+	    		fleeDamage:50000
+				healthPercent:1
+				id:"5b69b2ea66db80f7fba392ec"
+				isDiscovered:true
+				isUsingTicketing:false
+				lastDiscoveredAt:"Gabii (Ceres)"
+				lastDiscoveredTime:"2018-08-07T18:27:16.979Z"
+				locationTag:"Angst"
+				pid:"5b69b2ea66db80f7fba392ectrue"
+				rank:35
+				region:9
+				*/
+	    	})
+	    	persistentEnemies.innerHTML=generateTable(tds,ths,'tableAlerts','','border="1px solid white"');
+    	}else{
+    		addClass('persistentEnemiesTab','hidden');
+    		persistentEnemies.innerHTML='';
+    	}		
 		
 		//Invasions
 		ths=[];
@@ -2636,7 +2695,7 @@ function persistInfo(data,clase=[]){
 }
 
 function warframeCopyToClipboard(data,title=''){
-	let url='{http://nekro-warframe.netlify.com}';
+	let url='(http://nekro-warframe.netlify.com)';
 	let items=pipedStringToArray(data,'\n');
 
 	data=strReplaceAll(data,'{http://nekro-warframe.netlify.com}','');
