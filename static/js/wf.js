@@ -2832,6 +2832,7 @@ function notifyTimer(title,j,nameID,diff){
 		let time=pipedStringToArray(strDiff(j.timeLeft,diff),' ');
 		let talk='';
 		let id='';
+		title=title.toUpperCase();
 		time.forEach(t=>{(t.indexOf('m')>-1?id=t+(j.isDay==true?'d':'n'):'');});
 		switch(selected){
 			case 'no':
