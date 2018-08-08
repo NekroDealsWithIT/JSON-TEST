@@ -12,6 +12,9 @@
 	[3,'12-06-2018 Migre el manejo del desarrollo a trello!']
 	];
 	
+	let notificationStatus={};
+	let notificationTimers=[50,30,20,10,5,2,1,-5,-10];
+
 	const compressedURL=[
 		{id:'@1@',url:'https://i.imgur.com'},
 		{id:'@2@',url:'https://github.com/Warframe-Community-Developers/warframe-worldstate-parser/raw/master/resources'},
@@ -1375,12 +1378,12 @@ function rellenarDatos(){
 		var diff=new Date(new Date().toUTCString())-moment(resultJson.timestamp);
 		
 		//cookies
-		cookiesShow.innerHTML='<h2>Cookies capturados al '+ dateToString(new Date(new Date().toUTCString()))+':</h2>';
-		cookiesShow.innerHTML+=document.cookie;
-		cookiesShow.innerHTML+='<h2>Completas:</h2>';
-		cookiesShow.innerHTML+=getCookie("completas");
-		cookiesShow.innerHTML+='<h2>Data cacheada(notificaciones):</h2>';
-		cookiesShow.innerHTML+=arrayToPipedString(getCachedData());
+		//cookiesShow.innerHTML='<h2>Cookies capturados al '+ dateToString(new Date(new Date().toUTCString()))+':</h2>';
+		//cookiesShow.innerHTML+=document.cookie;
+		//cookiesShow.innerHTML+='<h2>Completas:</h2>';
+		//cookiesShow.innerHTML+=getCookie("completas");
+		//cookiesShow.innerHTML+='<h2>Data cacheada(notificaciones):</h2>';
+		//cookiesShow.innerHTML+=arrayToPipedString(getCachedData());
 
 
 		//Timestamp
@@ -1390,7 +1393,41 @@ function rellenarDatos(){
 		timers.innerHTML='';
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
-		
+
+		/*
+		let cetusNotificationSelectedRadio=getRadioSelectedByName('cetusTimerNotification');
+		let cetusTime=pipedStringToArray(strDiff(resultJson.cetusCycle.timeLeft,diff),' ');
+		let cetusTalk='';
+		let cetusId='';
+		cetusTime.forEach(t=>{(t.indexOf('m')>-1?cetusId=t:'');});
+		switch(cetusNotificationSelectedRadio){
+			case 'no':
+				break;
+			case 'day':
+				cetusTime.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&resultJson.cetusCycle.isDay==true){cetusTalk=true;}else{if(t==(n*-1)+'m'){cetusTalk=true;}}});});
+				break;
+			case 'night':
+				cetusTime.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&resultJson.cetusCycle.isDay==false){cetusTalk=true;}else{if(t==(n*-1)+'m'){cetusTalk=true;}}});});		
+				break;
+			case 'both':
+				cetusTime.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'||t==(n*-1)+'m'){cetusTalk=true;}});});
+				break;			
+		}
+		if(cetusTalk!=''&&
+		!window.speechSynthesis.speaking&&
+		(notificationStatus['cetusTimer']==undefined||notificationStatus['cetusTimer']!=cetusId))
+		{
+			cetusTalk='Cetus timer: '+convertTimeToSpeacheable(strDiff(resultJson.cetusCycle.timeLeft,diff))+' to '+(resultJson.cetusCycle.isDay==true?'night':'day');
+			notificationStatus['cetusTimer']=cetusId;
+			textToSpeech(cetusTalk,'en-GB');
+			console.log(cetusTalk);
+		}
+		*/
+		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
+		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
+
+		updateNotificationTimers('',true);
+
 		//let timerStr='Cetus: '+strDiff(resultJson.cetusCycle.timeLeft,diff)+ ' to ' + (resultJson.cetusCycle.isDay?'NIGHT':'DAY');
 		try{
 			if (timersWindow==undefined){
@@ -1745,7 +1782,7 @@ function rellenarDatos(){
 	    	removeClass('persistentEnemiesTab','hidden');
 	    	tds=[];
 	    	ths=[];
-	    	ths.push([['Nombre','alertTH'],['HP %','alertTH'],['Status','alertTH'],['Nodo','alertTH'],['Ultima vez visto','alertTH'],['Nivel','alertTH']]);
+	    	ths.push([['Nombre','alertTH'],['HP %','alertTH'],['Status','alertTH'],['Ultimo Nodo','alertTH'],['Ultima vez visto','alertTH'],['Nivel','alertTH']]);
 	    	resultJson.persistentEnemies.forEach(e=>{
 	    		let diffPersistent=new Date(new Date().toUTCString())-moment(e.lastDiscoveredTime);
 	    		
@@ -1757,6 +1794,7 @@ function rellenarDatos(){
 	    		}else{
 	    			status='Dead';
 	    		}
+
 	    		let gameMode='';
 	    		if(resultJsonDrops!=''&&resultJsonDrops!=undefined){
 	    			if(e.lastDiscoveredAt!=''){
@@ -1765,10 +1803,51 @@ function rellenarDatos(){
 		    			planeta=planeta.split(",")[0];
 		    			let nodo=dato[0];
 		    			//console.log("+"+planeta+"+"+nodo+"+");
-		    			gameMode=' - {'+resultJsonDrops.missionRewards[planeta][nodo].gameMode+'}';
+		    			if(resultJsonDrops.missionRewards[planeta]!=undefined&&resultJsonDrops.missionRewards[planeta][nodo]!=undefined){
+		    				gameMode=' - {'+resultJsonDrops.missionRewards[planeta][nodo].gameMode+'}';	
+		    			}else{
+		    				//console.log(planeta, (resultJsonDrops.missionRewards[planeta]!=undefined?resultJsonDrops.missionRewards[planeta]:undefined));
+		    				//console.log(nodo, (resultJsonDrops.missionRewards[planeta]!=undefined&&resultJsonDrops.missionRewards[planeta][nodo]?resultJsonDrops.missionRewards[planeta][nodo]:undefined));
+		    			}
 	    			}
 	    		}
 
+	    		if((notificationStatus[e.agentType]==undefined||notificationStatus[e.agentType]!=status)&&(!window.speechSynthesis.speaking)){
+	    			//resultJson.persistentEnemies[0].isDiscovered=false
+
+	    			switch(status){
+	    				case 'Found':
+	    					generateToast(e.agentType+' health:'+Math.round(e.healthPercent*100,2)+'% ('+status+')',e.agentType+' '+status+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1),"",15000,"success");
+	    					break;
+	    				case 'Hidden':
+	    					generateToast(e.agentType+' health:'+Math.round(e.healthPercent*100,2)+'% ('+status+')',e.agentType+' '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1),"",15000,"info");
+	    					break;
+	    				case 'Dead':
+	    					generateToast(e.agentType+' is '+status,e.agentType+' '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1),"",15000,"error");
+	    					break;
+	    				default:
+	    			}
+	    			
+	    			if(persistentEnemiesSpeech.checked==true){
+		    			let say='';
+		    			switch(status){
+		    				case 'Found':
+		    					say = 'Attention Acolyte ' + e.agentType+' health: '+Math.round(e.healthPercent*100,2)+'% '+status+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' + convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1));
+		    					break;
+		    				case 'Hidden':
+		    					say = 'Info Acolyte ' +e.agentType+' health: '+Math.round(e.healthPercent*100,2)+'% '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1));
+		    					break;
+		    				case 'Dead':
+		    					say = 'Info Acolyte ' +e.agentType+' is now '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1));	
+		    					break;
+		    				default:
+		    			}
+		    			console.log(say);
+	    				textToSpeech(say,'en-GB');
+	    			}
+	    			notificationStatus[e.agentType]=status;
+	    		}
+	    		
 	    		let classTD='persistentEnemy'+status;
 	    		td.push([e.agentType,classTD]);
 	    		td.push([e.healthPercent*100+'%',classTD]);
@@ -2139,7 +2218,7 @@ function strToDate(stringDate){
 			case 'i':
 			break;
 			default:
-			console.log(stringDate+'*'+t+'*'+caracter+'* default');
+			//console.log(stringDate+'*'+t+'*'+caracter+'* default');
 		}
 	});
 	return response;
@@ -2158,7 +2237,7 @@ function strDiff(strDate, diff){
 	// if(dias!=31){
 	// 	result='-FINALIZADO-';
 	// }else{
-		dias=(dias!=1&&dias!=31)?fillStr(dias, 2)+'dias ':'';
+		dias=(dias!=1&&dias!=31)?fillStr(dias, 2)+'d ':'';
 
 		horas=(horas!=0)?fillStr(horas, 2)+'h ':'';
 		minutos=(minutos!=0)?fillStr(minutos, 2)+'m ':'';
@@ -2167,6 +2246,29 @@ function strDiff(strDate, diff){
 		result=dias +''+horas+''+minutos+''+segundos;
 	// }
 
+	return result;
+}
+
+function convertTimeToSpeacheable(time){
+	let splited=time.split(" ");
+	let result='';
+	splited.forEach(s=>{
+		switch(s.substring(s.length-1)){
+			case 'd':
+				result+=s.substring(0,s.length-1)+' days ';
+				break;
+			case 'h':
+				result+=s.substring(0,s.length-1)+' hours ';
+				break;
+			case 'm':
+				result+=s.substring(0,s.length-1)+' minutes ';
+				break;
+			case 's':
+				result+=s.substring(0,s.length-1)+' seconds ';
+				break;
+			default:
+		}
+	});
 	return result;
 }
 
@@ -2715,3 +2817,49 @@ function toggleChildTimerWindow(){
 	};
 }
 
+function updateNotificationTimers(data,updateFront=false){
+	if(updateFront==false){
+		notificationTimers=bubbleSorting(arrayUnique(pipedStringToArray(data.trim(),',')));
+	}else{
+		if(document.activeElement!=timerNotificationTimes){
+			timerNotificationTimes.value=arrayToPipedString(notificationTimers,',');
+		}
+	}
+}
+
+function notifyTimer(title,j,nameID,diff){
+		let selected=getRadioSelectedByName(nameID);
+		let time=pipedStringToArray(strDiff(j.timeLeft,diff),' ');
+		let talk='';
+		let id='';
+		time.forEach(t=>{(t.indexOf('m')>-1?id=t+(j.isDay==true?'d':'n'):'');});
+		switch(selected){
+			case 'no':
+				break;
+			case 'day':
+				if(time.length<3){
+				time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==true){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});
+				}
+				break;
+			case 'night':
+				if(time.length<3){
+				time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==false){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});		
+				}
+				break;
+			case 'both':
+				if(time.length<3){
+				time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'||t==(n*-1)+'m'){talk=true;}});});
+				}
+				break;			
+		}
+		if(talk!=''&&
+		!window.speechSynthesis.speaking&&
+		(notificationStatus[title+'Timer']==undefined||notificationStatus[title+'Timer']!=id))
+		{
+			talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff))+' to '+(resultJson.cetusCycle.isDay==true?'night':'day');
+			notificationStatus[title+'Timer']=id;
+			textToSpeech(talk,'en-GB');
+			console.log(talk);
+			generateToast(title.toUpperCase()+' Timer',talk,"",10000,"info");
+		}		
+}

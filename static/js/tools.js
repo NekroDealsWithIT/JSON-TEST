@@ -720,8 +720,11 @@ function cargarSonido(source='', soundControl){
 	soundControl.play();
 }
 
-function textToSpeech(text){
+function textToSpeech(text,lang=''){
 	var msg = new SpeechSynthesisUtterance(text);
+	if (lang!=''){
+		msg.lang=lang;
+	}
 	window.speechSynthesis.speak(msg);
 }
 
@@ -911,29 +914,25 @@ function arrayRemove(array,remove=''){
 
 function arrayToPipedString(array,separador='|',allowBlanks=false){
 	var result="";
-	var i=0;
 	array.forEach(function (item){
-		if(allowBlanks){
-			if(i=0){
+		if(allowBlanks==false){
+			if(result==""){
 				result=item;
 			}else{
 				result+=separador+item;
 			}
-			i++;
 		}else{
-			if(item!=''){
-				if(i=0){
+			if(item.trim()!=''){
+				if(result==""){
 					result=item;
 				}else{
 					result+=separador+item;
 				}
-				i++;
 			}
 		}
 	});
 	return result;
 }
-
 function pipedStringToArray(pipedString,separador='|',allowBlanks=false){
 	var result=[];
 	result = pipedString.split(separador);

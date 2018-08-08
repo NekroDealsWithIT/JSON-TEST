@@ -151,6 +151,20 @@
 		<br>
 		<a id="T"></a>
 		<h3 id="timersTitle" onclick="toggleHide('timers');">🌑 Timers</h3>
+		<p><label>Minutos a notificar: <input type="text" id="timerNotificationTimes" onblur="updateNotificationTimers(this.value,true)" onkeyup="updateNotificationTimers(this.value)"></label></p>
+		<p>(Deben de estar separados por coma, valores negativos indican antes de cambiar de noche a dia y viceversa)</p>
+		<p>Notificar Cetus Timer: 
+		<label><input type="radio" name="cetusTimerNotification" value='no' checked>No</label>
+		<label><input type="radio" name="cetusTimerNotification" value='day'>Dia</label>
+		<label><input type="radio" name="cetusTimerNotification" value='night'>Noche</label>
+		<label><input type="radio" name="cetusTimerNotification" value='both'>Ambos</label></p>
+		
+		<p>Notificar Earth Timer: 
+		<label><input type="radio" name="earthTimerNotification" value='no' checked>No</label>
+		<label><input type="radio" name="earthTimerNotification" value='day'>Dia</label>
+		<label><input type="radio" name="earthTimerNotification" value='night'>Noche</label>
+		<label><input type="radio" name="earthTimerNotification" value='both'>Ambos</label></p>
+
 		<section id="timers"><img class="loading" src="static/img/loading.gif"></section>
 		<div class="tabFrame">
 			<div class="tab">
@@ -161,6 +175,7 @@
 		<div id="persistentEnemiesTab" class="hidden">
 			<a id="PE"></a>
 			<h3 id="eventsTitle" onclick="toggleHide('persistentEnemies');">🌑 Enemigos Persistentes</h3>
+			<label><input type="checkbox" id='persistentEnemiesSpeech'>Avisar si hay un cambio de status del enemigo</label>
 			<section id="persistentEnemies"><img class="loading" src="static/img/loading.gif"></section>
 		</div>
 
