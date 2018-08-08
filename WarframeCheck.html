@@ -185,11 +185,18 @@
 
 		<audio id="notificationGeneralSound" src='static/sound/allSystemNominal.wav'></audio>
 
-		<h3>🌑 Profiler (Arsenal)</h3>
-		<h4>Profiler nos muestra todo el detalle tanto de armas como de warframes. Dentro encontraran seguimiento de los patchlogs, estado del vault, ademas los stats especificos de cada item.</h4>
+		<h3 onclick="toggleHide('divWarframeProfiler');">🌑 Profiler (Arsenal)</h3>
 		<div class="tabFrame">
-			<div class="tab">
+			<h4>Profiler nos muestra todo el detalle tanto de armas como de warframes. Dentro encontraran seguimiento de los patchlogs, estado del vault, ademas los stats especificos de cada item.</h4>
+			<div id='divWarframeProfiler' class="tab">
 				<button class="tablinks" class='active' id="activateProfiler" onclick="window.open('warframeprofiler.html');">Abrir Profiler (Arsenal)</button>
+			</div>
+		</div> 
+		<h3 onclick="toggleHide('divTextRecognition');">🌑 Responder a comandos de voz (EXPERIMENTAL)</h3>
+		<div id='divTextRecognition'class="tabFrame hidden">
+			<h4>Habilitar captura de sonido</h4>
+			<div class="tab">
+				<button class="tablinks" class='active' id="activateRecognitionBtn" onclick="">Habilitar comandos de voz</button>
 			</div>
 		</div> 
 		<h3>🌑 Plataformas</h3>
@@ -365,6 +372,7 @@
 <script type="text/javascript" src="static/js/tools.js"></script>
 <script type="text/javascript" src="static/js/wf.js"></script>
 <script type="text/javascript" src="static/js/checkversion.js"></script>
+<script type="text/javascript" src="static/js/speechToText.js"></script>
 <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
