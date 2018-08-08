@@ -2862,10 +2862,10 @@ function notifyNotification(data){
 	!window.speechSynthesis.speaking&&
 	(notificationStatus[title+id]==undefined||notificationStatus[title+id]!=id))
 	{
-		talk=data.tipo+' '+title+': '+convertTimeToSpeacheable(data.timeLeft);
+		talk='Platform: '+platform+', ('+data.tipo+') '+title+': '+convertTimeToSpeacheable(data.timeLeft);
 		notificationStatus[title+id]=id;
 		textToSpeech(talk,'en-GB');
 		console.log(talk);
-		generateToast(title.toUpperCase(),talk,"",10000,"warning");
-	}		
+		generateToast('('+data.tipo.toUpperCase()+') '+title.toUpperCase(),talk,"",10000,"warning");
+	}
 }
