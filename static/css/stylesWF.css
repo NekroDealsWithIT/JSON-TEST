@@ -785,6 +785,16 @@ h5{
 	text-align:center;
 }
 
+.persistentEnemyFound a:visited,
+.persistentEnemyHidden a:visited,
+.persistentEnemyDead a:visited,
+.persistentEnemyFound a,
+.persistentEnemyHidden a,
+.persistentEnemyDead a{
+	text-decoration: none;
+	color:tomato;
+	font-weight: bolder;
+}
 /*referente a audio*/
 .audioCombo{
 
