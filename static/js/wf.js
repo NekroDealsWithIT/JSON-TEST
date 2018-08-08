@@ -1394,35 +1394,6 @@ function rellenarDatos(){
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
 
-		/*
-		let cetusNotificationSelectedRadio=getRadioSelectedByName('cetusTimerNotification');
-		let cetusTime=pipedStringToArray(strDiff(resultJson.cetusCycle.timeLeft,diff),' ');
-		let cetusTalk='';
-		let cetusId='';
-		cetusTime.forEach(t=>{(t.indexOf('m')>-1?cetusId=t:'');});
-		switch(cetusNotificationSelectedRadio){
-			case 'no':
-				break;
-			case 'day':
-				cetusTime.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&resultJson.cetusCycle.isDay==true){cetusTalk=true;}else{if(t==(n*-1)+'m'){cetusTalk=true;}}});});
-				break;
-			case 'night':
-				cetusTime.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&resultJson.cetusCycle.isDay==false){cetusTalk=true;}else{if(t==(n*-1)+'m'){cetusTalk=true;}}});});		
-				break;
-			case 'both':
-				cetusTime.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'||t==(n*-1)+'m'){cetusTalk=true;}});});
-				break;			
-		}
-		if(cetusTalk!=''&&
-		!window.speechSynthesis.speaking&&
-		(notificationStatus['cetusTimer']==undefined||notificationStatus['cetusTimer']!=cetusId))
-		{
-			cetusTalk='Cetus timer: '+convertTimeToSpeacheable(strDiff(resultJson.cetusCycle.timeLeft,diff))+' to '+(resultJson.cetusCycle.isDay==true?'night':'day');
-			notificationStatus['cetusTimer']=cetusId;
-			textToSpeech(cetusTalk,'en-GB');
-			console.log(cetusTalk);
-		}
-		*/
 		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
 		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
 
@@ -1570,6 +1541,15 @@ function rellenarDatos(){
 							(notifShowLastDate?' ('+dateToString(c[platform])+')':"")+(actual!=''?' <a href="#'+actual+'" data-idgrouptype="'+tipo+'" onclick="clickAnchorLink(event);">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
 							'</li>';
 						}
+						if(actual!=''){
+							let data=c;
+							data.actual=actual;
+							data.tipo=tipo;
+							data.timeLeft=timerNotificacion;
+							if(notificar==true){
+								notifyNotification(data);
+							}
+						}
 					}else{
 						if(t==c['t']){
 							if(actual!=''){listaActiva=true;}
@@ -1586,6 +1566,15 @@ function rellenarDatos(){
 								(actual==''?'':'<label>(<input type="checkbox" onclick="toggleCompletar(this.name);"'+(completa?" checked ":"")+'name="'+notifId+'"' +'>Completa?)</label>')+
 								(notifShowLastDate?' ('+dateToString(c[platform])+')':"")+(actual!=''?' <a href="#'+actual+'" data-idgrouptype="'+tipo+'" onclick="clickAnchorLink(event);">ACTIVA!! (eta: '+timerNotificacion+')</a>':'')+
 								'</li>';
+							}
+							if(actual!=''){
+								let data=c;
+								data.actual=actual;
+								data.tipo=tipo;
+								data.timeLeft=timerNotificacion;
+								if(notificar==true){
+									notifyNotification(data);
+								}
 							}
 						}
 					}
@@ -2863,4 +2852,20 @@ function notifyTimer(title,j,nameID,diff){
 			console.log(talk);
 			generateToast(title.toUpperCase()+' Timer',talk,"",10000,"info");
 		}		
+}
+
+function notifyNotification(data){
+	let talk;	
+	let title=data.t+' '+data.i;
+	let id=data.actual;
+	if(talk!=''&&
+	!window.speechSynthesis.speaking&&
+	(notificationStatus[title+id]==undefined||notificationStatus[title+id]!=id))
+	{
+		talk=data.tipo+' '+title+': '+convertTimeToSpeacheable(data.timeLeft);
+		notificationStatus[title+id]=id;
+		textToSpeech(talk,'en-GB');
+		console.log(talk);
+		generateToast(title.toUpperCase(),talk,"",10000,"warning");
+	}		
 }
