@@ -504,6 +504,12 @@ h5{
     from {opacity: 0;}
     to {opacity: 1;}
 }
+/*disclaimer*/
+.disclaimer{
+	background-color: #000;
+	color:#EEE;
+	width: 	100%;
+}
 
 /*formularios*/
 .formulario{

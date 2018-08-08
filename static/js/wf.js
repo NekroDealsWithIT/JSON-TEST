@@ -15,6 +15,15 @@
 	let notificationStatus={};
 	let notificationTimers=[50,30,20,10,5,2,1,-5,-10];
 
+	const persistentEnemiesProfiles={
+		'angst':'https://vignette.wikia.nocookie.net/warframe/images/e/ec/StrikerAcolyte.png',
+		'malice':'https://vignette.wikia.nocookie.net/warframe/images/1/1b/HeavyAcolyte.png',
+		'mania':'https://vignette.wikia.nocookie.net/warframe/images/a/a9/RogueAcolyte.png',
+		'misery':'https://vignette.wikia.nocookie.net/warframe/images/1/19/AreaCasterAcolyte.png',
+		'torment':'https://vignette.wikia.nocookie.net/warframe/images/3/38/ControlAcolyte.png',
+		'violence':'https://vignette.wikia.nocookie.net/warframe/images/5/56/DuellistAcolyte.png',
+	}
+
 	const compressedURL=[
 		{id:'@1@',url:'https://i.imgur.com'},
 		{id:'@2@',url:'https://github.com/Warframe-Community-Developers/warframe-worldstate-parser/raw/master/resources'},
@@ -339,7 +348,9 @@ var historicCachedData=[
 ];
 
 function onExit(){
-	timersWindow.close();
+	if(timersWindow!=undefined&&timersWindow!=''&&!timersWindow.closed){
+		timersWindow.close();
+	}
 }
 
 function getWFWorldstate(proxy=false){
@@ -1461,7 +1472,7 @@ function rellenarDatos(){
 				// notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h4 class="ucase subrayado">'+t+'</h4><ul id="typeNotif'+t.toUpperCase()+'">';
 				var notificacion='';
 				var listaActiva=false;
-				var comboSonido=getComboSound(t);
+				var comboSonido='';//getComboSound(t);
 				cacheado.forEach(function (c){
 					var actual='';
 					var actualId='';
@@ -1532,7 +1543,7 @@ function rellenarDatos(){
 							
 						if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 							notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-							'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['t']+'"' + (notificar?" checked":"")+'></label>'+
+							'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['t']+'"' + (notificar?" checked":"")+'>Notificar</label>'+
 							'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c['t']+'" target="blank">'+
 							'<img class="thumbnailNotif" src="'+c['l']+'">'+
 							'<span class="capitalize">'+c['t']+'</span>'+
@@ -1558,7 +1569,7 @@ function rellenarDatos(){
 							var notifId=(actualId!=''?actualId:c['i']);
 							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-								'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['i']+'"' + (notificar?" checked":"")+'></label>'+
+								'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['i']+'"' + (notificar?" checked":"")+'>Notificar</label>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c['i']+'" target="blank">'+
 								'<img class="thumbnailNotif" src="'+c['l']+'">'+
 								'<span class="capitalize">'+c['i']+'</span>'+
@@ -1582,7 +1593,7 @@ function rellenarDatos(){
 				var idLista="'typeNotif"+t.toUpperCase()+"'";
 				var ocultarTipo=chequearInformarNotif("typeNotif"+t.toUpperCase());
 				// crear un array que guarde que tipo mostrar
-				notificaciones.innerHTML+='<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+comboSonido+notificacion+'</ul></article></div>';
+				notificaciones.innerHTML+=(notificacion!=''?'<div class="listaNotificaciones"><article><h5 class="ucase subrayado '+(listaActiva!=''?'notifActive':'notifInactive')+'" onClick="toggleHide('+idLista+');toggleInformarNotif('+idLista+')">'+t+(ocultarTipo?' (▼▼▼▼▼)':' (▲▲▲▲▲)')+'</h5><ul id="typeNotif'+t.toUpperCase()+'" class='+(ocultarTipo?"hidden":"")+'>'+comboSonido+notificacion+'</ul></article></div>':'');
 			});
 			notificaciones.innerHTML+='</div>'
 		}
@@ -1778,6 +1789,8 @@ function rellenarDatos(){
 	    		//console.log(diffPersistent);
 	    		var td=[];
 	    		let status='';
+	    		let pep=persistentEnemiesProfiles;
+	    		let profileImg=(pep[e.agentType.toLowerCase()]!=undefined?'<img src="'+pep[e.agentType.toLowerCase()]+'"':'');
 	    		if(e.healthPercent>0){
 	    			status=(e.isDiscovered?'Found':'Hidden');
 	    		}else{
@@ -1803,16 +1816,16 @@ function rellenarDatos(){
 
 	    		if((notificationStatus[e.agentType]==undefined||notificationStatus[e.agentType]!=status)&&(!window.speechSynthesis.speaking)){
 	    			//resultJson.persistentEnemies[0].isDiscovered=false
-
+	    			let imgToast=(profileImg!=''?'<p>'+profileImg+' class="thumbnail"></p>':'');
 	    			switch(status){
 	    				case 'Found':
-	    					generateToast(e.agentType+' health:'+Math.round(e.healthPercent*100,2)+'% ('+status+')',e.agentType+' '+status+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1),"",15000,"success");
+	    					generateToast(e.agentType+' health:'+Math.round(e.healthPercent*100,2)+'% ('+status+')','<a href="#PE">'+imgToast+e.agentType+' '+status+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1)+'</a>',"",15000,"success");
 	    					break;
 	    				case 'Hidden':
-	    					generateToast(e.agentType+' health:'+Math.round(e.healthPercent*100,2)+'% ('+status+')',e.agentType+' '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1),"",15000,"info");
+	    					generateToast(e.agentType+' health:'+Math.round(e.healthPercent*100,2)+'% ('+status+')','<a href="#PE">'+imgToast+e.agentType+' '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1)+'</a>',"",15000,"info");
 	    					break;
 	    				case 'Dead':
-	    					generateToast(e.agentType+' is '+status,e.agentType+' '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1),"",15000,"error");
+	    					generateToast(e.agentType+' is '+status,'<a href="#PE">'+imgToast+e.agentType+' '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1)+'</a>',"",15000,"error");
 	    					break;
 	    				default:
 	    			}
@@ -1836,9 +1849,9 @@ function rellenarDatos(){
 	    			}
 	    			notificationStatus[e.agentType]=status;
 	    		}
-	    		
+	    		let tableProfileImg=(profileImg!=''?profileImg+' class="thumbnailNotif">':'');
 	    		let classTD='persistentEnemy'+status;
-	    		td.push([e.agentType,classTD]);
+	    		td.push(['<a href="http://warframe.wikia.com/wiki/'+e.agentType+'" target="blank">'+tableProfileImg+e.agentType+'</a>',classTD]);
 	    		td.push([e.healthPercent*100+'%',classTD]);
 	    		td.push([status,classTD]);
 	    		td.push([e.lastDiscoveredAt+gameMode,classTD]);
@@ -2850,10 +2863,18 @@ function notifyTimer(title,j,nameID,diff){
 			notificationStatus[title+'Timer']=id;
 			textToSpeech(talk,'en-GB');
 			console.log(talk);
-			generateToast(title.toUpperCase()+' Timer',talk,"",10000,"info");
+			talk='<a href="#T">'+talk+'<hr><a href="#T">Link</a></a>'
+			generateToast('⏰ '+title.toUpperCase()+' Timer '+(resultJson.cetusCycle.isDay==true?'(night 🌙)':'(day ☀'),talk,"",15000,"info");
 		}		
 }
-
+function navigateToAnchor(anchor){
+	if(location.hash==anchor){
+		location.hash='#';
+		setTimeout(function() {}, 3000);
+	}
+	location.hash=anchor;
+	
+}
 function notifyNotification(data){
 	let talk;	
 	let title=data.t+' '+data.i;
@@ -2866,6 +2887,8 @@ function notifyNotification(data){
 		notificationStatus[title+id]=id;
 		textToSpeech(talk,'en-GB');
 		console.log(talk);
-		generateToast('('+data.tipo.toUpperCase()+') '+title.toUpperCase(),talk,"",10000,"warning");
+		let img=(data.l!=undefined&&data.l!=''?'<p><img class="thumbnail" src="'+data.l+'" alt="'+title+'"></p>':'')
+		
+		generateToast('('+data.tipo.toUpperCase()+') '+title.toUpperCase(),'<div class="formulario" data-idgrouptype="'+data.tipo+'" onClick="clickAnchorLink(event);">'+img+talk+'</div>',"",10000,"warning");
 	}
 }
