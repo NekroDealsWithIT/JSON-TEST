@@ -5,7 +5,7 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
 
-var comandos = [ 'commando' , 'cancel'];
+var comandos = [ 'commando' , 'commando no' ,'commando si', 'stop','confirm'];
 var grammar = '#JSGF V1.0; grammar comandos; public <color> = ' + comandos.join(' | ') + ' ;'
 
 var recognition = new SpeechRecognition();
@@ -13,7 +13,7 @@ var speechRecognitionList = new SpeechGrammarList();
 speechRecognitionList.addFromString(grammar, 1);
 recognition.grammars = speechRecognitionList;
 recognition.continuous = true;
-recognition.lang = 'en-US';
+recognition.lang = 'en-ES';//'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
@@ -23,18 +23,19 @@ recognition.maxAlternatives = 1;
 
 //var colorHTML= '';
 comandos.forEach(function(v, i, a){
-  console.log(v, i);
+  console.log(v, i,a);
   //colorHTML += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
 });
 //hints.innerHTML = 'Tap/click then say a color to change the background color of the app. Try '+ colorHTML + '.';
 
-activateRecognitionBtn.onclick = function() {
+//activateRecognitionBtn.onclick = function() {
+document.body.onclick = function() {
   try{
   	recognition.stop();
   }finally{
   	recognition.start();
   }
-  textToSpeech('i am listening!','en-GB');
+  responseRecognition('i am listening!','en-GB');
   console.log('Ready to receive a color command.');
 }
 
@@ -54,7 +55,7 @@ recognition.onresult = function(event) {
   //diagnostic.textContent = 'Result received: ' + result + '.';
   console.log('Result received: ' + result + '.');
   //bg.style.backgroundColor = result;
-  textToSpeech(result,'en-GB');
+  responseRecognition(result,'en-GB');
   console.log('Confidence: ' + event.results[0][0].confidence);
   console.log(event.results);
 }
@@ -66,12 +67,20 @@ recognition.onspeechend = function() {
 
 recognition.onnomatch = function(event) {
   //diagnostic.textContent = "I didn't recognise that color.";
-  textToSpeech('Try again','en-GB');
+  responseRecognition('Try again','en-GB');
   console.log("I didn't recognise that color.");
 }
 
 recognition.onerror = function(event) {
   //diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
-  textToSpeech('Error occurred in recognition: ' + event.error,'en-GB');
+  responseRecognition('Error occurred in recognition: ' + event.error,'en-GB');
   console.log('Error occurred in recognition: ' + event.error);
+}
+
+function responseRecognition(text,lang=''){
+	var msg = new SpeechSynthesisUtterance(text);
+	if (lang!=''){
+		msg.lang=lang;
+	}
+	window.speechSynthesis.speak(msg);
 }
