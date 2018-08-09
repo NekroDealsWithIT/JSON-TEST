@@ -28,8 +28,8 @@ comandos.forEach(function(v, i, a){
 });
 //hints.innerHTML = 'Tap/click then say a color to change the background color of the app. Try '+ colorHTML + '.';
 
-//activateRecognitionBtn.onclick = function() {
-document.body.onclick = function() {
+activateRecognitionBtn.onclick = function() {
+// document.body.onclick = function() {
   try{
   	recognition.stop();
   }finally{
