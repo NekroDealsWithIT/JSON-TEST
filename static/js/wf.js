@@ -1849,13 +1849,13 @@ function rellenarDatos(){
 		    			let say='';
 		    			switch(status){
 		    				case 'Found':
-		    					say = 'Attention Acolyte ' + e.agentType+' health: '+Math.round(e.healthPercent*100,2)+'% '+status+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' + convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1));
+		    					say = 'Attention Acolyte ' + e.agentType.toUpperCase()+' health: '+Math.round(e.healthPercent*100,2)+'% '+status.toUpperCase()+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' + convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+' is now '+status.toUpperCase();
 		    					break;
 		    				case 'Hidden':
-		    					say = 'Info Acolyte ' +e.agentType+' health: '+Math.round(e.healthPercent*100,2)+'% '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1));
+		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+' health: '+Math.round(e.healthPercent*100,2)+'% '+status.toUpperCase()+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+' is now '+status.toUpperCase();
 		    					break;
 		    				case 'Dead':
-		    					say = 'Info Acolyte ' +e.agentType+' is now '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1));	
+		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+' is now '+status.toUpperCase()+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+' is now '+status.toUpperCase();	
 		    					break;
 		    				default:
 		    			}
