@@ -73,6 +73,13 @@ function urlDeleteParameter(parametro,urlToCheck=window.location.href){
 	url.searchParams.delete(parametro)
 	return url;	
 }
+function securizeUrl(url){
+	return url.substring(0,5)=='http:'?url.replace('http://','https://'):url;
+}
+
+function redirectToHttps(){
+	if(location.protocol=='http:')location.href=location.href.replace(/^http:/, 'https:');
+}
 
 /*
 -----------------------------------------------------
