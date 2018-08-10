@@ -707,6 +707,12 @@ h5{
 	/*color:green;*/
 	text-decoration: none;
 }
+.nfc-message>a,
+.nfc-message>a:visited
+{
+	text-decoration: none;
+	color:white;
+}
 .notifActive{
     font-weight: 900;
     color:#0F0;
