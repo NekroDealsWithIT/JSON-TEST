@@ -524,6 +524,18 @@ function agregarBusqueda(busquedaActual){
 
 	formItem.focus()
 }
+
+function addDropQuery(data,formTipoValue='All'){
+	if(formItem.value.indexOf(data)==-1){
+		let txtFormItem=formItem.value;
+		clearForm();
+		formItem.value=txtFormItem==''?data:txtFormItem+'|'+data;
+		formTipo.value=formTipoValue;
+		buscarDrop();
+		tabTitleDrops.click();
+	}
+	generateToast('Item agregado a la busqueda','<a href="#DROPS">'+data+' Agregado a la busqueda actual (click para ver drops)</a>',"",5000,"success");
+}
 function clearForm(){
 	formItem.value='';
 	
@@ -1860,7 +1872,7 @@ function rellenarDatos(){
 	    		td.push([e.lastDiscoveredAt+gameMode,classTD]);
 	    		td.push([strDiff(e.lastDiscoveredTime,diffPersistent*-1),classTD]);
 	    		//td.push([e.lastDiscoveredTime,classTD]);
-	    		td.push([e.rank,classTD]);
+	    		td.push([e.rank + ' <input type="button" value="Drops" onClick="addDropQuery('+"'"+e.agentType+"','modLocations'"+');">',classTD]);
 	    		tds.push(td);
 	    		/*
 	    		agentType:"Angst"

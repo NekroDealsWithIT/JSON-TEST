@@ -23,7 +23,7 @@ recognition.maxAlternatives = 1;
 
 //var colorHTML= '';
 comandos.forEach(function(v, i, a){
-  console.log(v, i,a);
+  //console.log(v, i,a);
   //colorHTML += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
 });
 //hints.innerHTML = 'Tap/click then say a color to change the background color of the app. Try '+ colorHTML + '.';
