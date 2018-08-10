@@ -1797,7 +1797,7 @@ function rellenarDatos(){
 	    	removeClass('persistentEnemiesTab','hidden');
 	    	tds=[];
 	    	ths=[];
-	    	ths.push([['Nombre','alertTH'],['HP %','alertTH'],['Status','alertTH'],['Ultimo Nodo','alertTH'],['Ultima vez visto','alertTH'],['Nivel','alertTH']]);
+	    	ths.push([['Nombre','alertTH'],['HP %','alertTH'],['Status','alertTH'],['Ultimo Nodo','alertTH'],['Ultima vez visto','alertTH'],['Nivel','alertTH'],['Drops','alertTH']]);
 	    	resultJson.persistentEnemies.forEach(e=>{
 	    		let diffPersistent=new Date(new Date().toUTCString())-moment(e.lastDiscoveredTime);
 	    		
@@ -1849,10 +1849,10 @@ function rellenarDatos(){
 		    			let say='';
 		    			switch(status){
 		    				case 'Found':
-		    					say = 'Attention Acolyte ' + e.agentType.toUpperCase()+' health: '+Math.round(e.healthPercent*100,2)+'% '+status.toUpperCase()+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' + convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+' is now '+status.toUpperCase();
+		    					say = 'Attention Acolyte ' + e.agentType.toUpperCase()+' health: '+Math.round(e.healthPercent*100,2)+'% '+status.toUpperCase()+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' + convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+' is now '+status.toUpperCase()+' health: '+Math.round(e.healthPercent*100,2)+'% ';
 		    					break;
 		    				case 'Hidden':
-		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+' health: '+Math.round(e.healthPercent*100,2)+'% '+status.toUpperCase()+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+' is now '+status.toUpperCase();
+		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+' health: '+Math.round(e.healthPercent*100,2)+'% '+status.toUpperCase()+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+' is now '+status.toUpperCase()+' health: '+Math.round(e.healthPercent*100,2)+'% ';
 		    					break;
 		    				case 'Dead':
 		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+' is now '+status.toUpperCase()+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+ ' Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+' is now '+status.toUpperCase();	
@@ -1872,7 +1872,8 @@ function rellenarDatos(){
 	    		td.push([e.lastDiscoveredAt+gameMode,classTD]);
 	    		td.push([strDiff(e.lastDiscoveredTime,diffPersistent*-1),classTD]);
 	    		//td.push([e.lastDiscoveredTime,classTD]);
-	    		td.push([e.rank + ' <input type="button" value="Drops" onClick="addDropQuery('+"'"+e.agentType+"','modLocations'"+');">',classTD]);
+	    		td.push([e.rank,classTD]);
+	    		td.push(['<input type="button" value="Drops '+e.agentType+'" onClick="addDropQuery('+"'"+e.agentType+"','modLocations'"+');">',classTD]);
 	    		tds.push(td);
 	    		/*
 	    		agentType:"Angst"
