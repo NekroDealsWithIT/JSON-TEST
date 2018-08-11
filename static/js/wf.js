@@ -40,7 +40,7 @@
 			(document.getElementsByName('email')[0]).checkValidity()&&
 			(document.getElementsByName('asunto')[0]).checkValidity()&&
 			(document.getElementsByName('mensaje')[0]).checkValidity()){
-			fetch("api/SampleData",{body: contactMe,method: "post"})
+			fetch("https://nekro-warframe.000webhostapp.com/",{body: contactMe,method: "post"})
 			.then(()=>{
 				toggleHide("camposForm");
 				toggleHide("soon");
