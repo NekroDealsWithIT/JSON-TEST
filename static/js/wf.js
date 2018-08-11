@@ -24,6 +24,29 @@
 		'violence':'https://vignette.wikia.nocookie.net/warframe/images/5/56/DuellistAcolyte.png',
 	}
 
+	const planetas={
+		'timeStamp':'2018-08-10',
+		'Mercury':{'level':'6 - 11','faction':'Grineer','boss':'Vor','bossLocation':'Tolstoj','drops':['Morphics','Ferrite','Polymer Bundle','Detonite Ampule']},
+		'Venus':{'level':'3 - 18','faction':'Corpus','boss':'Jackal','bossLocation':'Fossa','drops':['Alloy Plate','Polymer Bundle','Circuits','Fieldron Sample']},
+		'Earth':{'level':'1 - 25','faction':'Grineer','boss':'Vay Hek','bossLocation':'Oro','drops':['Ferrite','Rubedo','Neurodes','Detonite Ampule']},
+		'Lua':{'level':'25 - 30','faction':'Sentient','boss':'n/a','bossLocation':'n/a','drops':['Ferrite','Rubedo','Neurodes','Detonite Ampule']},
+		'Mars':{'level':'8 - 20','faction':'Grineer','boss':'Lieutenant Lech Kril','bossLocation':'War','drops':['Morphics','Salvage','Gallium','Fieldron Sample']},
+		'Phobos':{'level':'10 - 25','faction':'Corpus','boss':'The Sergeant','bossLocation':'Iliad','drops':['Rubedo','Morphics','Plastids','Alloy Plate']},
+		'Ceres':{'level':'12 - 25','faction':'Grineer','boss':'Lech Kril & Vor','bossLocation':'Exta','drops':['Alloy Plate','Circuits','Orokin Cell','Detonite Ampule']},
+		'Jupiter':{'level':'15 - 30','faction':'Corpus','boss':'Alad V','bossLocation':'Themisto','drops':['Salvage','Fieldron Sample','Neural Sensors','Alloy Plate']},
+		'Europa':{'level':'18 - 33','faction':'Corpus','boss':'Raptors','bossLocation':'Naamah','drops':['Morphics','Rubedo','Fieldron Sample','Control Module']},
+		'Saturn':{'level':'21 - 36','faction':'Grineer','boss':'Sargas Ruk','bossLocation':'Tethys','drops':['Nano Spores','Plastids','Orokin Cell','Detonite Ampule']},
+		'Uranus':{'level':'24 - 37','faction':'Grineer','boss':'Tyl Regor','bossLocation':'Titania','drops':['Polymer Bundle','Plastids','Gallium','Detonite Ampule']},
+		'Neptune':{'level':'27 - 40','faction':'Corpus','boss':'Hyena Pack','bossLocation':'Psamathe','drops':['Nano Spores','Ferrite','Control Module','Fieldron Sample']},
+		'Pluto':{'level':'30 - 45','faction':'Corpus','boss':'Ambulas','bossLocation':'Hades','drops':['Alloy Plate','Rubedo','Plastids','Morphics','Fieldron Sample']},
+		'Sedna':{'level':'30 - 85','faction':'Grineer','boss':'Kela De Thaym','bossLocation':'Merrow','drops':['Rubedo','Alloy Plate','Salvage','Detonite Ampule']},
+		'Kuva Fortress':{'level':'28 - 34','faction':'Grineer','boss':'n/a','bossLocation':'n/a','drops':['Salvage','Circuits','Neural Sensors','Detonite Ampule']},
+		'Eris':{'level':'30 - 45','faction':'Infestation','boss':'Mutalist Alad V or Jordas Golem','bossLocation':'Requires key','drops':['Nano Spores','Plastids','Neurodes','Mutagen Sample']},
+		'Orokin Derelict':{'level':'25 - 35','faction':'Infestation','boss':'Lephantis','bossLocation':'Requires Key','drops':['Nano Spores','Mutagen Sample','Orokin Cell','Neurodes']},
+		'Void':{'level':'10 - 45','faction':'Orokin','boss':'Corrupted Vor','bossLocation':'any node of Level ≥40','drops':['Ferrite','Rubedo','Argon Crystal','Control Module']}
+	}
+
+	
 	const compressedURL=[
 		{id:'@1@',url:'https://i.imgur.com'},
 		{id:'@2@',url:'https://github.com/Warframe-Community-Developers/warframe-worldstate-parser/raw/master/resources'},
@@ -1795,6 +1818,9 @@ function rellenarDatos(){
     	//Persistent enemies
     	if(resultJson.persistentEnemies!=undefined&&resultJson.persistentEnemies.length>0){
 	    	removeClass('persistentEnemiesTab','hidden');
+	    	
+	    	persistentEnemiesSpeech.checked=chequearInformar('persistentEnemiesSpeech');
+	    	
 	    	tds=[];
 	    	ths=[];
 	    	ths.push([['Nombre','alertTH'],['HP %','alertTH'],['Status','alertTH'],['Ultimo Nodo','alertTH'],['Ultima vez visto','alertTH'],['Nivel','alertTH'],['Drops','alertTH']]);
@@ -1813,6 +1839,9 @@ function rellenarDatos(){
 	    		}
 
 	    		let gameMode='';
+	    		let faccionNodoAccolyte='';
+	    		let nivelNodoAccolyte='';
+
 	    		if(resultJsonDrops!=''&&resultJsonDrops!=undefined){
 	    			if(e.lastDiscoveredAt!=''){
 		    			let dato= pipedStringToArray(e.lastDiscoveredAt," (");
@@ -1826,6 +1855,10 @@ function rellenarDatos(){
 		    				//console.log(planeta, (resultJsonDrops.missionRewards[planeta]!=undefined?resultJsonDrops.missionRewards[planeta]:undefined));
 		    				//console.log(nodo, (resultJsonDrops.missionRewards[planeta]!=undefined&&resultJsonDrops.missionRewards[planeta][nodo]?resultJsonDrops.missionRewards[planeta][nodo]:undefined));
 		    			}
+		    			if(planetas[planeta]!=undefined){
+		    				nivel=planetas[planeta].level;
+		    				faccion=planetas[planeta].faction;
+	    				}
 	    			}
 	    		}
 
@@ -1869,7 +1902,7 @@ function rellenarDatos(){
 	    		td.push(['<a href="http://warframe.wikia.com/wiki/'+e.agentType+'" target="blank">'+tableProfileImg+e.agentType+'</a>',classTD]);
 	    		td.push([e.healthPercent*100+'%',classTD]);
 	    		td.push([status,classTD]);
-	    		td.push([e.lastDiscoveredAt+gameMode,classTD]);
+	    		td.push(['<p>'+e.lastDiscoveredAt+gameMode+'</p>'+(faccion!=''?'<p class="'+faccion.toLowerCase()+'">'+faccion+' ('+nivel+')</p>':''),classTD]);
 	    		td.push([strDiff(e.lastDiscoveredTime,diffPersistent*-1),classTD]);
 	    		//td.push([e.lastDiscoveredTime,classTD]);
 	    		td.push([e.rank,classTD]);

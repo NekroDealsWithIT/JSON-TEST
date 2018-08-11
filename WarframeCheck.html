@@ -178,7 +178,7 @@
 		<div id="persistentEnemiesTab" class="hidden">
 			<a id="PE"></a>
 			<h3 id="persistentEnemiesTitle" onclick="toggleHide('persistentEnemies');">🌑 Enemigos Persistentes</h3>
-			<label><input type="checkbox" id='persistentEnemiesSpeech'>📣 Avisar si hay un cambio de status del enemigo</label>
+			<label><input type="checkbox" name='persistentEnemiesSpeech' onclick="toggleInformar(this.name,this.checked);" id='persistentEnemiesSpeech'>📣 Avisar si hay un cambio de status del enemigo</label>
 			<section id="persistentEnemies"><img class="loading" src="static/img/loading.gif"></section>
 		</div>
 
