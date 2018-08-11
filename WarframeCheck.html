@@ -93,31 +93,44 @@
 
 	<a id="C"></a>
 	<h3 onclick="toggleHide('formContacto')">🌑 Contactame</h3>
-	<div id="formContacto" class="hidden">
-		<form class="formulario" action="#" method="get">
+	<div id="formContacto" class="hidden"><!-- class="hidden" -->
+		
+		<form class="formulario" action="#" method="post" id='contactMe' >
 			<ul>
 				<li>
-					<h2>En desarrollo - todavia no funciona :'(</h2>
+					<h2>Dejame tu sugerencia</h2>
 				</li>
-				<li>
-					<img src="https://i.imgur.com/zW3PePg.png&key=1b190708073b6a3daa0a08c767613194a0f2c8a0d06cf59e301c423d2b558f4e">
-				</li>
-				<li>
-					<input type="text" name="nombre" id="formNombre" class="field-style field-split align-left" placeholder="* Nombre" required />
-					<input type="email" name="email" class="field-style field-split align-right" required placeholder="* Email" />
-				</li>
-				<li>
-					<input type="text" name="asunto" class="field-style field-full align-none" required placeholder="* Asunto" />
-				</li>
-				<li>
-					<textarea name="mensaje" class="field-style" required placeholder="* Mensaje"></textarea>
-				</li>
-				<li>
-					<input type="submit" disabled="true" value="Enviar mensaje"  onclick="alert('En desarrollo');return false;//setCookie('campeon',formNombre.value,(1000*60*1))" />
-				</li>
-				<li>
-
-				</li>
+				<div id='soon' class='hidden'>
+					<h4>Gracias por tus comentarios!</h4>
+					<li>
+						<img class='girando field-style' src="https://i.imgur.com/zW3PePg.png&key=1b190708073b6a3daa0a08c767613194a0f2c8a0d06cf59e301c423d2b558f4e">
+					</li>
+					<h4>Ser&aacute;n tomados en cuenta para futuros desarrollos :)</h4>
+				</div>
+				<div id='camposForm'>
+					<li>
+						<input type="text" name="nombre" id="formNombre" class="field-style field-split align-left" placeholder="* Nombre" required />
+						<input type="email" name="email" class="field-style field-split align-right" required placeholder="* Email" />
+					</li>
+					<li>
+						<input type="text" name="asunto" class="field-style field-full align-none" required placeholder="* Asunto" />
+					</li>
+					<li>
+						<label class="field-style field-split align-left"><input type="radio" name="tipo" value='recomendacion' checked>Recomendacion</label>
+						<label class="field-style field-split align-left"><input type="radio" name="tipo" value='contacto'>Contacto</label>
+						<label class="field-style field-split align-left"><input type="radio" name="tipo" value='bug'>Bug</label>
+					</li>
+					<li>
+						<textarea name="mensaje" class="field-style" required placeholder="* Mensaje"></textarea>
+					</li>
+					<li>
+						<label class="field-style field-split align-left">Pregunta (sumas): <span id='calculoQ'></span><input type="text" id="calculoR" class="field-style field-full align-none" required placeholder="* NO ROBOTS ALLOWED!"/></label>
+						<input type="submit" value="Enviar mensaje"  onclick="submitMe();return false;"/>
+					</li>
+					<li>
+						<label class="field-style field-full align-none"><span id='errorPQ'></span></label>
+					</li>
+				</div>
 			</ul>
 		</form>
 		<div id="cookiesShow" class="hidden"></div>

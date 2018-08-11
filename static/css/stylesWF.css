@@ -86,6 +86,9 @@ h5{
 	animation:letsGetRidiculous 15s 3;
 	border-radius:5px;
 }
+.girando{
+	animation:girando 15s;
+}
 .ahhhhhhhhhhhhhh{
 	animation:NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO 3s infinite;	
 	animation-timing-function: linear;
@@ -107,6 +110,12 @@ h5{
 	85% {transform: rotate(720deg);right:50%;background:#1ec7e6;}
 	95% {transform: rotate(0deg);right:100%;background:red;}
 	100% {transform: rotate(-360deg);left:0px;}
+}
+
+@keyframes girando
+{
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(-360deg);}
 }
 
 /*Contenedor*/

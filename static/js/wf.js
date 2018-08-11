@@ -24,6 +24,40 @@
 		'violence':'https://vignette.wikia.nocookie.net/warframe/images/5/56/DuellistAcolyte.png',
 	}
 
+	const p_r={
+		'MiArIDE=':'3',
+		'MiArIDg=':'10',
+		'MiB5IDI=':'4',
+		'NCAmIDI=':'6',
+		'NiArIDI=':'8',
+		'OCArIDg=':'16'
+	};
+	function mAq(p='',r=''){if(r==''){q=Object.keys(p_r);return atob(q[randBetween(1,q.length,1)-1]);}else{return (p_r[btoa(p)]==r?1:0)}};
+	function submitMe(){
+		if(
+			(mAq(calculoQ.innerText,calculoR.value)==1)&&
+			formNombre.checkValidity()&&
+			(document.getElementsByName('email')[0]).checkValidity()&&
+			(document.getElementsByName('asunto')[0]).checkValidity()&&
+			(document.getElementsByName('mensaje')[0]).checkValidity()){
+			fetch("api/SampleData",{body: contactMe,method: "post"})
+			.then(()=>{
+				toggleHide("camposForm");
+				toggleHide("soon");
+			})
+			.catch((err)=>{
+				console.log(err)
+			})
+			.finally(()=>{
+				toggleHide("camposForm");
+				toggleHide("soon");				
+			});
+		}else{
+			errorPQ.innerText=mAq(calculoQ.innerText,calculoR.value)!=1?'Captcha incorrecto (srsly?)':'Revisa los campos con marco rojo';
+		}
+		
+	}
+
 	//http://warframe.wikia.com/wiki/Star_Chart
 	const planetas={
 		'timeStamp':'2018-08-10',
@@ -404,6 +438,7 @@ function getJson(url='',viaCors=true){
 		speechSynthesis.cancel();
 	  // checkear la version sino recargar la pagina
 	  versionCheck();
+	  calculoQ.innerText=mAq();
 	  fetching=false;
 	  if (firstRun){
 	  	checkSystems();
@@ -1854,8 +1889,8 @@ function rellenarDatos(){
 	    		if(resultJsonDrops!=''&&resultJsonDrops!=undefined){
 	    			if(e.lastDiscoveredAt!=''){
 		    			let dato= pipedStringToArray(e.lastDiscoveredAt," (");
-		    			let planeta=strReplaceAll(dato[1],')');
-		    			planeta=planeta.split(",")[0];
+		    			let planeta=strReplaceAll(dato[1],')','');
+		    			//planeta=planeta.split(",")[0];
 		    			let nodo=dato[0];
 		    			//console.log("+"+planeta+"+"+nodo+"+");
 		    			if(resultJsonDrops.missionRewards[planeta]!=undefined&&resultJsonDrops.missionRewards[planeta][nodo]!=undefined){
@@ -1867,6 +1902,8 @@ function rellenarDatos(){
 		    			if(planetas[planeta]!=undefined){
 		    				nivelNodoAccolyte=planetas[planeta].level;
 		    				faccionNodoAccolyte=planetas[planeta].faction;
+	    				}else{
+	    					console.log(planeta);
 	    				}
 	    			}
 	    		}
