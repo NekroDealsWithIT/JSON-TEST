@@ -40,18 +40,34 @@
 			(document.getElementsByName('email')[0]).checkValidity()&&
 			(document.getElementsByName('asunto')[0]).checkValidity()&&
 			(document.getElementsByName('mensaje')[0]).checkValidity()){
-			fetch("https://nekro-warframe.000webhostapp.com/",{body: contactMe,method: "post"})
-			.then(()=>{
-				toggleHide("camposForm");
-				toggleHide("soon");
-			})
-			.catch((err)=>{
-				console.log(err)
-			})
-			.finally(()=>{
+				/*
+				fetch("https://nekro-warframe.000webhostapp.com/",{body: contactMe,mode:"no-cors",method: "post"})
+				.then(()=>{
+					toggleHide("camposForm");
+					toggleHide("soon");
+				})
+				.catch((err)=>{
+					console.log(err)
+				})
+				.finally(()=>{
+					toggleHide("camposForm");
+					toggleHide("soon");				
+				});
+				*/
+				var formData = new FormData();
+
+				formData.append("nombre", (formNombre.value));
+				formData.append("email", (document.getElementsByName('email')[0]).value);
+				formData.append("asunto", (document.getElementsByName('asunto')[0]).value);
+				formData.append("mensaje", (document.getElementsByName('mensaje')[0]).value);
+				formData.append("tipo",getRadioSelectedByName('tipo'));
+
+				var request = new XMLHttpRequest();
+				request.open("POST", "https://nekro-warframe.000webhostapp.com/");
+				request.send(formData);
 				toggleHide("camposForm");
 				toggleHide("soon");				
-			});
+
 		}else{
 			errorPQ.innerText=mAq(calculoQ.innerText,calculoR.value)!=1?'Captcha incorrecto (srsly?)':'Revisa los campos con marco rojo';
 		}
