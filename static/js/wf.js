@@ -24,6 +24,7 @@
 		'violence':'https://vignette.wikia.nocookie.net/warframe/images/5/56/DuellistAcolyte.png',
 	}
 
+	//http://warframe.wikia.com/wiki/Star_Chart
 	const planetas={
 		'timeStamp':'2018-08-10',
 		'Mercury':{'level':'6 - 11','faction':'Grineer','boss':'Vor','bossLocation':'Tolstoj','drops':['Morphics','Ferrite','Polymer Bundle','Detonite Ampule']},
@@ -374,6 +375,8 @@ function onExit(){
 	if(timersWindow!=undefined&&timersWindow!=''&&!timersWindow.closed){
 		timersWindow.close();
 	}
+	//mato el speechSynthesis por si se da la casualidad de reinicio mientras que habla.
+	speechSynthesis.cancel();
 }
 
 function getWFWorldstate(proxy=false){
@@ -393,6 +396,8 @@ function getJson(url='',viaCors=true){
 	request.onload = function() {
 		resultJson = request.response;
 		resultJson.news.reverse();
+		// por si se trabo
+		speechSynthesis.cancel();
 	  // checkear la version sino recargar la pagina
 	  versionCheck();
 	  fetching=false;
@@ -1856,8 +1861,8 @@ function rellenarDatos(){
 		    				//console.log(nodo, (resultJsonDrops.missionRewards[planeta]!=undefined&&resultJsonDrops.missionRewards[planeta][nodo]?resultJsonDrops.missionRewards[planeta][nodo]:undefined));
 		    			}
 		    			if(planetas[planeta]!=undefined){
-		    				nivel=planetas[planeta].level;
-		    				faccion=planetas[planeta].faction;
+		    				nivelNodoAccolyte=planetas[planeta].level;
+		    				faccionNodoAccolyte=planetas[planeta].faction;
 	    				}
 	    			}
 	    		}
@@ -1902,9 +1907,8 @@ function rellenarDatos(){
 	    		td.push(['<a href="http://warframe.wikia.com/wiki/'+e.agentType+'" target="blank">'+tableProfileImg+e.agentType+'</a>',classTD]);
 	    		td.push([e.healthPercent*100+'%',classTD]);
 	    		td.push([status,classTD]);
-	    		td.push(['<p>'+e.lastDiscoveredAt+gameMode+'</p>'+(faccion!=''?'<p class="'+faccion.toLowerCase()+'">'+faccion+' ('+nivel+')</p>':''),classTD]);
+	    		td.push(['<p>'+e.lastDiscoveredAt+gameMode+'</p>'+(faccionNodoAccolyte!=''?'<p class="'+faccionNodoAccolyte.toLowerCase()+'">'+faccionNodoAccolyte+' ('+nivelNodoAccolyte+')</p>':''),classTD]);
 	    		td.push([strDiff(e.lastDiscoveredTime,diffPersistent*-1),classTD]);
-	    		//td.push([e.lastDiscoveredTime,classTD]);
 	    		td.push([e.rank,classTD]);
 	    		td.push(['<input type="button" value="Drops '+e.agentType+'" onClick="addDropQuery('+"'"+e.agentType+"','modLocations'"+');">',classTD]);
 	    		tds.push(td);
