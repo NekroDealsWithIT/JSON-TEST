@@ -391,6 +391,10 @@ function getJson(url='',viaCors=true){
 	}
 	var request = new XMLHttpRequest();
 	request.open('GET', url);
+	request.onError= function() {
+		console.log('OUCH');
+		counter1=counter1Max-5;
+	}
 	request.responseType = 'json';
 	request.send();
 	request.onload = function() {
