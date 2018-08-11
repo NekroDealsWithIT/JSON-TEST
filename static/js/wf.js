@@ -1909,7 +1909,7 @@ function rellenarDatos(){
 	    		let tableProfileImg=(profileImg!=''?profileImg+' class="thumbnailNotif">':'');
 	    		let classTD='persistentEnemy'+status;
 	    		td.push(['<a href="http://warframe.wikia.com/wiki/'+e.agentType+'" target="blank">'+tableProfileImg+e.agentType+'</a>',classTD]);
-	    		td.push([e.healthPercent*100+'%',classTD]);
+	    		td.push(['<p><progress max="100" value="'+e.healthPercent*100+'"></p><p>'+e.healthPercent*100+'%'+'</p>',classTD]);
 	    		td.push([status,classTD]);
 	    		td.push(['<p>'+e.lastDiscoveredAt+gameMode+'</p>'+(faccionNodoAccolyte!=''?'<p class="'+faccionNodoAccolyte.toLowerCase()+'">'+faccionNodoAccolyte+' ('+nivelNodoAccolyte+')</p>':''),classTD]);
 	    		td.push([strDiff(e.lastDiscoveredTime,diffPersistent*-1),classTD]);

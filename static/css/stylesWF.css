@@ -309,8 +309,9 @@ h5{
 .tableInvasion img{
 	width: 50px;
 }
-.tableInvasion progress{
-	width:100%;
+.tableInvasion progress,
+.tableAlerts progress{
+	width:90%;
 }
 .invTH{
 	width: 0;
