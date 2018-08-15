@@ -6,6 +6,7 @@ var arrWeaponsType=[];
 var arrWeaponsSubType=[];
 var arrWeaponMastery=[];
 var arrWeaponDamageType=[];
+var arrWeaponRivenDisposition=[];
 
 var arrWarframeMastery=[];
 
@@ -144,15 +145,18 @@ function redrawItems(tipo,filters=[]){
 			arrWeaponsType=[];
 			arrWeaponsSubType=[];
 			arrWeaponDamageType=[];
+			arrWeaponRivenDisposition=[];
 			var selectedType='all';
 			var selectedSubType='all';
 			var selectedMastery='all';
 			var selectedDamageType='all';
+			var selectedRivenDisposition='all';
 			if(combosWeapons.innerHTML!=''){
 				selectedType=weaponTipo.value;
 				selectedSubType=weaponSubTipo.value;
 				selectedMastery=weaponMastery.value;
 				selectedDamageType=weaponDamageType.value;
+				selectedRivenDisposition=weaponRivenDisposition.value;
 			}
 
 			var wn=txtWeaponName.value.toUpperCase();
@@ -163,6 +167,8 @@ function redrawItems(tipo,filters=[]){
 				let wpnRadioSentinel=true;	
 				let wpnRadioNoise=true;
 				let wpnDamageType=true;
+				let wpnRivenDisposition=true;
+
 				wpnRadioVaulted=getRadioSelectedByName('wpnVaulted');
 				if(wpnRadioVaulted=='all'){
 					wpnRadioVaulted=true;
@@ -243,8 +249,18 @@ function redrawItems(tipo,filters=[]){
 					}
 				}
 
+				if(selectedRivenDisposition=='all'){
+					wpnRivenDisposition=true;
+				}else{
+					if(weapon.disposition!=undefined&&weapon.disposition==selectedRivenDisposition){
+						wpnRivenDisposition=true;
+					}else{
+						wpnRivenDisposition=false;
+					}
+				}
 
 				if(
+					(wpnRivenDisposition==true)&&
 					(wpnDamageType==true)&&
 					(wpnRadioVaulted==true)&&
 					(wpnRadioSentinel==true)&&
@@ -263,6 +279,7 @@ function redrawItems(tipo,filters=[]){
 							arrWeaponDamageType.push(key);
 						};
 					}
+					weapon.disposition!=undefined?arrWeaponRivenDisposition.push(weapon.disposition):'';
 
 					var id=strReplaceAll(weapon.uniqueName,"/","_");
 					var vaultedMark=(weapon.vaulted==true?' VAULTED':'');
@@ -283,6 +300,8 @@ function redrawItems(tipo,filters=[]){
 			arrWeaponsType=arrayUnique(arrWeaponsType).sort();
 			arrWeaponsSubType=arrayUnique(arrWeaponsSubType).sort();
 			arrWeaponDamageType=arrayUnique(arrWeaponDamageType).sort();
+			arrWeaponRivenDisposition=arrayUnique(arrWeaponRivenDisposition).sort();
+
 			generalTabSelectorWeapons.innerText='Armas ['+counter+']';
 
 			document.getElementById(tabGroupName+'ShowAllTab').click();
@@ -652,6 +671,7 @@ function refreshWeaponsCombos(){
 	let selectedSubType='all';
 	let selectedMastery='all';
 	let selectedDamageType='all';
+	let selectedRivenDisposition='all';
 
 	if (combosWeapons.innerHTML!=''){
 		/*
@@ -662,11 +682,13 @@ function refreshWeaponsCombos(){
 		selectedSubType=weaponSubTipo.value;
 		selectedMastery=weaponMastery.value;
 		selectedDamageType=weaponDamageType.value;
+		selectedRivenDisposition=weaponRivenDisposition.value;
 	}
 
 	combosWeapons.innerHTML='<ul>';
 	combosWeapons.innerHTML+='<li>Tipo:<select id="weaponTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='<li>SubTipo:<select id="weaponSubTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
+	combosWeapons.innerHTML+='<li>Riven Disposition:<select id="weaponRivenDisposition" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='<li>Mastery Req:<select id="weaponMastery" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='<li>Damage Type:<select id="weaponDamageType" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='</ul>'
@@ -697,6 +719,13 @@ function refreshWeaponsCombos(){
 	arrWeaponDamageType.forEach(dt=>{
 		let selected= (dt==selectedDamageType?true:false);
 		comboAddOption("weaponDamageType",dt.toUpperCase(),dt,selected);
+	});
+
+	comboAddOption("weaponRivenDisposition",'All','all',true);
+	arrWeaponRivenDisposition.forEach(rd=>{
+		console.log(rd);
+		let selected=(rd==selectedRivenDisposition?true:false);
+		comboAddOption("weaponRivenDisposition",rd,rd,selected);
 	});
 }
 
