@@ -179,7 +179,6 @@ function redrawItems(tipo,filters=[]){
 							wpnRadioVaulted=false;
 						}else{
 							wpnRadioVaulted=(weapon.vaulted!=undefined?true:false);
-							console.log(weapon);
 						}
 						break;
 					case 'vaultedHide':
@@ -723,7 +722,6 @@ function refreshWeaponsCombos(){
 
 	comboAddOption("weaponRivenDisposition",'All','all',true);
 	arrWeaponRivenDisposition.forEach(rd=>{
-		console.log(rd);
 		let selected=(rd==selectedRivenDisposition?true:false);
 		comboAddOption("weaponRivenDisposition",rd,rd,selected);
 	});
