@@ -72,18 +72,18 @@ h5{
 	transform-origin: 0;
 }
 .somethingWentVeryWrong:hover{
-	transform: rotateZ(3deg) skew(3deg);
+	transform: rotateZ(3deg);
 }
 .omfg {
-	width:70px;
-	height:47px;
+	width:20vw;
+	height:10vw;
 	background: #92B901;
 	color: #ffffff;
 	position: relative;
 	font-weight:bold;
 	font-size:20px;
 	padding:10px;
-	animation:letsGetRidiculous 15s 3;
+	animation:letsGetRidiculous 20s infinite;
 	border-radius:5px;
 }
 .girando{
