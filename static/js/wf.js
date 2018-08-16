@@ -450,6 +450,7 @@ function getJson(url='',viaCors=true){
 	request.onload = function() {
 		resultJson = request.response;
 		resultJson.news.reverse();
+		arraySortByKey(resultJson.fissures,'tierNum',true);
 		// por si se trabo
 		speechSynthesis.cancel();
 	  // checkear la version sino recargar la pagina
@@ -1853,7 +1854,7 @@ function rellenarDatos(){
 			
 			persistInfo(cookieStore,persistObject);
 
-			td.push([checkBoxCompleted+'<img src="'+compressURL(a.mission.reward.thumbnail,true) +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff)+'('+a.eta+')','tdAlert '+idFaction]);
+			td.push([checkBoxCompleted+'<img src="'+compressURL(a.mission.reward.thumbnail,true) +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff),'tdAlert '+idFaction]);
 			var modifs='';
 			(a.mission.nightmare?modifs+='N ':'');
 			(a.mission.archwingRequired?modifs+='Aw ':'');
@@ -2004,7 +2005,7 @@ function rellenarDatos(){
 		
 		var invasionData=resultJson.invasions;
 		//ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Porcentaje','invTH'],['Ataca','invTH'],['Reward A','invTH'],['Defiende','invTH'],['Reward D','invTH'],['VS infested','invTH']])
-		ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Porcentaje','invTH'],['Ataca','invTH'],['Reward A','invTH'],['Defiende','invTH'],['Reward D','invTH']])
+		ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Defiende','invTH'],['Porcentaje','invTH'],['Ataca','invTH']])
 		txtCopyAll='';
 		invasionData.forEach(function(inv){
 			var td=[];
@@ -2039,18 +2040,15 @@ function rellenarDatos(){
 
 				td.push([imgCopiar+checkBoxCompleted+inv.desc,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)]);
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
-				td.push(['<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
-				td.push([inv.attackingFaction.toUpperCase(),'tdInvasion '+atk+isCompleted]);
-				td.push([(!inv.vsInfestation?'<a id="'+inv.attackerReward.asString+'"></a><img src="'+compressURL(inv.attackerReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>':'❌'),'tdInvasion '+atk+isCompleted]);
-				td.push([inv.defendingFaction.toUpperCase(),'tdInvasion '+def+isCompleted]);
-				td.push(['<a id="'+inv.defenderReward.asString+'"></a><img src="'+compressURL(inv.defenderReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
-				//td.push([inv.vsInfestation,'tdInvasion '+def+isCompleted]);
+				td.push([inv.defendingFaction.toUpperCase()+'<br>'+'<a id="'+inv.defenderReward.asString+'"></a><img src="'+compressURL(inv.defenderReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
+				td.push(['<img src="static/img/arrowRight.gif" class="'+((Math.round(inv.completion,5))>50?'':'invert')+'">'+'<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
+				td.push([inv.attackingFaction.toUpperCase()+'<BR>'+(!inv.vsInfestation?'<a id="'+inv.attackerReward.asString+'"></a><img src="'+compressURL(inv.attackerReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>':'❌'),'tdInvasion '+atk+isCompleted]);
 				tds.push(td);	
 			}
 		});
 
 		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Invasion'"+')"'+"></img>Copiar todo ["+tds.length+']';
-		parseado += '<div class="tableInvasion enlargeMe">'+generateTable(tds,ths,'tableInvasion','','border="1px solid white"')+'</div>';
+		parseado += '<div>'+generateTable(tds,ths,'tableInvasion','','border="1px solid white"')+'</div>';
 		parseado += '<hr>';
 		invasions.innerHTML=parseado;
 		invasionsTitle.innerHTML='🌑 Invasiones ['+invasionActivaArr.length+']';
@@ -2337,6 +2335,9 @@ function strToDate(stringDate){
 
 function strDiff(strDate, diff){
 	var result = strToDate(strDate)-diff;
+	if (result<0){
+		return '---';
+	}
 	//result=new Date(result+ (new Date().getTimezoneOffset() * 60000));
 
 	dias=new Date(result+ (new Date().getTimezoneOffset() * 60000)).getDate();

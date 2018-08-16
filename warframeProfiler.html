@@ -40,6 +40,7 @@
 <div class="content">
 	<h1>Warframe profiler</h1>
 	<h4>Aqui se ve toda la info tanto de Warframes como de armas</h4>
+	<p><a href="http://warframe.wikia.com/wiki/Passives" target="blank">Pasivas de armas y warframes</a></p>
 	<p><label><input type="checkbox" onclick="showAllImages=this.checked;redrawItems(we);redrawItems(wa);">Mostrar imagenes</label></p>
 	<p><label><input type="checkbox" onclick="showVideos=this.checked;redrawItems(we);redrawItems(wa);">Mostrar Videos</label></p>
 	<!-- 
@@ -52,6 +53,7 @@
 		<button data-idgroupname="generalTabSelector" id="generalTabSelectorWeapons" class="tablinks" name="weaponsGeneralTab" onclick="openTab(event, this.name,true)">Armas</button>
 	</div>
 	<div data-idgroupname="generalTabSelector" id="warframesGeneralTab" class="tabcontent">
+		<div id="tabResultadoWarframesGroup" class="tab"></div>
 		<div class='formulario'>
 			<ul>
 				<li>
@@ -68,12 +70,12 @@
 
 		
 
-		<div id="tabResultadoWarframesGroup" class="tab"></div>
 		<div id="tabResultadoWarframes" class="tab"></div>
 		<div id="resultadoWarframes" class="listaNotificaciones"></div>
 		<div id="comparacionWarframes" class="listaNotificaciones"></div>
 	</div>
 	<div data-idgroupname="generalTabSelector" id="weaponsGeneralTab" class="tabcontent">
+		<div id="tabResultadoArmasGroup" class="tab"></div>
 
 		<div class='formulario'>
 			<ul>
@@ -100,7 +102,6 @@
 			</ul>
 		</div>
 
-		<div id="tabResultadoArmasGroup" class="tab"></div>
 		<div id="tabResultadoArmas" class="tab"></div>
 		<div id="resultadoArmas" class="listaNotificaciones"></div>
 		<div id="comparacionArmas" class="listaNotificaciones"></div>

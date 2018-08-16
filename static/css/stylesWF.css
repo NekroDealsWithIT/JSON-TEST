@@ -301,6 +301,29 @@ h5{
 .tableBaro td:first-child{
 	text-align: left;
 }
+.tdInvasion{
+	width: 20%;
+}
+
+
+.triangle-right {
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-left: 20px solid currentColor;
+	border-bottom: 10px solid transparent;
+	margin: auto;
+}
+.triangle-left {
+	width: 0;
+	height: 0;
+	border-top: 	.5rem solid transparent;
+	border-right: 	1rem solid currentColor;
+	border-bottom: 	.5rem solid transparent;
+	margin: auto;
+}
+
+
 .dropsTH{
 	color:tomato;
 	background-color:#333399; 
@@ -668,6 +691,9 @@ h5{
 	text-transform: capitalize;	
 }
 /*estados*/
+.invert{
+	transform: rotate(180deg);
+}
 .hidden{
 	display: none!important;
 }
