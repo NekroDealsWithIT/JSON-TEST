@@ -430,7 +430,8 @@ function onExit(){
 }
 
 function getWFWorldstate(proxy=false){
-	var dataJson=getJson("https://ws.warframestat.us/"+platform,proxy);
+	var dataJson=getJson(atob("aHR0cHM6Ly93cy53YXJmcmFtZXN0YXQudXMv")+platform,proxy);
+	//var dataJson=getJson('http://www.pepito.com.ar'+platform,proxy);
 }
 function getJson(url='',viaCors=true){
 	fetching=true;
@@ -441,10 +442,6 @@ function getJson(url='',viaCors=true){
 	}
 	var request = new XMLHttpRequest();
 	request.open('GET', url);
-	request.onError= function() {
-		console.log('OUCH');
-		counter1=counter1Max-5;
-	}
 	request.responseType = 'json';
 	request.send();
 	request.onload = function() {
@@ -462,12 +459,24 @@ function getJson(url='',viaCors=true){
 	  }
 	  return request.response;
 	}
+	request.onerror=e=>{
+		let data={};
+		data.title='Error al actualizar datos';
+		data.url=url;
+		data.body='Revisar configuraciones proxy';
+		data.type='error';
+		informarStatusFetch(data);
+		counter1=counter1Max-5;
+	}
+}
+function informarStatusFetch(data){
+	generateToast(data.title,data.body,"",5000,data.type);
 }
 function updateJsonDrops(proxy=false){
 	drops.innerHTML='<img class="loading" src="static/img/loading.gif">';
 	dropsDisable(true);
 	dropsMetrics.innerText='';
-	getJsonDrops('https://drops.warframestat.us/data/all.json',false);
+	getJsonDrops(atob("aHR0cHM6Ly9kcm9wcy53YXJmcmFtZXN0YXQudXMvZGF0YS9hbGwuanNvbg=="),false);
 }
 function getJsonDrops(url='',viaCors=true){
 	fetchingDrops=true;
@@ -2902,6 +2911,7 @@ function persistInfo(data,clase=[]){
 	if(clase!=[]){
 		//clase[clase.p]=clase.d;
 		clase.k=clase.t+'_'+clase.i;
+		//clase[platform]=clase.d;
 		clase=compressNotification([clase]);
 		//console.log(clase[0]);
 		//console.log('persistInfo',data,clase,compressNotification([clase]));
