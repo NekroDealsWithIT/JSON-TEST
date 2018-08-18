@@ -90,9 +90,11 @@
 	<div id="datosPagina"><img class="loading" src="static/img/loading.gif"></div>
 	<div id="timeStamp"></div>
 	<div id="workingOn" class="hidden"></div>
+	<style id="carouselStyle"></style>
+	<a href="#N"><section id="carousel"></section></a>
 
 	<a id="C"></a>
-	<h3 onclick="toggleHide('formContacto')">🌑 📨 Contactame 📨</h3>
+	<h3 onclick="toggleHide('formContacto')">📨 Contactame 📨</h3>
 	<div id="formContacto" class="hidden"><!-- class="hidden" -->
 		
 		<form class="formulario" action="#" method="post" id='contactMe' >
@@ -177,8 +179,9 @@
 
 		<a id="N"></a>
 		<h3 id="newsTitle" onclick="toggleHide('news');">🌑 News</h3>
-		<section id="news"><img class="loading" src="static/img/loading.gif"></section>
-		<br>
+		<p><a href='https://www.twitch.tv/Warframe'>Warframe Twitch</a></p>
+		<p><section id="news"><img class="loading" src="static/img/loading.gif"></section></p>
+		
 		<a id="T"></a>
 		<h3 id="timersTitle" onclick="toggleHide('timers');">🌑 Timers</h3>
 		<p><label>Minutos a notificar: <input type="text" id="timerNotificationTimes" onblur="updateNotificationTimers(this.value,true)" onkeyup="updateNotificationTimers(this.value)"></label></p>

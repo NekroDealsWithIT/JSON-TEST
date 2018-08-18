@@ -15,6 +15,8 @@
 	let notificationStatus={};
 	let notificationTimers=[50,30,20,10,5,2,1,-5,-10];
 
+	let carouselItems=[];
+
 	const persistentEnemiesProfiles={
 		'angst':'https://vignette.wikia.nocookie.net/warframe/images/e/ec/StrikerAcolyte.png',
 		'malice':'https://vignette.wikia.nocookie.net/warframe/images/1/1b/HeavyAcolyte.png',
@@ -449,15 +451,17 @@ function getJson(url='',viaCors=true){
 		resultJson.news.reverse();
 		arraySortByKey(resultJson.fissures,'tierNum',true);
 		// por si se trabo
-		speechSynthesis.cancel();
-	  // checkear la version sino recargar la pagina
-	  versionCheck();
-	  calculoQ.innerText=mAq();
-	  fetching=false;
-	  if (firstRun){
-	  	checkSystems();
-	  }
-	  return request.response;
+	    speechSynthesis.cancel();
+		// checkear la version sino recargar la pagina
+		versionCheck();
+		//generar carousel
+		generateCarousel(resultJson.news);
+		calculoQ.innerText=mAq();
+		fetching=false;
+		if (firstRun){
+			checkSystems();
+		}
+		return request.response;
 	}
 	request.onerror=e=>{
 		let data={};
@@ -467,6 +471,7 @@ function getJson(url='',viaCors=true){
 		data.type='error';
 		informarStatusFetch(data);
 		counter1=counter1Max-5;
+		fetching=false;
 	}
 }
 function informarStatusFetch(data){
@@ -523,7 +528,47 @@ function getFarmingMarks(){
 	farmingMarkComplete=pipedStringToArray(getCookie('farmingMarkComplete'));
 	llenarFarmingFocus();
 }
+function generateCarousel(data){
+	if (data.length!=carouselItems.length){
+		carouselItems=data;
+		let imgDelay=5;
+		let parseado='';
+		let parseadoStyle='@keyframes carouselFadeInOut {0% {opacity:1;}17% {opacity:1;}25% { opacity:0;}92% { opacity:0;}100% {opacity:1;}}'+
+							'#carousel {position:relative;height:50vh;margin:10px auto;margin-bottom:20vh}'+
+							'#carousel div {width:100%;position:absolute;left:0;opacity:0;}'+
+							'#carousel img {width:100%;height:50vh;position:absolute;left:0;}'+
+							'#carousel div {animation-name: carouselFadeInOut;animation-timing-function: ease-in-out;animation-iteration-count: infinite;animation-duration: '+imgDelay*carouselItems.length+'s;}'
+		let idSelector=0;
+		carouselItems.forEach(n=>{
+			if(n.imageLink!=undefined&&n.imageLink!=''){
+				
+				let d={};
+				let tipoNews='';
+				tipoNews+=n.primeAccess!=undefined&&n.primeAccess==true?' (PRIME ACCESS) ':'';
+				tipoNews+=n.priority!=undefined&&n.priority==true?' (PRIORITY) ':'';
+				tipoNews+=n.stream!=undefined&&n.stream==true?' (STREAM) ':'';
+				tipoNews+=n.update!=undefined&&n.update==true?' (UPDATE) ':'';
 
+				d.il=securizeUrl(n.imageLink);
+				d.m=n.message;
+				d.l=n.link;
+				d.d=n.date;
+				d.dId='carrouselDiv'+n.id;
+				d.iId='carrouselImg'+n.id;
+
+				parseado+='<div id="'+d.dId+'"><h4>['+(idSelector+1)+'] '+(tipoNews!=''?'<span class="infested">'+tipoNews+'</span> ':'')+d.m+'</h4><img id="'+d.iId+'" alt="'+d.m+'" src="'+d.il+'"></img></div>';
+				
+				console.log(d.m)
+				let delay=imgDelay*idSelector+'s';
+				parseadoStyle+='#'+d.dId+',#'+d.iId+'{animation-delay: '+delay+';}';
+
+				idSelector++;
+			}
+		});
+		carouselStyle.innerHTML+=parseadoStyle;
+		carousel.innerHTML=parseado;
+	}
+}
 function checkSystems(){
 	if (firstRun){
 		if(resultJson!=''){
@@ -1823,7 +1868,7 @@ function rellenarDatos(){
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
 
-			var txtCopiar="'Alerta: "+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" {Nightmare}":"")+(a.mission.archwingRequired?" {Archwing}":"")+" {"+strDiff((a.eta),diff)+"}"+(alertaCompleta?' (Completa) ':'')+' (http://nekro-warframe.netlify.com)'+"'";
+			var txtCopiar="'Alerta: "+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" (Nightmare)":"")+(a.mission.archwingRequired?" (Archwing)":"")+" ("+strDiff((a.eta),diff)+")"+(alertaCompleta?' (Completa) ':'')+' (https://nekro-warframe.netlify.com)'+"'";
 			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 
 			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
@@ -2043,7 +2088,7 @@ function rellenarDatos(){
 				// agrego la invasionActiva
 				invasionActivaArr.push(inv.id);
 
-				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+(invasionCompleta?' (Completa) ':'')+' {http://nekro-warframe.netlify.com}'+"'";
+				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+(invasionCompleta?' (Completa) ':'')+' (https://nekro-warframe.netlify.com)'+"'";
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
@@ -2088,7 +2133,7 @@ function rellenarDatos(){
 				// agego la sortieActiva
 				sortieActivaArr.push(v.missionType+v.node+v.modifier);
 
-				var txtCopiar="'"+"Sortie: "+v.missionType+"|"+v.node+"|"+sortieFaction.toUpperCase()+"|"+v.modifier+"|"+sortieData.eta+(sortieCompleta?' (Completa) ':'')+' {http://nekro-warframe.netlify.com}'+"'";
+				var txtCopiar="'"+"Sortie: "+v.missionType+"|"+v.node+"|"+sortieFaction.toUpperCase()+"|"+v.modifier+"|"+sortieData.eta+(sortieCompleta?' (Completa) ':'')+' (https://nekro-warframe.netlify.com)'+"'";
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
@@ -2120,10 +2165,10 @@ function rellenarDatos(){
 			var td=[];
 			var fisureFaction=f.enemy.toLowerCase();
 
-			//var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
+			//var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+' (https://nekro-warframe.netlify.com)'+"'";
 			//var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img><br>";
 
-			var txtCopiar="'"+"Fissure: "+f.tier+' ('+f.tierNum+')'+"|"+f.node+"|"+f.enemy.toUpperCase()+' - '+f.missionType+"|"+strDiff(f.eta,diff)+' {http://nekro-warframe.netlify.com}'+"'";
+			var txtCopiar="'"+"Fissure: "+f.tier+' ('+f.tierNum+')'+"|"+f.node+"|"+f.enemy.toUpperCase()+' - '+f.missionType+"|"+strDiff(f.eta,diff)+' (https://nekro-warframe.netlify.com)'+"'";
 			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 
@@ -2157,7 +2202,7 @@ function rellenarDatos(){
 			tabTitleBaro.innerHTML='Baro ('+strDiff((baroData.startString),diff)+')';
 		}
 		itemsBaro=strReplaceAllNonPrintable(itemsBaro);
-		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' {'+strDiff((baroData.startString),diff)+"} "+" | "+' Se va:{'+strDiff((baroData.endString),diff)+"}"+(baroData.active?' | Items: '+itemsBaro:'')+' {http://nekro-warframe.netlify.com}'+"'";
+		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' ('+strDiff((baroData.startString),diff)+") "+" | "+' Se va:('+strDiff((baroData.endString),diff)+")"+(baroData.active?' | Items: '+itemsBaro:'')+' (https://nekro-warframe.netlify.com)'+"'";
 		txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 		var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
@@ -2183,7 +2228,7 @@ function rellenarDatos(){
 				persistInfo(cookieStore,persistObject);
 
 				//Agrego copiar
-				var txtCopiar="'"+"Baro: "+item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+" | Ubicacion: "+baroData.location+' ('+strDiff((baroData.endString),diff)+') {http://nekro-warframe.netlify.com}'+"'";
+				var txtCopiar="'"+"Baro: "+item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+" | Ubicacion: "+baroData.location+' ('+strDiff((baroData.endString),diff)+') (https://nekro-warframe.netlify.com)'+"'";
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 
@@ -2215,7 +2260,7 @@ function rellenarDatos(){
 
 				s.nodes.forEach(function (n){
 					//Agrego copiar
-					var txtCopiar="'"+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+n+' {http://nekro-warframe.netlify.com}'+"'";
+					var txtCopiar="'"+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+n+' (https://nekro-warframe.netlify.com)'+"'";
 					var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 
 					parseado+='<li class="syndicateNode">'+imgCopiar+n+"</li>";
@@ -2251,7 +2296,7 @@ function rellenarDatos(){
 					var rewards="<h4>Rewards"+" | ("+strDiff(s.eta,diff)+"):</h4><ol>";
 					j.rewardPool.forEach(function (rp){
 						//Agrego copiar
-						var txtCopiar="'Syndicate Faction: "+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+j.type+" | "+enemyLevels+" | "+"Standing ["+j.standingStages.length+"]: "+standingStages+" | "+rp+' {http://nekro-warframe.netlify.com}'+"'";						
+						var txtCopiar="'Syndicate Faction: "+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+j.type+" | "+enemyLevels+" | "+"Standing ("+j.standingStages.length+"): "+standingStages+" | "+rp+' (https://nekro-warframe.netlify.com)'+"'";						
 						txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 						generalSyndicateCopy+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 						var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
@@ -2919,11 +2964,11 @@ function persistInfo(data,clase=[]){
 }
 
 function warframeCopyToClipboard(data,title=''){
-	let url='(http://nekro-warframe.netlify.com)';
+	let url='(https://nekro-warframe.netlify.com)';
 	let items=pipedStringToArray(data,'\n');
 
-	data=strReplaceAll(data,'{http://nekro-warframe.netlify.com}','');
-	data=strReplaceAll(data,'(http://nekro-warframe.netlify.com)','');
+	data=strReplaceAll(data,'(https://nekro-warframe.netlify.com)','');
+	data=strReplaceAll(data,'(https://nekro-warframe.netlify.com)','');
 	
 	title=title+' {'+items.length+'} ('+ dateToString(new Date()) +') '+url+'\n';
 	data=title+data;
