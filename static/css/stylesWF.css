@@ -203,7 +203,8 @@ h5{
   	padding: 2px 0 0 12px;
   	justify-content: flex-end;	
   	z-index: 5;
-  	
+  	margin-left: auto;
+  	width:10%;
 }
 #botonera input[type=checkbox]:checked{
 	color:green;
