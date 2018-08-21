@@ -558,7 +558,6 @@ function generateCarousel(data){
 
 				parseado+='<div id="'+d.dId+'"><h4>['+(idSelector+1)+'] '+(tipoNews!=''?'<span class="infested">'+tipoNews+'</span> ':'')+d.m+'</h4><img id="'+d.iId+'" alt="'+d.m+'" src="'+d.il+'"></img></div>';
 				
-				console.log(d.m)
 				let delay=imgDelay*idSelector+'s';
 				parseadoStyle+='#'+d.dId+',#'+d.iId+'{animation-delay: '+delay+';}';
 
