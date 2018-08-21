@@ -2051,10 +2051,10 @@ function rellenarDatos(){
 		// parseado='<a id="I"></a>';
 		// parseado+='<h3>Invasiones</h3>'
 		
-		parseado+='<div>Construcciones:'
+		parseado+='<div class="">Construcciones:'
 		parseado+='<ul><li class="grineer">Fomorian: '+resultJson.constructionProgress.fomorianProgress+'%</li>'
 		parseado+='<li class="corpus">RazorBack: '+resultJson.constructionProgress.razorbackProgress+'%</li>'
-		parseado+='<li class="infested">Unknown: '+resultJson.constructionProgress.unknownProgress+'%</li></ul></div'
+		parseado+='<li class="infested hidden">Unknown: '+resultJson.constructionProgress.unknownProgress+'%</li></ul></div'
 		
 		var invasionData=resultJson.invasions;
 		//ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Porcentaje','invTH'],['Ataca','invTH'],['Reward A','invTH'],['Defiende','invTH'],['Reward D','invTH'],['VS infested','invTH']])

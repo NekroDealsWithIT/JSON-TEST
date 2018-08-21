@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">
 	
 	<!-- javascript -->
+	<script type="text/javascript" src="static/js/default.js"></script>
 	<script type="text/javascript" src="static/js/tools.js"></script>
 	<script type="text/javascript" src="static/js/wf.js"></script>
 	<script type="text/javascript" src="static/js/profiler.js"></script>
@@ -40,9 +41,16 @@
 <div class="content">
 	<h1>Warframe profiler</h1>
 	<h4>Aqui se ve toda la info tanto de Warframes como de armas</h4>
-	<p><a href="http://warframe.wikia.com/wiki/Passives" target="blank">Pasivas de armas y warframes</a></p>
-	<p><label><input type="checkbox" onclick="showAllImages=this.checked;redrawItems(we);redrawItems(wa);">Mostrar imagenes</label></p>
-	<p><label><input type="checkbox" onclick="showVideos=this.checked;redrawItems(we);redrawItems(wa);">Mostrar Videos</label></p>
+	<section>
+		<h4>☆ Style ☆</h4>
+		<div class="tabFrame">
+			<div class="tab">
+				<button class="tablinks" id="styleSelectorNormal" data-idGroupName="styleSelectorTab" name="normal" onclick="openTab(event, this.name,false);setStyle(this.name);">☆ Normal</button>
+				<button class="tablinks" id="styleSelectorHighContrast" data-idGroupName="styleSelectorTab" name="highContrast" onclick="openTab(event, this.name,false);setStyle(this.name);">★ High contrast</button>
+			</div>
+		</div> 
+	</section>
+
 	<!-- 
 		chequear precios warframe.market
 		https://api.warframe.market/v1/items/[ID]/orders?include=item 

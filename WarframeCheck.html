@@ -86,6 +86,15 @@
 	<header class="headLogo">
 		<h1 onclick="toggleHide('workingOn');">Warframe check by Nekro (click para ver que se esta gestando)</h1>
 	</header>
+	<section>
+		<h4>☆ Style ☆</h4>
+		<div class="tabFrame">
+			<div class="tab">
+				<button class="tablinks" id="styleSelectorNormal" data-idGroupName="styleSelectorTab" name="normal" onclick="openTab(event, this.name,false);setStyle(this.name);">☆ Normal</button>
+				<button class="tablinks" id="styleSelectorHighContrast" data-idGroupName="styleSelectorTab" name="highContrast" onclick="openTab(event, this.name,false);setStyle(this.name);">★ High contrast</button>
+			</div>
+		</div> 
+	</section>
 	<div id="ultimaVersion"></div>
 	<div id="datosPagina"><img class="loading" src="static/img/loading.gif"></div>
 	<div id="timeStamp"></div>
@@ -401,6 +410,7 @@
 </div>
 
 <!-- javascript -->
+<script type="text/javascript" src="static/js/default.js"></script>
 <script type="text/javascript" src="static/js/indexedDB.js"></script>
 <script type="text/javascript" src="static/js/moment.min.js"></script>
 <script type="text/javascript" src="static/js/wf.js"></script>

@@ -6,6 +6,15 @@ html {
   box-sizing: border-box;
 
 }
+.highContrast *, .highContrast{
+	background: #000 !important;
+	background-color: #000 !important;
+	color: #fff !important;
+	text-decoration: none !important;
+}
+.highContrast td{
+	border:1px solid white!important;
+}
 body{
 	/*trabajo el fondo con mediaquery*/
 	background-color: black;
