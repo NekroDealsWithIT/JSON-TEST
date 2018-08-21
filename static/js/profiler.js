@@ -17,7 +17,7 @@ var wa='warframes';
 var pr='prices';
 
 var showVideos=false;
-var videosArr=[
+const videosArr=[
 		{wf:'Khora', p:'jaK6cZk-Ris'},
 		{wf:'Gara',	p:'UM0KhiQVOa0'},
 		{wf:'Oberon', p:'bKUC9XyrhRQ', t:'Ij8Ql_RbdT8'},
@@ -55,7 +55,7 @@ var videosArr=[
 		{wf:'Vauban', p:'pQgp_dfJ_oI', t:'lm6DS3IDYqI'}
 	];
 
-var polarities=[
+const polarities=[
 		["madurai","V","(Damage, Powers) - Commonly dropped by Grineer.","https://vignette.wikia.nocookie.net/warframe/images/b/b2/Madurai_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
 		["vazarin","D","(Defensive, Health, Armor) - Dropped by all factions.","https://vignette.wikia.nocookie.net/warframe/images/6/6f/Vazarin_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001231"],
 		["naramon","Dash","(Utiliy, Misc.) - Commonly dropped by Corpus.","https://vignette.wikia.nocookie.net/warframe/images/6/60/Naramon_Pol.svg/revision/latest/scale-to-width-down/20?cb=20150301001230"],
@@ -65,7 +65,7 @@ var polarities=[
 		["umbra","U","(Anti-Sentient Mods) - Obtained upon completion of The Sacrifice.","https://vignette.wikia.nocookie.net/warframe/images/a/a8/Umbra_Pol.png/revision/latest/scale-to-width-down/20?cb=20180615163632"]
 	];
 
-var imagesDamageTypes={
+const imagesDamageTypes={
 	'impact':'https://vignette.wikia.nocookie.net/warframe/images/c/c9/Impact_b.svg/revision/latest/scale-to-width-down/18?cb=20150811174304',
 	'puncture':'https://vignette.wikia.nocookie.net/warframe/images/8/89/Puncture_b.svg/revision/latest/scale-to-width-down/18?cb=20150810075255',
 	'slash':'https://vignette.wikia.nocookie.net/warframe/images/5/54/Slash_b.svg/revision/latest/scale-to-width-down/18?cb=20150811174234',
@@ -82,6 +82,31 @@ var imagesDamageTypes={
 	'true':'https://vignette.wikia.nocookie.net/warframe/images/7/75/LotusBlack.png/revision/latest/scale-to-width-down/18?cb=20140311074920',
 	'void':'https://vignette.wikia.nocookie.net/warframe/images/5/57/VoidTearIcon_b.png/revision/latest/scale-to-width-down/18?cb=20160713085454'
 };
+
+let schools=[
+	{'d':'Madurai','i':'https://vignette.wikia.nocookie.net/warframe/images/1/17/FocusLensMadurai_b.png/revision/latest/scale-to-width-down/80?cb=20151206123922','items':[]},
+	{'d':'Vazarin','i':'https://vignette.wikia.nocookie.net/warframe/images/9/98/FocusLensVazarin_b.png/revision/latest/scale-to-width-down/80?cb=20151206123924','items':[]},
+	{'d':'Naramon','i':'https://vignette.wikia.nocookie.net/warframe/images/6/6d/FocusLensNaramon_b.png/revision/latest/scale-to-width-down/80?cb=20151206123923','items':[]},
+	{'d':'Unairu','i':'https://vignette.wikia.nocookie.net/warframe/images/7/78/FocusLensUnairu_b.png/revision/latest/scale-to-width-down/80?cb=20151206123924','items':[]},
+	{'d':'Zenurik','i':'https://vignette.wikia.nocookie.net/warframe/images/1/1e/FocusLensZenurik_b.png/revision/latest/scale-to-width-down/80?cb=20151206123925','items':[]}
+]
+
+let lenses=[
+	{'d':'Regular lens','i':'https://vignette.wikia.nocookie.net/warframe/images/3/3a/FocusLens1Rank_sq.png/revision/latest/scale-to-width-down/150?cb=20171128210610','items':[]},
+	{'d':'Greater lens','i':'https://vignette.wikia.nocookie.net/warframe/images/a/ad/FocusLens2Rank_sq.png/revision/latest/scale-to-width-down/150?cb=20171128210644','items':[]},
+	{'d':'Eidolon lens','i':'https://vignette.wikia.nocookie.net/warframe/images/8/85/EidolonLens.png/revision/latest/scale-to-width-down/150?cb=20171128210727','items':[]}
+]
+
+//let attachedItemsWarframes={};
+
+let arrReactors=[];
+let arrCatalysts=[];
+let arrExilus=[];
+let arrFormas={};
+let arrEnInventario=[];
+let arrLentes={};
+let arrSchools={};
+
 updateWeapons();
 updateWarframes();
 //updatePrices();
@@ -106,6 +131,7 @@ function updateWeapons(result=''){
 		weapons=result;
 		if (weapons.length!=0&&weapons.length!=undefined){
 			generateToast("Contenido cargado ["+weapons.length+"]",we.toUpperCase(),"",5000,'info',"nfc-bottom-right");
+			//getAttached();
 			redrawItems(we);
 		}else{
 			generateToast("Error cargando contenido",we.toUpperCase()+"<br>"+weapons,"",5000,'error',"nfc-bottom-right");
@@ -120,6 +146,7 @@ function updateWarframes(result=''){
 		if(warframes.length!=0&&warframes.length!=undefined){
 			generateToast("Contenido cargado ["+warframes.length+"]",wa.toUpperCase(),"",5000,'info',"nfc-bottom-right");
 			generalTabSelectorWarframes.click();
+			//getAttached();
 			redrawItems(wa);
 		}else{
 			generateToast("Error cargando contenido",wa.toUpperCase()+"<br>"+warframes,"",5000,'error',"nfc-bottom-right");
@@ -458,6 +485,41 @@ function weaponToHTML(wea){
 	'<p>Mastery Req: ('+wea.masteryReq+') '+masteryRadios+'</p>'+
 	// '<p>Sentinel: '+wea.sentinel+'</p>'+
 	'<p>Riven Disposition: '+'('+wea.disposition+') '+rivenRadios+'</p>';
+	
+
+	
+	let name=wea.name;
+	let type='weapon';
+	let container=strReplaceAll(wea.uniqueName,"/","_");
+	let id=type+'-'+wea.name;
+
+	let checked=wea.inventory!=undefined && wea.inventory==true?'checked':'';
+	parseado+='<p><label><input onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"inventory"+"'"+',this.checked,'+"'"+container+"'"+');" type="checkbox" id="'+id+'Inventory'+'" '+checked+'>In inventory</label></p>';
+	checked=wea.catalyst!=undefined && wea.catalyst==true?'checked':'';
+	parseado+='<p><label><input onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"catalyst"+"'"+',this.checked,'+"'"+container+"'"+');" type="checkbox" id="'+id+'Catalyst'+'" '+checked+'>Catalyst</label></p>';
+	checked=wea.formas!=undefined?wea.formas:0;
+	parseado+='<p><label>Formas <input onchange="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"formas"+"'"+',this.value,'+"'"+container+"'"+');" type="number" value="'+checked+'" id="'+id+'Formas'+'" style="width: 50px;"></label></p>';
+	
+	parseado+='<div class="hidden">';
+	parseado+='<h4 onclick="toggleHide('+"'lenses"+id+"'"+')">Lenses</h4><ul id="lenses'+id+'" class="">';
+	parseado+='<li><label><input type="radio" value="none" name="lense'+id+'" onchange="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"lense"+"'"+',this.value,'+"'"+container+"'"+');" checked><img class="spanPolarity" src="static/img/no.ico" alt="none"> None</label></li>';
+	lenses.forEach(l=>{
+		let checked='';
+		parseado+='<li><label><input type="radio" value="'+l.d+'" onchange="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"lense"+"'"+',this.value,'+"'"+container+"'"+');" name="lense'+id+'" '+checked+'><img class="spanPolarity" src="'+l.i+'" alt="'+l.d+'"> '+l.d+'</label></li>';
+	});
+	parseado+='</ul>';
+
+	parseado+='<h4 onclick="toggleHide('+"'schools"+id+"'"+')">Schools</h4><ul id="schools'+id+'" class="">';
+	parseado+='<li><label><input type="radio" value="none" name="school'+id+'" onchange="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"school"+"'"+',this.value,'+"'"+container+"'"+');" checked><img class="spanPolarity" src="static/img/no.ico" alt="none"> None</label></li>';
+	schools.forEach(s=>{
+		let checked='';
+		parseado+='<li><label><input type="radio" onchange="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"school"+"'"+',this.value,'+"'"+container+"'"+');" value="'+s.d+'" name="school'+id+'" '+checked+'><img class="spanPolarity" src="'+s.i+'" alt="'+s.d+'"> '+s.d+'</label></li>';
+	});
+	parseado+='</ul>';
+	parseado+='</div>'
+
+
+
 	if(wea.polarities!=undefined&&wea.polarities.length>0){
 		parseado+=generatePolaritiesHTML(wea.polarities,new Date().getTime()+wea.category+wea.name,wea.name);
 	}
@@ -564,6 +626,48 @@ function warframeToHTML(war){
 			}
 		})
 	}
+	
+
+
+	
+	let name=war.name
+	let type='warframe'
+	let container=strReplaceAll(war.uniqueName,"/","_");
+	let id=type+'_'+war.name;
+
+	let checked=war.inventory!=undefined && war.inventory==true?'checked':'';
+	parseado+='<p><label><input onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"inventory"+"'"+',this.checked,'+"'"+container+"'"+');" type="checkbox" id="'+id+'Inventory'+'" '+checked+'>In inventory</label></p>';
+	checked=war.reactor!=undefined && war.reactor==true?'checked':'';
+	parseado+='<p><label><input onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"reactor"+"'"+',this.checked,'+"'"+container+"'"+');" type="checkbox" id="'+id+'Reactor'+'" '+checked+'>Reactor</label></p>';
+	checked=war.exilus!=undefined && war.exilus==true?'checked':'';
+	parseado+='<p><label><input onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"exilus"+"'"+',this.checked,'+"'"+container+"'"+');" type="checkbox" id="'+id+'Exilus'+'"'+checked+'>Exilus</label></p>';
+	checked=war.formas!=undefined?war.formas:0;
+	parseado+='<p><label>Formas <input onchange="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"formas"+"'"+',this.value,'+"'"+container+"'"+');" type="number" value="'+checked+'" id="'+id+'Formas'+'" style="width: 50px;"></label></p>';
+	
+	parseado+='<div class="hidden">';
+	parseado+='<h4 onclick="toggleHide('+"'lenses"+id+"'"+')">Lenses</h4><ul id="lenses'+id+'" class="">';
+	parseado+='<li><label><input type="radio" value="none" name="lense'+id+'" onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"lense"+"'"+','+"'none'"+','+"'"+container+"'"+');" checked><img class="spanPolarity" src="static/img/no.ico" alt="none"> None</label></li>';
+	lenses.forEach(l=>{
+		checkeado='';
+		if(war.lense=!undefined&&war.lense==l.d){checkeado=' checked';};
+		//if(arrLentes[name]=!undefined&&arrLentes[name]==l.d){checked=' checked';};
+		if(arrLentes[name]=!undefined&&arrLentes[name]==l.d){checkeado=' checked';};
+		//(arrLentes[name]!=undefined?console.log('-'+arrLentes[name]+'-',l.d,checked):'');
+		parseado+='<li><label><input type="radio" value="'+l.d+'" onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"lense"+"'"+','+"'"+l.d+"'"+','+"'"+container+"'"+');" name="lense'+id+'" '+checkeado+'><img class="spanPolarity" src="'+l.i+'" alt="'+l.d+'"> '+l.d+'</label></li>';
+	});
+	parseado+='</ul>';
+
+
+	parseado+='<h4 onclick="toggleHide('+"'schools"+id+"'"+')">Schools</h4><ul id="schools'+id+'" class="">';
+	parseado+='<li><label><input type="radio" value="none" name="school'+id+'" onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"school"+"'"+',this.value,'+"'"+container+"'"+');" checked><img class="spanPolarity" src="static/img/no.ico" alt="none"> None</label></li>';
+	schools.forEach(s=>{
+		let checkeado=war.school=!undefined&&war.school==s.d?'checked':'';
+		parseado+='<li><label><input type="radio" onclick="updateAttached('+"'"+type+"',"+"'"+name+"'"+','+"'"+"school"+"'"+',this.value,'+"'"+container+"'"+');" value="'+s.d+'" name="school'+id+'" '+checkeado+'><img class="spanPolarity" src="'+s.i+'" alt="'+s.d+'"> '+s.d+'</label></li>';
+	});
+	parseado+='</ul>';
+	parseado+='</div>';
+
+
 	if(war.polarities!=undefined){
 		parseado+=generatePolaritiesHTML(war.polarities,new Date().getTime()+war.category+war.name,war.name);
 	}
@@ -587,6 +691,138 @@ function warframeToHTML(war){
 	parseado+='</div><hr>';
 	return parseado;
 }
+function updateAttached(type,name,itemID,itemValue,container){
+	//console.log(type,name,itemID,'*'+itemValue+'*');
+	let obj;
+	if(type=='warframe'){
+		warframes.forEach(w=>{
+			//w.name==name?obj=w:''
+			if(w.name==name){
+				w[itemID]=itemValue;
+				obj=w;
+			}
+		});
+		
+	}else{
+		weapons.forEach(w=>{
+			if(w.name==name){
+				w[itemID]=itemValue;
+				obj=w;
+			}
+		});
+	}
+	//obj[itemID]=itemValue;
+	switch(itemID){
+		case "formas":
+			arrFormas[name]=itemValue;
+			var textoCookie='';
+			Object.keys(arrFormas).forEach(function(k) {
+				textoCookie+=(textoCookie!=''?"|":'')+k+'='+arrFormas[k];
+			});
+			setCookie('Formas',textoCookie,365*24*60*60*1000);
+			break;
+		case "inventory":
+			itemValue==true?arrEnInventario.push(name):arrayRemove(arrEnInventario,name);
+			setCookie('Inventory',arrayToPipedString(arrEnInventario),365*24*60*60*1000);
+			break;
+		case "reactor":
+			itemValue==true?arrReactors.push(name):arrayRemove(arrReactors,name);
+			setCookie('Reactors',arrayToPipedString(arrReactors),365*24*60*60*1000);
+			break;
+		case "catalyst":
+			itemValue==true?arrCatalysts.push(name):arrayRemove(arrCatalysts,name);
+			setCookie('Catalysts',arrayToPipedString(arrCatalysts),365*24*60*60*1000);
+			break;
+		case "exilus":
+			itemValue==true?arrExilus.push(name):arrayRemove(arrExilus,name);
+			setCookie('Exilus',arrayToPipedString(arrExilus),365*24*60*60*1000);
+			break;
+		case "lense":
+			console.log(arrLentes)
+			arrLentes[name]=itemValue;
+			console.log(arrLentes)
+			var textoCookie='';
+			Object.keys(arrLentes).forEach(function(k) {
+				textoCookie+=(textoCookie!=''?"|":'')+k+'='+arrLentes[k];
+			});
+			setCookie('Lentes',textoCookie,365*24*60*60*1000);
+			break;
+		case "school":
+			arrSchools[name]=itemValue;
+			var textoCookie='';
+			Object.keys(arrSchools).forEach(function(k) {
+				textoCookie+=(textoCookie!=''?"|":'')+k+'='+arrSchools[k];
+			});
+			setCookie('Schools',textoCookie,365*24*60*60*1000);
+			break;		
+		default:
+	}
+	if(type=='warframe'){
+		//document.querySelector("#"+container).innerHTML=warframeToHTML(obj);
+	}else{
+		document.querySelector("#"+container).innerHTML=weaponToHTML(obj)
+	}
+}
+
+function getAttached(){
+	let formas=getCookieArray("Formas");
+	let reactors=getCookieArray("Reactors");
+	let catalysts=getCookieArray("Catalysts");
+	let exilus=getCookieArray("Exilus");
+	let lenses=getCookieArray("Lentes");
+	let schools=getCookieArray("Schools");
+	let inventory=getCookieArray("Inventory");
+
+	if (formas!=''){
+		formas.forEach(f=>{
+			f=f.split("=");
+			arrFormas[f[0]]=f[1];
+			warframes!=''?warframes.forEach(w=>{w.name==f[0]?w.formas=f[1]:''}):'';
+			weapons!=''?weapons.forEach(w=>{w.name==f[0]?w.formas=f[1]:''}):'';
+		});
+	}
+	if(lenses!=''){
+		lenses.forEach(f=>{
+			f=f.split("=");
+			arrLentes[f[0]]=f[1];
+			warframes!=''?warframes.forEach(w=>{w.name==f[0]?w.lense=f[1]:''}):'';
+			weapons!=''?weapons.forEach(w=>{w.name==f[0]?w.lense=f[1]:''}):'';
+		});
+	}
+	if(schools!=''){
+		schools.forEach(f=>{
+			f=f.split("=");
+			arrSchools[f[0]]=f[1];
+			warframes!=''?warframes.forEach(w=>{w.name==f[0]?w.school=f[1]:''}):'';
+			weapons!=''?weapons.forEach(w=>{w.name==f[0]?w.school=f[1]:''}):'';
+		});
+	}
+	if(inventory!=''){
+		inventory.forEach(r=>{
+			warframes!=''?warframes.forEach(w=>{w.name==r?w.inventory=true:''}):'';
+			weapons!=''?weapons.forEach(w=>{w.name==r?w.inventory=true:''}):'';		
+		});
+	}
+	if(reactors!=''){
+		reactors.forEach(r=>{
+			warframes!=''?warframes.forEach(w=>{w.name==r?w.reactor=true:''}):'';
+			//weapons!=''?weapons.forEach(w=>{w.name==r?w.reactor=true:''}):'';		
+		});
+	}
+	if(exilus!=''){
+		exilus.forEach(e=>{
+			warframes!=''?warframes.forEach(w=>{w.name==e?w.exilus=true:''}):'';
+			//weapons!=''?weapons.forEach(w=>{w.name==r?w.reactor=true:''}):'';		
+		});
+	}
+	if(catalysts!=''){
+		catalysts.forEach(c=>{
+			//warframes!=''?warframes.forEach(w=>{w.c==name?w.catalyst=true:''}):'';
+			weapons!=''?weapons.forEach(w=>{w.c==name?w.catalyst=true:''}):'';		
+		});
+	}
+}
+
 
 function generatePatchlogsHTML(pl,id,nombre,hidden=true){
 	var parseado='';
