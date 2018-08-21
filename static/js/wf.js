@@ -1860,7 +1860,7 @@ function rellenarDatos(){
 		// parseado+='<h3>Alertas</h3>';
 		
 		var alertsData=resultJson.alerts;
-		ths.push([['Tiempo','alertTH'],['Mods','alertTH'],['Tipo Mision','alertTH'],['Nodo','alertTH'],['Faccion','alertTH'],['Nivel','alertTH'],['Reward','alertTH']])
+		ths.push([['Tiempo','alertTH'],['Tipo Mision','alertTH'],['Nodo','alertTH'],['Faccion','alertTH'],['Reward','alertTH']])
 		alertsData.forEach(function(a){
 			var td=[];
 			var idFaction=a.mission.faction.toLowerCase();
@@ -1909,16 +1909,20 @@ function rellenarDatos(){
 
 			td.push([checkBoxCompleted+'<img src="'+compressURL(a.mission.reward.thumbnail,true) +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff),'tdAlert '+idFaction]);
 			var modifs='';
+			/*
 			(a.mission.nightmare?modifs+='N ':'');
 			(a.mission.archwingRequired?modifs+='Aw ':'');
 			td.push([modifs,'tdAlert '+idFaction+isCompleted]);
 			modifs='';
-			modifs=(a.mission.maxWaveNum!=undefined&&a.mission.maxWaveNum!='')?'Waves:'+ a.mission.maxWaveNum :'';
+			*/
+			(a.mission.nightmare?modifs+='N ':'');
+			(a.mission.archwingRequired?modifs+='Aw ':'');
+			modifs+=(a.mission.maxWaveNum!=undefined&&a.mission.maxWaveNum!='')?'Waves:'+ a.mission.maxWaveNum :'';
 			modifs=(modifs!='')?' ('+modifs+')':'';
 			td.push([a.mission.type+modifs,'tdAlert '+idFaction+ isCompleted]);
 			td.push([a.mission.node,'tdAlert '+idFaction+ isCompleted]);
-			td.push([idFaction.toUpperCase(),'tdAlert '+idFaction+ isCompleted]);
-			td.push([a.mission.minEnemyLevel+'-'+a.mission.maxEnemyLevel,'tdAlert '+idFaction+ isCompleted]);
+			td.push([idFaction.toUpperCase()+' ('+a.mission.minEnemyLevel+'-'+a.mission.maxEnemyLevel+')','tdAlert '+idFaction+ isCompleted]);
+			// td.push([a.mission.minEnemyLevel+'-'+a.mission.maxEnemyLevel,'tdAlert '+idFaction+ isCompleted]);
 			td.push(['<a href="http://warframe.wikia.com/wiki/Special:Search?search='+a.mission.reward.asString+'" target="blank">'+a.mission.reward.asString+'</a>','tdAlert '+idFaction+ isCompleted]);
 			if (!a.expired){tds.push(td);}
 		});
