@@ -11,6 +11,7 @@ html {
 	background-color: #000 !important;
 	color: #fff !important;
 	text-decoration: none !important;
+	border-color: white !important;
 }
 .highContrast td{
 	border:1px solid white!important;
