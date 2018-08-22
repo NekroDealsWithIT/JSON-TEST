@@ -1861,12 +1861,13 @@ function rellenarDatos(){
 		
 		var alertsData=resultJson.alerts;
 		ths.push([['Tiempo','alertTH'],['Tipo Mision','alertTH'],['Nodo','alertTH'],['Faccion','alertTH'],['Reward','alertTH']])
+		let countAlertasCompletas=0;
 		alertsData.forEach(function(a){
 			var td=[];
 			var idFaction=a.mission.faction.toLowerCase();
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
-
+			alertaCompleta?countAlertasCompletas++:'';
 			var txtCopiar="'Alerta: "+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" (Nightmare)":"")+(a.mission.archwingRequired?" (Archwing)":"")+" ("+strDiff((a.eta),diff)+")"+(alertaCompleta?' (Completa) ':'')+' (https://nekro-warframe.netlify.com)'+"'";
 			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 
@@ -1930,8 +1931,8 @@ function rellenarDatos(){
 		parseado += generateTable(tds,ths,'tableAlerts enlargeMe','','');
 		parseado += '<hr>';
 		alerts.innerHTML=parseado;
-		alertsTitle.innerHTML='🌑 Alertas ['+alertaActivaArr.length+']';
-		tabTitleAlertas.innerHTML='Alertas ['+alertaActivaArr.length+']';
+		alertsTitle.innerHTML='🌑 Alertas ['+countAlertasCompletas+'-'+alertaActivaArr.length+']';
+		tabTitleAlertas.innerHTML='Alertas ['+countAlertasCompletas+'-'+alertaActivaArr.length+']';
     	
     	//Persistent enemies
     	if(resultJson.persistentEnemies!=undefined&&resultJson.persistentEnemies.length>0){
@@ -2064,6 +2065,7 @@ function rellenarDatos(){
 		//ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Porcentaje','invTH'],['Ataca','invTH'],['Reward A','invTH'],['Defiende','invTH'],['Reward D','invTH'],['VS infested','invTH']])
 		ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Defiende','invTH'],['Porcentaje','invTH'],['Ataca','invTH']])
 		txtCopyAll='';
+		let countInvasionsCompletas=0;
 		invasionData.forEach(function(inv){
 			var td=[];
 			if (!inv.completed){
@@ -2085,6 +2087,7 @@ function rellenarDatos(){
 				var def=inv.defendingFaction.toLowerCase();
 				var idInvasion="'"+inv.id+"'";
 				var invasionCompleta=chequearCompleto(inv.id);
+				invasionCompleta?countInvasionsCompletas++:'';
 				var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idInvasion+')"'+(invasionCompleta?' checked':'')+'>Completa?</label><br>'
 				var isCompleted=(invasionCompleta?' completed':'');
 
@@ -2108,8 +2111,8 @@ function rellenarDatos(){
 		parseado += '<div>'+generateTable(tds,ths,'tableInvasion','','border="1px solid white"')+'</div>';
 		parseado += '<hr>';
 		invasions.innerHTML=parseado;
-		invasionsTitle.innerHTML='🌑 Invasiones ['+invasionActivaArr.length+']';
-		tabTitleInvasiones.innerHTML='Invasiones ['+invasionActivaArr.length+']';
+		invasionsTitle.innerHTML='🌑 Invasiones ['+countInvasionsCompletas+'-'+invasionActivaArr.length+']';
+		tabTitleInvasiones.innerHTML='Invasiones ['+countInvasionsCompletas+'-'+invasionActivaArr.length+']';
 		
 		//Sortie
 		ths=[];
@@ -2120,19 +2123,18 @@ function rellenarDatos(){
 		// parseado ='<a id="S"></a>';
 		if (sortieData!=undefined){
 			// parseado += '<h3>(Sortie '+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')</h3><div>Jefe: '+sortieData.boss;
-			sortieTitle.innerHTML = '🌑 Sortie '+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')';
-			tabTitleSortie.innerHTML='Sortie ['+strDiff((sortieData.eta),diff)+']';
 			parseado += '<div>Jefe: '+sortieData.boss
 			parseado += '<BR>Faccion: '+sortieData.faction;
 			parseado += '<BR>Tiempo Restante: '+strDiff((sortieData.eta),diff)+'('+sortieData.eta+')</div>';
 			var sortieFaction=sortieData.faction.toLowerCase();
 			ths.push([['Tipo Mision'],['Nodo'],['Modificador'],['Descripcion Modificador']]);
+			let countSortieCompletas=0;
 			sortieData.variants.forEach(function(v){
 				var idSortie="'"+v.missionType+v.node+v.modifier+"'";
 				var sortieCompleta=chequearCompleto(v.missionType+v.node+v.modifier);
 				var checkBoxCompleted='<label><input type="checkbox" onclick="toggleCompletar('+idSortie+')"'+(sortieCompleta?' checked':'')+'></label>'
 				var isCompleted=(sortieCompleta?' completed':'');
-				
+				isCompleted?countSortieCompletas++:'';
 				// agego la sortieActiva
 				sortieActivaArr.push(v.missionType+v.node+v.modifier);
 
@@ -2151,6 +2153,8 @@ function rellenarDatos(){
 			parseado += generateTable(tds,ths,'tableSortie enlargeMe','','');
 			parseado +='<hr>';
 			sortie.innerHTML=parseado;
+			sortieTitle.innerHTML = '🌑 Sortie '+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')';
+			tabTitleSortie.innerHTML='Sortie [('+countSortieCompletas+'-3) '+strDiff((sortieData.eta),diff)+']';
 		}
 		
 		//Fisures
