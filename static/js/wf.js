@@ -2160,7 +2160,7 @@ function rellenarDatos(){
 			parseado +='<hr>';
 			sortie.innerHTML=parseado;
 			sortieTitle.innerHTML = '🌑 Sortie '+'(<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.boss+'" target="blank">'+sortieData.boss+'</a>'+'-'+'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+sortieData.faction+'" target="blank">'+sortieData.faction+'</a>'+'-'+strDiff((sortieData.eta),diff)+')';
-			tabTitleSortie.innerHTML='Sortie [('+countSortieCompletas+'-3) '+strDiff((sortieData.eta),diff)+']';
+			tabTitleSortie.innerHTML='Sortie [('+countSortieCompletas+') '+strDiff((sortieData.eta),diff)+']';
 		}
 		
 		//Fisures
@@ -2210,9 +2210,9 @@ function rellenarDatos(){
 			baroData.inventory.forEach(function (i){
 				itemsBaro+="("+i.item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+") ";
 			});
-			tabTitleBaro.innerHTML="Baro ["+baroData.inventory.length+']('+strDiff((baroData.endString),diff)+')';
+			tabTitleBaro.innerHTML="Baro ["+baroData.inventory.length+']['+strDiff((baroData.endString),diff)+']';
 		}else{
-			tabTitleBaro.innerHTML='Baro ('+strDiff((baroData.startString),diff)+')';
+			tabTitleBaro.innerHTML='Baro ['+strDiff((baroData.startString),diff)+']';
 		}
 		itemsBaro=strReplaceAllNonPrintable(itemsBaro);
 		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' ('+strDiff((baroData.startString),diff)+") "+" | "+' Se va:('+strDiff((baroData.endString),diff)+")"+(baroData.active?' | Items: '+itemsBaro:'')+' (https://nekro-warframe.netlify.com)'+"'";
