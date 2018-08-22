@@ -1716,9 +1716,15 @@ function rellenarDatos(){
 					}else{
 						if(t==c['t']){
 							if(actual!=''){listaActiva=true;}
-							var notificar=chequearInformar(c['i']);
-							var isCompleted=(completa?' completed':'');
-							var notifId=(actualId!=''?actualId:c['i']);
+							let notificar=chequearInformar(c['i']);
+							let isCompleted=(completa?' completed':'');
+							let notifId='';
+							if (tipo=='alerta'){
+								notifId=(actual!=''?actual:'');	
+							}else{
+								notifId=(actualId!=''?actualId:c['i']);	
+							}
+
 							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
 								'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['i']+'"' + (notificar?" checked":"")+'> 📣 📣 📣 </label>'+
