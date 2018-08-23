@@ -43,14 +43,28 @@ function generateVitruvian(callback=''){
 		d.appendChild(cargandoVitruvian);
 
 		vitruvianImg.forEach(i=>{
+			let p=document.createElement('picture');
+			let source650=document.createElement('source');
+			source650.media="(min-width: 650px)";
+			source650.srcset=i.src;
+			p.appendChild(source650);
+
+			let source465=document.createElement('source');
+			source465.media="(min-width: 465px)";
+			source465.srcset=i.src;
+			p.appendChild(source465);
+
 			let im = document.createElement('img');
 			im.src=i.src;
-			im.id='vitImg'+i.id;
 			im.classList='vitImg';
-			im.classList+=' hidden';
 
-			d.appendChild(im);
-			im.addEventListener('complete',generateVitruvian(i));
+			p.id='vitImg'+i.id;
+			p.classList='vitImg';
+			p.classList+=' hidden';
+			//im.oncomplete=(i)=>{generateVitruvian(i)};
+			p.appendChild(im);
+			d.appendChild(p);
+			p.addEventListener('oncomplete',generateVitruvian(i));
 		});
 		document.body.insertBefore(d,document.body.firstChild);
 	}else{
