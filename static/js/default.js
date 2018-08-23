@@ -50,7 +50,7 @@ function generateVitruvian(callback=''){
 			im.classList+=' hidden';
 
 			d.appendChild(im);
-			im.addEventListener('load',generateVitruvian(i));
+			im.addEventListener('complete',generateVitruvian(i));
 		});
 		document.body.insertBefore(d,document.body.firstChild);
 	}else{
