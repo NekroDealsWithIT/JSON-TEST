@@ -18,8 +18,12 @@ function generateVitruvian(callback=''){
 		https://www.robinosborne.co.uk/2016/05/16/lazy-loading-images-dont-rely-on-javascript/
 		https://www.sitepoint.com/five-techniques-lazy-load-images-website-performance/
 	*/
-	console.log(callback);
 	if(callback==''){
+		let cargandoVitruvian=document.createElement('img');
+		cargandoVitruvian.src='static/img/loading.gif';
+		cargandoVitruvian.id='vitImgCargando';
+		cargandoVitruvian.classList='vitImg';
+
 		let d = document.querySelector('#vitruvianDiv');
 		d!=undefined?document.body.removeChild(d):'';
 		vitruvianImg=[];
@@ -35,25 +39,27 @@ function generateVitruvian(callback=''){
 		d.appendChild(s);
 
 		d.id='vitruvianDiv';
-		//d.style.cssText = 'position:absolute;width:100%;height:100%;opacity:0.3;z-index:100;background:#000';
-		//d.innerText='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-		
+
+		d.appendChild(cargandoVitruvian);
+
 		vitruvianImg.forEach(i=>{
 			let im = document.createElement('img');
 			im.src=i.src;
 			im.id='vitImg'+i.id;
 			im.classList='vitImg';
-			//im.classList+=' hidden';
+			im.classList+=' hidden';
 
-			//im.load="generateVitruvian("+i+");"
-
-			//im.style='width:100vw;height:100vh;position:sticky;top:0;';
 			d.appendChild(im);
+			im.addEventListener('load',generateVitruvian(i));
 		});
-		d.onload="generateVitruvian(true);";
 		document.body.insertBefore(d,document.body.firstChild);
 	}else{
-		console.log(callback,"ya cargue");
-		console.log(vitruvianImg);
+		console.log(callback,"ya cargue!");
+		callback.loaded=true;
+		setTimeout(()=>{
+			document.querySelector('#vitImgCargando').classList.add('hidden');
+			document.querySelector('#vitImg'+callback.id).classList.remove('hidden');
+		}, 1000);
+		console.log(callback);
 	}
 }
