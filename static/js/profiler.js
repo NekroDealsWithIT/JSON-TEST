@@ -52,6 +52,7 @@ const videosArr=[
 		{wf:'Mag', p:'TS05wxbrNts'},
 		{wf:'Banshee', p:'pJz7ZB0RLhY', t:'OUVNonCWIaM'},
 		{wf:'Loki',	p:'VXsg-rMTvAM'},
+		{wf:'Revenant',	p:'dhB39g1jS6E'},
 		{wf:'Vauban', p:'pQgp_dfJ_oI', t:'lm6DS3IDYqI'}
 	];
 

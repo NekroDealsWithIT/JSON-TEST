@@ -34,7 +34,7 @@ function generateVitruvian(callback=''){
 		d = document.createElement('div');
 		s = document.createElement('style');
 		s.id="styleVitrubian";
-		s.innerText=".vitruvian{background:#000!important;background-color:#000;z-index:-1}#vitruvianDiv{position:fixed;top:0;left:0;opacity:0.5;}.vitImg{width:100vw;height:100vh;position:sticky;top:0;}";
+		s.innerText=".vitruvian{background:#000!important;background-color:#000;}#vitruvianDiv{position:fixed;top:0;left:0;opacity:0.5;z-index:-1;}.vitImg{width:100vw;height:100vh;position:sticky;top:0;}";
 
 		d.appendChild(s);
 
