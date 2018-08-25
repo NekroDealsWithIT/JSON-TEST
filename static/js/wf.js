@@ -529,7 +529,39 @@ function getFarmingMarks(){
 	llenarFarmingFocus();
 }
 function generateCarousel(data){
-	if (data.length!=carouselItems.length){
+	let updateCarrousel=false;
+	if(carouselItems.length==0){
+		updateCarrousel=true;
+	}else{
+		data.forEach(d=>{
+			let idFound=false;
+			carouselItems.forEach(c=>{
+				if (c.id==d.id){idFound=true};
+			});
+			if (idFound==false){
+				generateToast('New item in NEWS!','<a href="#N"><img src="'+d.imageLink+'" class="thumbnail"/><p>'+ d.message+'</p></a>',"",20000,"warning");	
+				if(chequearInformarNotif('NEWS')){
+					let talk='Platform: '+platform+', (New item in NEWS!). '+d.message;
+					textToSpeech(talk,'en-GB');
+					console.log(talk);
+				}
+				updateCarrousel=true;
+			}
+		});
+	}
+
+	if (updateCarrousel==true){
+		/*
+		data.forEach(d=>{
+			if(carouselItems[counter]==undefined||d.message!=carouselItems[counter].message){
+				
+			}else{
+				counter++;
+				console.log(counter);
+			}
+		});
+		*/
+
 		carouselItems=data;
 		let imgDelay=5;
 		let parseado='';
@@ -2335,6 +2367,7 @@ function rellenarDatos(){
 		// parseado='<a id="N"></a>';
 		// parseado='<h3>News</h3>';
 		parseado+='<h4 style="text-align:center;">DE TIMEZONE<br>||| EDT(-4): '+calcActualTimeTimezone(-4)+' <|||> EST(-5): '+calcActualTimeTimezone(-5)+' |||</h4>';
+		parseado+='<p><label><input type="checkbox" onclick="toggleInformarNotif('+"'"+'NEWS'+"'"+')" '+(chequearInformarNotif('NEWS')==true?' checked':'')+'>Notificar nuevas noticias</label></p>'
 		parseado+='<ul class="news enlargeMe">';
 		newsData.forEach(function(n){
 			let tipoNews=''
