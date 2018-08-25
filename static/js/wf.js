@@ -539,7 +539,7 @@ function generateCarousel(data){
 				if (c.id==d.id){idFound=true};
 			});
 			if (idFound==false){
-				generateToast('New item in NEWS!','<a href="#N"><img src="'+d.imageLink+'" class="thumbnail"/><p>'+ d.message+'</p></a>',"",20000,"warning");	
+				generateToast('New item in NEWS!','<a href="#N"><img src="'+securizeUrl(d.imageLink)+'" class="thumbnail"/><p>'+ d.message+'</p></a>',"",20000,"warning");	
 				if(chequearInformarNotif('NEWS')){
 					let talk='Platform: '+platform+', (New item in NEWS!). '+d.message;
 					textToSpeech(talk,'en-GB');
