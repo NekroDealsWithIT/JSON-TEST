@@ -1,0 +1,133 @@
+https://forums.warframe.com/topic/859322-plains-of-eidolon-maps-complete-all-landmarks-resources-fishing-mining/
+
+*** Points of interest ***
+
+*Note: Upon running through my map a couple times I found most resources seem to have a set location, but the map randomizes which spawn in upon entering the plains. That said I'm sure I've missed a couple resources and they will not spawn in 100%.
+
+Grineer Outposts - One of many primary bases of operations for the Grineer. Expect heavy defenses from automated turrets and sizable Grineer squads. Can find large amounts of Grokdrul here. Eidolon Lures spawn here.
+
+Grineer Camp/Site - The Grineer's smaller sites. Usually, dig sites and/or a couple shacks. Usually defended by a handful of Grineer and rarely have automated defenses. Can find small amounts of Grokdrul here. Eidolon Lures spawn here.
+
+Maprico Tree - A somewhat short plant bearing red fruit. Frequent near rocks and bodies of water. Drops 4 Maprico when damaged.
+
+Nistlebrush - A small plant found at higher elevations within the Plains. Drops 5 Nistlepod when damaged. 
+
+Iradite Formation - A red mineral that tends to be found in the lower elevations of the plains. Drops 1-3-5- Iradite when damaged. *Note: Higher level bounties increase the amount of Iradite dropped
+
+Caves - Small enclosures throughout the Plains that tend to host a substantial concentration of minerals for mining. Discovering all 12 grants the "Tomb Looter" achievement. 
+
+1K Year Fish Statuettes - Small mysterious fish statuettes that are off the beaten path and hidden away in the plains.  Each gives lore on Cetus and its history upon scanning. Scan all 20 for a Liset decoration resembling them
+
+Cetus Wisps - are odd beings found hovering near bodies of water on the Plains of Eidolon They are a strange cross between a loot pickup and a non-hostile NPC, as it will wander around slightly but vanish and be deposited in the player's inventory should the player touch it. Receive 1 Cetus Wisp on contact.
+
+
+*** Fishing ***
+
+Somewhat time-consuming spreadsheet with an overview of Fish (Useful Information) and caught fish recorded in each location during both Daytime and Night (Useless information):
+
+ https://docs.google.com/spreadsheets/d/1CA52KHzfkC7UekbrvrxPDA54FaQgL3FtqC11dMu8ydI/edit?usp=sharing
+
+*Note:Favorite spots are purely biased, just spots that I personally have found to have steady flow of fish spawns and not getting interrupted by enemies.
+
+Fishing Notes/Tips
+
+The burbling of spawning fish is heard a few seconds before a fish actually spawns in.
+
+Depending on the species (color and size), water (clear or filled with plants), water effects (reflection and lighting), and time of day (some fish are luminescent at night) it can be difficult and take a while to spot them.
+
+The player can bullet-jump above the water-surfaces in order to scan for the fishes; using aim gliding, mid-air slides, and double-jumps to maneuver back to shore.
+
+Ivara's Dashwire ability can create ziplines above the water to get a better spotting view, however, it is not possible to zoom in with the fishing spear while on the zipline. Additionally, throwing may not be immediate while balanced on the wire; the Warframe may wait until its arm is in position for a throw, affecting timing.
+
+Banshee's Sonar ability can be used to highlight the fish with an outline briefly, though they won't get weak points or appear in minimaps.
+
+Spear type does not seem to influence spawning species, and all currently known species can be speared by any spear, although non-specialized spears would perform worse, requiring several hits.
+
+This can be counteracted by Warframe abilities that buff weapon damage, such as Volt's passive, Electric Shield, or Rhino's Roar.
+
+Stealth crit also applies to the fishing spears provided your Warframe is invisible and the fish is not in an "alerted" state (additional testing needed).
+
+Spears are affected by Flight Speed buffs, such as Zephyr's Jet Stream.
+
+Ivara's Navigator ability can be used to steer the fishing spear.
+Wading into the water will scare away the fish. At night, contact with landlocked water will also apply a weak Magnetic proc, quartering your shield capacity for 1 second and draining 100 energy.
+
+Fish are tradeable as crafting components.
+
+Number of fish caught is affected by a Resource Booster.
+
+Transference and Warframe abilities cannot be cast while wielding a Fishing Spear and will remain so until the player switches to a weapon. Quick melee is also disabled.
+
+If the player misses the fish, or randomly lobs the spear at the shoreline or underwater ground, there's a chance of getting a Boot, and when reeled in, a banjo sound plays in the background. It can be sold for 400 Credits.
+
+Source: http://warframe.wikia.com/wiki/Fishing
+
+*** Mining ***
+Mining Tips/Notes
+
+  Hide contents
+*The Ores/Gems received from successfully mining a vein will always be randomized. Location/Time of day/Cutter type (except the Advanced Cutter) has no effect. 
+
+ 
+
+Veins stand out visually as bright colored spots surrounded by light grey patches on rocks and rock formations. Red spots denote Ores (Ferros, Coprun, Auron), while Blue spots denote Gems (Azurite, Devar, Veridos, Crimzian).
+
+The Nosam Cutter has several tools to find minerals from a distance. Equipping the Nosam Cutter will bring up a HUD with the following features:
+The left side of the HUD will display icons of rocks indicating the number of mineral deposits within the detector's range (higher tiers of Cutters will increase the detectable number).
+
+The right side of the HUD is equipped with a rangefinder that shows the distance to the nearest mineral vein being detected (higher tiers of Cutters will increase the detection range).
+
+Nosam Cutter has 30M of detection and has a very unstable beam.
+Focused Nosam Cutter has 45M of detection and Has a much more steady cutting beam.
+Advanced Nosam Cutter has 60M, a steady cutting beam, and displays mining location on the minimap within 50M of your position. Also gives a small chance to receive Nyth or Sentirum on mining Blue Veins (Gems).
+
+An audible repeating tick (akin to a metal detector) will be heard if the detector is within range of a deposit. This sound will grow in pitch if the player is looking in the direction of the vein, and tick more frequently the closer player is to the source.
+
+Looking at the vein for a longer period of time can extend the time the trace is shown
+
+The more accurate the trace during cutting, the better the quality, which affects the quantity of minerals that will be given upon completion. Players can halt cutting at anytime, allowing the cutting pattern to appear again, however doing so will reduce the cut's quality, thus making uninterrupted cutting more desirable for higher quality cuts.
+
+Mining produces an Alarming level of sound, best to CC or clear the area of hostiles before attempting to mine.  Alternatively, have a form of invisibility
+
+*** All in one ***
+1 - Check for Iradite and mine for Gems/Ore. Get Iradite on the way to 2
+
+2 - Look for Cetus Wisps
+
+3 - Look for Cetus Wisps
+
+4 - Look for Cetus Wisps
+
+5 - Mine the Caves near the Grineer Outpost for Gems/Ore. Get Grokdrul. Get Maprico on the way to 6
+
+6 - Mine the Cliffside for Gems/Ore,  Get Maprico in the area
+
+7 - Look for Cetus Wisps, Get Iradite in the area
+
+8 - Look for Cetus Wisps
+
+9 - Get Maprico
+
+10 - Get Nistlepod. If looking for more Nistlepod go to 10a, otherwise move to 11
+
+10a - Get Nistlepod if looking for more Nistlepod head to 10c, otherwise head to 10b
+
+10b - Fish (Pond) if desired, move to 11
+
+10c - Get Nistlepod and Maprico. Get Nistlepod on the way to  11
+
+11 - Look for Cetus Wisps
+
+12 - Mine the Cliffside for Gems/Ore, Fish (Pond) if desired, if looking for more Gems/Ore or Iradite move to 12a, otherwise move to 13
+
+12a - Get Iradite. Raid Outpost for Grokdrul or mine Gems/Ores
+
+13 - Look for Cetus Wisps, Fish (Lake) if desired, Get Iradite on the way to 14
+
+14 - Mine the caves near the Grineer Outpost for Gems/Ore, if Ocean fish are needed head towards 14a, otherwise Return to the Gates and complete the run
+
+14a - Fish (Ocean) if desired
+
+ 
+
+*This is slightly color coded so you can modify this route to your own preference and resources are in the background of the image so you can modify the path to your needs

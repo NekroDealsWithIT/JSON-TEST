@@ -3052,17 +3052,20 @@ function notifyTimer(title,j,nameID,diff){
 				break;
 			case 'day':
 				if(time.length<3){
-				time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==true){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==true){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});
+					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
 				}
 				break;
 			case 'night':
 				if(time.length<3){
-				time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==false){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});		
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==false){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});		
+					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
 				}
 				break;
 			case 'both':
 				if(time.length<3){
-				time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'||t==(n*-1)+'m'){talk=true;}});});
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'||t==(n*-1)+'m'){talk=true;}});});
+					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
 				}
 				break;			
 		}
@@ -3070,12 +3073,17 @@ function notifyTimer(title,j,nameID,diff){
 		!window.speechSynthesis.speaking&&
 		(notificationStatus[title+'Timer']==undefined||notificationStatus[title+'Timer']!=id))
 		{
-			talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff))+' to '+(resultJson.cetusCycle.isDay==true?'night':'day');
+			if(time[0]=='---'){
+				talk=title+' timer: the '+(j.isDay==false?'day':'night')+', has arrived!';	
+			}else{
+				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff))+' to '+(j.isDay.isDay==true?'night':'day');
+			}
+			
 			notificationStatus[title+'Timer']=id;
 			textToSpeech(talk,'en-GB');
 			console.log(talk);
 			talk='<a href="#T">'+talk+'<hr><a href="#T">Link</a></a>'
-			generateToast('⏰ '+title.toUpperCase()+' Timer '+(resultJson.cetusCycle.isDay==true?'(night 🌙)':'(day ☀'),talk,"",15000,"info");
+			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isDay==true?'(night 🌙)':'(day ☀)'),talk,"",15000,"info");
 		}		
 }
 function navigateToAnchor(anchor){

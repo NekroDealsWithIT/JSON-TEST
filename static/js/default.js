@@ -17,6 +17,9 @@ function generateVitruvian(callback=''){
 	/*
 		https://www.robinosborne.co.uk/2016/05/16/lazy-loading-images-dont-rely-on-javascript/
 		https://www.sitepoint.com/five-techniques-lazy-load-images-website-performance/
+		
+		https://stackoverflow.com/questions/7318462/changing-background-image-with-css3-animations
+		http://jsfiddle.net/2NmMD/386/#collaborate
 	*/
 	if(callback==''){
 		let cargandoVitruvian=document.createElement('img');
