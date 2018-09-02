@@ -559,7 +559,9 @@ h5{
     box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
     border-radius: 10px;
     border: 2px solid red;
-
+    display: flex;
+    justify-content: space-between;
+    
     -webkit-transition: all 0.30s ease-in-out;
     -moz-transition: all 0.30s ease-in-out;
     -ms-transition: all 0.30s ease-in-out;

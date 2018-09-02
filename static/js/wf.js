@@ -4,6 +4,8 @@
 /*
 	Variables globales
 	*/
+	let synthesisLang='en-GB';
+
 	var timerCopy=0
 	var timersWindow=undefined;
 
@@ -542,8 +544,13 @@ function generateCarousel(data){
 				generateToast('New item in NEWS!','<a href="#N"><img src="'+securizeUrl(d.imageLink)+'" class="thumbnail"/><p>'+ d.message+'</p></a>',"",20000,"warning");	
 				if(chequearInformarNotif('NEWS')){
 					let talk='Platform: '+platform+', (New item in NEWS!). '+d.message;
-					textToSpeech(talk,'en-GB');
+					textToSpeech(talk,synthesisLang);
 					console.log(talk);
+
+					talk='<a href="#N"><img src="'+securizeUrl(d.imageLink)+'" class="thumbnail"/><p>'+ d.message+'</p></a>';
+
+					removeClass('lastNotificationHolder','hidden');
+					lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
 				}
 				updateCarrousel=true;
 			}
@@ -2052,7 +2059,10 @@ function rellenarDatos(){
 		    				default:
 		    			}
 		    			console.log(say);
-	    				textToSpeech(say,'en-GB');
+		    			removeClass('lastNotificationHolder','hidden');
+						lastNotification.innerHTML='('+dateToString(new Date)+') '+say;
+
+	    				textToSpeech(say,synthesisLang);
 	    			}
 	    			notificationStatus[e.agentType]=status;
 	    		}
@@ -3080,9 +3090,13 @@ function notifyTimer(title,j,nameID,diff){
 			}
 			
 			notificationStatus[title+'Timer']=id;
-			textToSpeech(talk,'en-GB');
+			textToSpeech(talk,synthesisLang);
 			console.log(talk);
 			talk='<a href="#T">'+talk+'<hr><a href="#T">Link</a></a>'
+			
+			removeClass('lastNotificationHolder','hidden');
+			lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
+
 			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isDay==true?'(night 🌙)':'(day ☀)'),talk,"",15000,"info");
 		}		
 }
@@ -3104,12 +3118,17 @@ function notifyNotification(data){
 	{
 		talk='Platform: '+platform+', ('+data.tipo+') '+title+': '+convertTimeToSpeacheable(data.timeLeft);
 		notificationStatus[title+id]=id;
-		textToSpeech(talk,'en-GB');
+		textToSpeech(talk,synthesisLang);
 		console.log(talk);
 		
 		let img=(data.l!=undefined&&data.l!=''?'<p><img class="thumbnail" src="'+strReplaceAll(data.l,"http://","https://")+'" alt="'+title+'"></p>':'')
 		
 		generateToast('('+data.tipo.toUpperCase()+') '+title.toUpperCase(),'<div class="formulario" data-idgrouptype="'+data.tipo+'" onClick="clickAnchorLink(event);">'+img+talk+'</div>',"",10000,"warning");
+
+		talk='<div class="formulario" data-idgrouptype="'+data.tipo+'" onClick="clickAnchorLink(event);">'+img+talk+'</div>';
+
+		removeClass('lastNotificationHolder','hidden');
+		lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
 	}
 }
 
