@@ -351,6 +351,17 @@ h5{
 .tableAlerts progress{
 	width:90%;
 }
+
+.zebraTable tr:nth-child(even){background-color: #f2f2f2;}
+.sortable{cursor:row-resize;}
+/*https://cdn.datatables.net/1.10.19/images/sort_both.png*/
+.sortable::after{content:" ⇧⇩ ";font-size:1.5rem;}
+/*https://cdn.datatables.net/1.10.19/images/sort_asc.png*/
+.sortAZ::after{font-style:normal;content:" AZ⇧ ";font-size:1.5rem;}
+/*https://cdn.datatables.net/1.10.19/images/sort_desc.png*/
+.sortZA::after{font-style:normal;content:" ZA⇩ ";font-size:1.5rem;}
+.sortable.sortAZ,.sortable.sortZA{border:2px dashed red;background:tomato;font-style:italic;font-weight: 800;border-radius: 1rem}
+
 .invTH{
 	width: 0;
 }
@@ -1043,4 +1054,3 @@ Sets para checkear
 @media only screen and (min-width: 1200px) {
 
 }
-
