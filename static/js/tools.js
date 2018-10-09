@@ -290,68 +290,76 @@ function generateTable(arrayTable,arrayTH='',claseTable='',idTable='',atribsTabl
 	table+='</table>'
 	return table
 }
-// TODO HACER SORT VIA EVENT
-/*
-<tr>
-<!--When a header is clicked, run the sortTable function, with a parameter,
-0 for sorting by names, 1 for sorting by country: -->
-<th onclick="sortTable(0)">Name</th>
-<th onclick="sortTable(1)">Country</th>
-</tr>
-*/
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable2");
+// TODO INTEGRAR LLAMADA del table || Hacer multisort con shift
+//https://datatables.net/examples/basic_init/multi_col_sort.html
+function sortTable(ev) {
+  if(!ev.target.classList.contains("sortable")){return false}
+  //ths[pos].classList.add(dir=="asc"?"sortAZ":'sortZA');
+  if(ev.target.classList.contains("sortZA")){ev.target.classList.remove("sortZA");}
+  else if(ev.target.classList.contains("sortAZ")){ev.target.classList.remove("sortAZ");ev.target.classList.add("sortZA");}
+  else{ev.target.classList.add("sortAZ");}
+
+  let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  let table=ev.target.parentNode.parentNode.parentNode;
+  let ths=table.getElementsByTagName("TH");
+  let pos='false';
+  for (i=0;i<(ths.length);i++){
+      ths[i]==ev.target?pos=i:'';
+      if(ths[i].classList.contains("sortable")){
+        /*
+        ths[i].classList.remove("sortAZ");
+        ths[i].classList.remove("sortZA");
+        */
+      }
+  }
   switching = true;
-  // Set the sorting direction to ascending:
+  //Set the sorting direction to ascending:
   dir = "asc"; 
-  /* Make a loop that will continue until
-  no switching has been done: */
+  /*Make a loop that will continue until no switching has been done:*/
   while (switching) {
-    // Start by saying: no switching is done:
+    //start by saying: no switching is done:
     switching = false;
     rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
+    /*Loop through all table rows (except the first, which contains table headers):*/
     for (i = 1; i < (rows.length - 1); i++) {
-      // Start by saying there should be no switching:
+      //start by saying there should be no switching:
       shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /* Check if the two rows should switch place,
-      based on the direction, asc or desc: */
+      /*Get the two elements you want to compare, one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[pos];
+      y = rows[i + 1].getElementsByTagName("TD")[pos];
+      /*check if the two rows should switch place, based on the direction, asc or desc:*/
       if (dir == "asc") {
         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
-          shouldSwitch = true;
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
           break;
         }
       } else if (dir == "desc") {
         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          // If so, mark as a switch and break the loop:
+          //if so, mark as a switch and break the loop:
           shouldSwitch = true;
           break;
         }
       }
     }
     if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       switching = true;
-      // Each time a switch is done, increase this count by 1:
-      switchcount ++; 
+      //Each time a switch is done, increase this count by 1:
+      switchcount++;      
     } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
+      /*If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again.*/
+      if (switchcount==0&&dir=="asc") {
+        dir="desc";
+        switching=true;
       }
     }
   }
+  /*
+  ths[pos].classList.add(dir=="asc"?"sortAZ":'sortZA');
+  */
 }
 //TODO integrar al sort arriba
 function sortTableNumeric() {
@@ -1234,4 +1242,3 @@ function pedirPermiso(){
 		});
 	}
 }
-
