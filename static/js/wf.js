@@ -25,7 +25,7 @@
 		'mania':'https://vignette.wikia.nocookie.net/warframe/images/a/a9/RogueAcolyte.png',
 		'misery':'https://vignette.wikia.nocookie.net/warframe/images/1/19/AreaCasterAcolyte.png',
 		'torment':'https://vignette.wikia.nocookie.net/warframe/images/3/38/ControlAcolyte.png',
-		'violence':'https://vignette.wikia.nocookie.net/warframe/images/5/56/DuellistAcolyte.png',
+		'violence':'https://vignette.wikia.nocookie.net/warframe/images/5/56/DuellistAcolyte.png'
 	}
 
 	const p_r={
@@ -44,20 +44,6 @@
 			(document.getElementsByName('email')[0]).checkValidity()&&
 			(document.getElementsByName('asunto')[0]).checkValidity()&&
 			(document.getElementsByName('mensaje')[0]).checkValidity()){
-				/*
-				fetch("https://nekro-warframe.000webhostapp.com/",{body: contactMe,mode:"no-cors",method: "post"})
-				.then(()=>{
-					toggleHide("camposForm");
-					toggleHide("soon");
-				})
-				.catch((err)=>{
-					console.log(err)
-				})
-				.finally(()=>{
-					toggleHide("camposForm");
-					toggleHide("soon");				
-				});
-				*/
 				var formData = new FormData();
 
 				formData.append("nombre", (formNombre.value));
@@ -80,27 +66,66 @@
 
 	//http://warframe.wikia.com/wiki/Star_Chart
 	const planetas={
-		'timeStamp':'2018-08-10',
-		'Mercury':{'level':'6 - 11','faction':'Grineer','boss':'Vor','bossLocation':'Tolstoj','drops':['Morphics','Ferrite','Polymer Bundle','Detonite Ampule']},
-		'Venus':{'level':'3 - 18','faction':'Corpus','boss':'Jackal','bossLocation':'Fossa','drops':['Alloy Plate','Polymer Bundle','Circuits','Fieldron Sample']},
-		'Earth':{'level':'1 - 25','faction':'Grineer','boss':'Vay Hek','bossLocation':'Oro','drops':['Ferrite','Rubedo','Neurodes','Detonite Ampule']},
-		'Lua':{'level':'25 - 30','faction':'Sentient','boss':'n/a','bossLocation':'n/a','drops':['Ferrite','Rubedo','Neurodes','Detonite Ampule']},
-		'Mars':{'level':'8 - 20','faction':'Grineer','boss':'Lieutenant Lech Kril','bossLocation':'War','drops':['Morphics','Salvage','Gallium','Fieldron Sample']},
-		'Phobos':{'level':'10 - 25','faction':'Corpus','boss':'The Sergeant','bossLocation':'Iliad','drops':['Rubedo','Morphics','Plastids','Alloy Plate']},
-		'Ceres':{'level':'12 - 25','faction':'Grineer','boss':'Lech Kril & Vor','bossLocation':'Exta','drops':['Alloy Plate','Circuits','Orokin Cell','Detonite Ampule']},
-		'Jupiter':{'level':'15 - 30','faction':'Corpus','boss':'Alad V','bossLocation':'Themisto','drops':['Salvage','Fieldron Sample','Neural Sensors','Alloy Plate']},
-		'Europa':{'level':'18 - 33','faction':'Corpus','boss':'Raptors','bossLocation':'Naamah','drops':['Morphics','Rubedo','Fieldron Sample','Control Module']},
-		'Saturn':{'level':'21 - 36','faction':'Grineer','boss':'Sargas Ruk','bossLocation':'Tethys','drops':['Nano Spores','Plastids','Orokin Cell','Detonite Ampule']},
-		'Uranus':{'level':'24 - 37','faction':'Grineer','boss':'Tyl Regor','bossLocation':'Titania','drops':['Polymer Bundle','Plastids','Gallium','Detonite Ampule']},
-		'Neptune':{'level':'27 - 40','faction':'Corpus','boss':'Hyena Pack','bossLocation':'Psamathe','drops':['Nano Spores','Ferrite','Control Module','Fieldron Sample']},
-		'Pluto':{'level':'30 - 45','faction':'Corpus','boss':'Ambulas','bossLocation':'Hades','drops':['Alloy Plate','Rubedo','Plastids','Morphics','Fieldron Sample']},
-		'Sedna':{'level':'30 - 85','faction':'Grineer','boss':'Kela De Thaym','bossLocation':'Merrow','drops':['Rubedo','Alloy Plate','Salvage','Detonite Ampule']},
-		'Kuva Fortress':{'level':'28 - 34','faction':'Grineer','boss':'n/a','bossLocation':'n/a','drops':['Salvage','Circuits','Neural Sensors','Detonite Ampule']},
-		'Eris':{'level':'30 - 45','faction':'Infestation','boss':'Mutalist Alad V or Jordas Golem','bossLocation':'Requires key','drops':['Nano Spores','Plastids','Neurodes','Mutagen Sample']},
-		'Orokin Derelict':{'level':'25 - 35','faction':'Infestation','boss':'Lephantis','bossLocation':'Requires Key','drops':['Nano Spores','Mutagen Sample','Orokin Cell','Neurodes']},
-		'Void':{'level':'10 - 45','faction':'Orokin','boss':'Corrupted Vor','bossLocation':'any node of Level ≥40','drops':['Ferrite','Rubedo','Argon Crystal','Control Module']}
+		'timeStamp':'2018-09-24',
+		'Mercury':{'level':'6 - 11','faction':'Grineer','boss':'Vor','bossLocation':'Tolstoj','drops':['Morphics','Ferrite','Polymer Bundle','Detonite Ampule'],'frameFighter':['Rhino','Ivara']},
+		'Venus':{'level':'3 - 18','faction':'Corpus','boss':'Jackal','bossLocation':'Fossa','drops':['Alloy Plate','Polymer Bundle','Circuits','Fieldron Sample'],'frameFighter':['Banshee', 'Khora']},
+		'Earth':{'level':'1 - 25','faction':'Grineer','boss':'Vay Hek','bossLocation':'Oro','drops':['Ferrite','Rubedo','Neurodes','Detonite Ampule'],'frameFighter':['Hydroid','Gara','Revenant']},
+		'Lua':{'level':'25 - 30','faction':'Sentient','boss':'n/a','bossLocation':'n/a','drops':['Ferrite','Rubedo','Neurodes','Detonite Ampule'],'frameFighter':['Excalibur Umbra','Harrow']},
+		'Mars':{'level':'8 - 20','faction':'Grineer','boss':'Lieutenant Lech Kril','bossLocation':'War','drops':['Morphics','Salvage','Gallium','Fieldron Sample'],'frameFighter':['Inaros','Mirage']},
+		'Phobos':{'level':'10 - 25','faction':'Corpus','boss':'The Sergeant','bossLocation':'Iliad','drops':['Rubedo','Morphics','Plastids','Alloy Plate'],'frameFighter':['Nidus','Wukong']},
+		'Ceres':{'level':'12 - 25','faction':'Grineer','boss':'Lech Kril & Vor','bossLocation':'Exta','drops':['Alloy Plate','Circuits','Orokin Cell','Detonite Ampule'],'frameFighter':['Frost','Oberon']},
+		'Jupiter':{'level':'15 - 30','faction':'Corpus','boss':'Alad V','bossLocation':'Themisto','drops':['Salvage','Fieldron Sample','Neural Sensors','Alloy Plate'],'frameFighter':['Valkyr','Limbo']},
+		'Europa':{'level':'18 - 33','faction':'Corpus','boss':'Raptors','bossLocation':'Naamah','drops':['Morphics','Rubedo','Fieldron Sample','Control Module'],'frameFighter':['Nova','Vauban']},
+		'Saturn':{'level':'21 - 36','faction':'Grineer','boss':'Sargas Ruk','bossLocation':'Tethys','drops':['Nano Spores','Plastids','Orokin Cell','Detonite Ampule'],'frameFighter':['Ember','Zephyr','Nezha']},
+		'Uranus':{'level':'24 - 37','faction':'Grineer','boss':'Tyl Regor','bossLocation':'Titania','drops':['Polymer Bundle','Plastids','Gallium','Detonite Ampule'],'frameFighter':['Ash','Equinox']},
+		'Neptune':{'level':'27 - 40','faction':'Corpus','boss':'Hyena Pack','bossLocation':'Psamathe','drops':['Nano Spores','Ferrite','Control Module','Fieldron Sample'],'frameFighter':['Loki','Nyx']},
+		'Pluto':{'level':'30 - 45','faction':'Corpus','boss':'Ambulas','bossLocation':'Hades','drops':['Alloy Plate','Rubedo','Plastids','Morphics','Fieldron Sample'],'frameFighter':['Chroma','Trinity']},
+		'Sedna':{'level':'30 - 85','faction':'Grineer','boss':'Kela De Thaym','bossLocation':'Merrow','drops':['Rubedo','Alloy Plate','Salvage','Detonite Ampule'],'frameFighter':['Saryn','Titania']},
+		'Kuva Fortress':{'level':'28 - 34','faction':'Grineer','boss':'n/a','bossLocation':'n/a','drops':['Salvage','Circuits','Neural Sensors','Detonite Ampule'],'frameFighter':[]},
+		'Eris':{'level':'30 - 45','faction':'Infestation','boss':'Mutalist Alad V or Jordas Golem','bossLocation':'Requires key','drops':['Nano Spores','Plastids','Neurodes','Mutagen Sample'],'frameFighter':['Atlas','Mesa']},
+		'Orokin Derelict':{'level':'25 - 35','faction':'Infestation','boss':'Lephantis','bossLocation':'Requires Key','drops':['Nano Spores','Mutagen Sample','Orokin Cell','Neurodes'],'frameFighter':['Nekros','Octavia']},
+		'Void':{'level':'10 - 45','faction':'Orokin','boss':'Corrupted Vor','bossLocation':'any node of Level ≥40','drops':['Ferrite','Rubedo','Argon Crystal','Control Module'],'frameFighter':[]}
 	}
-
+	const frameFighter={
+		 'timeStamp':'2018-09-24'
+		,'Atlas':['Landslide','Dashes forwards and hits the enemy, dealing high damage.']
+		,'Ash':['Shuriken','Throws shurikens, dealing damage.']
+		,'Banshee':['Sonic Boom','Deals damage, knocks back, and knocks the enemy down face-up.']
+		,'Chroma':['Spectral Scream','Screams, dealing high damage over a short period of time.']
+		,'Ember':['Fireball','']
+		,'Equinox':['Metamorphosis','Swaps between forms; one with damage reduction, and the other with damage booster']
+		,'Excalibur':['Slash Dash','Charges at the enemy, dealing damage and knocking down face-up if it hits.']
+		,'Excalibur Umbra':['Radial Howl','Deals damage, blinds the enemy for 1 second, and restricts jumping for a short while.']
+		,'Frost':['Freeze','']
+		,'Gara':['Shattered Lash','']
+		,'Harrow':['Condemn','Restricts the enemy movement for a short while.']
+		,'Hydroid':['Tempest Barrage','Summons a barrage of water at the enemy location.']
+		,'Inaros':['Desiccation','Launches a blast of sand that deals damage and recovers a negligible amount of health for Inaros.']
+		,'Ivara':['Quiver','']
+		,'Khora':['Whipclaw','Deals damage from a distance.']
+		,'Limbo':['Banish','Deals damage, knocks back, and knocks the enemy down face-up.']
+		,'Loki':['Switch Teleport','Swaps your location with the enemy, deals damage, and knocks them down face-up. Cannot be blocked.']
+		,'Mag':['Pull','Deals damage, pulls in and knocks the enemy down face-up.']
+		,'Mesa':['Peacemaker','Shoots a few shots of her Peacemaker gun. Can be grabbed during the animation.']
+		,'Mirage':['Prism','Blinds enemy if it hits. Can knock down face-up.']
+		,'Nekros':['Soul Punch','']
+		,'Nezha':['Blazing Chakram','']
+		,'Nidus':['Virulence','Creates an area along the ground that deals damage when touched. Energy is greatly replenished on hit.']
+		,'Nova':['Antimatter Drop','']
+		,'Nyx':['Psychic Bolts','Fires bolts at the the enemy, dealing damage']
+		,'Oberon':['Smite','']
+		,'Octavia':['Mallet','Drops a Mallet that increases Octavias damage, while in range']
+		,'Revenant':['Reave','']
+		,'Rhino':['Rhino Stomp','']
+		,'Saryn':['Spores','']
+		,'Titania':['Lantern','']
+		,'Trinity':['Well Of Life','Heals Trinity as you deal damage to the enemy. Includes damage dealt while the enemy is blocking.']
+		,'Valkyr':['Rip Line','']
+		,'Vauban':['Tesla','Throws a grenade which deals damage if touched']
+		,'Volt':['Shock','Deals damage from a distance.']
+		,'Wukong':['Iron Jab','Deals damage, knocks down face-up']
+		,'Zephyr':['Tail Wind','']
+	}
 	
 	const compressedURL=[
 		{id:'@1@',url:'https://i.imgur.com'},
@@ -1230,7 +1255,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
 
-			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
+			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())||itemObjetivo!=undefined&&itemObjetivo.toLowerCase().includes(item.toLowerCase())){
 				var td=[];
 				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRotacion]);
 				td.push([itemObjetivo,itemRotacion]);
