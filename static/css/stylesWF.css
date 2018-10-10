@@ -354,12 +354,12 @@ h5{
 .zebraTable tr:nth-child(even){background-color: #f2f2f2;}
 .sortable{cursor:row-resize;}
 /*https://cdn.datatables.net/1.10.19/images/sort_both.png*/
-.sortable::after{content:" ⇧⇩ ";font-size:1.5rem;}
+.sortable::after{content:" ⇧⇩ ";font-size:1.2rem;}
 /*https://cdn.datatables.net/1.10.19/images/sort_asc.png*/
-.sortAZ::after{font-style:normal;content:" AZ⇧ ";font-size:1.5rem;}
+.sortAZ::after{font-style:normal;content:" AZ⇧ ";font-size:1.2rem;}
 /*https://cdn.datatables.net/1.10.19/images/sort_desc.png*/
-.sortZA::after{font-style:normal;content:" ZA⇩ ";font-size:1.5rem;}
-.sortable.sortAZ,.sortable.sortZA{border:2px dashed red;background:tomato;font-style:italic;font-weight: 800;border-radius: 1rem}
+.sortZA::after{font-style:normal;content:" ZA⇩ ";font-size:1.2rem;}
+.sortable.sortAZ,.sortable.sortZA{border:2px dashed red;background:#5247FF;font-style:italic;font-weight: 800;border-radius: 1rem}
 
 .invTH{
 	width: 0;
@@ -995,10 +995,12 @@ Sets para checkear
 }
 @keyframes highlight {
   from {
-    background:#ccc;
+    background:#34d4c5;
+    /*transform: scale(1.2);*/
   }
   to {
     background:transparent;
+    /*transform: scale(1);*/
   }
 }
 

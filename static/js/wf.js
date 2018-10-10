@@ -248,6 +248,8 @@
 
 	var campeon;
 
+	let lastFetch='';
+
 // arrays activos
 var alertaActivaArr=[];
 var invasionActivaArr=[];
@@ -968,7 +970,7 @@ function llenarFarmingFocus(){
 }
 function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sectionTitle='Relics'){
 	var ths=[];
-	ths.push([['Item','dropsTH'],['Relic','dropsTH'],['Estado','dropsTH'],['Rareza','dropsTH'],['Chance','dropsTH']]);
+	ths.push([['Item','dropsTH sortable'],['Relic','dropsTH sortable'],['Estado','dropsTH sortable'],['Rareza','dropsTH sortable'],['Chance','dropsTH sortable']]);
 	var tds=[];
 	var result='';
 	item=item.toLowerCase();
@@ -987,11 +989,11 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 					var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 					var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
-					td.push([checkboxFarming+checkboxFarmingComplete+rew.itemName,tier]);
+					td.push([checkboxFarming+checkboxFarmingComplete+rew.itemName,tier,'','data-sortid="'+rew.itemName+'"']);
 					td.push([r.tier+' '+r.relicName,tier]);
 					td.push([r.state,tier]);
 					td.push([itemRareza,tier]);
-					td.push([rew.chance+'%',tier]);
+					td.push([rew.chance+'%',tier,'','data-sortid="'+rew.chance+'"']);
 
 					if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 						if (idList.length>0){
@@ -1024,14 +1026,14 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones",sectionTitle='Misiones'){
 	var ths=[];
 	ths.push([
-		['Item','dropsTH'],
-		['Planeta','dropsTH'],
-		['Nodo','dropsTH'],
-		['Tipo','dropsTH'],
-		['Rotacion','dropsTH'],
-		['Evento','dropsTH'],
-		['Rareza','dropsTH'],
-		['Chance','dropsTH']
+		['Item','dropsTH sortable'],
+		['Planeta','dropsTH sortable'],
+		['Nodo','dropsTH sortable'],
+		['Tipo','dropsTH sortable'],
+		['Rotacion','dropsTH sortable'],
+		['Evento','dropsTH sortable'],
+		['Rareza','dropsTH sortable'],
+		['Chance','dropsTH sortable']
 		]);
 	var tds=[];
 	var result='';
@@ -1068,7 +1070,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								//console.log('valido:'+itemPlaneta+' Subtipo:'+subtipo.planet+' Item:'+itemName+' Rotacion:'+itemRotacion);
 								if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 									var td=[];
-									td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity]);
+									td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
 									td.push([itemPlaneta,itemRarity]);
 									td.push([itemNodo,itemRarity]);
 									td.push([itemNodeGameMode,itemNodeGameMode]);
@@ -1115,7 +1117,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 
 							if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 								var td=[];
-								td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity]);
+								td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
 								td.push([itemPlaneta,itemRarity]);
 								td.push([itemNodo,itemRarity]);
 								td.push([itemNodeGameMode,itemNodeGameMode]);
@@ -1161,12 +1163,12 @@ if (tds.length>0){
 
 function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusBounty",sectionTitle='Cetus Bounty'){
 	var ths=[];
-	ths.push([['Item','dropsTH'],
-		['Bounty','dropsTH'],
-		['Stage','dropsTH'],
-		['Rotacion','dropsTH'],
-		['Rareza','dropsTH'],
-		['Chance','dropsTH']]);
+	ths.push([['Item','dropsTH sortable'],
+		['Bounty','dropsTH sortable'],
+		['Stage','dropsTH sortable'],
+		['Rotacion','dropsTH sortable'],
+		['Rareza','dropsTH sortable'],
+		['Chance','dropsTH sortable']]);
 	var tds=[];
 	var result='';
 	item=item.toLowerCase();
@@ -1189,7 +1191,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 
 				if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 					var td=[];
-					td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRotacion]);
+					td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRotacion,'','data-sortid="'+itemName+'"']);
 					td.push([r.bountyLevel,itemRotacion]);
 					td.push([itemStage,itemRotacion]);
 					td.push([itemRotacion,itemRotacion]);
@@ -1228,11 +1230,11 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 
 function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",sectionTitle='Eventos'){
 	var ths=[];
-	ths.push([['Item','dropsTH'],
-		['Objetivo','dropsTH'],
-		['Rotacion','dropsTH'],
-		['Rareza','dropsTH'],
-		['Chance','dropsTH']]);
+	ths.push([['Item','dropsTH sortable'],
+		['Objetivo','dropsTH sortable'],
+		['Rotacion','dropsTH sortable'],
+		['Rareza','dropsTH sortable'],
+		['Chance','dropsTH sortable']]);
 	var tds=[];
 	var result='';
 	item=item.toLowerCase();
@@ -1257,7 +1259,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 
 			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())||itemObjetivo!=undefined&&itemObjetivo.toLowerCase().includes(item.toLowerCase())){
 				var td=[];
-				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRotacion]);
+				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRotacion,'','data-sortid="'+itemName+'"']);
 				td.push([itemObjetivo,itemRotacion]);
 				td.push([itemRotacion,itemRotacion]);
 				td.push([itemRarity,itemRarity]);
@@ -1293,11 +1295,11 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 }
 function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnemigo",sectionTitle='Mods de Enemigo'){
 	var ths=[];
-	ths.push([['MOD','dropsTH'],
-		['Enemigo','dropsTH'],
-		['Mod Drop Chance','dropsTH'],
-		['Rareza','dropsTH'],
-		['Chance','dropsTH']]);
+	ths.push([['MOD','dropsTH sortable'],
+		['Enemigo','dropsTH sortable'],
+		['Mod Drop Chance','dropsTH sortable'],
+		['Rareza','dropsTH sortable'],
+		['Chance','dropsTH sortable']]);
 	var tds=[];
 	var result='';
 	item=item.toLowerCase();
@@ -1322,7 +1324,7 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 
 			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 				var td=[];
-				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity]);
+				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
 				td.push([itemEnemigo,itemRarity]);
 				td.push([itemEnemigoModDropChance+"%",itemRarity]);
 				td.push([itemRarity,itemRarity]);
@@ -1359,11 +1361,11 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnemigoExtendido",sectionTitle='Enemigo - Mod'){
 	var ths=[];
 	ths.push([
-		['Enemigo','dropsTH'],
-		['MOD','dropsTH'],
-		['Mod Drop Chance','dropsTH'],
-		['Rareza','dropsTH'],
-		['Chance','dropsTH']]);
+		['Enemigo','dropsTH sortable'],
+		['MOD','dropsTH sortable'],
+		['Mod Drop Chance','dropsTH sortable'],
+		['Rareza','dropsTH sortable'],
+		['Chance','dropsTH sortable']]);
 	var tds=[];
 	var result='';
 	item=item.toLowerCase();
@@ -1388,7 +1390,7 @@ function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnem
 
 			if(itemEnemigo!=undefined&&itemEnemigo.toLowerCase().includes(item.toLowerCase())){
 				var td=[];
-				td.push([checkboxFarming+checkboxFarmingComplete+itemEnemigo,itemRarity]);
+				td.push([checkboxFarming+checkboxFarmingComplete+itemEnemigo,itemRarity,'','data-sortid="'+itemEnemigo+'"']);
 				td.push([itemName,itemRarity]);
 				td.push([itemEnemigoModDropChance+"%",itemRarity]);
 				td.push([itemRarity,itemRarity]);
@@ -1424,9 +1426,9 @@ function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnem
 
 function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSortieReward",sectionTitle='Sortie Rewards'){
 	var ths=[];
-	ths.push([['Item','dropsTH'],
-		['Rarity','dropsTH'],
-		['Chance','dropsTH']]);
+	ths.push([['Item','dropsTH sortable'],
+		['Rarity','dropsTH sortable'],
+		['Chance','dropsTH sortable']]);
 	var tds=[];
 	var result='';
 	item=item.toLowerCase();
@@ -1446,7 +1448,7 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 
 		if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 			var td=[];
-			td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity]);
+			td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
 			td.push([itemRarity,itemRarity]);
 			td.push([itemChance,itemRarity]);
 
@@ -1576,7 +1578,7 @@ function toggleTimer(activar){
 	}
 }
 
-function rellenarDatos(){
+function rellenarDatos(forceUpdate=false){
 	var estado='';
 
 	estado='<p class='+((fetching)?'infoFetch':'infoNoFetch')+'>';
@@ -1584,7 +1586,18 @@ function rellenarDatos(){
 	datosPagina.innerHTML=estado;
 	// toggleTimer(this.checked);toggleClass('autoUpdateCheckbox','active',this.checked	)
 	barraProgreso.innerHTML='<progress value='+counter1+' max='+(counter1Max-1)+' class="barraProgreso" onClick="autoUpdateCheckbox.click()"/>';
-	if (resultJson!=''){
+
+	let diff=0;
+	let update=false;
+	if(resultJson!=''){
+		diff=new Date(new Date().toUTCString())-moment(resultJson.timestamp);
+		if(lastFetch!=resultJson.timestamp){
+			lastFetch=resultJson.timestamp;
+			update=true;
+		}
+	}	
+
+	if (resultJson!=''&&(update==true||forceUpdate==true)){
 		// reseteo las activas
 		alertaActivaArr=[];
 		invasionActivaArr=[];
@@ -1599,7 +1612,7 @@ function rellenarDatos(){
 
 		//var diff=moment(new Date()).utc()-moment(resultJson.timestamp);
 		//getMilliseconds()
-		var diff=new Date(new Date().toUTCString())-moment(resultJson.timestamp);
+		//var diff=new Date(new Date().toUTCString())-moment(resultJson.timestamp);
 		
 		//cookies
 		//cookiesShow.innerHTML='<h2>Cookies capturados al '+ dateToString(new Date(new Date().toUTCString()))+':</h2>';
@@ -1658,9 +1671,9 @@ function rellenarDatos(){
 
 			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			
-			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyActive?"checked":"")+' onClick="notifOnlyActive=this.checked;rellenarDatos();">Mostrar solo activas actualmente</label><br>';
-			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyNonCompleted?"checked":"")+' onClick="notifOnlyNonCompleted=this.checked;rellenarDatos();">Mostrar solo no completadas</label><br>';
-			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifShowLastDate?"checked":"")+' onClick="notifShowLastDate=this.checked;rellenarDatos();">Mostrar ultima fecha de aparicion</label><br>';
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyActive?"checked":"")+' onClick="notifOnlyActive=this.checked;rellenarDatos(true);">Mostrar solo activas actualmente</label><br>';
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifOnlyNonCompleted?"checked":"")+' onClick="notifOnlyNonCompleted=this.checked;rellenarDatos(true);">Mostrar solo no completadas</label><br>';
+			notificaciones.innerHTML+='<label><input type="checkbox" '+(notifShowLastDate?"checked":"")+' onClick="notifShowLastDate=this.checked;rellenarDatos(true);">Mostrar ultima fecha de aparicion</label><br>';
 			notificacionesTitle.innerHTML+=(notifOnlyActive?" (Mostrando solo activas)":"")+(notifOnlyNonCompleted?" (Mostrando solo no completas)":"")+(notifShowLastDate?"":" (Ocultando fechas)");
 			var tipos=[];
 			cacheado.forEach(function(c){
@@ -1930,7 +1943,7 @@ function rellenarDatos(){
 		// parseado+='<h3>Alertas</h3>';
 		
 		var alertsData=resultJson.alerts;
-		ths.push([['Tiempo','alertTH'],['Tipo Mision','alertTH'],['Nodo','alertTH'],['Faccion','alertTH'],['Reward','alertTH']])
+		ths.push([['Tiempo','alertTH sortable'],['Tipo Mision','alertTH sortable'],['Nodo','alertTH sortable'],['Faccion','alertTH sortable'],['Reward','alertTH sortable']])
 		let countAlertasCompletas=0;
 		alertsData.forEach(function(a){
 			var td=[];
@@ -1938,7 +1951,7 @@ function rellenarDatos(){
 			var idAlerta="'"+a.id+"'";
 			var alertaCompleta=chequearCompleto(a.id);
 			alertaCompleta?countAlertasCompletas++:'';
-			var txtCopiar="'Alerta: "+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" (Nightmare)":"")+(a.mission.archwingRequired?" (Archwing)":"")+" ("+strDiff((a.eta),diff)+")"+(alertaCompleta?' (Completa) ':'')+' (https://nekro-warframe.netlify.com)'+"'";
+			var txtCopiar="'Alerta: "+a.mission.reward.asString+" | "+a.mission.node+" | "+a.mission.type+" ("+a.mission.faction+" "+a.mission.minEnemyLevel+"-"+a.mission.maxEnemyLevel+")"+(a.mission.nightmare?" (Nightmare)":"")+(a.mission.archwingRequired?" (Archwing)":"")+" ("+strDiff((a.eta),diff,false)+")"+(alertaCompleta?' (Completa) ':'')+' (https://nekro-warframe.netlify.com)'+"'";
 			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 
 			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
@@ -1978,7 +1991,7 @@ function rellenarDatos(){
 			
 			persistInfo(cookieStore,persistObject);
 
-			td.push([checkBoxCompleted+'<img src="'+compressURL(a.mission.reward.thumbnail,true) +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff),'tdAlert '+idFaction]);
+			td.push([checkBoxCompleted+'<img src="'+compressURL(a.mission.reward.thumbnail,true) +'">'+imgCopiar+'<BR>'+ strDiff((a.eta),diff),'tdAlert '+idFaction,'','data-sortid="'+strToDate(a.eta)+'"']);
 			var modifs='';
 			/*
 			(a.mission.nightmare?modifs+='N ':'');
@@ -1992,9 +2005,9 @@ function rellenarDatos(){
 			modifs=(modifs!='')?' ('+modifs+')':'';
 			td.push([a.mission.type+modifs,'tdAlert '+idFaction+ isCompleted]);
 			td.push([a.mission.node,'tdAlert '+idFaction+ isCompleted]);
-			td.push([idFaction.toUpperCase()+' ('+a.mission.minEnemyLevel+'-'+a.mission.maxEnemyLevel+')','tdAlert '+idFaction+ isCompleted]);
+			td.push([idFaction.toUpperCase()+' ('+a.mission.minEnemyLevel+'-'+a.mission.maxEnemyLevel+')','tdAlert '+idFaction+ isCompleted,'','data-sortid="'+a.mission.minEnemyLevel+'_'+a.mission.maxEnemyLevel+'_'+strToDate(a.eta)+'"']);
 			// td.push([a.mission.minEnemyLevel+'-'+a.mission.maxEnemyLevel,'tdAlert '+idFaction+ isCompleted]);
-			td.push(['<a href="http://warframe.wikia.com/wiki/Special:Search?search='+a.mission.reward.asString+'" target="blank">'+a.mission.reward.asString+'</a>','tdAlert '+idFaction+ isCompleted]);
+			td.push(['<a href="http://warframe.wikia.com/wiki/Special:Search?search='+a.mission.reward.asString+'" target="blank">'+a.mission.reward.asString+'</a>','tdAlert '+idFaction+ isCompleted,'','data-sortid="'+a.mission.reward.asString+'"']);
 			if (!a.expired){tds.push(td);}
 		});
 		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Alerts'"+')"'+"></img>Copiar todo ["+tds.length+']';
@@ -2012,7 +2025,7 @@ function rellenarDatos(){
 	    	
 	    	tds=[];
 	    	ths=[];
-	    	ths.push([['Nombre','alertTH'],['HP %','alertTH'],['Status','alertTH'],['Ultimo Nodo','alertTH'],['Ultima vez visto','alertTH'],['Nivel','alertTH'],['Drops','alertTH']]);
+	    	ths.push([['Nombre','alertTH sortable'],['HP %','alertTH sortable'],['Status','alertTH sortable'],['Ultimo Nodo','alertTH sortable'],['Ultima vez visto','alertTH sortable'],['Nivel','alertTH sortable'],['Drops','alertTH sortable']]);
 	    	resultJson.persistentEnemies.forEach(e=>{
 	    		let diffPersistent=new Date(new Date().toUTCString())-moment(e.lastDiscoveredTime);
 	    		
@@ -2073,13 +2086,13 @@ function rellenarDatos(){
 		    			let say='';
 		    			switch(status){
 		    				case 'Found':
-		    					say = 'Attention Acolyte ' + e.agentType.toUpperCase()+', health: '+Math.round(e.healthPercent*100,2)+'%, '+status.toUpperCase()+', in '+e.lastDiscoveredAt+(gameMode!=''?', mission type ' +gameMode:'')+ ', Time update: ' + convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+', is now '+status.toUpperCase()+', health: '+Math.round(e.healthPercent*100,2)+'% ';
+		    					say = 'Attention Acolyte ' + e.agentType.toUpperCase()+', health: '+Math.round(e.healthPercent*100,2)+'%, '+status.toUpperCase()+', in '+e.lastDiscoveredAt+(gameMode!=''?', mission type ' +gameMode:'')+ ', Time update: ' + convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1,false))+'. Repeating: '+e.agentType.toUpperCase()+', is now '+status.toUpperCase()+', health: '+Math.round(e.healthPercent*100,2)+'% ';
 		    					break;
 		    				case 'Hidden':
-		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+', health: '+Math.round(e.healthPercent*100,2)+'%, '+status.toUpperCase()+', last seen in '+e.lastDiscoveredAt+(gameMode!=''?', mission type ' +gameMode:'')+', Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+', is now '+status.toUpperCase()+', health: '+Math.round(e.healthPercent*100,2)+'% ';
+		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+', health: '+Math.round(e.healthPercent*100,2)+'%, '+status.toUpperCase()+', last seen in '+e.lastDiscoveredAt+(gameMode!=''?', mission type ' +gameMode:'')+', Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1,false))+'. Repeating: '+e.agentType.toUpperCase()+', is now '+status.toUpperCase()+', health: '+Math.round(e.healthPercent*100,2)+'% ';
 		    					break;
 		    				case 'Dead':
-		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+', is now '+status.toUpperCase()+', last seen in '+e.lastDiscoveredAt+(gameMode!=''?', mission type ' +gameMode:'')+ ', Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1))+'. Repeating: '+e.agentType.toUpperCase()+', is now '+status.toUpperCase();	
+		    					say = 'Info Acolyte ' +e.agentType.toUpperCase()+', is now '+status.toUpperCase()+', last seen in '+e.lastDiscoveredAt+(gameMode!=''?', mission type ' +gameMode:'')+ ', Time update: ' +  convertTimeToSpeacheable(strDiff(e.lastDiscoveredTime,diffPersistent*-1,false))+'. Repeating: '+e.agentType.toUpperCase()+', is now '+status.toUpperCase();	
 		    					break;
 		    				default:
 		    			}
@@ -2135,8 +2148,8 @@ function rellenarDatos(){
 		parseado+='<li class="infested hidden">Unknown: '+resultJson.constructionProgress.unknownProgress+'%</li></ul></div'
 		
 		var invasionData=resultJson.invasions;
-		//ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Porcentaje','invTH'],['Ataca','invTH'],['Reward A','invTH'],['Defiende','invTH'],['Reward D','invTH'],['VS infested','invTH']])
-		ths.push([['Descripcion Mision','invTH'],['Nodo','invTH'],['Defiende','invTH'],['Porcentaje','invTH'],['Ataca','invTH']])
+		//ths.push([['Descripcion Mision','invTH sortable'],['Nodo','invTH sortable'],['Porcentaje','invTH sortable'],['Ataca','invTH sortable'],['Reward A','invTH sortable'],['Defiende','invTH sortable'],['Reward D','invTH sortable'],['VS infested','invTH sortable']])
+		ths.push([['Descripcion Mision','invTH sortable'],['Nodo','invTH sortable'],['Defiende','invTH sortable'],['Porcentaje','invTH sortable'],['Ataca','invTH sortable']])
 		txtCopyAll='';
 		let countInvasionsCompletas=0;
 		invasionData.forEach(function(inv){
@@ -2167,15 +2180,15 @@ function rellenarDatos(){
 				// agrego la invasionActiva
 				invasionActivaArr.push(inv.id);
 
-				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+(invasionCompleta?' (Completa) ':'')+' (https://nekro-warframe.netlify.com)'+"'";
+				var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff,false)+(invasionCompleta?' (Completa) ':'')+' (https://nekro-warframe.netlify.com)'+"'";
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
-				td.push([imgCopiar+checkBoxCompleted+inv.desc,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)]);
+				td.push([imgCopiar+checkBoxCompleted+inv.desc,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def),'','data-sortid="'+inv.desc+'"']);
 				td.push([inv.node,'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
-				td.push([inv.defendingFaction.toUpperCase()+'<br>'+'<a id="'+inv.defenderReward.asString+'"></a><img src="'+compressURL(inv.defenderReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted]);
-				td.push(['<img src="static/img/arrowRight.gif" class="'+((Math.round(inv.completion,5))>50?'':'invert')+'">'+'<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted]);
-				td.push([inv.attackingFaction.toUpperCase()+'<BR>'+(!inv.vsInfestation?'<a id="'+inv.attackerReward.asString+'"></a><img src="'+compressURL(inv.attackerReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>':'❌'),'tdInvasion '+atk+isCompleted]);
+				td.push([inv.defendingFaction.toUpperCase()+'<br>'+'<a id="'+inv.defenderReward.asString+'"></a><img src="'+compressURL(inv.defenderReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.defenderReward.asString+'" target="blank">'+inv.defenderReward.asString+'</a>','tdInvasion '+def+isCompleted,'','data-sortid="'+inv.defenderReward.asString+'"']);
+				td.push(['<img src="static/img/arrowRight.gif" class="'+((Math.round(inv.completion,5))>50?'':'invert')+'">'+'<div class=progressInv'+((Math.round(inv.completion,5))>50?atk:def)+'><progress value='+inv.completion+' max=100 /></div>'+Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff),'tdInvasion '+((Math.round(inv.completion,5))>50?atk:def)+isCompleted,'','data-sortid="'+inv.completion+'"']);
+				td.push([inv.attackingFaction.toUpperCase()+'<BR>'+(!inv.vsInfestation?'<a id="'+inv.attackerReward.asString+'"></a><img src="'+compressURL(inv.attackerReward.thumbnail,true) +'"><BR>'+ '<a href="http://warframe.wikia.com/wiki/Special:Search?search='+inv.attackerReward.asString+'" target="blank">'+inv.attackerReward.asString+'</a>':'❌'),'tdInvasion '+atk+isCompleted,'','data-sortid="'+inv.attackerReward.asString+'"']);
 				tds.push(td);	
 			}
 		});
@@ -2238,7 +2251,7 @@ function rellenarDatos(){
 		
 		ths=[];
 		tds=[];
-		ths.push([['Tier'],['Tiempo'],['Enemigo'],['Tipo'],['Nodo']]);
+		ths.push([['Tier','sortable'],['Tiempo','sortable'],['Enemigo','sortable'],['Tipo','sortable'],['Nodo','sortable']]);
 		txtCopyAll='';
 
 		fisureData.forEach(function(f){
@@ -2248,16 +2261,16 @@ function rellenarDatos(){
 			//var txtCopiar="'"+"Invasion: "+inv.desc+"|"+inv.node+"|"+atk.toUpperCase()+(!inv.vsInfestation?" ("+inv.attackerReward.asString+")":"")+" vs "+def.toUpperCase()+" ("+inv.defenderReward.asString+")|"+ Math.round(inv.completion,5)+'% - '+strDiff(inv.eta,diff)+' (https://nekro-warframe.netlify.com)'+"'";
 			//var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img><br>";
 
-			var txtCopiar="'"+"Fissure: "+f.tier+' ('+f.tierNum+')'+"|"+f.node+"|"+f.enemy.toUpperCase()+' - '+f.missionType+"|"+strDiff(f.eta,diff)+' (https://nekro-warframe.netlify.com)'+"'";
+			var txtCopiar="'"+"Fissure: "+f.tier+' ('+f.tierNum+')'+"|"+f.node+"|"+f.enemy.toUpperCase()+' - '+f.missionType+"|"+strDiff(f.eta,diff,false)+' (https://nekro-warframe.netlify.com)'+"'";
 			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 			var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 
-			td.push([imgCopiar+f.tier+' ('+f.tierNum+')','tdFisure '+fisureFaction]);
-			td.push([strDiff(f.eta,diff),'tdFisure '+fisureFaction]);
+			td.push([imgCopiar+' '+f.tier+' ('+f.tierNum+')','tdFisure '+fisureFaction,'','data-sortid="'+f.tierNum+'"']);
+			td.push([strDiff(f.eta,diff),'tdFisure '+fisureFaction,'','data-sortid="'+strToDate(f.eta)+'"']);
 			td.push([f.enemy,'tdFisure '+fisureFaction]);
 			td.push([f.missionType,'tdFisure '+fisureFaction]);
 			td.push([f.node,'tdFisure '+fisureFaction]);
-			tds.push(td);	
+			tds.push(td);
 		});
 		parseado += '<br><img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Fissure'"+')"'+"></img>Copiar todo ["+tds.length+']';
 		parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
@@ -2282,7 +2295,7 @@ function rellenarDatos(){
 			tabTitleBaro.innerHTML='Baro ['+strDiff((baroData.startString),diff)+']';
 		}
 		itemsBaro=strReplaceAllNonPrintable(itemsBaro);
-		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' ('+strDiff((baroData.startString),diff)+") "+" | "+' Se va:('+strDiff((baroData.endString),diff)+")"+(baroData.active?' | Items: '+itemsBaro:'')+' (https://nekro-warframe.netlify.com)'+"'";
+		var txtCopiar="'"+"Baro: "+'Llega a '+baroData.location+' ('+strDiff((baroData.startString),diff,false)+") "+" | "+' Se va:('+strDiff((baroData.endString),diff,false)+")"+(baroData.active?' | Items: '+itemsBaro:'')+' (https://nekro-warframe.netlify.com)'+"'";
 		txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 		var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
@@ -2308,13 +2321,13 @@ function rellenarDatos(){
 				persistInfo(cookieStore,persistObject);
 
 				//Agrego copiar
-				var txtCopiar="'"+"Baro: "+item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+" | Ubicacion: "+baroData.location+' ('+strDiff((baroData.endString),diff)+') (https://nekro-warframe.netlify.com)'+"'";
+				var txtCopiar="'"+"Baro: "+item+" | Ducats:"+i.ducats+" | Creditos:"+i.credits+" | Ubicacion: "+baroData.location+' ('+strDiff((baroData.endString),diff,false)+') (https://nekro-warframe.netlify.com)'+"'";
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 				var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 
 				// agrego link al item y anchor
 				item='<a id="'+item+'"><a href="http://warframe.wikia.com/wiki/Special:Search?search='+item+'" target="blank">'+item+'</a>'
-				td.push([imgCopiar+item,'tdBaro orokin']);
+				td.push([imgCopiar+item,'tdBaro orokin','','data-sortid="'+item+'"']);
 				td.push([i.ducats,'tdBaro orokin']);
 				td.push([i.credits,'tdBaro orokin']);
 
@@ -2376,7 +2389,7 @@ function rellenarDatos(){
 					var rewards="<h4>Rewards"+" | ("+strDiff(s.eta,diff)+"):</h4><ol>";
 					j.rewardPool.forEach(function (rp){
 						//Agrego copiar
-						var txtCopiar="'Syndicate Faction: "+s.syndicate+' ('+strDiff(s.eta,diff)+')'+" | "+j.type+" | "+enemyLevels+" | "+"Standing ("+j.standingStages.length+"): "+standingStages+" | "+rp+' (https://nekro-warframe.netlify.com)'+"'";						
+						var txtCopiar="'Syndicate Faction: "+s.syndicate+' ('+strDiff(s.eta,diff,false)+')'+" | "+j.type+" | "+enemyLevels+" | "+"Standing ("+j.standingStages.length+"): "+standingStages+" | "+rp+' (https://nekro-warframe.netlify.com)'+"'";						
 						txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 						generalSyndicateCopy+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 						var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
@@ -2418,6 +2431,17 @@ function rellenarDatos(){
 		newsTitle.innerHTML='🌑 News ['+newsData.length+']';
 
 		limpiarCompletasFinalizadas();
+	}else{
+		let arrTimers=document.querySelectorAll(".timerP,.timerM");
+		arrTimers.forEach(function(t){
+			if(t.classList.contains("timerP")){
+				//var rep=strDiff(t.dataset.time,diff*-1);
+				//t.parentNode.innerHTML=strReplaceAll(t.parentNode.innerHTML,t.innerHTML,rep);
+				t.innerHTML='<span>'+strDiff(t.dataset.time,diff*-1,false)+'</span>';
+			}else if(t.classList.contains("timerM")){
+				t.innerHTML='<span>'+strDiff(t.dataset.time,diff,false)+'</span>';
+			}
+		});
 	}
 }
 function checkSetsClass(reward){
@@ -2468,7 +2492,7 @@ function strToDate(stringDate){
 	return response;
 }
 
-function strDiff(strDate, diff){
+function strDiff (strDate, diff,htmlSpan=true){
 	var result = strToDate(strDate)-diff;
 	if (result<0){
 		return '---';
@@ -2493,9 +2517,8 @@ function strDiff(strDate, diff){
 		result=dias +''+horas+''+minutos+''+segundos;
 	// }
 
-	return result;
+	return htmlSpan==true?'<span data-time="'+strDate+'" class="'+(diff>0?'timerM':'timerP')+'">'+result+'</span>':result;
 }
-
 function convertTimeToSpeacheable(time){
 	let splited=time.split(" ");
 	let result='';
@@ -3111,7 +3134,7 @@ function notifyTimer(title,j,nameID,diff){
 			if(time[0]=='---'){
 				talk=title+' timer: the '+(j.isDay==false?'day':'night')+', has arrived!';	
 			}else{
-				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff))+' to '+(j.isDay.isDay==true?'night':'day');
+				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isDay==true?'night':'day');
 			}
 			
 			notificationStatus[title+'Timer']=id;

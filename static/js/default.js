@@ -2,6 +2,7 @@ const vitruvianMax=17;
 const vitruvianImgCount=1;
 let vitruvianImg=[];
 function setStyle(data){
+	let showChanges=document.body.classList.contains("highlightChanges");
 	document.body.className='';
 	data!='normal'?document.body.className=data:'';
 	switch(data){
@@ -9,8 +10,8 @@ function setStyle(data){
 			generateVitruvian();
 			break;
 		default:
-
 	}
+	showChanges==true?document.body.classList.add("highlightChanges"):'';
 }
 
 function generateVitruvian(callback=''){

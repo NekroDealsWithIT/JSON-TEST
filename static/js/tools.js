@@ -253,6 +253,7 @@ function generateTable(arrayTable,arrayTH='',claseTable='',idTable='',atribsTabl
 					var valueTH=TH[0],classTH=TH[1],idTH=TH[2],attribTH=TH[3];
 					table+='<TH'+ 
 						((classTH!=undefined&&classTH!='')?' class="'+classTH+'"':'') +
+						((classTH!=undefined&&classTH.includes("sortable"))?' onclick="sortTable(event)"':'') +
 						((idTH!=undefined&&idTH!='')?' id="'+idTH+'"':'') +
 						((attribTH!=undefined&&attribTH!='')?' '+attribTH:'') +
 						'>\n'+valueTH+'\n</TH>\n';
@@ -287,15 +288,18 @@ function generateTable(arrayTable,arrayTH='',claseTable='',idTable='',atribsTabl
 		table+=((arrayTable!=''&&arrayTable!=undefined)?'</TBODY>\n':'');
 	}
 
-	table+='</table>'
-	return table
+	table+='</table>';
+	return table;
 }
-// TODO INTEGRAR LLAMADA del table || Hacer multisort con shift
-//https://datatables.net/examples/basic_init/multi_col_sort.html
+// TODO Hacer multisort con shift
+// https://datatables.net/examples/basic_init/multi_col_sort.html
+// https://stackoverflow.com/questions/29642295/sorting-html-table-by-two-columns
+// agregar un data set con sort ID en el TD
 function sortTable(ev) {
   if(!ev.target.classList.contains("sortable")){return false}
+  let multipleSort=false;
   //ths[pos].classList.add(dir=="asc"?"sortAZ":'sortZA');
-  if(ev.target.classList.contains("sortZA")){ev.target.classList.remove("sortZA");}
+  if(ev.target.classList.contains("sortZA")){ev.target.classList.remove("sortZA");return false;}
   else if(ev.target.classList.contains("sortAZ")){ev.target.classList.remove("sortAZ");ev.target.classList.add("sortZA");}
   else{ev.target.classList.add("sortAZ");}
 
@@ -306,10 +310,11 @@ function sortTable(ev) {
   for (i=0;i<(ths.length);i++){
       ths[i]==ev.target?pos=i:'';
       if(ths[i].classList.contains("sortable")){
-        /*
-        ths[i].classList.remove("sortAZ");
-        ths[i].classList.remove("sortZA");
-        */
+        /* TO DO Multiple Filtro con shift */
+        if(multipleSort==false){
+	        ths[i].classList.remove("sortAZ");
+	        ths[i].classList.remove("sortZA");
+	    }
       }
   }
   switching = true;
@@ -327,15 +332,17 @@ function sortTable(ev) {
       /*Get the two elements you want to compare, one from current row and one from the next:*/
       x = rows[i].getElementsByTagName("TD")[pos];
       y = rows[i + 1].getElementsByTagName("TD")[pos];
+      let xValue=x.dataset.sortid==undefined?x.innerHTML.toLowerCase():x.dataset.sortid;
+      let yValue=y.dataset.sortid==undefined?y.innerHTML.toLowerCase():y.dataset.sortid;
       /*check if the two rows should switch place, based on the direction, asc or desc:*/
       if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        if (xValue > yValue) {
           //if so, mark as a switch and break the loop:
           shouldSwitch= true;
           break;
         }
       } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+        if (xValue < yValue) {
           //if so, mark as a switch and break the loop:
           shouldSwitch = true;
           break;
@@ -357,9 +364,11 @@ function sortTable(ev) {
       }
     }
   }
-  /*
-  ths[pos].classList.add(dir=="asc"?"sortAZ":'sortZA');
-  */
+  /*deshabilitar esto cuando este el multisort*/
+  if(multipleSort==false){
+  	ths[pos].classList.add(dir=="asc"?"sortAZ":'sortZA');
+  	ths[pos].dataset.sorted=dir;
+  }
 }
 //TODO integrar al sort arriba
 function sortTableNumeric() {
