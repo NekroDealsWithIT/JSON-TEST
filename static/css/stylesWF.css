@@ -4,7 +4,6 @@ html {
 }
 * {
   box-sizing: border-box;
-
 }
 
 
@@ -990,6 +989,17 @@ Sets para checkear
 }
 .highContrast td{
 	border:1px solid white;
+}
+.highlightChanges *{
+  animation: highlight .3s ease-in;
+}
+@keyframes highlight {
+  from {
+    background:#ccc;
+  }
+  to {
+    background:transparent;
+  }
 }
 
 /*.vitruvian{background:#000!important;background-color:#000;}*/
