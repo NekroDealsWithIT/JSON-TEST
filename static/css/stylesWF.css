@@ -472,7 +472,9 @@ h5{
 .lith{
 	background-color: green;	
 }
-
+.vaultedRelic{
+	text-decoration: line-through;
+}
 /*Colores de tipos de mision*/
 .Capture{
 	color:red;
