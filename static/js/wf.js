@@ -621,6 +621,7 @@ function getActiveRelics(){
 		arrRelics[key]=arrayUnique(arrRelics[key]);
 	});
 	resultJsonDrops.activeRelics=arrRelics;
+	//console.log(arrRelics);
 }
 function getFarmingMarks(){
 	farmingMark=pipedStringToArray(getCookie('farmingMark'));
@@ -1067,7 +1068,18 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 	resultJsonDrops.relics.forEach(function (r){
 		r.rewards.forEach(function (rew){
 			var itemAnalizado=rew.itemName.toLowerCase();
-			let vaulted=(!resultJsonDrops.activeRelics[r.tier].includes(r.relicName));
+			let vaulted=false;
+			resultJsonDrops.activeRelics==undefined?getActiveRelics():'';
+			try{
+				vaulted=(!resultJsonDrops.activeRelics[r.tier].includes(r.relicName));
+				if(vaulted==undefined){
+					getActiveRelics();
+					vaulted=resultJsonDrops.activeRelics[r.tier]==undefined?true:(!resultJsonDrops.activeRelics[r.tier].includes(r.relicName));
+				}
+			}catch(e){
+				console.error(e);
+			}
+
 			if(subtipo.vaulted=="All"||(subtipo.vaulted=="noVault"&&vaulted==false)||(subtipo.vaulted=="vaulted"&&vaulted==true)){
 				if(r.state==subtipo.relics||subtipo.relics=='All'){
 					if(itemAnalizado.includes(item)||(r.tier+' '+r.relicName).toLowerCase().includes(item)){
