@@ -1115,7 +1115,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 									td.push([itemRotacion,itemRotacion]);
 									td.push([(itemNodeIsEvent?"Si":"No"),itemNodeGameMode + (itemNodeIsEvent?" NodeIsEvent":" NodeIsNotEvent")]);
 									td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
-									td.push([itemChance,itemRarity]);
+									td.push([itemChance+"%",itemRarity,'','data-sortid="'+itemChance+'"']);
 
 									if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
 										if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
@@ -1162,7 +1162,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								td.push([itemRotacion,itemRotacion]);
 								td.push([(itemNodeIsEvent?"Si":"No"),itemNodeGameMode + (itemNodeIsEvent?" NodeIsEvent":" NodeIsNotEvent")]);
 								td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
-								td.push([itemChance,itemRarity]);
+								td.push([itemChance+"%",itemRarity,'','data-sortid="'+itemChance+'"']);
 
 								if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
 									if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
@@ -1235,7 +1235,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 					td.push([itemStage,itemRotacion]);
 					td.push([itemRotacion,itemRotacion]);
 					td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
-					td.push([itemChance,itemRarity]);
+					td.push([itemChance+"%",itemRarity,'','data-sortid="'+itemChance+'"']);
 					if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
 						if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 							if (idList.length>0){
@@ -1302,7 +1302,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 				td.push([itemObjetivo,itemRotacion]);
 				td.push([itemRotacion,itemRotacion]);
 				td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
-				td.push([itemChance,itemRarity]);
+				td.push([itemChance+"%",itemRarity,'','data-sortid="'+itemChance+'"']);
 				if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
 					if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 						if (idList.length>0){
@@ -1365,9 +1365,9 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 				var td=[];
 				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
 				td.push([itemEnemigo,itemRarity]);
-				td.push([itemEnemigoModDropChance+"%",itemRarity]);
+				td.push([itemEnemigoModDropChance+"%",itemRarity,'','data-sortid="'+itemEnemigoModDropChance+'"']);
 				td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
-				td.push([itemChance,itemRarity]);
+				td.push([itemChance+"%",itemRarity,'','data-sortid="'+itemChance+'"']);
 
 				if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 					if (idList.length>0){
@@ -1433,7 +1433,7 @@ function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnem
 				td.push([itemName,itemRarity]);
 				td.push([itemEnemigoModDropChance+"%",itemRarity]);
 				td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
-				td.push([itemChance,itemRarity]);
+				td.push([itemChance+"%",itemRarity,'','data-sortid="'+itemChance+'"']);
 
 				if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 					if (idList.length>0){
@@ -1489,7 +1489,7 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 			var td=[];
 			td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
 			td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
-			td.push([itemChance,itemRarity]);
+			td.push([itemChance+"%",itemRarity,'','data-sortid="'+itemChance+'"']);
 
 			if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
 				if (idList.length>0){
