@@ -334,6 +334,10 @@ function sortTable(ev) {
       y = rows[i + 1].getElementsByTagName("TD")[pos];
       let xValue=x.dataset.sortid==undefined?x.innerHTML.toLowerCase():x.dataset.sortid;
       let yValue=y.dataset.sortid==undefined?y.innerHTML.toLowerCase():y.dataset.sortid;
+      //Evaluo sort numerico
+      isNaN(Number(xValue))?'':xValue=Number(xValue);
+      isNaN(Number(yValue))?'':yValue=Number(yValue);
+
       /*check if the two rows should switch place, based on the direction, asc or desc:*/
       if (dir == "asc") {
         if (xValue > yValue) {

@@ -758,6 +758,44 @@ function clearForm(){
 	filtroAplicadoColor();
 	buscarDrop();
 }
+function getSortableIndex(item,tipo){
+	let response=0;
+	if (tipo=='rarity'){
+		item=item.toLowerCase();
+		switch (item){
+			case 'peculiar':
+				response=0;
+				break;
+			case 'common':
+				response=1;
+				break;
+			case 'uncommon':
+				response=2;
+				break;			
+			case 'rare':
+				response=3;
+				break;
+			case 'legendary':
+				response=4;
+				break;
+			case 'riven':
+				response=5;
+				break;			
+			default:
+				response='error';
+		}
+		/*
+		if(item=='peculiar'){response=0;console.log('peculiar');}
+		else if(item=='common'){response=1;console.log('common');}
+		else if(item=='uncommon'){response=2;console.log('uncommon');}
+		else if(item=='rare'){response=3;console.log('rare');}
+		else if(item=='legendary'){response=4;console.log('legendary');}
+		else if(item=='riven'){response=5;console.log('riven');}
+		else response='error'
+		*/
+	}
+	return response;
+}
 function buscarDrop(){
 	var item=formItem.value;
 	var tipo=formTipo.value;
@@ -992,7 +1030,7 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 					td.push([checkboxFarming+checkboxFarmingComplete+rew.itemName,tier,'','data-sortid="'+rew.itemName+'"']);
 					td.push([r.tier+' '+r.relicName,tier]);
 					td.push([r.state,tier]);
-					td.push([itemRareza,tier]);
+					td.push([itemRareza,tier,'','data-sortid="'+getSortableIndex(itemRareza,'rarity')+'"']);
 					td.push([rew.chance+'%',tier,'','data-sortid="'+rew.chance+'"']);
 
 					if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
@@ -1076,7 +1114,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 									td.push([itemNodeGameMode,itemNodeGameMode]);
 									td.push([itemRotacion,itemRotacion]);
 									td.push([(itemNodeIsEvent?"Si":"No"),itemNodeGameMode + (itemNodeIsEvent?" NodeIsEvent":" NodeIsNotEvent")]);
-									td.push([itemRarity,itemRarity]);
+									td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
 									td.push([itemChance,itemRarity]);
 
 									if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
@@ -1123,7 +1161,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								td.push([itemNodeGameMode,itemNodeGameMode]);
 								td.push([itemRotacion,itemRotacion]);
 								td.push([(itemNodeIsEvent?"Si":"No"),itemNodeGameMode + (itemNodeIsEvent?" NodeIsEvent":" NodeIsNotEvent")]);
-								td.push([itemRarity,itemRarity]);
+								td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
 								td.push([itemChance,itemRarity]);
 
 								if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
@@ -1178,6 +1216,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 			r.rewards[itemRotacion].forEach(function (rew){
 				var itemName=rew.itemName;
 				var itemRarity=rew.rarity;
+
 				var itemChance=rew.chance;
 				var itemStage=rew.stage;
 
@@ -1195,7 +1234,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 					td.push([r.bountyLevel,itemRotacion]);
 					td.push([itemStage,itemRotacion]);
 					td.push([itemRotacion,itemRotacion]);
-					td.push([itemRarity,itemRarity]);
+					td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
 					td.push([itemChance,itemRarity]);
 					if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
 						if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
@@ -1262,7 +1301,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRotacion,'','data-sortid="'+itemName+'"']);
 				td.push([itemObjetivo,itemRotacion]);
 				td.push([itemRotacion,itemRotacion]);
-				td.push([itemRarity,itemRarity]);
+				td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
 				td.push([itemChance,itemRarity]);
 				if(itemRotacion==subtipo.rotacion||subtipo.rotacion=='All'){
 					if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
@@ -1327,7 +1366,7 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 				td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
 				td.push([itemEnemigo,itemRarity]);
 				td.push([itemEnemigoModDropChance+"%",itemRarity]);
-				td.push([itemRarity,itemRarity]);
+				td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
 				td.push([itemChance,itemRarity]);
 
 				if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
@@ -1393,7 +1432,7 @@ function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnem
 				td.push([checkboxFarming+checkboxFarmingComplete+itemEnemigo,itemRarity,'','data-sortid="'+itemEnemigo+'"']);
 				td.push([itemName,itemRarity]);
 				td.push([itemEnemigoModDropChance+"%",itemRarity]);
-				td.push([itemRarity,itemRarity]);
+				td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
 				td.push([itemChance,itemRarity]);
 
 				if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
@@ -1449,7 +1488,7 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 		if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 			var td=[];
 			td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
-			td.push([itemRarity,itemRarity]);
+			td.push([itemRarity,itemRarity,'','data-sortid="'+getSortableIndex(itemRarity,'rarity')+'"']);
 			td.push([itemChance,itemRarity]);
 
 			if(itemRareza==subtipo.itemRarity||subtipo.itemRarity=="All"){
@@ -1637,30 +1676,7 @@ function rellenarDatos(forceUpdate=false){
 		updateNotificationTimers('',true);
 
 		//let timerStr='Cetus: '+strDiff(resultJson.cetusCycle.timeLeft,diff)+ ' to ' + (resultJson.cetusCycle.isDay?'NIGHT':'DAY');
-		try{
-			if (timersWindow==undefined){
-				//timersWindow = window.open("", "Timers", "width=350,height=150");
-    		}
-    		if (timersWindow!=undefined&&timersWindow.closed==false){
-	    		if(timersWindow.timerCetus==undefined){
-		    		timersWindow.document.write('<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">');
-		    		//timersWindow.document.write('<h4>Timers</h4>');
-		    		timersWindow.document.write('<div id="windowTimersContent">')
-		    		timersWindow.document.write('<div id="timerCetus" >Cetus: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>');
-		    		timersWindow.document.write('<div id="timerEarth" >Earth: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>');
-		    		timersWindow.document.write('</div>')
-	    			timersWindow.document.title='Timers';
-	    			//console.log(timersWindow)
-	    		}else{
-	    			timersWindow.timerCetus.innerHTML='<div>Cetus: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
-	    			timersWindow.timerEarth.innerHTML='<div>Earth: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
-	    			timersWindow.document.title='Time: [C'+((resultJson.cetusCycle.isDay)?'☼':'☾')+':'+strDiff(resultJson.cetusCycle.timeLeft,diff)+']'+'[E'+((resultJson.earthCycle.isDay)?'☼':'☾')+':'+strDiff(resultJson.earthCycle.timeLeft,diff)+']';
-	    		}
-    		}
-    	}catch(e){
-    		//console.log(e);
-    		timersWindow.close();
-    	}
+		updateTimerWindow(diff);
 
 		//Manejo de sonidos
 		var cacheado=[];
@@ -2442,6 +2458,37 @@ function rellenarDatos(forceUpdate=false){
 				t.innerHTML='<span>'+strDiff(t.dataset.time,diff,false)+'</span>';
 			}
 		});
+		updateTimerWindow(diff);
+	}
+
+}
+
+function updateTimerWindow(diff){
+	if(resultJson!=''){
+		try{
+		if (timersWindow==undefined){
+			//timersWindow = window.open("", "Timers", "width=350,height=150");
+		}
+		if (timersWindow!=undefined&&timersWindow.closed==false){
+			if(timersWindow.timerCetus==undefined){
+				timersWindow.document.write('<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">');
+				//timersWindow.document.write('<h4>Timers</h4>');
+				timersWindow.document.write('<div id="windowTimersContent">')
+				timersWindow.document.write('<div id="timerCetus" >Cetus: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>');
+				timersWindow.document.write('<div id="timerEarth" >Earth: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>');
+				timersWindow.document.write('</div>')
+				timersWindow.document.title='Timers';
+				//console.log(timersWindow)
+			}else{
+				timersWindow.timerCetus.innerHTML='<div>Cetus: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
+				timersWindow.timerEarth.innerHTML='<div>Earth: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
+				timersWindow.document.title='Time: [C'+((resultJson.cetusCycle.isDay)?'☼':'☾')+':'+strDiff(resultJson.cetusCycle.timeLeft,diff)+']'+'[E'+((resultJson.earthCycle.isDay)?'☼':'☾')+':'+strDiff(resultJson.earthCycle.timeLeft,diff)+']';
+			}
+		}
+		}catch(e){
+			//console.log(e);
+			timersWindow.close();
+		}
 	}
 }
 function checkSetsClass(reward){
