@@ -443,6 +443,13 @@ h5{
 	color:#F00;
 	background-color: #000;
 }
+.clickeable{
+	cursor: pointer;
+	border:3px solid transparent;
+}
+.clickeable:hover{
+	border:3px solid white;
+}
 
 /*Colores de misiones de eventos especiales*/
 .NodeIsNotEvent{
@@ -1051,7 +1058,24 @@ Sets para checkear
 @media only screen and (min-width: 992px) {
 	body{
 		/*background:url('../img/stars.gif')  repeat fixed;*/
-		background:url('../img/Starfield.gif')  repeat fixed;
+		/*background:url('../img/Starfield.gif')  repeat fixed;*/
+
+		
+		/*background:url('../img/patterns/gun_metal.png')  repeat fixed;*/
+		background:url('../img/patterns/black_scales.png')  repeat fixed;
+		/*background:url('../img/patterns/hixs_pattern_evolution.png')  repeat fixed;*/
+		/*background:url('../img/patterns/carbon_fibre_big.png')  repeat fixed;*/
+		/*background:url('../img/patterns/nami.png')  repeat fixed;*/
+		background:url('../img/patterns/black_mamba.png')  repeat fixed;
+		background:url('../img/patterns/dark_leather.png')  repeat fixed;
+
+
+		background:url('../img/patterns/dark_mosaic.png')  repeat fixed;/*garpa mucho*/
+		background:url('../img/patterns/what-the-hex-dark.png')  repeat fixed;/*garpa mucho*/
+		background:url('../img/patterns/darkness.png')  repeat fixed;/*garpa mucho*/
+
+		animation-direction: alternate;
+		animation: slideFondo 60s ease-in-out infinite;
 	}
 	.content{
 		width: 90%;
@@ -1062,9 +1086,15 @@ Sets para checkear
 	.pNight::after, .pNight::before{
 		content: "(\1F319)";
 	}
+	@keyframes slideFondo {
+	    from {background-position: 0 0;}
+	    50% {background-position: 0 -200px;}
+	    to {background-position: 0 400px;}
+	}	
 } 
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
 
 }
+

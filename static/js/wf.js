@@ -616,11 +616,17 @@ function getActiveRelics(){
 			});
 		});
 	});
-
+	let parseado='';
+	let counterActivas=0;
 	Object.keys(arrRelics).forEach(function(key){ 
 		arrRelics[key]=arrayUnique(arrRelics[key]);
+		parseado+='<li><label class="field-split align-left">'+key+' ['+arrRelics[key].length+']</label>';
+		parseado+='<p class="field-style field-full align-right">';
+		arrRelics[key].forEach(function(r){parseado+='<span class="'+key.toLowerCase()+'">"<span class="clickeable" onclick="addDropQuery('+"'"+key+' '+r+"','relics'"+')">'+r+'</span>"'+(r!=arrRelics[key][arrRelics[key].length-1]?', ':'')+'</span>';counterActivas++});
+		parseado+='</p></li>';
 	});
 	resultJsonDrops.activeRelics=arrRelics;
+	formFarmeableRelics.innerHTML=(parseado!=''?'<h4>Reliquias farmeables ['+counterActivas+'] (Click para agregar a la busqueda)</h4><ul>'+parseado+'</ul>':'');
 	//console.log(arrRelics);
 }
 function getFarmingMarks(){
@@ -1089,7 +1095,7 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 						var itemRareza=rew.rarity;
 						var itemFarmingID=r._id+rew.itemName;
 						var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-						var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>;';
+						var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 						var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 						var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
@@ -1168,7 +1174,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								var itemRareza=itemRarity;
 								var itemFarmingID=key0[key1][key2]['rewards'][itemRotacion][key3]['_id']+itemName+itemPlaneta+itemNodo+itemNodeGameMode+itemRotacion;
 								var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-								var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>;';
+								var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 								var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 								var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
@@ -1216,7 +1222,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 							var itemRareza=itemRarity;
 							var itemFarmingID=key0[key1][key2]['rewards'][key3]['_id']+itemName+itemPlaneta+itemNodo+itemNodeGameMode;
 							var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-							var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>;';
+							var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 							var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 							var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
@@ -1290,7 +1296,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 				var itemRareza=rew.rarity;
 				var itemFarmingID=r._id+itemName+itemStage+itemRarity;
 				var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-				var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>;';
+				var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 				var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 				var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
@@ -1358,7 +1364,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 			var itemRareza=rew.rarity;
 			var itemFarmingID=rew._id+itemName+itemObjetivo+itemRotacion+itemRarity;
 			var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>;';
+			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 			var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
@@ -1423,7 +1429,7 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 			var itemRareza=rew.rarity;
 			var itemFarmingID=id1+id2+itemName;
 			var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>;';
+			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 			var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
@@ -1489,7 +1495,7 @@ function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnem
 			var itemRareza=rew.rarity;
 			var itemFarmingID=id1+id2+itemName;
 			var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>;';
+			var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 			var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 			var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
@@ -1548,7 +1554,7 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 		var itemRareza=r.rarity;
 		var itemFarmingID=id1+itemName;
 		var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
-		var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>;';
+		var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 		var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 		var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
@@ -1787,6 +1793,7 @@ function rellenarDatos(forceUpdate=false){
 					var actualId='';
 					var completa=false;
 					var timerNotificacion='';
+					var timerNotificacionSpeachable='';
 					var tipo='';
 					// hay que recorrer las alertas!
 					alertasActuales.forEach(function(a){
@@ -1796,6 +1803,7 @@ function rellenarDatos(forceUpdate=false){
 									actual=a.id;
 									completa=chequearCompleto(a.id);
 									timerNotificacion=strDiff((a.eta),diff);
+									timerNotificacionSpeachable=strDiff((a.eta),diff,false);
 									tipo='alerta';
 								}
 							}else{
@@ -1803,6 +1811,7 @@ function rellenarDatos(forceUpdate=false){
 									actual=a.id;	
 									completa=chequearCompleto(a.id);
 									timerNotificacion=strDiff((a.eta),diff);
+									timerNotificacionSpeachable=strDiff((a.eta),diff,false);
 									tipo='alerta';
 								}
 							}
@@ -1817,6 +1826,7 @@ function rellenarDatos(forceUpdate=false){
 									actualId=i.id;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
+									timerNotificacionSpeachable=strDiff((i.eta),diff,false);
 									tipo='invasion';
 								}
 								if(i.defenderReward!=undefined&&i.defenderReward.asString==c['i']){
@@ -1824,6 +1834,7 @@ function rellenarDatos(forceUpdate=false){
 									actualId=i.id;
 									completa=chequearCompleto(i.id);
 									timerNotificacion=strDiff((i.eta),diff);
+									timerNotificacionSpeachable=strDiff((i.eta),diff,false);
 									tipo='invasion';
 								}
 							}
@@ -1837,6 +1848,7 @@ function rellenarDatos(forceUpdate=false){
 									actual=i.item;
 									completa=chequearCompleto(actual);
 									timerNotificacion=strDiff(itemsBaroActuales.endString,diff);
+									timerNotificacionSpeachable=strDiff(itemsBaroActuales.endString,diff,false);
 									tipo='baro';
 								}
 							});
@@ -1868,7 +1880,7 @@ function rellenarDatos(forceUpdate=false){
 							let data=c;
 							data.actual=actual;
 							data.tipo=tipo;
-							data.timeLeft=timerNotificacion;
+							data.timeLeft=timerNotificacionSpeachable;
 							if(notificar==true){
 								notifyNotification(data);
 							}
@@ -1900,7 +1912,7 @@ function rellenarDatos(forceUpdate=false){
 								let data=c;
 								data.actual=actual;
 								data.tipo=tipo;
-								data.timeLeft=timerNotificacion;
+								data.timeLeft=timerNotificacionSpeachable;
 								if(notificar==true){
 									notifyNotification(data);
 								}
@@ -3215,7 +3227,7 @@ function updateNotificationTimers(data,updateFront=false){
 
 function notifyTimer(title,j,nameID,diff){
 		let selected=getRadioSelectedByName(nameID);
-		let time=pipedStringToArray(strDiff(j.timeLeft,diff),' ');
+		let time=pipedStringToArray(strDiff(j.timeLeft,diff,false),' ');
 		let talk='';
 		let id='';
 		title=title.toUpperCase();
