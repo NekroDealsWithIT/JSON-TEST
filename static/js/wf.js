@@ -618,20 +618,53 @@ function getActiveRelics(){
 	});
 	let parseado='';
 	let counterActivas=0;
+	let rewards={};
+	const relicState=['intact','exceptional','flawless','radiant'];
+
 	Object.keys(arrRelics).forEach(function(key){ 
 		arrRelics[key]=arrayUnique(arrRelics[key]);
-		parseado+='<li><label class="field-split align-left">'+key+' ['+arrRelics[key].length+']</label>';
-		parseado+='<p class="field-style field-full align-right">';
-		arrRelics[key].forEach(function(r){parseado+='<span class="'+key.toLowerCase()+'">"<span class="clickeable tooltip" onclick="addDropQuery('+"'"+key+' '+r+"','relics'"+')">'+r+'<span class="tooltiptext">'+tooltipGeneratorRelics(key,r)+'</span></span>"'+(r!=arrRelics[key][arrRelics[key].length-1]?', ':'')+'</span>';counterActivas++});
+		arrRelics[key].forEach(function(r){
+			resultJsonDrops.relics.forEach(function (rr){
+				if(rr.relicName==r&&rr.relicName==r){
+					rewards[key]==undefined?rewards[key]={}:'';
+					rewards[key][r]==undefined?rewards[key][r]={}:'';
+					
+					relicState.forEach(function(rs){
+						if(rr.state.toLowerCase()==rs){
+							rewards[key][r][rs]==undefined?rewards[key][r][rs]=[]:'';
+							rewards[key][r][rs].push(rr.rewards);
+						}
+					});
+					//console.info(key,r,rewards);
+				}
+			})
+		});
+
+		parseado+='<li><label>'+key+' ['+arrRelics[key].length+']</label>';
+		parseado+='<p>';
+		arrRelics[key].forEach(function(r){parseado+='<span class="'+key.toLowerCase()+'"><span class="clickeable tooltip" onclick="addDropQuery('+"'"+key+' '+r+"','relics'"+')">'+r+'<span class="tooltiptext">'+tooltipGeneratorRelics(key,r,rewards)+'</span></span>'+(r!=arrRelics[key][arrRelics[key].length-1]?', ':'')+'</span>';counterActivas++});
 		parseado+='</p></li>';
 	});
 	resultJsonDrops.activeRelics=arrRelics;
+	resultJsonDrops.activeRelics.rewards=rewards;
 	formFarmeableRelics.innerHTML=(parseado!=''?'<h4>Reliquias farmeables ['+counterActivas+'] (Click para agregar a la busqueda)</h4><ul>'+parseado+'</ul>':'');
 	//console.log(arrRelics);
 }
 
-function tooltipGeneratorRelics(tier,key){
-	let result='"'+tier+' '+key+'"';
+function tooltipGeneratorRelics(tier,key,arrRewards){
+	let result=tier+' '+key;
+	try{
+		//console.log(arrRewards[tier][key]['intact']);
+		//console.log(arrRewards[tier][key]['intact']);
+		arrRewards[tier][key]['intact'][0].forEach(function (rew){
+			
+			// r.forEach(function(rew){
+				result+='<BR>- <span class="'+rew.rarity+'" style="font-size:0.7rem;">'+rew.itemName+'</span>';
+			// });
+		});
+	}catch(e){
+		console.error(e);
+	}
 	return result;
 }
 function getFarmingMarks(){
@@ -3331,4 +3364,3 @@ function notifyNotification(data){
 		lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
 	}
 }
-
