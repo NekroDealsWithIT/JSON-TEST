@@ -236,7 +236,7 @@
 
 	var timer1='';
 	var counter1=0;
-	var counter1Max=60;
+	var counter1Max=30;
 
 	var fetchingCounter=0;
 	var fetchingCounterMax=30;
