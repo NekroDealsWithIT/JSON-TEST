@@ -1040,7 +1040,7 @@ function isFarmingChecked(itemID){
 function isFarmingCompleteChecked(itemID){
 	return farmingMarkComplete.includes(itemID);
 }
-function llenarFarmingFocus(){
+function llenarFarmingFocus(itemBusqueda='',divTable='farmingList'){
 	var result='';
 	result+='<label><input type="checkbox" '+(farmingOnlyNonCompleted?"checked":"")+' onClick="farmingOnlyNonCompleted=this.checked;llenarFarmingFocus();">Mostrar solo no completado</label><br>';
 	if (farmingMark.length>0){
@@ -1052,18 +1052,18 @@ function llenarFarmingFocus(){
 		subtipo['itemRarity']='All';
 		subtipo['rotacion']='All';
 		
-		result+=buscarDropsRelics('',subtipo,farmingMark,"tableDropsRelicsFarming",sectionTitle='Relics para farmear');
-		result+=buscarDropsMisiones('',subtipo,farmingMark,"tableDropsMisionesFarming",sectionTitle='Misiones para farmear');
-		result+=buscarDropsCetusBounty('',subtipo,farmingMark,"tableDropsCetusBountyFarming",sectionTitle='Cetus Bounty para farmear');
-		result+=buscarDropsEventos('',subtipo,farmingMark,"tableDropsEventosFarming",sectionTitle='Eventos para farmear');
-		result+=buscarDropsModEnemigo('',subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Mods de Enemigo para farmear');
-		result+=buscarDropsEnemigoMod('',subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemy Drop para farmear');
-		result+=buscarDropsEnemigoMod('',subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemigos para farmear');
-		result+=buscarDropsSortieReward('',subtipo,farmingMark,"tableDropsSortieRewardFarming",sectionTitle='Sortie Rewards para farmear');
+		result+=buscarDropsRelics(itemBusqueda,subtipo,farmingMark,"tableDropsRelicsFarming",sectionTitle='Relics para farmear');
+		result+=buscarDropsMisiones(itemBusqueda,subtipo,farmingMark,"tableDropsMisionesFarming",sectionTitle='Misiones para farmear');
+		result+=buscarDropsCetusBounty(itemBusqueda,subtipo,farmingMark,"tableDropsCetusBountyFarming",sectionTitle='Cetus Bounty para farmear');
+		result+=buscarDropsEventos(itemBusqueda,subtipo,farmingMark,"tableDropsEventosFarming",sectionTitle='Eventos para farmear');
+		result+=buscarDropsModEnemigo(itemBusqueda,subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Mods de Enemigo para farmear');
+		result+=buscarDropsEnemigoMod(itemBusqueda,subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemy Drop para farmear');
+		result+=buscarDropsEnemigoMod(itemBusqueda,subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemigos para farmear');
+		result+=buscarDropsSortieReward(itemBusqueda,subtipo,farmingMark,"tableDropsSortieRewardFarming",sectionTitle='Sortie Rewards para farmear');
 	}else{
 		result='<h2>No hay items seleccionados para farming en drops</h2>'
 	}
-	farmingList.innerHTML=result;
+	document.querySelector('#'+divTable).innerHTML=result;
 }
 function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sectionTitle='Relics'){
 	var ths=[];
@@ -1993,10 +1993,28 @@ function rellenarDatos(forceUpdate=false){
 
 					parseado +='</article>';
 				}else{
+					/*
+					CASO RAZORBACK
+					asString: "Corpus Razorback Project : Corpus↵Fomorian Assault Score : 3↵Rewards:↵Orokin Catalyst + 200000cr↵Battle on Corb↵22.27% Remaining"
+					concurrentNodes: []
+					description: "Corpus Razorback Project"
+					expired: false
+					expiry: "2018-10-13T10:16:32.129Z"
+					faction: "Corpus"
+					health: "22.27"
+					id: "5bb9306113932f41c95a4565"
+					maximumScore: 3
+					node: "Corb"
+					rewards: [{…}]
+					scoreLocTag: "Fomorian Assault Score"
+					victimNode: "Orcus Relay (Pluto)"
+					*/
 					parseado +='<span class="subrayado"><h2>'+e.description+' (Expira:'+dateToString(e.expiry)+')</h2></span>';
 					parseado +='<p>'+e.asString+'</p>';
 					(e.faction!=undefined&&e.faction!=''?parseado +='<p>Faccion: '+e.faction+'</p>':'');
 					(e.node!=undefined&&e.node!=''?parseado +='<p>Nodo: '+e.node+'</p>':'');
+					(e.victimNode!=undefined&&e.victimNode!=''?parseado +='<p>Ataca a: '+e.victimNode+'</p>':'');
+					(e.scoreLocTag!=undefined&&e.scoreLocTag!=''?parseado +='<p>Tipo: '+e.scoreLocTag+'</p>':'');
 					if(e.concurrentNodes!=null&&e.concurrentNodes.length>0){
 						parseado +='<ul>';
 						e.concurrentNodes.forEach(cn=>{
@@ -2013,6 +2031,8 @@ function rellenarDatos(forceUpdate=false){
 						});
 						parseado +='</ul>';
 					}
+					parseado+='<hr>';
+					parseado+='<div id="drops'+e.id+'"></div>';
 					parseado +='</article>';
 
 
