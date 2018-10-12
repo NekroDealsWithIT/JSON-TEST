@@ -287,7 +287,7 @@
 						<span id='dropsFormBuscando'></span>
 					</li>
 					<li>
-						<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" oninput="buscarDrop();" />
+						<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" onblur="buscarDrop();" />
 						<input type="button" name="itemPipe" id="formAddPipeButton" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
 					</li>
 					<li id="liTipo">
@@ -381,7 +381,7 @@
 						</li>
 					</ul>
 				</form>
-				<div 	id="formFarmeableRelics"></div>
+				<div id="formFarmeableRelics"></div>
 				<div id="dropResult"></div>
 				<div id="drops"><img class="loading" src="static/img/loading.gif"></div>
 			</div>
