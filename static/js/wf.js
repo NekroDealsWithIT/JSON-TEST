@@ -622,7 +622,7 @@ function getActiveRelics(){
 		arrRelics[key]=arrayUnique(arrRelics[key]);
 		parseado+='<li><label class="field-split align-left">'+key+' ['+arrRelics[key].length+']</label>';
 		parseado+='<p class="field-style field-full align-right">';
-		arrRelics[key].forEach(function(r){parseado+='<span class="'+key.toLowerCase()+'">"<span class="clickeable" onclick="addDropQuery('+"'"+key+' '+r+"','relics'"+')">'+r+'</span>"'+(r!=arrRelics[key][arrRelics[key].length-1]?', ':'')+'</span>';counterActivas++});
+		arrRelics[key].forEach(function(r){parseado+='<span class="'+key.toLowerCase()+'">"<span class="clickeable tooltip" onclick="addDropQuery('+"'"+key+' '+r+"','relics'"+')">'+r+'<span class="tooltiptext">"'+key+' '+r+'"'+'</span></span>"'+(r!=arrRelics[key][arrRelics[key].length-1]?', ':'')+'</span>';counterActivas++});
 		parseado+='</p></li>';
 	});
 	resultJsonDrops.activeRelics=arrRelics;
