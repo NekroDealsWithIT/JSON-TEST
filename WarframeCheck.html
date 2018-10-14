@@ -265,6 +265,7 @@
 			<div class="tab">
 				<button data-idGroupName="generalTab" class="tablinks active subrayado" data-idGroupName="generalTab" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>
 				<button data-idGroupName="generalTab" class="tablinks subrayado" id="tabShowAll" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>
+				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleWarframeMarket" name="warframeMarketTab" onclick="openTab(event, this.name)">Warframe Market</button>
 				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleDrops" name="dropsTab" onclick="openTab(event, this.name)">Drops</button>
 				<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitlePersistentEnemies" name="persistentEnemiesTab" onclick="openTab(event, this.name)">Persistent Enemies</button> -->
 				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNotificaciones" name="notificacionesTab" onclick="openTab(event, this.name)">Notificaciones</button>
@@ -277,6 +278,36 @@
 				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSindicatos" name="sindicatosTab" onclick="openTab(event, this.name)">Sindicatos</button>
 
 			</div>
+		</div>	
+	<div id="warframeMarketTab" data-idGroupName="generalTab" class="tabcontent">
+		<h3 id="warframeMarketTitle" onclick="toggleHide('warframeMarket');">🌑 Warframe Market (click para mostrar)</h3>
+		<div id="warframeMarket" class="hidden">
+			<div class="tabFrame">
+				<div class="tab">
+					<button data-idGroupName="wfMarketTab" class="tablinks" name="wfMarket1" onclick="openTab(event, this.name)">1</button>
+					<button data-idGroupName="wfMarketTab" class="tablinks" name="wfMarket2" onclick="openTab(event, this.name)">2</button>
+					<button data-idGroupName="wfMarketTab" class="tablinks" name="wfMarket3" onclick="openTab(event, this.name)">3</button>
+					<button data-idGroupName="wfMarketTab" class="tablinks" name="wfMarket4" onclick="openTab(event, this.name)">4</button>
+					<button data-idGroupName="wfMarketTab" class="tablinks" name="wfMarket5" onclick="openTab(event, this.name)">5</button>
+				</div>
+			</div>
+			<div data-idGroupName="wfMarketTab" id="wfMarket1" class="tabcontent">
+				<iframe src="https://warframe.market/" class='warframeMarketIframe'></iframe>
+			</div>
+			<div data-idGroupName="wfMarketTab" id="wfMarket2" class="tabcontent">
+				<iframe src="https://warframe.market/" class='warframeMarketIframe'></iframe>
+			</div>
+			<div data-idGroupName="wfMarketTab" id="wfMarket3" class="tabcontent">
+				<iframe src="https://warframe.market/" class='warframeMarketIframe'></iframe>
+			</div>
+			<div data-idGroupName="wfMarketTab" id="wfMarket4" class="tabcontent">
+				<iframe src="https://warframe.market/" class='warframeMarketIframe'></iframe>
+			</div>
+			<div data-idGroupName="wfMarketTab" id="wfMarket5" class="tabcontent">
+				<iframe src="https://warframe.market/" class='warframeMarketIframe'></iframe>
+			</div>
+		</div>
+	</div>
 	<div data-idGroupName="generalTab" id="dropsTab" class="tabcontent">
 		<a id="DROPS"></a>
 		<h3 id="dropsTitle" onclick="toggleHide('dropsList');">🌑 Drops</h3>
