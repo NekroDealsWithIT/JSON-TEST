@@ -1089,6 +1089,7 @@ function llenarFarmingFocus(itemBusqueda='',divTable='farmingList'){
 		subtipo['missionType']='All';
 		subtipo['itemRarity']='All';
 		subtipo['rotacion']='All';
+		subtipo['vaulted']='All';
 		
 		result+=buscarDropsRelics(itemBusqueda,subtipo,farmingMark,"tableDropsRelicsFarming",sectionTitle='Relics para farmear');
 		result+=buscarDropsMisiones(itemBusqueda,subtipo,farmingMark,"tableDropsMisionesFarming",sectionTitle='Misiones para farmear');
