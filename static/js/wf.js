@@ -36,7 +36,7 @@
 		'NiArIDI=':'8',
 		'OCArIDg=':'16'
 	};
-	
+
 	function mAq(p='',r=''){if(r==''){q=Object.keys(p_r);return atob(q[randBetween(1,q.length,1)-1]);}else{return (p_r[btoa(p)]==r?1:0)}};
 	function submitMe(){
 		if(
@@ -1143,7 +1143,6 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 						var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 						
 						let txtCopiar="'"+tipodato+": "+rew.itemName+" | "+r.tier+' '+r.relicName+(vaulted==true?' (Vaulted)':'')+" | "+r.state+" | "+itemRareza+" | "+rew.chance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
-						txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 						let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 						td.push([checkboxFarming+checkboxFarmingComplete+imgCopiar+rew.itemName,tier,'','data-sortid="'+rew.itemName+'"']);
@@ -1157,12 +1156,14 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 								if(isFarmingChecked(itemFarmingID)){
 									if(!farmingOnlyNonCompleted||(farmingOnlyNonCompleted&&!isFarmingCompleteChecked(itemFarmingID))){
 										tds.push(td);
-										dropsEncontrados++;							
+										dropsEncontrados++;
+										txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 									}
 								}
 							}else{
 								tds.push(td);
 								dropsEncontrados++;
+								txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 							}			
 						}
 					}
