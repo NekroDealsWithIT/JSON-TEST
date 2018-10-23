@@ -1097,7 +1097,7 @@ function llenarFarmingFocus(itemBusqueda='',divTable='farmingList'){
 		result+=buscarDropsEventos(itemBusqueda,subtipo,farmingMark,"tableDropsEventosFarming",sectionTitle='Eventos para farmear');
 		result+=buscarDropsModEnemigo(itemBusqueda,subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Mods de Enemigo para farmear');
 		result+=buscarDropsEnemigoMod(itemBusqueda,subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemy Drop para farmear');
-		result+=buscarDropsModEnemigo(itemBusqueda,subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemigos para farmear');
+		//result+=buscarDropsModEnemigo(itemBusqueda,subtipo,farmingMark,"tableDropsEnemyModFarming",sectionTitle='Enemigos para farmear');
 		result+=buscarDropsSortieReward(itemBusqueda,subtipo,farmingMark,"tableDropsSortieRewardFarming",sectionTitle='Sortie Rewards para farmear');
 	}else{
 		result='<h2>No hay items seleccionados para farming en drops</h2>'
@@ -1142,7 +1142,7 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 						var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 						var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 						
-						let txtCopiar="'"+tipodato+": "+rew.itemName+" | "+r.tier+' '+r.relicName+(vaulted==true?' (Vaulted)':'')+" | "+r.state+" | "+itemRareza+" | "+rew.chance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
+						let txtCopiar="'"+tipodato+": "+rew.itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+r.tier+' '+r.relicName+(vaulted==true?' (Vaulted)':'')+" | "+r.state+" | "+itemRareza+" | "+rew.chance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
 						let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 						td.push([checkboxFarming+checkboxFarmingComplete+imgCopiar+rew.itemName,tier,'','data-sortid="'+rew.itemName+'"']);
@@ -1233,7 +1233,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 									var td=[];
 
-									let txtCopiar="'"+tipodato+": "+itemName+" | "+itemPlaneta+' '+itemNodo+' ('+itemNodeGameMode+')'+" | "+itemRotacion+" | "+itemRareza+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
+									let txtCopiar="'"+tipodato+": "+itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+itemPlaneta+' '+itemNodo+' ('+itemNodeGameMode+')'+" | "+itemRotacion+" | "+itemRareza+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
 									let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 									td.push([checkboxFarming+checkboxFarmingComplete+imgCopiar+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
@@ -1286,7 +1286,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 							if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 								var td=[];
 
-								let txtCopiar="'"+tipodato+": "+itemName+" | "+itemPlaneta+' '+itemNodo+' ('+itemNodeGameMode+')'+" | "+itemRotacion+" | "+itemRareza+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
+								let txtCopiar="'"+tipodato+": "+itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+itemPlaneta+' '+itemNodo+' ('+itemNodeGameMode+')'+" | "+itemRotacion+" | "+itemRareza+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
 								let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 								td.push([checkboxFarming+checkboxFarmingComplete+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
@@ -1372,7 +1372,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 				if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 					var td=[];
 
-					let txtCopiar="'"+tipodato+": "+itemName+" | "+r.bountyLevel+' '+itemStage+" | "+itemRotacion+" | "+itemRarity+" | "+itemChance+"%"+' (https://nekro-warframe.netlify.com)'+"'";
+					let txtCopiar="'"+tipodato+": "+itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+r.bountyLevel+' '+itemStage+" | "+itemRotacion+" | "+itemRarity+" | "+itemChance+"%"+' (https://nekro-warframe.netlify.com)'+"'";
 					let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 					txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 
@@ -1449,7 +1449,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 
 			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())||itemObjetivo!=undefined&&itemObjetivo.toLowerCase().includes(item.toLowerCase())){
 				var td=[];
-				let txtCopiar="'"+tipodato+": "+itemName+" | "+itemObjetivo+' ('+itemRotacion+") | "+itemRarity+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
+				let txtCopiar="'"+tipodato+": "+itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+itemObjetivo+' ('+itemRotacion+") | "+itemRarity+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
 				let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 				td.push([checkboxFarming+checkboxFarmingComplete+imgCopiar+itemName,itemRotacion,'','data-sortid="'+itemName+'"']);
@@ -1524,7 +1524,7 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 
 			if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 				var td=[];
-				let txtCopiar="'"+tipodato+": "+itemName+" | "+itemEnemigo+' (Mod Drop Chance: '+itemEnemigoModDropChance+") | "+itemRarity+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
+				let txtCopiar="'"+tipodato+": "+itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+itemEnemigo+' (Mod Drop Chance: '+itemEnemigoModDropChance+") | "+itemRarity+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
 				let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 				td.push([checkboxFarming+checkboxFarmingComplete+imgCopiar+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
@@ -1601,7 +1601,7 @@ function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnem
 			if(itemEnemigo!=undefined&&itemEnemigo.toLowerCase().includes(item.toLowerCase())){
 				var td=[];
 
-				let txtCopiar="'"+tipodato+": "+itemEnemigo+" | "+itemName+' (Drop Chance: '+itemEnemigoModDropChance+"%)"+" | "+itemRarity+" | "+itemChance+"%"+' (https://nekro-warframe.netlify.com)'+"'";
+				let txtCopiar="'"+tipodato+": "+itemEnemigo+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+itemName+' (Drop Chance: '+itemEnemigoModDropChance+"%)"+" | "+itemRarity+" | "+itemChance+"%"+' (https://nekro-warframe.netlify.com)'+"'";
 				let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 				td.push([checkboxFarming+checkboxFarmingComplete+imgCopiar+itemEnemigo,itemRarity,'','data-sortid="'+itemEnemigo+'"']);
@@ -1670,7 +1670,7 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 		if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 			var td=[];
 			
-			let txtCopiar="'"+tipodato+": "+itemName+" | "+itemRarity+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
+			let txtCopiar="'"+tipodato+": "+itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+itemRarity+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
 			let imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
 			td.push([checkboxFarming+checkboxFarmingComplete+imgCopiar+itemName,itemRarity,'','data-sortid="'+itemName+'"']);
