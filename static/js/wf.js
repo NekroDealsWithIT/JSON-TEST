@@ -1228,9 +1228,13 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 								var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 								var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 								var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
-
 								//console.log('valido:'+itemPlaneta+' Subtipo:'+subtipo.planet+' Item:'+itemName+' Rotacion:'+itemRotacion);
-								if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
+								if(
+									(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase()))||
+									(itemPlaneta!=undefined&&itemPlaneta.toLowerCase().includes(item.toLowerCase()))||
+									(itemNodeGameMode!=undefined&&itemNodeGameMode.toLowerCase().includes(item.toLowerCase()))||
+									(itemNodo[0]!=undefined&&itemNodo[0].toLowerCase().includes(item.toLowerCase()))
+								){
 									var td=[];
 
 									let txtCopiar="'"+tipodato+": "+itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+itemPlaneta+' '+itemNodo+' ('+itemNodeGameMode+')'+" | "+itemRotacion+" | "+itemRareza+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
@@ -1283,7 +1287,13 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 							var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 							var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
 
-							if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
+							//if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
+							if(
+								(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase()))||
+								(itemPlaneta!=undefined&&itemPlaneta.toLowerCase().includes(item.toLowerCase()))||
+								(itemNodeGameMode!=undefined&&itemNodeGameMode.toLowerCase().includes(item.toLowerCase()))||
+								(itemNodo[0]!=undefined&&itemNodo[0].toLowerCase().includes(item.toLowerCase()))
+							){	
 								var td=[];
 
 								let txtCopiar="'"+tipodato+": "+itemName+(isFarmingCompleteChecked(itemFarmingID)?" (completed)":"")+" | "+itemPlaneta+' '+itemNodo+' ('+itemNodeGameMode+')'+" | "+itemRotacion+" | "+itemRareza+" | "+itemChance+'%'+' (https://nekro-warframe.netlify.com)'+"'";
@@ -3441,4 +3451,10 @@ function notifyNotification(data){
 		removeClass('lastNotificationHolder','hidden');
 		lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
 	}
+}
+function activateWFMarket(e){
+	let urlWfMarket="https://warframe.market";
+	let elIframe=document.querySelector('#'+e.target.name+' .warframeMarketIframe');
+	elIframe.src=="none"?elIframe.src=urlWfMarket:'';
+	console.log(elIframe)
 }
