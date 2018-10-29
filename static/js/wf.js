@@ -1,6 +1,6 @@
 /*
 	Pequeña cajita de herramientas para la pagina de wf
-	*/
+*/
 /*
 	Variables globales
 	*/
@@ -862,11 +862,7 @@ function filtroAplicadoColor(){
 function getSortableIndex(item,tipo){
 	let response=0;
 	try{
-		response=sortValues[tipo.toLowerCase()][item.toLowerCase()];
-		if(response==undefined){
-			response='Error 404';
-			console.error('getSortableIndex: '+tipo+'-'+item+'='+response);
-		}
+		tipo==undefined||item==undefined?response=0:response=sortValues[tipo.toLowerCase()][item.toLowerCase()];
 	}catch(e){
 		response="Error 404: "+e
 		console.error('getSortableIndex: '+tipo+'-'+item+'='+response);
@@ -1280,7 +1276,6 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 							var itemRarity=key0[key1][key2]['rewards'][key3]['rarity'];
 							var itemChance=key0[key1][key2]['rewards'][key3]['chance'];
 							var itemRotacion='---';
-
 							var itemRareza=itemRarity;
 							var itemFarmingID=key0[key1][key2]['rewards'][key3]['_id']+itemName+itemPlaneta+itemNodo+itemNodeGameMode;
 							var checkedFarming=(isFarmingChecked(itemFarmingID)?" checked":"");
