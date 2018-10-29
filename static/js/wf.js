@@ -1989,7 +1989,7 @@ function rellenarDatos(forceUpdate=false){
 
 						if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 							notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-							'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['t']+'"' + (notificar?" checked":"")+'> 📣 📣 📣 </label>'+
+							'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);rellenarDatos(true);" name="'+c['t']+'"' + (notificar?" checked":"")+'> 📣 📣 📣 </label>'+
 							'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c['t']+'" target="blank">'+
 							'<img class="thumbnailNotif" src="'+c['l']+'">'+
 							'<span class="capitalize">'+c['t']+'</span>'+
@@ -2004,7 +2004,8 @@ function rellenarDatos(forceUpdate=false){
 							data.tipo=tipo;
 							data.timeLeft=timerNotificacionSpeachable;
 							if(notificar==true){
-								notifyNotification(data);
+								//notifyNotification(data);
+								notifyList.push(data);
 							}
 						}
 					}else{
@@ -2021,7 +2022,7 @@ function rellenarDatos(forceUpdate=false){
 
 							if((!notifOnlyNonCompleted||(notifOnlyNonCompleted&&!completa))&&(!notifOnlyActive||(notifOnlyActive&&actual!=''))){
 								notificacion+='<li class="'+(actual!=''?'notifActive':'notifInactive')+isCompleted+'">'+
-								'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);" name="'+c['i']+'"' + (notificar?" checked":"")+'> 📣 📣 📣 </label>'+
+								'<label><input type="checkbox" onClick="toggleInformar(this.name,this.checked);rellenarDatos(true);" name="'+c['i']+'"' + (notificar?" checked":"")+'> 📣 📣 📣 </label>'+
 								'<a href="http://warframe.wikia.com/wiki/Special:Search?search='+c['i']+'" target="blank">'+
 								'<img class="thumbnailNotif" src="'+c['l']+'">'+
 								'<span class="capitalize">'+c['i']+'</span>'+
@@ -2036,7 +2037,8 @@ function rellenarDatos(forceUpdate=false){
 								data.tipo=tipo;
 								data.timeLeft=timerNotificacionSpeachable;
 								if(notificar==true){
-									notifyNotification(data);
+									//notifyNotification(data);
+									notifyList.push(data);
 								}
 							}
 						}
@@ -2669,7 +2671,7 @@ function rellenarDatos(forceUpdate=false){
 		newsTitle.innerHTML='🌑 News ['+newsData.length+']';
 
 		limpiarCompletasFinalizadas();
-	}else{
+	}else if(resultJson!=''){
 		let arrTimers=document.querySelectorAll(".timerP,.timerM");
 		arrTimers.forEach(function(t){
 			if(t.classList.contains("timerP")){
@@ -2680,7 +2682,13 @@ function rellenarDatos(forceUpdate=false){
 				t.innerHTML='<span>'+strDiff(t.dataset.time,diff,false)+'</span>';
 			}
 		});
+		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
+		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
 		updateTimerWindow(diff);
+		
+		if(notifyList.length>0&&!window.speechSynthesis.speaking){
+			notifyNotification(notifyList.pop);
+		}
 	}
 
 }
@@ -3436,8 +3444,11 @@ function navigateToAnchor(anchor){
 	location.hash=anchor;
 	
 }
+
+let notifyList=[];
 function notifyNotification(data){
 	let talk;	
+	
 	let title=data.t+' '+data.i;
 	let id=data.actual;
 	if(talk!=''&&
