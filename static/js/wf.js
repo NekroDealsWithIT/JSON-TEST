@@ -1282,7 +1282,6 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 							var checkboxFarming='<label class="farm"><input type="checkbox"'+checkedFarming+' onClick="setFarmingCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Farm</label><br>';
 							var checkedFarmingComplete=(isFarmingCompleteChecked(itemFarmingID)?" checked":"");
 							var checkboxFarmingComplete='<label class="farmComplete"><input type="checkbox"'+checkedFarmingComplete+' onClick="setFarmingCompleteCheck('+"'"+itemFarmingID+"'"+',this.checked);buscarDrop();">Completa</label><br>';
-							console.log(itemName);
 							//if(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase())){
 							if(
 								(itemName!=undefined&&itemName.toLowerCase().includes(item.toLowerCase()))||
