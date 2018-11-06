@@ -101,11 +101,7 @@
 		</div>
 		<label><input type="checkbox" onclick="document.body.classList.toggle('highlightChanges');"><span> Marcar cambios</span></label>
 	</section>
-	<div id="datosPagina"><img class="loading" src="static/img/loading.gif"></div>
-	<div id="timeStamp"></div>
 	<div id="workingOn" class="hidden"></div>
-	<style id="carouselStyle"></style>
-	<a href="#N"><section id="carousel"></section></a>
 
 	<a id="C"></a>
 	<h3 onclick="toggleHide('formContacto')">📨 Contactame 📨</h3>
@@ -159,8 +155,9 @@
 
 		<script type="text/javascript">
 				//checkCampeon();
-			</script>
+		</script>
 		</div>
+
 		<a id="V"></a>
 		<h3 onclick="toggleHide('whatsWarframe')">🌑 Que es warframe?</h3>
 		<div id="whatsWarframe" class="hidden">
@@ -189,276 +186,284 @@
 				</div>
 			</div>
 		</div>
-		
 
-		<a id="N"></a>
-		<h3 id="newsTitle" onclick="toggleHide('news');">🌑 News</h3>
-		<p><a href='https://www.twitch.tv/Warframe'>Warframe Twitch</a></p>
-		<p><section id="news"><img class="loading" src="static/img/loading.gif"></section></p>
-		
-		<a id="T"></a>
-		<h3 id="timersTitle" onclick="toggleHide('timers');">🌑 Timers</h3>
-		<p><label>Minutos a notificar: <input type="text" id="timerNotificationTimes" onblur="updateNotificationTimers(this.value,true)" onkeyup="updateNotificationTimers(this.value)"></label></p>
-		<p>(Deben de estar separados por coma, valores negativos indican antes de cambiar de noche a dia y viceversa)</p>
-		<p>Notificar Cetus Timer: 
-		<label><input type="radio" name="cetusTimerNotification" value='no' checked>No</label>
-		<label><input type="radio" name="cetusTimerNotification" value='day'>Dia</label>
-		<label><input type="radio" name="cetusTimerNotification" value='night'>Noche</label>
-		<label><input type="radio" name="cetusTimerNotification" value='both'>Ambos</label></p>
-		
-		<p>Notificar Earth Timer: 
-		<label><input type="radio" name="earthTimerNotification" value='no' checked>No</label>
-		<label><input type="radio" name="earthTimerNotification" value='day'>Dia</label>
-		<label><input type="radio" name="earthTimerNotification" value='night'>Noche</label>
-		<label><input type="radio" name="earthTimerNotification" value='both'>Ambos</label></p>
 
-		<section id="timers"><img class="loading" src="static/img/loading.gif"></section>
-		<div class="tabFrame">
-			<div class="tab">
-				<button class="tablinks" class='active' onclick="toggleChildTimerWindow()">Abrir Ventana de timers</button>
-			</div>
-		</div> 
-		
-		<div id="persistentEnemiesTab" class="hidden">
-			<a id="PE"></a>
-			<h3 id="persistentEnemiesTitle" onclick="toggleHide('persistentEnemies');">🌑 Enemigos Persistentes</h3>
-			<label><input type="checkbox" name='persistentEnemiesSpeech' onclick="toggleInformar(this.name,this.checked);" id='persistentEnemiesSpeech'>📣 Avisar si hay un cambio de status del enemigo</label>
-			<section id="persistentEnemies"><img class="loading" src="static/img/loading.gif"></section>
-		</div>
+		<div id="datosPagina"><img class="loading" src="static/img/loading.gif"></div>
+		<div id="timeStamp"></div>
+				
+		<div id="contenidoPagina" class="hidden">
+			<style id="carouselStyle"></style>
+			<a href="#N"><section id="carousel"></section></a>
 
-		<div id="lastNotificationHolder" class="hidden">
-			<h3 onclick="toggleHide('lastNotificationTitle');">📨 Ultima notificacion 📨</h3>
-			<h4 id='lastNotificationTitle'>Last notification: <span id='lastNotification'></span></h4>
-		</div>
+			<a id="N"></a>
+ 			<h3 id="newsTitle" onclick="toggleHide('news');">🌑 News</h3>
+			<p><a href='https://www.twitch.tv/Warframe'>Warframe Twitch</a></p>
+			<p><section id="news"><img class="loading" src="static/img/loading.gif"></section></p>
+			
+			<a id="T"></a>
+			<h3 id="timersTitle" onclick="toggleHide('timers');">🌑 Timers</h3>
+			<p><label>Minutos a notificar: <input type="text" id="timerNotificationTimes" onblur="updateNotificationTimers(this.value,true)" onkeyup="updateNotificationTimers(this.value)"></label></p>
+			<p>(Deben de estar separados por coma, valores negativos indican antes de cambiar de noche a dia y viceversa)</p>
+			<p>Notificar Cetus Timer: 
+			<label><input type="radio" name="cetusTimerNotification" value='no' checked>No</label>
+			<label><input type="radio" name="cetusTimerNotification" value='day'>Dia</label>
+			<label><input type="radio" name="cetusTimerNotification" value='night'>Noche</label>
+			<label><input type="radio" name="cetusTimerNotification" value='both'>Ambos</label></p>
+			
+			<p>Notificar Earth Timer: 
+			<label><input type="radio" name="earthTimerNotification" value='no' checked>No</label>
+			<label><input type="radio" name="earthTimerNotification" value='day'>Dia</label>
+			<label><input type="radio" name="earthTimerNotification" value='night'>Noche</label>
+			<label><input type="radio" name="earthTimerNotification" value='both'>Ambos</label></p>
 
-		<a id="FARMING"></a>
-		<h3 id="farmingTitle" onclick="toggleHide('farmingList');">🌑 Lista para farming</h3>
-		<div id="farmingList"><h2>No hay items seleccionados para farming en drops</h2></div>
-
-		<audio id="notificationGeneralSound" src='static/sound/allSystemNominal.wav'></audio>
-
-		<h3 onclick="toggleHide('divWarframeProfiler');">🌑 Profiler (Arsenal)</h3>
-		<div class="tabFrame">
-			<h4>Profiler nos muestra todo el detalle tanto de armas como de warframes. Dentro encontraran seguimiento de los patchlogs, estado del vault, ademas los stats especificos de cada item.</h4>
-			<div id='divWarframeProfiler' class="tab">
-				<button class="tablinks" class='active' id="activateProfiler" onclick="window.open('warframeprofiler.html');">Abrir Profiler (Arsenal)</button>
-			</div>
-		</div> 
-		<h3 onclick="toggleHide('divTextRecognition');">🌑 Responder a comandos de voz (EXPERIMENTAL)</h3>
-		<div id='divTextRecognition'class="tabFrame hidden">
-			<h4>Habilitar captura de sonido</h4>
-			<div class="tab">
-				<button class="tablinks" class='active' id="activateRecognitionBtn" onclick="">Habilitar comandos de voz</button>
-			</div>
-		</div> 
-		<h3>🌑 Plataformas</h3>
-		<h4>(SE PUEDEN SELECCIONAR DISTINTAS PLATAFORMAS A LA VEZ CARGANDO LA PAGINA EN DISTINTAS PESTA&Ntilde;AS)</h4>
-		<div class="tabFrame">
-			<div class="tab">
-				<button class="tablinks" id="platformSelectorPC" data-idGroupName="platformSelectorTab" name="pc" onclick="openTab(event, this.name,false);changePlatform(this.name);">PC</button>
-				<button class="tablinks" id="platformSelectorPS" data-idGroupName="platformSelectorTab" name="ps4" onclick="openTab(event, this.name,false);changePlatform(this.name);">PS4</button>
-				<button class="tablinks" id="platformSelectorXB" data-idGroupName="platformSelectorTab" name="xb1" onclick="openTab(event, this.name,false);changePlatform(this.name);">XBOX1</button>
-			</div>
-		</div> 
-		<!-- implementacion de tabs -->
-		<div class="tabFrame">
-			<div class="tab">
-				<button data-idGroupName="generalTab" class="tablinks active subrayado" data-idGroupName="generalTab" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>
-				<button data-idGroupName="generalTab" class="tablinks subrayado" id="tabShowAll" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>
-				<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitleWarframeMarket" name="warframeMarketTab" onclick="openTab(event, this.name);wfMarketTab1.click();">Warframe Market</button> -->
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleDrops" name="dropsTab" onclick="openTab(event, this.name)">Drops</button>
-				<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitlePersistentEnemies" name="persistentEnemiesTab" onclick="openTab(event, this.name)">Persistent Enemies</button> -->
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNotificaciones" name="notificacionesTab" onclick="openTab(event, this.name)">Notificaciones</button>
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleEventos" name="eventosTab" onclick="openTab(event, this.name)">Eventos</button>
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleAlertas" name="alertasTab" onclick="openTab(event, this.name)">Alertas</button>
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleInvasiones" name="invasionesTab" onclick="openTab(event, this.name)">Invasiones</button>
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSortie" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFisuras" name="fissuresTab" onclick="openTab(event, this.name)">Fisuras</button>
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleBaro" name="baroTab" onclick="openTab(event, this.name)">Baro</button>
-				<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSindicatos" name="sindicatosTab" onclick="openTab(event, this.name)">Sindicatos</button>
-
-			</div>
-		</div>	
-
-	<div id="warframeMarketTab" data-idGroupName="generalTab" class="tabcontent hidden">
-		<h3 id="warframeMarketTitle" onclick="toggleHide('warframeMarket');wfMarketTab1.click();">🌑 Warframe Market (click para mostrar)</h3>
-		<div id="warframeMarket" class="hidden">
+			<section id="timers"><img class="loading" src="static/img/loading.gif"></section>
 			<div class="tabFrame">
 				<div class="tab">
-					<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab1"name="wfMarket1" onclick="openTab(event, this.name);activateWFMarket(event);">1</button>
-					<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab2"name="wfMarket2" onclick="openTab(event, this.name);activateWFMarket(event);">2</button>
-					<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab3"name="wfMarket3" onclick="openTab(event, this.name);activateWFMarket(event);">3</button>
-					<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab4"name="wfMarket4" onclick="openTab(event, this.name);activateWFMarket(event);">4</button>
-					<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab5"name="wfMarket5" onclick="openTab(event, this.name);activateWFMarket(event);">5</button>
+					<button class="tablinks" class='active' onclick="toggleChildTimerWindow()">Abrir Ventana de timers</button>
+				</div>
+			</div> 
+			
+			<div id="persistentEnemiesTab" class="hidden">
+				<a id="PE"></a>
+				<h3 id="persistentEnemiesTitle" onclick="toggleHide('persistentEnemies');">🌑 Enemigos Persistentes</h3>
+				<label><input type="checkbox" name='persistentEnemiesSpeech' onclick="toggleInformar(this.name,this.checked);" id='persistentEnemiesSpeech'>📣 Avisar si hay un cambio de status del enemigo</label>
+				<section id="persistentEnemies"><img class="loading" src="static/img/loading.gif"></section>
+			</div>
+
+			<div id="lastNotificationHolder" class="hidden">
+				<h3 onclick="toggleHide('lastNotificationTitle');">📨 Ultima notificacion 📨</h3>
+				<h4 id='lastNotificationTitle'>Last notification: <span id='lastNotification'></span></h4>
+			</div>
+
+			<a id="FARMING"></a>
+			<h3 id="farmingTitle" onclick="toggleHide('farmingList');">🌑 Lista para farming</h3>
+			<div id="farmingList"><h2>No hay items seleccionados para farming en drops</h2></div>
+
+			<audio id="notificationGeneralSound" src='static/sound/allSystemNominal.wav'></audio>
+
+			<h3 onclick="toggleHide('divWarframeProfiler');">🌑 Profiler (Arsenal)</h3>
+			<div class="tabFrame">
+				<h4>Profiler nos muestra todo el detalle tanto de armas como de warframes. Dentro encontraran seguimiento de los patchlogs, estado del vault, ademas los stats especificos de cada item.</h4>
+				<div id='divWarframeProfiler' class="tab">
+					<button class="tablinks" class='active' id="activateProfiler" onclick="window.open('warframeprofiler.html');">Abrir Profiler (Arsenal)</button>
+				</div>
+			</div> 
+			<h3 onclick="toggleHide('divTextRecognition');">🌑 Responder a comandos de voz (EXPERIMENTAL)</h3>
+			<div id='divTextRecognition'class="tabFrame hidden">
+				<h4>Habilitar captura de sonido</h4>
+				<div class="tab">
+					<button class="tablinks" class='active' id="activateRecognitionBtn" onclick="">Habilitar comandos de voz</button>
+				</div>
+			</div> 
+			<h3>🌑 Plataformas</h3>
+			<h4>(SE PUEDEN SELECCIONAR DISTINTAS PLATAFORMAS A LA VEZ CARGANDO LA PAGINA EN DISTINTAS PESTA&Ntilde;AS)</h4>
+			<div class="tabFrame">
+				<div class="tab">
+					<button class="tablinks" id="platformSelectorPC" data-idGroupName="platformSelectorTab" name="pc" onclick="openTab(event, this.name,false);changePlatform(this.name);">PC</button>
+					<button class="tablinks" id="platformSelectorPS" data-idGroupName="platformSelectorTab" name="ps4" onclick="openTab(event, this.name,false);changePlatform(this.name);">PS4</button>
+					<button class="tablinks" id="platformSelectorXB" data-idGroupName="platformSelectorTab" name="xb1" onclick="openTab(event, this.name,false);changePlatform(this.name);">XBOX1</button>
+				</div>
+			</div> 
+			<!-- implementacion de tabs -->
+			<div class="tabFrame">
+				<div class="tab">
+					<button data-idGroupName="generalTab" class="tablinks active subrayado" data-idGroupName="generalTab" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>
+					<button data-idGroupName="generalTab" class="tablinks subrayado" id="tabShowAll" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>
+					<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitleWarframeMarket" name="warframeMarketTab" onclick="openTab(event, this.name);wfMarketTab1.click();">Warframe Market</button> -->
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleDrops" name="dropsTab" onclick="openTab(event, this.name)">Drops</button>
+					<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitlePersistentEnemies" name="persistentEnemiesTab" onclick="openTab(event, this.name)">Persistent Enemies</button> -->
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNotificaciones" name="notificacionesTab" onclick="openTab(event, this.name)">Notificaciones</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleEventos" name="eventosTab" onclick="openTab(event, this.name)">Eventos</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleAlertas" name="alertasTab" onclick="openTab(event, this.name)">Alertas</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleInvasiones" name="invasionesTab" onclick="openTab(event, this.name)">Invasiones</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSortie" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFisuras" name="fissuresTab" onclick="openTab(event, this.name)">Fisuras</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleBaro" name="baroTab" onclick="openTab(event, this.name)">Baro</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSindicatos" name="sindicatosTab" onclick="openTab(event, this.name)">Sindicatos</button>
+
+				</div>
+			</div>	
+
+			<div id="warframeMarketTab" data-idGroupName="generalTab" class="tabcontent hidden">
+			<h3 id="warframeMarketTitle" onclick="toggleHide('warframeMarket');wfMarketTab1.click();">🌑 Warframe Market (click para mostrar)</h3>
+			<div id="warframeMarket" class="hidden">
+				<div class="tabFrame">
+					<div class="tab">
+						<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab1"name="wfMarket1" onclick="openTab(event, this.name);activateWFMarket(event);">1</button>
+						<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab2"name="wfMarket2" onclick="openTab(event, this.name);activateWFMarket(event);">2</button>
+						<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab3"name="wfMarket3" onclick="openTab(event, this.name);activateWFMarket(event);">3</button>
+						<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab4"name="wfMarket4" onclick="openTab(event, this.name);activateWFMarket(event);">4</button>
+						<button data-idGroupName="wfMarketTab" class="tablinks" id="wfMarketTab5"name="wfMarket5" onclick="openTab(event, this.name);activateWFMarket(event);">5</button>
+					</div>
+				</div>
+				<div data-idGroupName="wfMarketTab" id="wfMarket1" class="tabcontent">
+					<!-- https://warframe.market/ -->
+					<iframe id="wfMarketIframe1" src="none" class='warframeMarketIframe'></iframe>
+				</div>
+				<div data-idGroupName="wfMarketTab" id="wfMarket2" class="tabcontent">
+					<iframe id="wfMarketIframe2" src="none" class='warframeMarketIframe'></iframe>
+				</div>
+				<div data-idGroupName="wfMarketTab" id="wfMarket3" class="tabcontent">
+					<iframe id="wfMarketIframe3" src="none" class='warframeMarketIframe'></iframe>
+				</div>
+				<div data-idGroupName="wfMarketTab" id="wfMarket4" class="tabcontent">
+					<iframe id="wfMarketIframe4" src="none" class='warframeMarketIframe'></iframe>
+				</div>
+				<div data-idGroupName="wfMarketTab" id="wfMarket5" class="tabcontent">
+					<iframe id="wfMarketIframe5" src="none" class='warframeMarketIframe'></iframe>
 				</div>
 			</div>
-			<div data-idGroupName="wfMarketTab" id="wfMarket1" class="tabcontent">
-				<!-- https://warframe.market/ -->
-				<iframe id="wfMarketIframe1" src="none" class='warframeMarketIframe'></iframe>
-			</div>
-			<div data-idGroupName="wfMarketTab" id="wfMarket2" class="tabcontent">
-				<iframe id="wfMarketIframe2" src="none" class='warframeMarketIframe'></iframe>
-			</div>
-			<div data-idGroupName="wfMarketTab" id="wfMarket3" class="tabcontent">
-				<iframe id="wfMarketIframe3" src="none" class='warframeMarketIframe'></iframe>
-			</div>
-			<div data-idGroupName="wfMarketTab" id="wfMarket4" class="tabcontent">
-				<iframe id="wfMarketIframe4" src="none" class='warframeMarketIframe'></iframe>
-			</div>
-			<div data-idGroupName="wfMarketTab" id="wfMarket5" class="tabcontent">
-				<iframe id="wfMarketIframe5" src="none" class='warframeMarketIframe'></iframe>
-			</div>
 		</div>
-	</div>
-	<div data-idGroupName="generalTab" id="dropsTab" class="tabcontent">
-		<a id="DROPS"></a>
-		<h3 id="dropsTitle" onclick="toggleHide('dropsList');">🌑 Drops</h3>
-		<div id="dropsList">
-			<form id="dropsForm" class='formulario'>
-				<ul>
-					<li>
-						<span id='dropsFormBuscando'></span>
-					</li>
-					<li>
-						<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" onblur="buscarDrop();" />
-						<input type="button" name="itemPipe" id="formAddPipeButton" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
-					</li>
-					<li id="liTipo">
-						Tipo:
-						<select id="formTipo" class="field-split" onchange="buscarDrop();">
-							<option value="All" selected>Todo tipo</option>
-							<option value="relics">Relics</option>
-							<option value="missionRewards">Misiones</option>
-							<option value="cetusBountyRewards">Cetus</option>
-							<option value="transientRewards">Eventos</option>
-							<option value="enemyModTables">Mods enemigos</option>
-							<option value="modLocations">Drops de enemigos</option>
-							<option value="sortieRewards">Sortie</option> 
+		<div data-idGroupName="generalTab" id="dropsTab" class="tabcontent">
+			<a id="DROPS"></a>
+			<h3 id="dropsTitle" onclick="toggleHide('dropsList');">🌑 Drops</h3>
+			<div id="dropsList">
+				<form id="dropsForm" class='formulario'>
+					<ul>
+						<li>
+							<span id='dropsFormBuscando'></span>
+						</li>
+						<li>
+							<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" onblur="buscarDrop();" />
+							<input type="button" name="itemPipe" id="formAddPipeButton" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
+						</li>
+						<li id="liTipo">
+							Tipo:
+							<select id="formTipo" class="field-split" onchange="buscarDrop();">
+								<option value="All" selected>Todo tipo</option>
+								<option value="relics">Relics</option>
+								<option value="missionRewards">Misiones</option>
+								<option value="cetusBountyRewards">Cetus</option>
+								<option value="transientRewards">Eventos</option>
+								<option value="enemyModTables">Mods enemigos</option>
+								<option value="modLocations">Drops de enemigos</option>
+								<option value="sortieRewards">Sortie</option> 
 
-								<!--<option value="blueprintLocations">Planos</option>
-								<option value="enemyBlueprintTables">Planos enemigos</option>
-								
-								
-								<option value="keyRewards">De Npc</option>
-								<option value="miscItems">Miscelaneos</option>-->
+									<!--<option value="blueprintLocations">Planos</option>
+									<option value="enemyBlueprintTables">Planos enemigos</option>
+									
+									
+									<option value="keyRewards">De Npc</option>
+									<option value="miscItems">Miscelaneos</option>-->
 
-							</select>
-						</li>
-						
-						<li id="liTipoRelic">
-							Estado de relic:
-							<select id="formTipoRelic" class="field-split" onchange="buscarDrop();">
-								<option value="All" selected>Todas</option>
-								<option value="Intact">Intact</option>
-								<option value="Exceptional">Exceptional</option>
-								<option value="Flawless">Flawless</option>
-								<option value="Radiant">Radiant</option>
-							</select>
-						</li>
-						<li id="liVaulted">
-							Vaulted:
-							<select id="formVaulted" class="field-split" onchange="buscarDrop();">
-								<option value="All" selected>Todo</option>
-								<option value="vaulted">Solo vaulted</option>
-								<option value="noVault">Exceptuar vaulted</option>
-							</select>
-						</li>
-						<li id="liPlanetaMision">
-							Planeta:
-							<select id="formPlanetaMision" class="field-split" onchange="buscarDrop();">
-								<option value="All" selected>Todos</option>
-							</select>
-						</li>
-						
-						<li id="liTipoMision">
-							Tipo Mision:
-							<select id="formTipoMision" class="field-split" onchange="buscarDrop();">
-								<option value="All" selected>Todas</option>
-							</select>
-						</li>
-						
-						<li id="liRotacion">
-							Rotacion:
-							<select id="formRotacion" class="field-split" onchange="buscarDrop();">
-								<option value="All" selected>Todas</option>
-								<option value="---">Sin rotacion</option>
-								<option value="A">A</option>
-								<option value="B">B</option>
-								<option value="C">C</option>
-							</select>
-						</li>
-
-						<li id="liRareza">
-							Rareza:
-							<select id="formRareza" class="field-split" onchange="buscarDrop();">
-								<option value="All" selected>Todas</option>
-								<option value="Common">Common</option>
-								<option value="Uncommon">Uncommon</option>
-								<option value="Rare">Rare</option>
-								<option value="Legendary">Legendary</option>
-							</select>
-						</li>
-						
-						<li hidden>
-							<span id="dropsMetrics"></span>
-						</li>
-						<li hidden>
+								</select>
+							</li>
 							
-						</li>
-						<li>
-							<input type="button" id="formUpdateButton" class="field-split" value="Actualizar datos" onclick="updateJsonDrops();buscarDrop();"/>
-							<input type="button" id="formClearButton" class="field-split" value="Borrar consulta" onclick="clearForm();"/>
-						</li>
-						<li>
-							Datos extraidos de la <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html">pagina oficial de Digital Extremes</a>
-						</li>
-					</ul>
-				</form>
-				<div id="formFarmeableRelics"></div>
-				<div id="dropResult"></div>
-				<div id="drops"><img class="loading" src="static/img/loading.gif"></div>
+							<li id="liTipoRelic">
+								Estado de relic:
+								<select id="formTipoRelic" class="field-split" onchange="buscarDrop();">
+									<option value="All" selected>Todas</option>
+									<option value="Intact">Intact</option>
+									<option value="Exceptional">Exceptional</option>
+									<option value="Flawless">Flawless</option>
+									<option value="Radiant">Radiant</option>
+								</select>
+							</li>
+							<li id="liVaulted">
+								Vaulted:
+								<select id="formVaulted" class="field-split" onchange="buscarDrop();">
+									<option value="All" selected>Todo</option>
+									<option value="vaulted">Solo vaulted</option>
+									<option value="noVault">Exceptuar vaulted</option>
+								</select>
+							</li>
+							<li id="liPlanetaMision">
+								Planeta:
+								<select id="formPlanetaMision" class="field-split" onchange="buscarDrop();">
+									<option value="All" selected>Todos</option>
+								</select>
+							</li>
+							
+							<li id="liTipoMision">
+								Tipo Mision:
+								<select id="formTipoMision" class="field-split" onchange="buscarDrop();">
+									<option value="All" selected>Todas</option>
+								</select>
+							</li>
+							
+							<li id="liRotacion">
+								Rotacion:
+								<select id="formRotacion" class="field-split" onchange="buscarDrop();">
+									<option value="All" selected>Todas</option>
+									<option value="---">Sin rotacion</option>
+									<option value="A">A</option>
+									<option value="B">B</option>
+									<option value="C">C</option>
+								</select>
+							</li>
+
+							<li id="liRareza">
+								Rareza:
+								<select id="formRareza" class="field-split" onchange="buscarDrop();">
+									<option value="All" selected>Todas</option>
+									<option value="Common">Common</option>
+									<option value="Uncommon">Uncommon</option>
+									<option value="Rare">Rare</option>
+									<option value="Legendary">Legendary</option>
+								</select>
+							</li>
+							
+							<li hidden>
+								<span id="dropsMetrics"></span>
+							</li>
+							<li hidden>
+								
+							</li>
+							<li>
+								<input type="button" id="formUpdateButton" class="field-split" value="Actualizar datos" onclick="updateJsonDrops();buscarDrop();"/>
+								<input type="button" id="formClearButton" class="field-split" value="Borrar consulta" onclick="clearForm();"/>
+							</li>
+							<li>
+								Datos extraidos de la <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html">pagina oficial de Digital Extremes</a>
+							</li>
+						</ul>
+					</form>
+					<div id="formFarmeableRelics"></div>
+					<div id="dropResult"></div>
+					<div id="drops"><img class="loading" src="static/img/loading.gif"></div>
+				</div>
 			</div>
-		</div>
-		<div id="notificacionesTab" data-idGroupName="generalTab" class="tabcontent">
-			<a id="NOTI"></a>
-			<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">🌑 Notificaciones</h3>
-			<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
-		</div>
-		
-		<div id="eventosTab" data-idGroupName="generalTab" class="tabcontent">
-			<a id="E"></a>
-			<h3 id="eventsTitle" onclick="toggleHide('events');">🌑 Eventos</h3>
-			<section id="events"><img class="loading" src="static/img/loading.gif"></section>
-		</div>
-		<div id="alertasTab" data-idGroupName="generalTab" class="tabcontent">
-			<a id="A"></a>
-			<h3 id="alertsTitle" onclick="toggleHide('alerts');">🌑 Alertas</h3>
-			<section id="alerts"><img class="loading" src="static/img/loading.gif"></section>
-		</div>
-		<div id="invasionesTab" data-idGroupName="generalTab" class="tabcontent">
-			<a id="I"></a>
-			<h3 id="invasionsTitle" onclick="toggleHide('invasions');">🌑 Invasiones</h3>
-			<section id="invasions"><img class="loading" src="static/img/loading.gif"></section>
-		</div>
-		<div id="sortieTab" data-idGroupName="generalTab" class="tabcontent">
-			<a id="S"></a>
-			<h3 id="sortieTitle" onclick="toggleHide('sortie');">🌑 Sortie</h3>
-			<section id="sortie"><img class="loading" src="static/img/loading.gif"></section>
-		</div>
-		<div id="fissuresTab" data-idGroupName="generalTab" class="tabcontent">
-			<a id="F"></a>
-			<h3 id="fissuresTitle" onclick="toggleHide('fissures');">🌑 Fisuras</h3>
-			<section id="fissures"><img class="loading" src="static/img/loading.gif"></section>
-		</div>
-		<div id="baroTab" data-idGroupName="generalTab" class="tabcontent">
-			<a id="B"></a>
-			<h3 id="baroTitle" onclick="toggleHide('baro');">🌑 Baro</h3>
-			<section id="baro"><img class="loading" src="static/img/loading.gif"></section>
-		</div>
-		<div id="sindicatosTab" data-idGroupName="generalTab" class="tabcontent">
-			<a id="SYN"></a>
-			<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">🌑 Sindicatos</h3>
-			<section id="syndicates"><img class="loading" src="static/img/loading.gif"></section>
+			<div id="notificacionesTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="NOTI"></a>
+				<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">🌑 Notificaciones</h3>
+				<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
+			</div>
+			
+			<div id="eventosTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="E"></a>
+				<h3 id="eventsTitle" onclick="toggleHide('events');">🌑 Eventos</h3>
+				<section id="events"><img class="loading" src="static/img/loading.gif"></section>
+			</div>
+			<div id="alertasTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="A"></a>
+				<h3 id="alertsTitle" onclick="toggleHide('alerts');">🌑 Alertas</h3>
+				<section id="alerts"><img class="loading" src="static/img/loading.gif"></section>
+			</div>
+			<div id="invasionesTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="I"></a>
+				<h3 id="invasionsTitle" onclick="toggleHide('invasions');">🌑 Invasiones</h3>
+				<section id="invasions"><img class="loading" src="static/img/loading.gif"></section>
+			</div>
+			<div id="sortieTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="S"></a>
+				<h3 id="sortieTitle" onclick="toggleHide('sortie');">🌑 Sortie</h3>
+				<section id="sortie"><img class="loading" src="static/img/loading.gif"></section>
+			</div>
+			<div id="fissuresTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="F"></a>
+				<h3 id="fissuresTitle" onclick="toggleHide('fissures');">🌑 Fisuras</h3>
+				<section id="fissures"><img class="loading" src="static/img/loading.gif"></section>
+			</div>
+			<div id="baroTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="B"></a>
+				<h3 id="baroTitle" onclick="toggleHide('baro');">🌑 Baro</h3>
+				<section id="baro"><img class="loading" src="static/img/loading.gif"></section>
+			</div>
+			<div id="sindicatosTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="SYN"></a>
+				<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">🌑 Sindicatos</h3>
+				<section id="syndicates"><img class="loading" src="static/img/loading.gif"></section>
+			</div>
 		</div>
 	</div>
 	<span class="disclaimer">Created by Nekro (ShadowOfNekro) | This site is neither owned nor affliated with Digital Extremes in any way.</span>

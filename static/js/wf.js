@@ -755,6 +755,7 @@ function checkSystems(){
 		if(resultJson!=''){
 			firstRun=false;
 			//notificationGeneralSound.play();
+			toggleHide("contenidoPagina");
 			generateToast("Welcome back, Operator!","","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWlywyQP08F1llP_JfBsuvQbp4z6n6t2lxCr9G-C3liEviKzuC",5000,"info");
 		}
 	}
