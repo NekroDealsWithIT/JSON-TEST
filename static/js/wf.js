@@ -3461,6 +3461,7 @@ function notifyNotification(data){
 	let id=data.actual;
 	if(talk!=''&&
 	!window.speechSynthesis.speaking&&
+	id!=undefined&&
 	(notificationStatus[title+id]==undefined||notificationStatus[title+id]!=id))
 	{
 		talk='Platform: '+platform+', ('+data.tipo+') '+title+': '+convertTimeToSpeacheable(data.timeLeft);
