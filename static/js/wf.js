@@ -1868,9 +1868,11 @@ function rellenarDatos(forceUpdate=false){
 		timers.innerHTML='';
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
+		timers.innerHTML+='<div>Fortuna Timer: <p class='+((resultJson.vallisCycle.isWarm)?'pDay':'pNight')+'>'+strDiff(resultJson.vallisCycle.timeLeft,diff) + '</p></div>';
 
 		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
 		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
+		//notifyTimer('vallis',resultJson.vallisCycle,'vallisTimerNotification',diff);
 
 		updateNotificationTimers('',true);
 
@@ -2688,6 +2690,7 @@ function rellenarDatos(forceUpdate=false){
 		});
 		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
 		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
+		//notifyTimer('vallis',resultJson.vallisCycle,'valllisTimerNotification',diff);
 		updateTimerWindow(diff);
 		
 		if(notifyList.length>0&&!window.speechSynthesis.speaking){
