@@ -2801,25 +2801,29 @@ function strDiff (strDate, diff,htmlSpan=true){
 	return htmlSpan==true?'<span data-time="'+strDate+'" class="'+(diff>0?'timerM':'timerP')+'">'+result+'</span>':result;
 }
 function convertTimeToSpeacheable(time){
-	let splited=time.split(" ");
 	let result='';
-	splited.forEach(s=>{
-		switch(s.substring(s.length-1)){
-			case 'd':
-				result+=s.substring(0,s.length-1)+' days ';
-				break;
-			case 'h':
-				result+=s.substring(0,s.length-1)+' hours ';
-				break;
-			case 'm':
-				result+=s.substring(0,s.length-1)+' minutes ';
-				break;
-			case 's':
-				result+=s.substring(0,s.length-1)+' seconds ';
-				break;
-			default:
-		}
-	});
+	try{
+		let splited=time.split(" ");
+		splited.forEach(s=>{
+			switch(s.substring(s.length-1)){
+				case 'd':
+					result+=s.substring(0,s.length-1)+' days ';
+					break;
+				case 'h':
+					result+=s.substring(0,s.length-1)+' hours ';
+					break;
+				case 'm':
+					result+=s.substring(0,s.length-1)+' minutes ';
+					break;
+				case 's':
+					result+=s.substring(0,s.length-1)+' seconds ';
+					break;
+				default:
+			}
+		});
+	}catch (e){
+		console.log(e,time);
+	}
 	return result;
 }
 
