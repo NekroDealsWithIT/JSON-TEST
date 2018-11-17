@@ -787,6 +787,15 @@ h5{
 	content: "\1F319";
 	color:green;
 }
+.pCold{
+	color:red;
+	display: inline;
+	font-size:2rem;
+}
+.pCold::after, .pCold::before{
+	content: "\2744";
+	color:white;
+}
 
 .baroEsta{
 	color: white;
@@ -1079,7 +1088,7 @@ Sets para checkear
 	.content{
 		width: 100%;
 	}
-	.pNight::before, .pDay::before{
+	.pNight::before, .pDay::before, .pCold::before{
 		content: "";
 	}
 } 
@@ -1089,7 +1098,7 @@ Sets para checkear
 	.content{
 		width: 100%;
 	}
-	.pNight::before, .pDay::before{
+	.pNight::before, .pDay::before, .pCold::before{
 		content: "";
 	}
 } 
@@ -1130,6 +1139,10 @@ Sets para checkear
 	}
 	.pNight::after, .pNight::before{
 		content: "(\1F319)";
+	}
+
+	.pCold::after, .pCold::before{
+		content: "(\2744)";	
 	}
 	@keyframes slideFondo {
 	    from {background-position: 0 0;}

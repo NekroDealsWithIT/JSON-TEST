@@ -1868,7 +1868,7 @@ function rellenarDatos(forceUpdate=false){
 		timers.innerHTML='';
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
-		timers.innerHTML+='<div>Fortuna Timer: <p class='+((resultJson.vallisCycle.isWarm)?'pDay':'pNight')+'>'+strDiff(resultJson.vallisCycle.timeLeft,diff) + '</p></div>';
+		timers.innerHTML+='<div>Fortuna Timer: <p class='+((resultJson.vallisCycle.isWarm)?'pDay':'pCold')+'>'+strDiff(resultJson.vallisCycle.timeLeft,diff) + '</p></div>';
 
 		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
 		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
@@ -3398,11 +3398,13 @@ function updateNotificationTimers(data,updateFront=false){
 }
 
 function notifyTimer(title,j,nameID,diff){
-		let selected=getRadioSelectedByName(nameID);
-		let time=pipedStringToArray(strDiff(j.timeLeft,diff,false),' ');
-		let talk='';
-		let id='';
-		title=title.toUpperCase();
+	let selected=getRadioSelectedByName(nameID);
+	let time=pipedStringToArray(strDiff(j.timeLeft,diff,false),' ');
+	let talk='';
+	let id='';
+	title=title.toUpperCase();
+	
+	if(j.isDay!=undefined){
 		time.forEach(t=>{(t.indexOf('m')>-1?id=t+(j.isDay==true?'d':'n'):'');});
 		switch(selected){
 			case 'no':
@@ -3426,26 +3428,54 @@ function notifyTimer(title,j,nameID,diff){
 				}
 				break;			
 		}
-		if(talk!=''&&
-		!window.speechSynthesis.speaking&&
-		(notificationStatus[title+'Timer']==undefined||notificationStatus[title+'Timer']!=id))
-		{
-			if(time[0]=='---'){
-				talk=title+' timer: the '+(j.isDay==false?'day':'night')+', has arrived!';	
-			}else{
-				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isDay==true?'night':'day');
-			}
-			
-			notificationStatus[title+'Timer']=id;
-			textToSpeech(talk,synthesisLang);
-			console.log(talk);
-			talk='<a href="#T">'+talk+'<hr><a href="#T">Link</a></a>'
-			
-			removeClass('lastNotificationHolder','hidden');
-			lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
+	}
 
-			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isDay==true?'(night 🌙)':'(day ☀)'),talk,"",15000,"info");
-		}		
+	if(j.isWarm!=undefined){
+		time.forEach(t=>{(t.indexOf('m')>-1?id=t+(j.isWarm==true?'d':'n'):'');});
+		switch(selected){
+			case 'no':
+				break;
+			case 'day':
+				if(time.length<3){
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==true){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});
+					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
+				}
+				break;
+			case 'night':
+				if(time.length<3){
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==false){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});		
+					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
+				}
+				break;
+			case 'both':
+				if(time.length<3){
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'||t==(n*-1)+'m'){talk=true;}});});
+					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
+				}
+				break;			
+		}
+	}
+
+	if(talk!=''&&
+	!window.speechSynthesis.speaking&&
+	(notificationStatus[title+'Timer']==undefined||notificationStatus[title+'Timer']!=id))
+	{
+		if(time[0]=='---'){
+			talk=title+' timer: the '+(j.isDay==false?'day':'night')+', has arrived!';	
+		}else{
+			talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isDay==true?'night':'day');
+		}
+		
+		notificationStatus[title+'Timer']=id;
+		textToSpeech(talk,synthesisLang);
+		console.log(talk);
+		talk='<a href="#T">'+talk+'<hr><a href="#T">Link</a></a>'
+		
+		removeClass('lastNotificationHolder','hidden');
+		lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
+
+		generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isDay==true?'(night 🌙)':'(day ☀)'),talk,"",15000,"info");
+	}		
 }
 function navigateToAnchor(anchor){
 	if(location.hash==anchor){
