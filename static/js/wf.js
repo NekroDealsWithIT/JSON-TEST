@@ -556,9 +556,42 @@ function habemusDrops(){
 		getDropsComboLists();
 		getFarmingMarks();
 		getActiveRelics();
+		getFishing();
 	}else{
 		console.log('Hubo un error al buscar los drops');
 	}
+}
+function getFishing(){	
+	const arrFishing={
+		'Brickie':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'bio':'Orb Vallis - Pond','cycle':'Warm','mats':'Scrap, Muon Battery','bait':'Broad Spectrum [50]'},
+		'Charamote':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'bio':'Orb Vallis - Cave (H)','cycle':'Any','mats':'Scrap, Sagan Module','bait':'Charamote Bait [300] (H)'},
+		'Echowinder':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'bio':'Orb Vallis - Lake','cycle':'Warm','mats':'Scrap, Anoscopic sensor','bait':'None'},
+		'Eye-Eye':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'bio':'Orb Vallis - Pond','cycle':'Cold','mats':'Scrap, Rotoblade','bait':'Narrow Spectrum [100] (H)'},
+		'Kriller':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'bio':'Orb Vallis - Lake','cycle':'Warm','mats':'Scrap, Thermal Laser','bait':'Kriller Bait [100]'},
+		'Longwinder':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'bio':'Orb Vallis - Lake','cycle':'Warm','mats':'Scrap, Lathe Coogulant','bait':'Longwinder Bait [200] (H)'},
+		'Mirewinder':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'bio':'Orb Vallis - Cave','cycle':'Any','mats':'Scrap, Parallel Biode','bait':'Mirewinder Bait [200]'},
+		'Recaster':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'bio':'Orb Vallis - Pond (H)','cycle':'Cold','mats':'Scrap, Neural Relay','bait':'Narrow Spectrum [100] (H)'},
+		'Sapcaddy':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'bio':'Orb Vallis - Lake','cycle':'Cold','mats':'Scrap, Venedo Case','bait':'Broad Spectrum [50]'},
+		'Scrubber':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'bio':'Orb Vallis - Cave','cycle':'Any','mats':'Scrap, EXA Brain','bait':'None'},
+		'Synathid':{'spear':'Shockprod, Stunna','s':600,'m':800,'l':1000,'bio':'Orb Vallis - Cave (H)','cycle':'Any','mats':'Scrap, Ecosynth analyzer','bait':'Synathid Bait [400] (H)'},
+		'Tink':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'bio':'Orb Vallis - Pond','cycle':'Cold','mats':'Scrap, Dissipator Coil','bait':'Broad Spectrum [50]'},
+		'Tromyzon':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'bio':'Orb Vallis - Pond (H)','cycle':'Cold','mats':'Scrap, EntroPlasma','bait':'Tromizon Bait [300] (H)'},
+		'Charc Eel':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'bio':'POE - Lake','cycle':'Any','mats':'Fish Meat, Fish Scales, Fish Oil, Charc Electroplax','bait':'Twilight Bait [2000]'},
+		'Cuthol':{'spear':'Lanzo','s':500,'m':650,'l':1000,'bio':'POE - Pond','cycle':'Night','mats':'Fish Meat, Fish Scales, Fish Oil, Cuthol Tendrils','bait':'Cuthol Bait [10000] (H)'},
+		'Glappid':{'spear':'Peram','s':1200,'m':1500,'l':2000,'bio':'POE - Ocean','cycle':'Night','mats':'Fish Meat, Fish Scales, Fish Oil, Seram Beetle Shell','bait':'Glappid Bait [12500] (H)'},
+		'Goopolla':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'bio':'POE - Ocean','cycle':'Any','mats':'Fish Meat, Fish Scales, Fish Oil, Goopola Spleen','bait':'Twilight Bait [2000]'},
+		'Karkina':{'spear':'Lanzo/Tulok','s':100,'m':125,'l':200,'bio':'POE - Ocean','cycle':'Any','mats':'Fish Meat, Fish Scales, Fish Oil, Karkina Antenna','bait':'Twilight Bait [2000]'},
+		'Khut-Khut':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'bio':'POE - Pond','cycle':'Day','mats':'Fish Meat, Fish Scales, Fish Oil, Khut-Khut Venom Sac','bait':'Preppered Bait [500]'},
+		'Mawfish':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'bio':'POE - Lake','cycle':'Day','mats':'Fish Meat, Fish Scales, Fish Oil, Mawfish Bones','bait':'Preppered Bait [500]'},
+		'Mortus Lungfish':{'spear':'Lanzo/Peram','s':100,'m':125,'l':200,'bio':'POE - Pond','cycle':'Night','mats':'Fish Meat, Fish Scales, Fish Oil, Mortus Horn','bait':'None'},
+		'Murkray':{'spear':'Lanzo','s':500,'m':650,'l':1000,'bio':'POE - Ocean','cycle':'Any','mats':'Fish Meat, Fish Scales, Fish Oil, Murkray Liver','bait':'Murkray Bait [5000] (H)'},
+		'Norg':{'spear':'Peram','s':500,'m':650,'l':1000,'bio':'POE - Lake','cycle':'Night','mats':'Fish Meat, Fish Scales, Fish Oil, Norg Brain','bait':'Norg Bait [7500] (H)'},
+		'Sharrac':{'spear':'Lanzo/Tulok','s':100,'m':125,'l':200,'bio':'POE - Ocean','cycle':'Any','mats':'Fish Meat, Fish Scales, Fish Oil, Sharrac Teeth','bait':'Twilight Bait [2000]'},
+		'Tralok':{'spear':'Tulok/Peram','s':100,'m':125,'l':200,'bio':'POE - Ocean','cycle':'Day','mats':'Fish Meat, Fish Scales, Fish Oil, Tralok Eyes','bait':'Preppered Bait [500]'},
+		'Yogwun':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'bio':'POE - Pond','cycle':'Day','mats':'Fish Meat, Fish Scales, Fish Oil, Yogwun Stomach','bait':'Preppered Bait [500]'}
+	}
+
+	resultJsonDrops.fishing=arrFishing;
 }
 function getActiveRelics(){
 	let arrRelics={};
@@ -1870,9 +1903,9 @@ function rellenarDatos(forceUpdate=false){
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Fortuna Timer: <p class='+((resultJson.vallisCycle.isWarm)?'pDay':'pCold')+'>'+strDiff(resultJson.vallisCycle.timeLeft,diff) + '</p></div>';
 
-		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
-		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
-		//notifyTimer('vallis',resultJson.vallisCycle,'vallisTimerNotification',diff);
+		//notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
+		//notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
+		notifyTimer('vallis',resultJson.vallisCycle,'vallisTimerNotification',diff);
 
 		updateNotificationTimers('',true);
 
@@ -3437,20 +3470,20 @@ function notifyTimer(title,j,nameID,diff){
 				break;
 			case 'day':
 				if(time.length<3){
-					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==true){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});
-					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isWarm==true){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});
+					if(time[0]=='---'){talk=true;id='---'+(j.isWarm==false?'d':'n');};
 				}
 				break;
 			case 'night':
 				if(time.length<3){
-					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isDay==false){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});		
-					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isWarm==false){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});		
+					if(time[0]=='---'){talk=true;id='---'+(j.isWarm==false?'d':'n');};
 				}
 				break;
 			case 'both':
 				if(time.length<3){
 					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'||t==(n*-1)+'m'){talk=true;}});});
-					if(time[0]=='---'){talk=true;id='---'+(j.isDay==false?'d':'n');};
+					if(time[0]=='---'){talk=true;id='---'+(j.isWarm==false?'d':'n');};
 				}
 				break;			
 		}
@@ -3461,9 +3494,19 @@ function notifyTimer(title,j,nameID,diff){
 	(notificationStatus[title+'Timer']==undefined||notificationStatus[title+'Timer']!=id))
 	{
 		if(time[0]=='---'){
-			talk=title+' timer: the '+(j.isDay==false?'day':'night')+', has arrived!';	
+			if(j.isDay!=undefined){
+				talk=title+' timer: the '+(j.isDay==false?'day':'night')+', has arrived!';		
+			}
+			if(j.isWarm!=undefined){
+				talk=title+' timer: the weather is now '+(j.isWarm==false?'warm':'cold');		
+			}	
 		}else{
-			talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isDay==true?'night':'day');
+			if(j.isDay!=undefined){
+				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isDay==true?'night':'day');
+			}
+			if(j.isWarm!=undefined){
+				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isWarm==true?'cold':'warm')+' cycle';
+			}	
 		}
 		
 		notificationStatus[title+'Timer']=id;
@@ -3474,7 +3517,13 @@ function notifyTimer(title,j,nameID,diff){
 		removeClass('lastNotificationHolder','hidden');
 		lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
 
-		generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isDay==true?'(night 🌙)':'(day ☀)'),talk,"",15000,"info");
+		if(j.isWarm!=undefined){
+			talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isWarm==true?'cold':'warm')+' cycle';
+			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isWarm==true?'(cold ❄)':'(warm ☀)'),talk,"",15000,"info");
+		}	
+		if(j.isDay!=undefined){
+			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isDay==true?'(night 🌙)':'(day ☀)'),talk,"",15000,"info");
+		}
 	}		
 }
 function navigateToAnchor(anchor){
