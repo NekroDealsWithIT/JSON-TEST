@@ -2270,17 +2270,22 @@ function rellenarDatos(forceUpdate=false){
 					});
 					if(j.rewardPool!=undefined){
 						var rewards="<h4>Rewards"+" | ("+strDiff(s.eta,diff)+"):</h4><ol>";
-						j.rewardPool.forEach(function (rp){
-							//Agrego copiar
-							var txtCopiar="'Syndicate Faction: "+s.syndicate+' ('+strDiff(s.eta,diff,false)+')'+" | "+j.type+" | "+enemyLevels+" | "+"Standing ("+j.standingStages.length+"): "+standingStages+" | "+rp+' (https://nekro-warframe.netlify.com)'+"'";						
-							txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
-							generalSyndicateCopy+=strReplaceAllNonPrintable(txtCopiar+'\\n');
-							var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
-							var link='<a href="http://warframe.wikia.com/wiki/Special:Search?search='+rp+'" target="blank">🔗</a>';
+						try{
+							j.rewardPool.forEach(function (rp){
+								//Agrego copiar
+								var txtCopiar="'Syndicate Faction: "+s.syndicate+' ('+strDiff(s.eta,diff,false)+')'+" | "+j.type+" | "+enemyLevels+" | "+"Standing ("+j.standingStages.length+"): "+standingStages+" | "+rp+' (https://nekro-warframe.netlify.com)'+"'";						
+								txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+								generalSyndicateCopy+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+								var imgCopiar='<img title="Copiar" src="static/img/Copy.png" class="thumbnailCopiar" alt="copiar" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+								var link='<a href="http://warframe.wikia.com/wiki/Special:Search?search='+rp+'" target="blank">🔗</a>';
 
-							rewards+='<li class="syndicateReward '+checkSetsClass(rp)+ '"'+'>'+imgCopiar+link+"&nbsp;"+rp+'</li>';
-						});
+								rewards+='<li class="syndicateReward '+checkSetsClass(rp)+ '"'+'>'+imgCopiar+link+"&nbsp;"+rp+'</li>';
+							});
+						}catch(e){
+							console.log('Falla en rewardPool',e,j,j.rewardPool);
+						}
 						rewards+="</ol>";
+					
 					}
 
 					standingStages="Standing: "+standingStages;
