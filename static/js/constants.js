@@ -3,6 +3,7 @@ const arrResources={
 	'version':1,
 	'Orb Vallis':
 	{
+		'timer':'vallisCycle',
 		'resourceMap':{'title':'All in one resource map Orb Vallis','lastUpdate:':'2018-12-11','url':'https://forums.warframe.com/applications/core/interface/imageproxy/imageproxy.php?img=https://www.framemastery.com/wp-content/uploads/orb_vallis_map_v21.jpg&key=f3ab2ff5b875ac9e629047865821ca51ec2f1575cba1e5fbb374acf20a976153','origin':'https://forums.warframe.com/topic/1029502-orb-vallis-map-high-res-caves-fishing-toroids-mining-k-drive-races-marked','local':'tips/Orb_Vallis/orbVallisFarming.jpg', 'htmlDesc':'<ul><li>Fish Picture = Good fishing spot</li><li>Mining Picture = Best mining spot on map in our opinion</li><li>White Cave = Regular Cave</li><li>Cyan Cave = Fishing Available</li><li>Triangle with Cave = Toroid Cave</li><li>Red water = Pond</li><li>Yellow water = Lake</li><li>Green Circle = K-Drive Race (K-Drive locations that are currently active before reset. Might not be able to update here on regular basis, but will at least have it updated on site)</li><li>Purple Circle = K-Drive Race (K-Drive locations that are currently inactive, but can become active after reset)</li><li>Blue Circle = Bounties</li></ul>'},
 		'fishing':{
 			'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
@@ -38,6 +39,7 @@ const arrResources={
 	},
 	'Plains Of Eidolon':
 	{
+		'timer':'cetusCycle',
 		'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
 		'fishing':{
 			'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
