@@ -282,6 +282,8 @@
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleEventos" name="eventosTab" onclick="openTab(event, this.name)">Eventos</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleMining" name="miningTab" onclick="openTab(event, this.name)">Mining</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFishing" name="fishingTab" onclick="openTab(event, this.name)">Fishing</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleHunting" name="huntingTab" onclick="openTab(event, this.name)">Hunting</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitlePlanetResouces" name="planetResourcesTab" onclick="openTab(event, this.name)">Planet Resources</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleAlertas" name="alertasTab" onclick="openTab(event, this.name)">Alertas</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleInvasiones" name="invasionesTab" onclick="openTab(event, this.name)">Invasiones</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSortie" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
@@ -437,36 +439,52 @@
 				<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
 			</div>
 
+			<div id="planetResourcesTab" data-idGroupName="generalTab" class="tabcontent">
+				<h3 id="planetResourcesTitle" onclick="toggleHide('planetResources');">🌑 Planet Resources</h3>
+				<section id="planetResources">
+					<section id="planetResourcesData" />
+				</section>
+			</div>
+
+			<div id="huntingTab" data-idGroupName="generalTab" class="tabcontent">
+				<h3 id="huntingTitle" onclick="toggleHide('hunting');">🌑 Hunting</h3>
+				<section id="hunting">
+					<section id="huntingLocationSelector"></section>
+					<section id="huntingData" />
+				</section>
+			</div>
+
+
 			<div id="miningTab" data-idGroupName="generalTab" class="tabcontent">
-				<a id="E"></a>
-				<h3 id="eventsTitle" onclick="toggleHide('mining');">🌑 Mining</h3>
+				<h3 id="miningTitle" onclick="toggleHide('mining');">🌑 Mining</h3>
 				<section id="mining">
-					<section id="miningLocationSelector" />
+					<section id="miningLocationSelector"></section>
+					<h5>Type</h5>
 					<p>
-						<label><input type="radio" name="bioFishingRadio" value='all' checked>All</label>
-						<label><input type="radio" name="bioFishingRadio" value='pond'>Pond</label>
-						<label><input type="radio" name="bioFishingRadio" value='lake'>Lake</label>
-						<label><input type="radio" name="bioFishingRadio" value='ocean'>Ocean</label>
-					</p>
-					<p>
-						<label><input type="radio" name="activeFishingRadio" value='all' checked>All</label>
-						<label><input type="radio" name="activeFishingRadio" value='active'>Active</label>
-						<label><input type="radio" name="activeFishingRadio" value='inactive'>Inactive</label>
+						<label><input onclick="updateResources(true)" type="radio" name="miningTypeRadio" value='all' checked>All</label>
+						<label><input onclick="updateResources(true)" type="radio" name="miningTypeRadio" value='gem'>Gems</label>
+						<label><input onclick="updateResources(true)" type="radio" name="miningTypeRadio" value='ore'>Ores</label>
 					</p>
 					<section id="miningData" />
 				</section>
 			</div>
 			
 			<div id="fishingTab" data-idGroupName="generalTab" class="tabcontent">
-				<a id="E"></a>
-				<h3 id="eventsTitle" onclick="toggleHide('fishing');">🌑 Fishing</h3>
-				<section id="fishingLocationSelector" />
+				<h3 id="fishingTitle" onclick="toggleHide('fishing');">🌑 Fishing</h3>
+				<section id="fishingLocationSelector"></section>
 				<section id="fishing">
+					<h5>Bio</h5>
 					<p>
-						<label><input type="radio" name="bioRadio" value='all' checked>All</label>
-						<label><input type="radio" name="bioRadio" value='pond'>Pond</label>
-						<label><input type="radio" name="bioRadio" value='lake'>Lake</label>
-						<label><input type="radio" name="bioRadio" value='ocean'>Ocean</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='all' checked>All</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='1'>Pond</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='2'>Lake</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='3'>Ocean-Cave</label>
+					</p>
+					<h5>Active</h5>
+					<p>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingActiveRadio" value='all' checked>All</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingActiveRadio" value=1>Active</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingActiveRadio" value=0>Inactive</label>
 					</p>
 				</section>
 				<section id="fishingData" />
@@ -514,6 +532,7 @@
 
 <!-- javascript -->
 <script type="text/javascript" src="static/js/constants.js"></script>
+<script type="text/javascript" src="static/js/resourceProfiler.js"></script>
 <script type="text/javascript" src="static/js/default.js"></script>
 <script type="text/javascript" src="static/js/indexedDB.js"></script>
 <script type="text/javascript" src="static/js/moment.min.js"></script>
