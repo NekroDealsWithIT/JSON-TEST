@@ -55,7 +55,6 @@ function resourceStructure(){
 				}
 			}		
 			parseadoH+='<div id="'+k+'HuntingTable"></div>';	
-
 		}
 	});
 	
@@ -87,6 +86,42 @@ function resourceStructure(){
 	huntingLocationSelector.innerHTML=huntingLocationHTML;	
 
 	updateResources(true);
+}
+
+function updatePlanetas(){
+	sortableTH='class="sortable" onclick="sortTable(event)"';
+	let parseado='<table border="1px solid red" style="background: darkcyan;">';
+	
+	parseado+='<tbody><tr>'+
+			'<th '+sortableTH+'>Planet</th>'+
+			'<th '+sortableTH+'>Faction</th>'+
+			'<th '+sortableTH+'>Level</th>'+
+			'<th '+sortableTH+'>Drops</th>'+
+			'<th '+sortableTH+'>Boss</th>'+
+			'<th '+sortableTH+'>Boss Location</th>'+
+			'<th '+sortableTH+'>frameFighter</th>'+
+		'</tr>'
+
+	Object.keys(planetas).forEach(function(p){
+		switch (p){
+			case 'timeStamp':
+			case 'version':
+				break;
+			default:
+				parseado+='<tr>'+
+					'<TD '+'data-sortid="'+p+'"'+'>'+p+'</TD>'+
+					'<TD '+'data-sortid="'+planetas[p].faction+'"'+'>'+planetas[p].faction+'</TD>'+
+					'<TD '+'data-sortid="'+planetas[p].level+'"'+'>'+planetas[p].level+'</TD>'+
+					'<TD '+'data-sortid="'+planetas[p].drops.toString()+'"'+'>'+planetas[p].drops.toString().split(",").join('<br>')+'</TD>'+
+					'<TD '+'data-sortid="'+planetas[p].boss+'"'+'>'+planetas[p].boss+'</TD>'+
+					'<TD '+'data-sortid="'+planetas[p].bossLocation+'"'+'>'+planetas[p].bossLocation+'</TD>'+
+					'<TD '+'data-sortid="'+planetas[p].frameFighter.toString()+'"'+'>'+planetas[p].frameFighter.toString().split(",").join('<br>');+'</TD>'+
+				'</tr>';
+				break;
+		}
+	});
+	parseado+='</tbody></table>';
+	planetResourcesData.innerHTML=parseado;	
 }
 
 function updateResources(forceUpdate=false){

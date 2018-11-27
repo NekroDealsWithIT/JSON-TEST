@@ -6,7 +6,7 @@ const timerExtension={
 
 const arrFreeRoamResources={
 	'timeStamp':'2018-11-27 16_10',
-	'version':4.7,
+	'version':5.7,
 	'vallisCycle':
 	{
 		'desc':'Orb Vallis',
@@ -157,7 +157,7 @@ const planetas={
 	'Kuva Fortress':{'level':'28 - 34','faction':'Grineer','boss':'n/a','bossLocation':'n/a','drops':['Salvage','Circuits','Neural Sensors','Detonite Ampule'],'frameFighter':[]},
 	'Eris':{'level':'30 - 45','faction':'Infestation','boss':'Mutalist Alad V or Jordas Golem','bossLocation':'Requires key','drops':['Nano Spores','Plastids','Neurodes','Mutagen Sample'],'frameFighter':['Atlas','Mesa']},
 	'Orokin Derelict':{'level':'25 - 35','faction':'Infestation','boss':'Lephantis','bossLocation':'Requires Key','drops':['Nano Spores','Mutagen Sample','Orokin Cell','Neurodes'],'frameFighter':['Nekros','Octavia']},
-	'Void':{'level':'10 - 45','faction':'Orokin','boss':'Corrupted Vor','bossLocation':'any node of Level ≥40','drops':['Ferrite','Rubedo','Argon Crystal','Control Module'],'frameFighter':[]}
+	'Void':{'level':'10 - 45','faction':'Orokin','boss':'Corrupted Vor','bossLocation':'Any node of Level ≥40','drops':['Ferrite','Rubedo','Argon Crystal','Control Module'],'frameFighter':[]}
 }
 const frameFighter={
 	 'timeStamp':'2018-09-24'
