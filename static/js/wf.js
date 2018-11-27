@@ -395,8 +395,16 @@ function checkSystems(){
 			//notificationGeneralSound.play();
 			toggleHide("contenidoPagina");
 			generateToast("Welcome back, Operator!","","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWlywyQP08F1llP_JfBsuvQbp4z6n6t2lxCr9G-C3liEviKzuC",5000,"info");
+			allAvailable();
 		}
 	}
+}
+function allAvailable(){
+	//EVERYTHING IS LOADED
+
+	//Resources
+	resourceStructure();
+	updatePlanetas();
 }
 
 function getDropsComboLists(){
@@ -2321,6 +2329,8 @@ function rellenarDatos(forceUpdate=false){
 
 		limpiarCompletasFinalizadas();
 	}else if(resultJson!=''){
+		updateResources();
+
 		let arrTimers=document.querySelectorAll(".timerP,.timerM");
 		arrTimers.forEach(function(t){
 			if(t.classList.contains("timerP")){
