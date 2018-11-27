@@ -19,8 +19,17 @@
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleMining" name="miningTab" onclick="openTab(event, this.name)">1</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFishing" name="fishingTab" onclick="openTab(event, this.name)">2</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleHunting" name="huntingTab" onclick="openTab(event, this.name)">3</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitlePlanetResouces" name="planetResourcesTab" onclick="openTab(event, this.name)">4</button>
 				</div>
 			</div>	
+
+
+			<div id="planetResourcesTab" data-idGroupName="generalTab" class="tabcontent">
+				<h3 id="planetResourcesTitle" onclick="toggleHide('planetResources');">🌑 Planet Resources</h3>
+				<section id="planetResources">
+					<section id="planetResourcesData" />
+				</section>
+			</div>
 
 			<div id="huntingTab" data-idGroupName="generalTab" class="tabcontent">
 				<h3 id="huntingTitle" onclick="toggleHide('hunting');">🌑 Hunting</h3>
@@ -87,6 +96,7 @@
 
 		function comenzarTesting(){
 			resourceStructure();
+			updatePlanetas();
 
 			startTestTimer();
 		}
