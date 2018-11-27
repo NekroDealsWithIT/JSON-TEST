@@ -1,80 +1,116 @@
-const arrResources={
-	'timeStamp':'2018-19-11 16_10',
-	'version':1,
-	'Orb Vallis':
+const timerExtension={
+	'vallisCycle':{'cycle':'isWarm','dayDesc':'Warm','nightDesc':'Cold'},
+	'cetusCycle':{'cycle':'isDay','dayDesc':'Day','nightDesc':'Night'}
+}
+
+
+const arrFreeRoamResources={
+	'timeStamp':'2018-11-27 16_10',
+	'version':4.7,
+	'vallisCycle':
 	{
-		'timer':'vallisCycle',
-		'resourceMap':{'title':'All in one resource map Orb Vallis','lastUpdate:':'2018-12-11','url':'https://forums.warframe.com/applications/core/interface/imageproxy/imageproxy.php?img=https://www.framemastery.com/wp-content/uploads/orb_vallis_map_v21.jpg&key=f3ab2ff5b875ac9e629047865821ca51ec2f1575cba1e5fbb374acf20a976153','origin':'https://forums.warframe.com/topic/1029502-orb-vallis-map-high-res-caves-fishing-toroids-mining-k-drive-races-marked','local':'tips/Orb_Vallis/orbVallisFarming.jpg', 'htmlDesc':'<ul><li>Fish Picture = Good fishing spot</li><li>Mining Picture = Best mining spot on map in our opinion</li><li>White Cave = Regular Cave</li><li>Cyan Cave = Fishing Available</li><li>Triangle with Cave = Toroid Cave</li><li>Red water = Pond</li><li>Yellow water = Lake</li><li>Green Circle = K-Drive Race (K-Drive locations that are currently active before reset. Might not be able to update here on regular basis, but will at least have it updated on site)</li><li>Purple Circle = K-Drive Race (K-Drive locations that are currently inactive, but can become active after reset)</li><li>Blue Circle = Bounties</li></ul>'},
+		'desc':'Orb Vallis',
+		'resourceMap':{'title':'All in one resource map Orb Vallis','lastUpdate':'2018-12-11','url':'https://forums.warframe.com/applications/core/interface/imageproxy/imageproxy.php?img=https://www.framemastery.com/wp-content/uploads/orb_vallis_map_v21.jpg&key=f3ab2ff5b875ac9e629047865821ca51ec2f1575cba1e5fbb374acf20a976153','origin':'https://forums.warframe.com/topic/1029502-orb-vallis-map-high-res-caves-fishing-toroids-mining-k-drive-races-marked','local':'tips/Orb_Vallis/orbVallisFarming.jpg', 'htmlDesc':'<ul><li>Fish Picture = Good fishing spot</li><li>Mining Picture = Best mining spot on map in our opinion</li><li>White Cave = Regular Cave</li><li>Cyan Cave = Fishing Available</li><li>Triangle with Cave = Toroid Cave</li><li>Red water = Pond</li><li>Yellow water = Lake</li><li>Green Circle = K-Drive Race (K-Drive locations that are currently active before reset. Might not be able to update here on regular basis, but will at least have it updated on site)</li><li>Purple Circle = K-Drive Race (K-Drive locations that are currently inactive, but can become active after reset)</li><li>Blue Circle = Bounties</li></ul>'},
+		'timerDesc':{'cycle':'isWarm','dayDesc':'Warm','nightDesc':'Cold'},
 		'fishing':{
-			'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
-			'descripction':'All fish drops scrap',
-			'Brickie':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'Pond','cycle':'Warm','mats':'Muon Battery','bait':'Broad Spectrum [50]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/b/b0/Brickie.png'},
-			'Charamote':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'loc':'Orb Vallis','bio':'Cave (H)','cycle':'Any','mats':'Sagan Module','bait':'Charamote Bait [300] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/2/2e/Charamote.png'},
-			'Echowinder':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'Lake','cycle':'Warm','mats':'Anoscopic sensor','bait':'None','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/c/c3/Echowinder.png'},
-			'Eye-Eye':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'loc':'Orb Vallis','bio':'Pond','cycle':'Cold','mats':'Rotoblade','bait':'Narrow Spectrum [100] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/7/7f/Eye-Eye.png'},
-			'Kriller':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'loc':'Orb Vallis','bio':'Lake','cycle':'Warm','mats':'Thermal Laser','bait':'Kriller Bait [100]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/2/21/Kriller.png'},
-			'Longwinder':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'loc':'Orb Vallis','bio':'Lake','cycle':'Warm','mats':'Lathe Coogulant','bait':'Longwinder Bait [200] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/1/19/Longwinder.png'},
-			'Mirewinder':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'loc':'Orb Vallis','bio':'Cave','cycle':'Any','mats':'Parallel Biode','bait':'Mirewinder Bait [200]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/8/81/Mirewinder.png'},
-			'Recaster':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'loc':'Orb Vallis','bio':'Pond (H)','cycle':'Cold','mats':'Neural Relay','bait':'Narrow Spectrum [100] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/5/51/Recaster.png'},
-			'Sapcaddy':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'Lake','cycle':'Cold','mats':'Venedo Case','bait':'Broad Spectrum [50]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/a/af/Sapcaddy.png'},
-			'Scrubber':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'Cave','cycle':'Any','mats':'EXA Brain','bait':'None','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/e/e9/Scrubber.png'},
-			'Synathid':{'spear':'Shockprod, Stunna','s':600,'m':800,'l':1000,'loc':'Orb Vallis','bio':'Cave (H)','cycle':'Any','mats':'Ecosynth analyzer','bait':'Synathid Bait [400] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/e/eb/Synathid.png'},
-			'Tink':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'Pond','cycle':'Cold','mats':'Dissipator Coil','bait':'Broad Spectrum [50]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/4/49/Tink.png'},
-			'Tromyzon':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'loc':'Orb Vallis','bio':'Pond (H)','cycle':'Cold','mats':'EntroPlasma','bait':'Tromizon Bait [300] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/5/55/Tromyzon.png'}
+			// 'resourceMap':{'title':'','lastUpdate':'','url':'','origin':'','local':'','htmlDesc':''},
+			'description':'All fish drops scrap<p>All Baits are one use</p>',
+
+			'Brickie':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'1','bioDesc':'Pond','cycle':'Warm','mats':'Muon Battery','bait':'Broad Spectrum [50]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/b/b0/Brickie.png'},
+			'Charamote':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'loc':'Orb Vallis','bio':'3','bioDesc':'Cave (H)','cycle':'Any','mats':'Sagan Module','bait':'Charamote Bait [300] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/2/2e/Charamote.png'},
+			'Echowinder':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'2','bioDesc':'Lake','cycle':'Warm','mats':'Anoscopic sensor','bait':'None','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/c/c3/Echowinder.png'},
+			'Eye-Eye':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'loc':'Orb Vallis','bio':'1','bioDesc':'Pond','cycle':'Cold','mats':'Rotoblade','bait':'Narrow Spectrum [100] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/7/7f/Eye-Eye.png'},
+			'Kriller':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'loc':'Orb Vallis','bio':'2','bioDesc':'Lake','cycle':'Warm','mats':'Thermal Laser','bait':'Kriller Bait [100]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/2/21/Kriller.png'},
+			'Longwinder':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'loc':'Orb Vallis','bio':'2','bioDesc':'Lake','cycle':'Warm','mats':'Lathe Coogulant','bait':'Longwinder Bait [200] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/1/19/Longwinder.png'},
+			'Mirewinder':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'loc':'Orb Vallis','bio':'3','bioDesc':'Cave','cycle':'Any','mats':'Parallel Biode','bait':'Mirewinder Bait [200]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/8/81/Mirewinder.png'},
+			'Recaster':{'spear':'Shockprod, Stunna','s':45,'m':60,'l':100,'loc':'Orb Vallis','bio':'1','bioDesc':'Pond (H)','cycle':'Cold','mats':'Neural Relay','bait':'Narrow Spectrum [100] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/5/51/Recaster.png'},
+			'Sapcaddy':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'2','bioDesc':'Lake','cycle':'Cold','mats':'Venedo Case','bait':'Broad Spectrum [50]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/a/af/Sapcaddy.png'},
+			'Scrubber':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'3','bioDesc':'Cave','cycle':'Any','mats':'EXA Brain','bait':'None','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/e/e9/Scrubber.png'},
+			'Synathid':{'spear':'Shockprod, Stunna','s':600,'m':800,'l':1000,'loc':'Orb Vallis','bio':'3','bioDesc':'Cave (H)','cycle':'Any','mats':'Ecosynth analyzer','bait':'Synathid Bait [400] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/e/eb/Synathid.png'},
+			'Tink':{'spear':'Shockprod, Stunna','s':35,'m':45,'l':70,'loc':'Orb Vallis','bio':'1','bioDesc':'Pond','cycle':'Cold','mats':'Dissipator Coil','bait':'Broad Spectrum [50]','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/4/49/Tink.png'},
+			'Tromyzon':{'spear':'Shockprod, Stunna','s':200,'m':300,'l':500,'loc':'Orb Vallis','bio':'1','bioDesc':'Pond (H)','cycle':'Cold','mats':'EntroPlasma','bait':'Tromizon Bait [300] (H)','loot':'Scrap','img':'https://vignette.wikia.nocookie.net/warframe/images/5/55/Tromyzon.png'}
+
 		},
 		'mining':{
-			'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
-			'descripction':'Recommended> Sunpoint Plasma Drill',
-			'Amarast':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'500','img':'https://vignette.wikia.nocookie.net/warframe/images/b/b9/Amarast.png','mat':'Star Amarast'},
-			'Goblite':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'200','img':'https://vignette.wikia.nocookie.net/warframe/images/3/39/Goblite.png','mat':'Goblite Tears'},
-			'Noctrul':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'50','img':'https://vignette.wikia.nocookie.net/warframe/images/1/10/Noctrul.png','mat':'Heart Noctrul'},
-			'Phasmin':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'50','img':'https://vignette.wikia.nocookie.net/warframe/images/c/c3/Phasmin.png','mat':'Smooth Phasmin'},
-			'Thyst':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'1000','img':'https://vignette.wikia.nocookie.net/warframe/images/a/a6/Thyst.png','mat':'Marquise Thyst'},
-			'Zodian':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'1000','img':'https://vignette.wikia.nocookie.net/warframe/images/a/a0/Zodian.png','mat':'Radiant Zodian'},
-			'Axidite':{'type':'Ore','loc':'Orb Vallis','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/2/26/Axidite.png','mat':'Axidrol Alloy'},
-			'Hesperon':{'type':'Ore','loc':'Orb Vallis','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/5/53/Hesperon.png','mat':'Hespazym Alloy'},
-			'Travoride':{'type':'Ore','loc':'Orb Vallis','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/6/6f/Travoride.png','mat':'Travocyte Alloy'},
-			'Venerol':{'type':'Ore','loc':'Orb Vallis','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/2/21/Venerol.png','mat':'Venerol'}
+			// 'resourceMap':{'title':'','lastUpdate':'','url':'','origin':'','local':'','htmlDesc':''},
+			'description':'Recommended> Sunpoint Plasma Drill',
+
+			'Amarast':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'500','img':'https://vignette.wikia.nocookie.net/warframe/images/b/b9/Amarast.png','cycle':'Any','mat':'Star Amarast','qty':'6','matimg':'https://vignette.wikia.nocookie.net/warframe/images/7/70/StarAmarast.png'},
+			'Goblite':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'200','img':'https://vignette.wikia.nocookie.net/warframe/images/3/39/Goblite.png','cycle':'Any','mat':'Goblite Tears','qty':'10','matimg':'https://vignette.wikia.nocookie.net/warframe/images/5/5a/GobliteTears.png'},
+			'Noctrul':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'50','img':'https://vignette.wikia.nocookie.net/warframe/images/1/10/Noctrul.png','cycle':'Any','mat':'Heart Noctrul','qty':'10','matimg':'https://vignette.wikia.nocookie.net/warframe/images/1/1e/HeartNoctrul.png'},
+			'Phasmin':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'50','img':'https://vignette.wikia.nocookie.net/warframe/images/c/c3/Phasmin.png','cycle':'Any','mat':'Smooth Phasmin','qty':'10','matimg':'https://vignette.wikia.nocookie.net/warframe/images/6/63/SmoothPhasmin.png'},
+			'Thyst':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'1000','img':'https://vignette.wikia.nocookie.net/warframe/images/a/a6/Thyst.png','cycle':'Any','mat':'Marquise Thyst','qty':'3','matimg':'https://vignette.wikia.nocookie.net/warframe/images/e/e1/MarquiseThyst.png'},
+			'Zodian':{'type':'Gem','loc':'Orb Vallis','vein':'Blue','stand':'1000','img':'https://vignette.wikia.nocookie.net/warframe/images/a/a0/Zodian.png','cycle':'Any','mat':'Radiant Zodian','qty':'3','matimg':'https://vignette.wikia.nocookie.net/warframe/images/0/0d/RadiantZodian.png'},
+			'Axidite':{'type':'Ore','loc':'Orb Vallis','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/2/26/Axidite.png','cycle':'Any','mat':'Axidrol Alloy','qty':'20','matimg':'https://vignette.wikia.nocookie.net/warframe/images/8/8e/AxidrolAlloy.png'},
+			'Hesperon':{'type':'Ore','loc':'Orb Vallis','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/5/53/Hesperon.png','cycle':'Any','mat':'Hespazym Alloy','qty':'20','matimg':'https://vignette.wikia.nocookie.net/warframe/images/b/bb/HespazymAlloy.png'},
+			'Travoride':{'type':'Ore','loc':'Orb Vallis','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/6/6f/Travoride.png','cycle':'Any','mat':'Travocyte Alloy','qty':'20','matimg':'https://vignette.wikia.nocookie.net/warframe/images/4/47/TravocyteAlloy.png'},
+			'Venerol':{'type':'Ore','loc':'Orb Vallis','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/2/21/Venerol.png','cycle':'Any','mat':'Venerdo Alloy','qty':'20','matimg':'https://vignette.wikia.nocookie.net/warframe/images/5/5a/VenerdoAlloy.png'}
+
+		},
+		'hunting':{
+			// 'resourceMap':{'title':'','lastUpdate':'','url':'','origin':'','local':'','htmlDesc':''},
+			'description':'Recommended> Ivara-Sleep Equinox',			
+
+			'Sunny':{'class':'Pobber','pack':'3','desc':'Native to the fungal forests of Venus, the Pobber is a skittish rodent possessed of an objectionable odor. Always found in groups, they flee at the slightest hint of trouble. They are a primary food source for the Virmink and Sawgaw.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/5/57/PobberCommon.png','perfect':'400','good':'300','bad':'-'},
+			'Delicate':{'class':'Pobber','pack':'3','desc':'Native to the fungal forests of Venus, the Pobber is a skittish rodent possessed of an objectionable odor. Always found in groups, they flee at the slightest hint of trouble. They are a primary food source for the Virmink and Sawgaw.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/d/df/PobberUncommon.png','perfect':'600','good':'450','bad':'300'},
+			'Subterranean':{'class':'Pobber','pack':'3','desc':'Native to the fungal forests of Venus, the Pobber is a skittish rodent possessed of an objectionable odor. Always found in groups, they flee at the slightest hint of trouble. They are a primary food source for the Virmink and Sawgaw.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/a/af/PobberRare.png','perfect':'800','good':'600','bad':'-'},
+			'White-breasted':{'class':'Virmink','pack':'1','desc':'Sleek and silky, the adorable appearance of the Venusian Virmink belies its aggressive demeanor. Favoring rocky landscapes Virmink packs nose the air, scenting for Pobbers - their primary food source.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/7/72/VirminkCommon.png','perfect':'600','good':'450','bad':'-'},
+			'Dusky-headed':{'class':'Virmink','pack':'1','desc':'Sleek and silky, the adorable appearance of the Venusian Virmink belies its aggressive demeanor. Favoring rocky landscapes Virmink packs nose the air, scenting for Pobbers - their primary food source.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/7/7e/VirminkUncommon.png','perfect':'800','good':'600','bad':'400'},
+			'Red-crested':{'class':'Virmink','pack':'1','desc':'Sleek and silky, the adorable appearance of the Venusian Virmink belies its aggressive demeanor. Favoring rocky landscapes Virmink packs nose the air, scenting for Pobbers - their primary food source.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/7/7d/VirminkRare.png','perfect':'1000','good':'750','bad':'-'},
+			'Spotted':{'class':'Bolarola','pack':'1','desc':'Favoring thunder, lightning and cratered-out areas Bolarolas are all about defense. Their armored plates protect them from most predators, tucking-and-rolling to make good their escape.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/e/ea/BolarolaCommon.png','perfect':'1000','good':'750','bad':'-'},
+			'Black-banded':{'class':'Bolarola','pack':'1','desc':'Favoring thunder, lightning and cratered-out areas Bolarolas are all about defense. Their armored plates protect them from most predators, tucking-and-rolling to make good their escape.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/f/fc/BolarolaUncommon.png','perfect':'1500','good':'1125','bad':'-'},
+			'Thorny':{'class':'Bolarola','pack':'1','desc':'Favoring thunder, lightning and cratered-out areas Bolarolas are all about defense. Their armored plates protect them from most predators, tucking-and-rolling to make good their escape.','cycle':'Any','agressive':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/f/f7/BolarolaRare.png','perfect':'2500','good':'1875','bad':'-'},
+			'Brindle':{'class':'Kubrodon','pack':'1','desc':'The apex predator of the Venusian plains. These massively framed beasts travel in groups and mark the territory surrounding Orokin cooling towers as their own. Kubrodons are a danger best avoided.','cycle':'Any','agressive':'1','img':'https://vignette.wikia.nocookie.net/warframe/images/a/a4/KubrodonCommon.png','perfect':'2000','good':'1500','bad':'1000'},
+			'Vallis':{'class':'Kubrodon','pack':'1','desc':'The apex predator of the Venusian plains. These massively framed beasts travel in groups and mark the territory surrounding Orokin cooling towers as their own. Kubrodons are a danger best avoided.','cycle':'Any','agressive':'1','img':'https://vignette.wikia.nocookie.net/warframe/images/2/2a/KubrodonUncommon.png','perfect':'4000','good':'3000','bad':'-'},
+			'Incarnadine':{'class':'Kubrodon','pack':'1','desc':'The apex predator of the Venusian plains. These massively framed beasts travel in groups and mark the territory surrounding Orokin cooling towers as their own. Kubrodons are a danger best avoided.','cycle':'Any','agressive':'1','img':'https://vignette.wikia.nocookie.net/warframe/images/a/ac/KubrodonRare.png','perfect':'8000','good':'6000','bad':'-'}
+
 		}
 	},
-	'Plains Of Eidolon':
+	'cetusCycle':
 	{
-		'timer':'cetusCycle',
-		'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
+		'desc':'Plains Of Eidolon',
+		// 'resourceMap':{'title':'','lastUpdate':'','url':'','origin':'','local':'','htmlDesc':''},
+		'timerDesc':{'cycle':'isDay','dayDesc':'Day','nightDesc':'Night'},
 		'fishing':{
-			'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
-			'descripction':'All fish drops Fish Meat, Fish Scales, Fish Oil',
-			'Charc Eel':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'Lake','cycle':'Any','mats':'Charc Electroplax','bait':'Twilight Bait [2000]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/5/54/CharcEel.png'},
-			'Cuthol':{'spear':'Lanzo','s':500,'m':650,'l':1000,'loc':'POE','bio':'Pond','cycle':'Night','mats':'Cuthol Tendrils','bait':'Cuthol Bait [10000] (H)','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/1/19/Cuthol.png'},
-			'Glappid':{'spear':'Peram','s':1200,'m':1500,'l':2000,'loc':'POE','bio':'Ocean','cycle':'Night','mats':'Seram Beetle Shell','bait':'Glappid Bait [12500] (H)','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/e/ed/Glappid.png'},
-			'Goopolla':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'Ocean','cycle':'Any','mats':'Goopola Spleen','bait':'Twilight Bait [2000]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/e/e4/Goopolla.png'},
-			'Karkina':{'spear':'Lanzo/Tulok','s':100,'m':125,'l':200,'loc':'POE','bio':'Ocean','cycle':'Any','mats':'Karkina Antenna','bait':'Twilight Bait [2000]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/b/b1/Karkina.png'},
-			'Khut-Khut':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'Pond','cycle':'Day','mats':'Khut-Khut Venom Sac','bait':'Preppered Bait [500]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/1/17/KhutKhut.png'},
-			'Mawfish':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'Lake','cycle':'Day','mats':'Mawfish Bones','bait':'Preppered Bait [500]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/6/6b/Mawfish.png'},
-			'Mortus Lungfish':{'spear':'Lanzo/Peram','s':100,'m':125,'l':200,'loc':'POE','bio':'Pond','cycle':'Night','mats':'Mortus Horn','bait':'None','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/1/1d/MortusLungfish.png'},
-			'Murkray':{'spear':'Lanzo','s':500,'m':650,'l':1000,'loc':'POE','bio':'Ocean','cycle':'Any','mats':'Murkray Liver','bait':'Murkray Bait [5000] (H)','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/9/94/Murkray.png'},
-			'Norg':{'spear':'Peram','s':500,'m':650,'l':1000,'loc':'POE','bio':'Lake','cycle':'Night','mats':'Norg Brain','bait':'Norg Bait [7500] (H)','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/4/47/Norg.png'},
-			'Sharrac':{'spear':'Lanzo/Tulok','s':100,'m':125,'l':200,'loc':'POE','bio':'Ocean','cycle':'Any','mats':'Sharrac Teeth','bait':'Twilight Bait [2000]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/c/ca/Sharrac.png'},
-			'Tralok':{'spear':'Tulok/Peram','s':100,'m':125,'l':200,'loc':'POE','bio':'Ocean','cycle':'Day','mats':'Tralok Eyes','bait':'Preppered Bait [500]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/5/5e/Tralok.png'},
-			'Yogwun':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'Pond','cycle':'Day','mats':'Yogwun Stomach','bait':'Preppered Bait [500]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/f/f1/Yogwun.png'}
+			// 'resourceMap':{'title':'','lastUpdate':'','url':'','origin':'','local':'','htmlDesc':''},
+			'description':'All fish drops Fish Meat, Fish Scales, Fish Oil<p>All Baits are crafteable</p>',
+
+			'Charc Eel':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'2','bioDesc':'Lake','cycle':'Any','mats':'Charc Electroplax','bait':'Twilight Bait [2000]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/5/54/CharcEel.png'},
+			'Cuthol':{'spear':'Lanzo','s':500,'m':650,'l':1000,'loc':'POE','bio':'1','bioDesc':'Pond','cycle':'Night','mats':'Cuthol Tendrils','bait':'Cuthol Bait [10000] (H)','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/1/19/Cuthol.png'},
+			'Glappid':{'spear':'Peram','s':1200,'m':1500,'l':2000,'loc':'POE','bio':'3','bioDesc':'Ocean','cycle':'Night','mats':'Seram Beetle Shell','bait':'Glappid Bait [12500] (H)','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/e/ed/Glappid.png'},
+			'Goopolla':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'3','bioDesc':'Ocean','cycle':'Any','mats':'Goopola Spleen','bait':'Twilight Bait [2000]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/e/e4/Goopolla.png'},
+			'Karkina':{'spear':'Lanzo/Tulok','s':100,'m':125,'l':200,'loc':'POE','bio':'3','bioDesc':'Ocean','cycle':'Any','mats':'Karkina Antenna','bait':'Twilight Bait [2000]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/b/b1/Karkina.png'},
+			'Khut-Khut':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'1','bioDesc':'Pond','cycle':'Day','mats':'Khut-Khut Venom Sac','bait':'Preppered Bait [500]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/1/17/KhutKhut.png'},
+			'Mawfish':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'2','bioDesc':'Lake','cycle':'Day','mats':'Mawfish Bones','bait':'Preppered Bait [500]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/6/6b/Mawfish.png'},
+			'Mortus Lungfish':{'spear':'Lanzo/Peram','s':100,'m':125,'l':200,'loc':'POE','bio':'1','bioDesc':'Pond','cycle':'Night','mats':'Mortus Horn','bait':'None','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/1/1d/MortusLungfish.png'},
+			'Murkray':{'spear':'Lanzo','s':500,'m':650,'l':1000,'loc':'POE','bio':'3','bioDesc':'Ocean','cycle':'Any','mats':'Murkray Liver','bait':'Murkray Bait [5000] (H)','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/9/94/Murkray.png'},
+			'Norg':{'spear':'Peram','s':500,'m':650,'l':1000,'loc':'POE','bio':'2','bioDesc':'Lake','cycle':'Night','mats':'Norg Brain','bait':'Norg Bait [7500] (H)','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/4/47/Norg.png'},
+			'Sharrac':{'spear':'Lanzo/Tulok','s':100,'m':125,'l':200,'loc':'POE','bio':'3','bioDesc':'Ocean','cycle':'Any','mats':'Sharrac Teeth','bait':'Twilight Bait [2000]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/c/ca/Sharrac.png'},
+			'Tralok':{'spear':'Tulok/Peram','s':100,'m':125,'l':200,'loc':'POE','bio':'3','bioDesc':'Ocean','cycle':'Day','mats':'Tralok Eyes','bait':'Preppered Bait [500]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/5/5e/Tralok.png'},
+			'Yogwun':{'spear':'Lanzo/Tulok/Peram','s':25,'m':35,'l':50,'loc':'POE','bio':'1','bioDesc':'Pond','cycle':'Day','mats':'Yogwun Stomach','bait':'Preppered Bait [500]','loot':'Fish Meat, Fish Scales, Fish Oil','img':'https://vignette.wikia.nocookie.net/warframe/images/f/f1/Yogwun.png'}
+
 		},
 		'mining':{
-			'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
-			'descripction':'Recommended> Advanced Nosam Cutter, Best> Sunpoint Plasma Drill',
-			'Azurite':{'type':'Gem','loc':'POE','vein':'Blue','stand':'50','img':'https://vignette.wikia.nocookie.net/warframe/images/e/ee/Azurite.png','mat':'Tear Azurite'},
-			'Crimzian':{'type':'Gem','loc':'POE','vein':'Blue','stand':'100','img':'https://vignette.wikia.nocookie.net/warframe/images/8/8d/Crimzian.png','mat':'Star Crimzian'},
-			'Devar':{'type':'Gem','loc':'POE','vein':'Blue','stand':'50','img':'https://vignette.wikia.nocookie.net/warframe/images/1/11/Devar.png','mat':'Esher Devar'},
-			'Veridos':{'type':'Gem','loc':'POE','vein':'Blue','stand':'75','img':'https://vignette.wikia.nocookie.net/warframe/images/e/ec/Veridos.png','mat':'Marquise Veridos'},
-			'Nyth':{'type':'Gem','loc':'POE','vein':'Blue (Rare)','stand':'400','img':'https://vignette.wikia.nocookie.net/warframe/images/d/dc/Nyth.png','mat':'Heart Nyth'},
-			'Sentirum':{'type':'Gem','loc':'POE','vein':'Blue (Rare)','stand':'400','img':'https://vignette.wikia.nocookie.net/warframe/images/a/ad/Sentrium.png','mat':'Radian Sentirum'},
-			'Auron':{'type':'Ore','loc':'POE','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/d/de/Auron.png','mat':'Auroxium Alloy'},
-			'Coprun':{'type':'Ore','loc':'POE','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/f/f1/Coprun.png','mat':'Coprite Alloy'},
-			'Ferros':{'type':'Ore','loc':'POE','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/6/6b/Ferros.png','mat':'Fersteel Alloy'},
-			'Pyrol':{'type':'Ore','loc':'POE','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/9/92/Pyrol.png','mat':'Pyrotic Alloy'}
+			// 'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
+			'description':'Recommended> Advanced Nosam Cutter, Best> Sunpoint Plasma Drill',
+
+			'Azurite':{'type':'Gem','loc':'POE','vein':'Blue','stand':'50','img':'https://vignette.wikia.nocookie.net/warframe/images/e/ee/Azurite.png','cycle':'Any','mat':'Tear Azurite','qty':'10','matimg':'https://vignette.wikia.nocookie.net/warframe/images/9/93/TearAzurite.png'},
+			'Crimzian':{'type':'Gem','loc':'POE','vein':'Blue','stand':'100','img':'https://vignette.wikia.nocookie.net/warframe/images/8/8d/Crimzian.png','cycle':'Any','mat':'Star Crimzian','qty':'6','matimg':'https://vignette.wikia.nocookie.net/warframe/images/7/72/StarCrimzian.png'},
+			'Devar':{'type':'Gem','loc':'POE','vein':'Blue','stand':'50','img':'https://vignette.wikia.nocookie.net/warframe/images/1/11/Devar.png','cycle':'Any','mat':'Esher Devar','qty':'10','matimg':'https://vignette.wikia.nocookie.net/warframe/images/0/02/EsherDevar.png'},
+			'Veridos':{'type':'Gem','loc':'POE','vein':'Blue','stand':'75','img':'https://vignette.wikia.nocookie.net/warframe/images/e/ec/Veridos.png','cycle':'Any','mat':'Marquise Veridos','qty':'10','matimg':'https://vignette.wikia.nocookie.net/warframe/images/3/37/MarquiseVeridos.png'},
+			'Nyth':{'type':'Gem','loc':'POE','vein':'Blue (Rare)','stand':'400','img':'https://vignette.wikia.nocookie.net/warframe/images/d/dc/Nyth.png','cycle':'Any','mat':'Heart Nyth','qty':'3','matimg':'https://vignette.wikia.nocookie.net/warframe/images/c/c6/HeartNyth.png'},
+			'Sentirum':{'type':'Gem','loc':'POE','vein':'Blue (Rare)','stand':'400','img':'https://vignette.wikia.nocookie.net/warframe/images/a/ad/Sentrium.png','cycle':'Any','mat':'Radian Sentirum','qty':'3','matimg':'https://vignette.wikia.nocookie.net/warframe/images/9/9c/RadianSentirum.png'},
+			'Auron':{'type':'Ore','loc':'POE','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/d/de/Auron.png','cycle':'Any','mat':'Auroxium Alloy','qty':'20','matimg':'https://vignette.wikia.nocookie.net/warframe/images/f/fa/AuroxiumAlloy.png'},
+			'Coprun':{'type':'Ore','loc':'POE','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/f/f1/Coprun.png','cycle':'Any','mat':'Coprite Alloy','qty':'20','matimg':'https://vignette.wikia.nocookie.net/warframe/images/8/84/CopriteAlloy.png'},
+			'Ferros':{'type':'Ore','loc':'POE','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/6/6b/Ferros.png','cycle':'Any','mat':'Fersteel Alloy','qty':'20','matimg':'https://vignette.wikia.nocookie.net/warframe/images/6/61/FersteelAlloy.png'},
+			'Pyrol':{'type':'Ore','loc':'POE','vein':'Red','stand':'0','img':'https://vignette.wikia.nocookie.net/warframe/images/9/92/Pyrol.png','cycle':'Any','mat':'Pyrotic Alloy','qty':'20','matimg':'https://vignette.wikia.nocookie.net/warframe/images/0/0b/PyroticAlloy.png'}
+
 		}
 	}
 }
-	
+
+
+
 //Values definidos para el sorting de tablas js
 const sortValues={
 	'rarity':{'peculiar':0,'common':1,'uncommon':2,'rare':3,'legendary':4,'riven':5},

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+	<!-- charset -->
+	<meta charset="utf-8">
+	<title>Testing</title>
+	<!-- Javascript -->
+	<script type="text/javascript" src="static/js/tools.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">
+</head>
+<body style="background: black;">
+
+
+			<!-- implementacion de tabs -->
+			<div class="tabFrame">
+				<div class="tab">
+					<button data-idGroupName="generalTab" class="tablinks active subrayado" data-idGroupName="generalTab" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>
+					<button data-idGroupName="generalTab" class="tablinks subrayado" id="tabShowAll" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleMining" name="miningTab" onclick="openTab(event, this.name)">1</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFishing" name="fishingTab" onclick="openTab(event, this.name)">2</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleHunting" name="huntingTab" onclick="openTab(event, this.name)">3</button>
+				</div>
+			</div>	
+
+			<div id="huntingTab" data-idGroupName="generalTab" class="tabcontent">
+				<h3 id="huntingTitle" onclick="toggleHide('hunting');">🌑 Hunting</h3>
+				<section id="hunting">
+					<section id="huntingLocationSelector"></section>
+					<section id="huntingData" />
+				</section>
+			</div>
+
+
+			<div id="miningTab" data-idGroupName="generalTab" class="tabcontent">
+				<h3 id="miningTitle" onclick="toggleHide('mining');">🌑 Mining</h3>
+				<section id="mining">
+					<section id="miningLocationSelector"></section>
+					<h5>Type</h5>
+					<p>
+						<label><input onclick="updateResources(true)" type="radio" name="miningTypeRadio" value='all' checked>All</label>
+						<label><input onclick="updateResources(true)" type="radio" name="miningTypeRadio" value='gem'>Gems</label>
+						<label><input onclick="updateResources(true)" type="radio" name="miningTypeRadio" value='ore'>Ores</label>
+					</p>
+					<section id="miningData" />
+				</section>
+			</div>
+			
+			<div id="fishingTab" data-idGroupName="generalTab" class="tabcontent">
+				<h3 id="fishingTitle" onclick="toggleHide('fishing');">🌑 Fishing</h3>
+				<section id="fishingLocationSelector"></section>
+				<section id="fishing">
+					<h5>Bio</h5>
+					<p>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='all' checked>All</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='1'>Pond</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='2'>Lake</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='3'>Ocean-Cave</label>
+					</p>
+					<h5>Active</h5>
+					<p>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingActiveRadio" value='all' checked>All</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingActiveRadio" value=1>Active</label>
+						<label><input onclick="updateResources(true)" type="radio" name="fishingActiveRadio" value=0>Inactive</label>
+					</p>
+				</section>
+				<section id="fishingData" />
+			</div>
+
+
+	<!-- javascript -->
+	<script type="text/javascript" src="static/js/constants.js"></script>
+	<script type="text/javascript" src="static/js/default.js"></script>
+	<script type="text/javascript" src="static/js/indexedDB.js"></script>
+	<script type="text/javascript" src="static/js/moment.min.js"></script>
+	<script type="text/javascript" src="static/js/wf.js"></script>
+	<script type="text/javascript" src="static/js/checkversion.js"></script>
+	<!-- <script type="text/javascript" src="static/js/speechToText.js"></script> -->
+
+	<script type="text/javascript" src="static/js/resourceProfiler.js"></script>
+	<script type="text/javascript" src="static/js/test.js"></script>
+
+	<script type="text/javascript">
+		buscarWFWorldstate();
+		buscarDrops();
+		var timer1;
+		var firstTime=true;
+
+		function comenzarTesting(){
+			resourceStructure();
+
+			startTestTimer();
+		}
+		function startTestTimer(){
+			timer1=setClock(1000,testTimer,timer1);
+		}
+
+		function testTimer(){
+			if (!fetching){
+				fetchingCounter=0;
+				counter1++;
+				console.log (counter1);
+				if (counter1>=counter1Max){
+					buscarWFWorldstate();
+					counter1=0;
+				}
+			}else{
+				fetchingCounter++;
+				if (fetchingCounter>=fetchingCounterMax){
+					buscarWFWorldstate();
+					fetchingCounter=0;
+				}		
+			}
+
+			updateResources();
+			let arrTimers=document.querySelectorAll(".timerP,.timerM");
+			var diff=resultJson!=''?new Date(new Date().toUTCString())-moment(resultJson.timestamp):0;
+			arrTimers.forEach(function(t){
+				if(t.classList.contains("timerP")){
+					t.innerHTML='<span>'+strDiff(t.dataset.time,diff*-1,false)+'</span>';
+				}else if(t.classList.contains("timerM")){
+					t.innerHTML='<span>'+strDiff(t.dataset.time,diff,false)+'</span>';
+				}
+			});
+		}
+	</script>
+</body>
+</html>
+
+<style type="text/css">
+.imgMap {
+    width: 90vw;
+    max-width: 90vw!important;
+    border: solid red;
+}
+</style>
