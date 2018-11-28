@@ -17,22 +17,37 @@ function resourceStructure(){
 			break;
 		default:
 			r=resources[k];
-			if(r.resourceMap!=undefined){
-				let rm=r.resourceMap;
-				parseado+='<h4>'+r.desc+'</h4>';
-				parseado+='<h5>'+rm.title+(rm.lastUpdate!=undefined?' ('+rm.lastUpdate+')':'')+(rm.origin!=undefined?' [<a href="'+rm.origin+'" target="blank">Link to Original Post</a>]':'')+'</h5>';
-				parseado+='<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+"'"+')">Show general map</label></p><div id="map'+k+'" class="hidden"><img src="'+(rm.local!=undefined?rm.url:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined?rm.htmlDesc:'')+'</p></div>';
-			}
-
 			r.mining!=undefined?miningLocation.push([k,r.desc]):'';
 			r.fishing!=undefined?fishingLocation.push([k,r.desc]):'';
 			r.hunting!=undefined?huntingLocation.push([k,r.desc]):'';
+
+			if(r.resourceMap!=undefined){
+				let rm=r.resourceMap;
+				let salt=''
+				if(r.mining!=undefined){
+					salt='mining'
+					parseado='<h4>'+r.desc+'</h4><h5>'+rm.title+(rm.lastUpdate!=undefined?' ('+rm.lastUpdate+')':'')+(rm.origin!=undefined?' [<a href="'+rm.origin+'" target="blank">Link to Original Post</a>]':'')+'</h5>';
+					parseadoM+=parseado+'<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+salt+"'"+')">Show general map</label></p><div id="map'+k+salt+'" class="hidden"><img src="static/img/'+(rm.local!=undefined&&rm.local!=''?rm.local:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined&&rm.htmlDesc!=''?rm.htmlDesc:'')+'</p></div>';
+				}
+				if(r.fishing!=undefined){
+					salt='fishing'
+					parseado='<h4>'+r.desc+'</h4><h5>'+rm.title+(rm.lastUpdate!=undefined?' ('+rm.lastUpdate+')':'')+(rm.origin!=undefined?' [<a href="'+rm.origin+'" target="blank">Link to Original Post</a>]':'')+'</h5>';
+					parseadoF+=parseado+'<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+salt+"'"+')">Show general map</label></p><div id="map'+k+salt+'" class="hidden"><img src="static/img/'+(rm.local!=undefined&&rm.local!=''?rm.local:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined&&rm.htmlDesc!=''?rm.htmlDesc:'')+'</p></div>';
+				}
+				if(r.hunting!=undefined){
+					salt='hunting'
+					parseado='<h4>'+r.desc+'</h4><h5>'+rm.title+(rm.lastUpdate!=undefined?' ('+rm.lastUpdate+')':'')+(rm.origin!=undefined?' [<a href="'+rm.origin+'" target="blank">Link to Original Post</a>]':'')+'</h5>';
+					parseadoH+=parseado+'<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+salt+"'"+')">Show general map</label></p><div id="map'+k+salt+'" class="hidden"><img src="static/img/'+(rm.local!=undefined&&rm.local!=''?rm.local:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined&&rm.htmlDesc!=''?rm.htmlDesc:'')+'</p></div>';
+				}
+				//parseado+='<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+salt+"'"+')">Show general map</label></p><div id="map'+k+salt+'" class="hidden"><img src="'+(rm.local!=undefined&&rm.local!=''?rm.local:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined&&rm.htmlDesc!=''?rm.htmlDesc:'')+'</p></div>';
+			}
+
 
 			if (r.mining!=undefined){
 				if(r.mining.resourceMap!=undefined){
 					let rm=r.mining.resourceMap;
 					parseadoM+='<h5>'+rm.title+(rm.lastUpdate!=undefined?' ('+rm.lastUpdate+')':'')+(rm.origin!=undefined?' [<a href="'+rm.origin+'" target="blank">Link to Original Post</a>]':'')+'</h5>';
-					parseadoM+='<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+"Mining'"+')">Show '+rm.title+' map</label></p><div id="map'+k+'Mining" class="hidden"><img src="'+(rm.local!=undefined?rm.url:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined?rm.htmlDesc:'')+'</p></div>';
+					parseadoM+='<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+"Mining'"+')">Show '+rm.title+' map</label></p><div id="map'+k+'Mining" class="hidden"><img src="static/img/'+(rm.local!=undefined?rm.local:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined?rm.htmlDesc:'')+'</p></div>';
 				}
 
 			}
@@ -42,7 +57,7 @@ function resourceStructure(){
 				if(r.fishing.resourceMap!=undefined){
 					let rm=r.fishing.resourceMap;
 					parseadoF+='<h5>'+rm.title+(rm.lastUpdate!=undefined?' ('+rm.lastUpdate+')':'')+(rm.origin!=undefined?' [<a href="'+rm.origin+'" target="blank">Link to Original Post</a>]':'')+'</h5>';
-					parseadoF+='<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+"'"+')">Show '+rm.title+' map</label></p><div id="map'+k+'Fishing" class="hidden"><img src="'+(rm.local!=undefined?rm.url:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined?rm.htmlDesc:'')+'</p></div>';
+					parseadoF+='<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+"'"+')">Show '+rm.title+' map</label></p><div id="map'+k+'Fishing" class="hidden"><img src="static/img/'+(rm.local!=undefined?rm.local:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined?rm.htmlDesc:'')+'</p></div>';
 				}
 			}		
 			parseadoF+='<div id="'+k+'FishingTable"></div>';	
@@ -51,16 +66,16 @@ function resourceStructure(){
 				if(r.hunting.resourceMap!=undefined){
 					let rm=r.hunting.resourceMap;
 					parseadoH+='<h5>'+rm.title+(rm.lastUpdate!=undefined?' ('+rm.lastUpdate+')':'')+(rm.origin!=undefined?' [<a href="'+rm.origin+'" target="blank">Link to Original Post</a>]':'')+'</h5>';
-					parseadoH+='<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+"'"+')">Show '+rm.title+' map</label></p><div id="map'+k+'Hunting" class="hidden"><img src="'+(rm.local!=undefined?rm.url:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined?rm.htmlDesc:'')+'</p></div>';
+					parseadoH+='<p><label><input type="checkbox" onClick="toggleHide('+"'map"+k+"'"+')">Show '+rm.title+' map</label></p><div id="map'+k+'Hunting" class="hidden"><img src="static/img/'+(rm.local!=undefined?rm.local:rm.url)+'" class="imgMap"><p>'+(rm.htmlDesc!=undefined?rm.htmlDesc:'')+'</p></div>';
 				}
 			}		
 			parseadoH+='<div id="'+k+'HuntingTable"></div>';	
 		}
 	});
 	
-	miningData.innerHTML=parseado+parseadoM;
-	fishingData.innerHTML=parseado+parseadoF;
-	huntingData.innerHTML=parseado+parseadoH;
+	miningData.innerHTML=parseadoM;
+	fishingData.innerHTML=parseadoF;
+	huntingData.innerHTML=parseadoH;
 
 
 
@@ -90,7 +105,7 @@ function resourceStructure(){
 
 function updatePlanetas(){
 	sortableTH='class="sortable" onclick="sortTable(event)"';
-	let parseado='<table border="1px solid red" style="background: darkcyan;">';
+	let parseado='<table border="1px solid red" style="background: darkcyan;" class="tableResources">';
 	
 	parseado+='<tbody><tr>'+
 			'<th '+sortableTH+'>Planet</th>'+
@@ -188,7 +203,7 @@ function drawHunting(o){
 
 	var diff=resultJson!=''?new Date(new Date().toUTCString())-moment(resultJson.timestamp):0;
 	
-	parseado='<h4>'+o.d+' Hunting ('+strDiff(o.t.timeLeft, diff)+' to '+(o.t[o.td.cycle]==true?o.td.nightDesc:o.td.dayDesc)+' cycle)</h4><p>'+o.r.description+'</p><table border="1px solid red" style="background: darkcyan;">';
+	parseado='<h4>'+o.d+' Hunting ('+strDiff(o.t.timeLeft, diff)+' to '+(o.t[o.td.cycle]==true?o.td.nightDesc:o.td.dayDesc)+' cycle)</h4><p>'+o.r.description+'</p><table border="1px solid red" style="background: darkcyan;" class="tableResources">';
 	
 	parseado+='<tbody><tr>'+
 			'<th '+sortableTH+'>Hunt</th>'+
@@ -218,7 +233,7 @@ function drawHunting(o){
 			){
 			
 			parseado+='<tr>'+
-					'<TD '+'data-sortid="'+k+'"'+'><p><img src="'+i.img+'" style="max-width:10vw!important;"></p>'+k+'</TD>'+
+					'<TD '+'data-sortid="'+k+'"'+'>'+k+'<p><img src="'+i.img+'" style="max-width:10vw!important;"></p></TD>'+
 					'<TD '+'data-sortid="'+i.class+'"'+'>'+i.class+'</TD>'+
 					'<TD '+'data-sortid="'+i.pack+'"'+'>'+i.pack+'</TD>'+
 					'<TD '+'data-sortid="'+i.agressive+'"'+'>'+(i.agressive==true?'YES':'NO')+'</TD>'+
@@ -241,7 +256,7 @@ function drawMining(o){
 	var diff=resultJson!=''?new Date(new Date().toUTCString())-moment(resultJson.timestamp):0;
 	
 	//parseado='<h4>'+o.d+' Mining ('+strDiff(o.t.timeLeft, diff)+' to '+(o.t[timerExtension[o.c].cycle]==true?timerExtension[o.c].nightDesc:timerExtension[o.c].dayDesc)+' cycle)</h4><p>'+o.r.description+'</p><table border="1px solid red" style="background: darkcyan;">';
-	parseado='<h4>'+o.d+' Mining ('+strDiff(o.t.timeLeft, diff)+' to '+(o.t[o.td.cycle]==true?o.td.nightDesc:o.td.dayDesc)+' cycle)</h4><p>'+o.r.description+'</p><table border="1px solid red" style="background: darkcyan;">';
+	parseado='<h4>'+o.d+' Mining ('+strDiff(o.t.timeLeft, diff)+' to '+(o.t[o.td.cycle]==true?o.td.nightDesc:o.td.dayDesc)+' cycle)</h4><p>'+o.r.description+'</p><table border="1px solid red" style="background: darkcyan;" class="tableResources">';
 	
 	parseado+='<tbody><tr>'+
 			'<th '+sortableTH+'>Resource</th>'+
@@ -268,7 +283,7 @@ function drawMining(o){
 				(selectedRadios[selection[1]]==i.type.toLowerCase()||selectedRadios[selection[1]]=='all')
 			){
 			parseado+='<tr>'+
-					'<TD '+'data-sortid="'+k+'"'+'><p><img src="'+i.img+'" style="max-width:10vw!important;"></p>'+k+'</TD>'+
+					'<TD '+'data-sortid="'+k+'"'+'></p>'+k+'<p><img src="'+i.img+'" style="max-width:10vw!important;"></TD>'+
 					'<TD '+'data-sortid="'+i.type+'"'+'>'+i.type+'</TD>'+
 					'<TD '+'data-sortid="'+i.vein+'"'+'>'+i.vein+'</TD>'+
 					'<TD '+'data-sortid="'+i.stand+'"'+'>'+i.stand+'</TD>'+
@@ -296,7 +311,7 @@ function drawFishing(o){
 				*/
 
 	//parseado='<h4>'+o.d+' Fishing ('+strDiff(o.t.timeLeft, diff)+' to '+(o.t[timerExtension[o.c].cycle]==true?timerExtension[o.c].nightDesc:timerExtension[o.c].dayDesc)+' cycle)</h4><p>'+o.r.description+'</p><table border="1px solid red" style="background: darkcyan;">';
-	parseado='<h4>'+o.d+' Fishing ('+strDiff(o.t.timeLeft, diff)+' to '+(o.t[o.td.cycle]==true?o.td.nightDesc:o.td.dayDesc)+' cycle)</h4><p>'+o.r.description+'</p><table border="1px solid red" style="background: darkcyan;">';
+	parseado='<h4>'+o.d+' Fishing ('+strDiff(o.t.timeLeft, diff)+' to '+(o.t[o.td.cycle]==true?o.td.nightDesc:o.td.dayDesc)+' cycle)</h4><p>'+o.r.description+'</p><table border="1px solid red" style="background: darkcyan;" class="tableResources">';
 	parseado+='<tbody><tr>'+
 			'<th '+sortableTH+'>Resource</th>'+
 			'<th '+sortableTH+'>Active</th>'+
@@ -325,7 +340,7 @@ function drawFishing(o){
 				(checkActiveResource(i,o.t)==selectedRadios[selection[2]]||selectedRadios[selection[2]]=='all')
 			){
 				parseado+='<tr>'+
-						'<TD data-sortid="'+k+'" rowspan="1"><p><img src="'+i.img+'" style="max-width:10vw!important;"><p>'+k+'</TD>'+
+						'<TD data-sortid="'+k+'" rowspan="1">'+k+'<p><img src="'+i.img+'" style="max-width:10vw!important;"><p></TD>'+
 						'<TD data-sortid="'+i.cycle+'" rowspan="1">'+(checkActiveResource(i,o.t)==true?strDiff(o.t.timeLeft, diff):'---')+'</TD>'+
 						'<TD data-sortid="'+i.spear+'" rowspan="1">'+i.spear+'</TD>'+
 						'<TD data-sortid="'+i.bio+'" rowspan="1">'+i.bioDesc+'</TD>'+

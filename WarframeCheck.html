@@ -273,24 +273,23 @@
 			<!-- implementacion de tabs -->
 			<div class="tabFrame">
 				<div class="tab">
-					<button data-idGroupName="generalTab" class="tablinks active subrayado" data-idGroupName="generalTab" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR</button>
-					<button data-idGroupName="generalTab" class="tablinks subrayado" id="tabShowAll" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR</button>
+					<button data-idGroupName="generalTab" class="tablinks active subrayado" data-idGroupName="generalTab" name="hideAllTab" onclick="openTab(event, this.name,false)">HIDE ALL</button>
+					<button data-idGroupName="generalTab" class="tablinks subrayado" id="tabShowAll" name="showAllTab" onclick="openTab(event, this.name,false)">SHOW ALL</button>
 					<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitleWarframeMarket" name="warframeMarketTab" onclick="openTab(event, this.name);wfMarketTab1.click();">Warframe Market</button> -->
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleDrops" name="dropsTab" onclick="openTab(event, this.name)">Drops</button>
 					<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitlePersistentEnemies" name="persistentEnemiesTab" onclick="openTab(event, this.name)">Persistent Enemies</button> -->
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNotificaciones" name="notificacionesTab" onclick="openTab(event, this.name)">Notificaciones</button>
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleEventos" name="eventosTab" onclick="openTab(event, this.name)">Eventos</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNotificaciones" name="notificacionesTab" onclick="openTab(event, this.name)">Notifications</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleEventos" name="eventosTab" onclick="openTab(event, this.name)">Events</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleAlertas" name="alertasTab" onclick="openTab(event, this.name)">Alerts</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleInvasiones" name="invasionesTab" onclick="openTab(event, this.name)">Invasions</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSortie" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFisuras" name="fissuresTab" onclick="openTab(event, this.name)">Fissures</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleBaro" name="baroTab" onclick="openTab(event, this.name)">Baro</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSindicatos" name="sindicatosTab" onclick="openTab(event, this.name)">Syndicates</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitlePlanetResouces" name="planetResourcesTab" onclick="openTab(event, this.name)">Planet Resources</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleMining" name="miningTab" onclick="openTab(event, this.name)">Mining</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFishing" name="fishingTab" onclick="openTab(event, this.name)">Fishing</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleHunting" name="huntingTab" onclick="openTab(event, this.name)">Hunting</button>
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitlePlanetResouces" name="planetResourcesTab" onclick="openTab(event, this.name)">Planet Resources</button>
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleAlertas" name="alertasTab" onclick="openTab(event, this.name)">Alertas</button>
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleInvasiones" name="invasionesTab" onclick="openTab(event, this.name)">Invasiones</button>
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSortie" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFisuras" name="fissuresTab" onclick="openTab(event, this.name)">Fisuras</button>
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleBaro" name="baroTab" onclick="openTab(event, this.name)">Baro</button>
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSindicatos" name="sindicatosTab" onclick="openTab(event, this.name)">Sindicatos</button>
-
 				</div>
 			</div>	
 
@@ -308,19 +307,19 @@
 				</div>
 				<div data-idGroupName="wfMarketTab" id="wfMarket1" class="tabcontent">
 					<!-- https://warframe.market/ -->
-					<iframe id="wfMarketIframe1" src="none" class='warframeMarketIframe'></iframe>
+					<iframe id="wfMarketIframe1" src="#" class='warframeMarketIframe'></iframe>
 				</div>
 				<div data-idGroupName="wfMarketTab" id="wfMarket2" class="tabcontent">
-					<iframe id="wfMarketIframe2" src="none" class='warframeMarketIframe'></iframe>
+					<iframe id="wfMarketIframe2" src="#" class='warframeMarketIframe'></iframe>
 				</div>
 				<div data-idGroupName="wfMarketTab" id="wfMarket3" class="tabcontent">
-					<iframe id="wfMarketIframe3" src="none" class='warframeMarketIframe'></iframe>
+					<iframe id="wfMarketIframe3" src="#" class='warframeMarketIframe'></iframe>
 				</div>
 				<div data-idGroupName="wfMarketTab" id="wfMarket4" class="tabcontent">
-					<iframe id="wfMarketIframe4" src="none" class='warframeMarketIframe'></iframe>
+					<iframe id="wfMarketIframe4" src="#" class='warframeMarketIframe'></iframe>
 				</div>
 				<div data-idGroupName="wfMarketTab" id="wfMarket5" class="tabcontent">
-					<iframe id="wfMarketIframe5" src="none" class='warframeMarketIframe'></iframe>
+					<iframe id="wfMarketIframe5" src="#" class='warframeMarketIframe'></iframe>
 				</div>
 			</div>
 		</div>
@@ -435,7 +434,7 @@
 			</div>
 			<div id="notificacionesTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="NOTI"></a>
-				<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">🌑 Notificaciones</h3>
+				<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">🌑 Notifications</h3>
 				<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
 			</div>
 
@@ -492,17 +491,17 @@
 
 			<div id="eventosTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="E"></a>
-				<h3 id="eventsTitle" onclick="toggleHide('events');">🌑 Eventos</h3>
+				<h3 id="eventsTitle" onclick="toggleHide('events');">🌑 Events</h3>
 				<section id="events"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
 			<div id="alertasTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="A"></a>
-				<h3 id="alertsTitle" onclick="toggleHide('alerts');">🌑 Alertas</h3>
+				<h3 id="alertsTitle" onclick="toggleHide('alerts');">🌑 Alerts</h3>
 				<section id="alerts"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
 			<div id="invasionesTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="I"></a>
-				<h3 id="invasionsTitle" onclick="toggleHide('invasions');">🌑 Invasiones</h3>
+				<h3 id="invasionsTitle" onclick="toggleHide('invasions');">🌑 Invasions</h3>
 				<section id="invasions"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
 			<div id="sortieTab" data-idGroupName="generalTab" class="tabcontent">
@@ -512,7 +511,7 @@
 			</div>
 			<div id="fissuresTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="F"></a>
-				<h3 id="fissuresTitle" onclick="toggleHide('fissures');">🌑 Fisuras</h3>
+				<h3 id="fissuresTitle" onclick="toggleHide('fissures');">🌑 Fissures</h3>
 				<section id="fissures"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
 			<div id="baroTab" data-idGroupName="generalTab" class="tabcontent">
@@ -522,7 +521,7 @@
 			</div>
 			<div id="sindicatosTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="SYN"></a>
-				<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">🌑 Sindicatos</h3>
+				<h3 id="syndicatesTitle" onclick="toggleHide('syndicates');">🌑 Syndicates</h3>
 				<section id="syndicates"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
 		</div>

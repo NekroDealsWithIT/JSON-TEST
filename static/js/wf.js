@@ -1432,8 +1432,8 @@ function startAll(){
 	//fin de en que estoy trabajando?
 
 	timer1=setClock(1000,timerTime,timer1);
-
-	tabShowAll.click();
+	tabTitleAlertas.click()
+	//tabShowAll.click();
 }
 function timerTime(){
 	rellenarDatos();
@@ -1529,8 +1529,8 @@ function rellenarDatos(forceUpdate=false){
 		var cacheado=[];
 		cacheado=getCachedData();
 		if (cacheado.length>0){
-			notificacionesTitle.innerHTML='🌑 Notificar ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
-			tabTitleNotificaciones.innerHTML='Notificaciones ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
+			notificacionesTitle.innerHTML='🌑 Notify ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
+			tabTitleNotificaciones.innerHTML='Notifications ['+(informarArrChecked.length)+'/'+(cacheado.length)+']';
 
 			notificaciones.innerHTML='<h2 onclick="informarArrChecked=[];toggleInformar('+"''"+',false);timerTime();alert('+"'Elimine todas las selecciones hechas!'"+')">Eliminar TODO lo seleccionado</h2><div class="notificacionesParent">';
 			
@@ -1708,8 +1708,8 @@ function rellenarDatos(forceUpdate=false){
 		var eventsData=resultJson.events;
 		if (eventsData.length>0){
 
-			eventsTitle.innerHTML="🌑 Eventos ("+eventsData.length+' activo)';
-			tabTitleEventos.innerHTML="Eventos ["+eventsData.length+']';
+			eventsTitle.innerHTML="🌑 Events ("+eventsData.length+' activo)';
+			tabTitleEventos.innerHTML="Events ["+eventsData.length+']';
 
 			removeClass('eventsCheckbox','hidden');
 			parseado='';
@@ -1819,9 +1819,9 @@ function rellenarDatos(forceUpdate=false){
 			events.innerHTML=parseado;
 		}else{
 			// addClass('eventsCheckbox','hidden');
-			events.innerHTML='<h2>No hay eventos activos</h2>';
-			eventsTitle.innerHTML="❌ Eventos (No hay eventos activos)"
-			tabTitleEventos.innerHTML='Eventos [0]';
+			events.innerHTML='<h2>No active events</h2>';
+			eventsTitle.innerHTML="❌ Events (No active events)"
+			tabTitleEventos.innerHTML='Events [0]';
 		}
 
 		//Alerts
@@ -1905,8 +1905,8 @@ function rellenarDatos(forceUpdate=false){
 		parseado += generateTable(tds,ths,'tableAlerts enlargeMe','','');
 		parseado += '<hr>';
 		alerts.innerHTML=parseado;
-		alertsTitle.innerHTML='🌑 Alertas ['+countAlertasCompletas+'-'+alertaActivaArr.length+']';
-		tabTitleAlertas.innerHTML='Alertas ['+countAlertasCompletas+'-'+alertaActivaArr.length+']';
+		alertsTitle.innerHTML='🌑 Alerts ['+countAlertasCompletas+'-'+alertaActivaArr.length+']';
+		tabTitleAlertas.innerHTML='Alerts ['+countAlertasCompletas+'-'+alertaActivaArr.length+']';
     	
     	//Persistent enemies
     	if(resultJson.persistentEnemies!=undefined&&resultJson.persistentEnemies.length>0){
@@ -2088,8 +2088,8 @@ function rellenarDatos(forceUpdate=false){
 		parseado += '<div>'+generateTable(tds,ths,'tableInvasion','','border="1px solid white"')+'</div>';
 		parseado += '<hr>';
 		invasions.innerHTML=parseado;
-		invasionsTitle.innerHTML='🌑 Invasiones ['+countInvasionsCompletas+'-'+invasionActivaArr.length+']';
-		tabTitleInvasiones.innerHTML='Invasiones ['+countInvasionsCompletas+'-'+invasionActivaArr.length+']';
+		invasionsTitle.innerHTML='🌑 Invasions ['+countInvasionsCompletas+'-'+invasionActivaArr.length+']';
+		tabTitleInvasiones.innerHTML='Invasions ['+countInvasionsCompletas+'-'+invasionActivaArr.length+']';
 		
 		//Sortie
 		ths=[];
@@ -2167,8 +2167,8 @@ function rellenarDatos(forceUpdate=false){
 		parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
 		parseado +='<hr>';
 		fissures.innerHTML=parseado;
-		fissuresTitle.innerHTML='🌑 Fisuras ['+fisureData.length+']';
-		tabTitleFisuras.innerHTML='Fisuras ['+fisureData.length+']';
+		fissuresTitle.innerHTML='🌑 Fissures ['+fisureData.length+']';
+		tabTitleFisuras.innerHTML='Fissures ['+fisureData.length+']';
 
 		//Baro
 		var baroData=resultJson.voidTrader;

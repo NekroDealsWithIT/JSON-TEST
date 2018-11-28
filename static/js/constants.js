@@ -69,9 +69,10 @@ const arrFreeRoamResources={
 	'cetusCycle':
 	{
 		'desc':'Plains Of Eidolon',
-		// 'resourceMap':{'title':'','lastUpdate':'','url':'','origin':'','local':'','htmlDesc':''},
+		'resourceMap':{'title':'All in one farming for Plains of Eidolon','lastUpdate':'2018-12-11','url':'http://i.imgur.com/YuYrTHD.png?1','origin':'https://forums.warframe.com/topic/859322-plains-of-eidolon-maps-complete-all-landmarks-resources-fishing-mining/','local':'tips/POE/Cetus All in one.png', 'htmlDesc':'<ol><li>Check for Iradite and mine for Gems/Ore. Get Iradite on the way to 2</li><li>Look for Cetus Wisps</li><li>Look for Cetus Wisps</li><li>Look for Cetus Wisps</li><li>Mine the Caves near the Grineer Outpost for Gems/Ore. Get Grokdrul. Get Maprico on the way to 6</li><li>Mine the Cliffside for Gems/Ore,  Get Maprico in the area</li><li>Look for Cetus Wisps, Get Iradite in the area</li><li>Look for Cetus Wisps</li><li>Get Maprico</li><li>Get Nistlepod. If looking for more Nistlepod go to 10a, otherwise move to 11</li><li>Get Nistlepod if looking for more Nistlepod head to 10c, otherwise head to 10b</li><li>Fish (Pond) if desired, move to 11</li><li>Get Nistlepod and Maprico. Get Nistlepod on the way to  11</li><li>Look for Cetus Wisps</li><li>Mine the Cliffside for Gems/Ore, Fish (Pond) if desired, if looking for more Gems/Ore or Iradite move to 12a, otherwise move to 13</li><li>Get Iradite. Raid Outpost for Grokdrul or mine Gems/Ores</li><li>Look for Cetus Wisps, Fish (Lake) if desired, Get Iradite on the way to 14</li><li>Mine the caves near the Grineer Outpost for Gems/Ore, if Ocean fish are needed head towards 14a, otherwise Return to the Gates and complete the run</li><li>Fish (Ocean) if desired</li></ol>'},
 		'timerDesc':{'cycle':'isDay','dayDesc':'Day','nightDesc':'Night'},
 		'fishing':{
+			"resourceMap": {"title": "Plains of Eidolon Fishing","lastUpdate": "2018-12-11","url": "http://i.imgur.com/mIo4RG6.png","origin": "https://forums.warframe.com/topic/859322-plains-of-eidolon-maps-complete-all-landmarks-resources-fishing-mining/","local": "tips/POE/Cetus fishing spots.png","htmlDesc": ""},
 			// 'resourceMap':{'title':'','lastUpdate':'','url':'','origin':'','local':'','htmlDesc':''},
 			'description':'All fish drops Fish Meat, Fish Scales, Fish Oil<p>All Baits are crafteable</p>',
 
@@ -91,6 +92,7 @@ const arrFreeRoamResources={
 
 		},
 		'mining':{
+			"resourceMap": {"title": "Plains of Eidolon Mining","lastUpdate": "2018-12-11","url": "http://i.imgur.com/SKEeHzQ.png?1","origin": "https://forums.warframe.com/topic/859322-plains-of-eidolon-maps-complete-all-landmarks-resources-fishing-mining/","local":"tips/POE/Cetus Mining Map.png","htmlDesc": ""},
 			// 'resourceMap':{'title':'','lastUpdate:':'','url':'','origin':'','local':'','htmlDesc':''},
 			'description':'Recommended> Advanced Nosam Cutter, Best> Sunpoint Plasma Drill',
 

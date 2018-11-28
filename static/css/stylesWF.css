@@ -323,7 +323,7 @@ h5{
 	border: 1px dashed red;
 	margin: auto;
 }
-.tableDrops, .tableAlerts, .tableInvasion, .tableFisures, .tableSortie, .tableBaro{
+.tableDrops, .tableAlerts, .tableInvasion, .tableFisures, .tableSortie, .tableBaro, .tableResources{
 	border: 1px dashed red;
 	width: 90%; 
 	margin: auto;
@@ -588,6 +588,11 @@ h5{
 .tabcontent img{
 	max-width: 35px!important;
 	width: 100%;
+}
+
+img.imgMap {
+    max-width: 100%!important;
+    width: 100%;
 }
 
 .tabcontent .imgWarframe,
