@@ -2276,7 +2276,7 @@ function rellenarDatos(forceUpdate=false){
 							standingStages+="-"+ss;
 						}
 					});
-					if(j.rewardPool!=undefined){
+					if(j.rewardPool!=undefined&&j.rewardPool!=""){
 						var rewards="<h4>Rewards"+" | ("+strDiff(s.eta,diff)+"):</h4><ol>";
 						try{
 							j.rewardPool.forEach(function (rp){
