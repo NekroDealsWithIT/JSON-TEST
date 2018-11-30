@@ -87,7 +87,7 @@
 
 <div class="content">
 	<header class="headLogo">
-		<h1 onclick="toggleHide('workingOn');">Warframe check by Nekro (click para ver que se esta gestando)</h1>
+		<h1 onclick="toggleHide('workingOn');">Warframe check by Nekro (click to see what im doing)</h1>
 	</header>
 	<div id="ultimaVersion"></div>
 	<section>
@@ -99,45 +99,45 @@
 				<button class="tablinks" id="styleSelectorVitruvian" data-idGroupName="styleSelectorTab" name="vitruvian" onclick="openTab(event, this.name,false);setStyle(this.name);">⚛ Vitruvian</button>
 			</div>
 		</div>
-		<label><input type="checkbox" onclick="document.body.classList.toggle('highlightChanges');"><span> Marcar cambios</span></label>
+		<label><input type="checkbox" onclick="document.body.classList.toggle('highlightChanges');"><span>Highlight changes</span></label>
 	</section>
 	<div id="workingOn" class="hidden"></div>
 
 	<a id="C"></a>
-	<h3 onclick="toggleHide('formContacto')">📨 Contactame 📨</h3>
+	<h3 onclick="toggleHide('formContacto')">📨 Contact me 📨</h3>
 	<div id="formContacto" class="hidden"><!-- class="hidden" -->
 		
 		<form class="formulario" action="#" method="post" id='contactMe' >
 			<ul>
 				<li>
-					<h2>Dejame tu sugerencia</h2>
+					<h2>Leave a comment here</h2>
 				</li>
 				<div id='soon' class='hidden'>
-					<h4>Gracias por tus comentarios!</h4>
+					<h4>Thank you for your comments!</h4>
 					<li>
 						<img class='girando field-style' src="https://i.imgur.com/zW3PePg.png&key=1b190708073b6a3daa0a08c767613194a0f2c8a0d06cf59e301c423d2b558f4e">
 					</li>
-					<h4>Ser&aacute;n tomados en cuenta para futuros desarrollos :)</h4>
+					<h4>They will take on account for next updates :)</h4>
 				</div>
 				<div id='camposForm'>
 					<li>
-						<input type="text" name="nombre" id="formNombre" class="field-style field-split align-left" placeholder="* Nombre" required />
+						<input type="text" name="nombre" id="formNombre" class="field-style field-split align-left" placeholder="* IGN" required />
 						<input type="email" name="email" class="field-style field-split align-right" required placeholder="* Email" />
 					</li>
 					<li>
-						<input type="text" name="asunto" class="field-style field-full align-none" required placeholder="* Asunto" />
+						<input type="text" name="asunto" class="field-style field-full align-none" required placeholder="* Subject" />
 					</li>
 					<li>
-						<label class="field-style field-split align-left"><input type="radio" name="tipo" value='recomendacion' checked>Recomendacion</label>
-						<label class="field-style field-split align-left"><input type="radio" name="tipo" value='contacto'>Contacto</label>
+						<label class="field-style field-split align-left"><input type="radio" name="tipo" value='recomendacion' checked>Comment</label>
+						<label class="field-style field-split align-left"><input type="radio" name="tipo" value='contacto'>Contact</label>
 						<label class="field-style field-split align-left"><input type="radio" name="tipo" value='bug'>Bug</label>
 					</li>
 					<li>
-						<textarea name="mensaje" class="field-style" required placeholder="* Mensaje"></textarea>
+						<textarea name="mensaje" class="field-style" required placeholder="* Message"></textarea>
 					</li>
 					<li>
-						<label class="field-style field-split align-left">Pregunta (sumas): <span id='calculoQ'></span><input type="text" id="calculoR" class="field-style field-full align-none" required placeholder="* NO ROBOTS ALLOWED!"/></label>
-						<input type="submit" value="📨 Enviar mensaje"  onclick="submitMe();return false;"/>
+						<label class="field-style field-split align-left">Question (Add): <span id='calculoQ'></span><input type="text" id="calculoR" class="field-style field-full align-none" required placeholder="* NO ROBOTS ALLOWED!"/></label>
+						<input type="submit" value="📨 Send Message"  onclick="submitMe();return false;"/>
 					</li>
 					<li>
 						<label class="field-style field-full align-none"><span id='errorPQ'></span></label>
@@ -159,10 +159,10 @@
 		</div>
 
 		<a id="V"></a>
-		<h3 onclick="toggleHide('whatsWarframe')">🌑 Que es warframe?</h3>
+		<h3 onclick="toggleHide('whatsWarframe')">🌑 What is Warframe?</h3>
 		<div id="whatsWarframe" class="hidden">
 			<div>
-				<a href="https://www.warframe.com/">Pagina del juego</a> 
+				<a href='https://www.warframe.com/' target="blank">Link to game page</a>
 				
 				<p>	
 						<p>Warframe is a free-to-play cooperative third-person shooter video game developed by Digital Extremes for Microsoft Windows, PlayStation 4, and Xbox One. In Warframe, players control members of the Tenno, a race of ancient warriors who have awoken from centuries of cryosleep to find themselves at war with different factions.</p>
@@ -170,8 +170,8 @@
 						<p>Available missions are scattered across the planets of the solar system, the moons Phobos, Europa, Lua (Earth's moon), and dwarf planets Pluto, Ceres, Eris and Sedna. Players can also access missions set in a pocket dimension known as The Void through completing junctions on other planets or through Void Fissures, small volatile rifts which react with acquirable Void Relics.</p>
 						<p>The titular Warframes are biomechanical suits that possess a set of 4 active abilities as well as a passive ability, as well as varying attributes and statistics. The player begins with a choice of Warframe among 3 initially offered. Additional Warframes can be acquired through various in-game activities, such as mission rewards, quest rewards, etc. Players can possess all Warframes in their inventory but may only equip one at a time. Warframes, as well as various other elements in the game, are highly color-customizable. New Warframes are developed and released every 3-5 months.</p>
 
-						<p><a href='https://www.warframe.com/' target="blank">Pagina del juego</a></p>
-						<p><a href='http://warframe.wikia.com/wiki/warframe' target="blank">Pagina de WARFRAME wiki</a></p>
+						<p><a href='https://www.warframe.com/' target="blank">Link to game page</a></p>
+						<p><a href='http://warframe.wikia.com/wiki/warframe' target="blank">Link to WARFRAME wiki</a></p>
 				</p>
 				<!-- <h2>Ejemplo de uso</h2> -->
 				<!-- <img src="static/img/ejemplo de uso.jpg"> -->
@@ -180,7 +180,7 @@
 					<iframe width="100%" height="600px" src="https://www.youtube.com/embed/IN1Xyrj1F8k?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 					<h2>Review</h2>
 					<iframe width="100%" height="600px" src="https://www.youtube.com/embed/ztbRJm19BUo?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-					<h2>Primeros 100 dias</h2>
+					<h2>First 100 days</h2>
 					<iframe width="100%" height="600px" src="https://www.youtube.com/embed/-VuYCLelIO8?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 <!-- 					https://www.youtube.com/watch?v=-VuYCLelIO8 -->
 				</div>
@@ -202,67 +202,67 @@
 			
 			<a id="T"></a>
 			<h3 id="timersTitle" onclick="toggleHide('timers');">🌑 Timers</h3>
-			<p><label>Minutos a notificar: <input type="text" id="timerNotificationTimes" onblur="updateNotificationTimers(this.value,true)" onkeyup="updateNotificationTimers(this.value)"></label></p>
-			<p>(Deben de estar separados por coma, valores negativos indican antes de cambiar de noche a dia y viceversa)</p>
-			<p>Notificar Cetus Timer: 
+			<p><label>When notificate: <input type="text" id="timerNotificationTimes" onblur="updateNotificationTimers(this.value,true)" onkeyup="updateNotificationTimers(this.value)"></label></p>
+			<p>(Must be comma separated, negative values allowed and will notify before it changes)</p>
+			<p>Notify Cetus Timer?: 
 			<label><input type="radio" name="cetusTimerNotification" value='no' checked>No</label>
-			<label><input type="radio" name="cetusTimerNotification" value='day'>Dia</label>
-			<label><input type="radio" name="cetusTimerNotification" value='night'>Noche</label>
-			<label><input type="radio" name="cetusTimerNotification" value='both'>Ambos</label></p>
+			<label><input type="radio" name="cetusTimerNotification" value='day'>Day</label>
+			<label><input type="radio" name="cetusTimerNotification" value='night'>Night</label>
+			<label><input type="radio" name="cetusTimerNotification" value='both'>Both</label></p>
 			
-			<p>Notificar Earth Timer: 
+			<p>Notify Earth Timer?: 
 			<label><input type="radio" name="earthTimerNotification" value='no' checked>No</label>
-			<label><input type="radio" name="earthTimerNotification" value='day'>Dia</label>
-			<label><input type="radio" name="earthTimerNotification" value='night'>Noche</label>
-			<label><input type="radio" name="earthTimerNotification" value='both'>Ambos</label></p>
+			<label><input type="radio" name="earthTimerNotification" value='day'>Day</label>
+			<label><input type="radio" name="earthTimerNotification" value='night'>Night</label>
+			<label><input type="radio" name="earthTimerNotification" value='both'>Both</label></p>
 
-			<p>Notificar Vallis Timer: 
+			<p>Notify Vallis Timer?: 
 			<label><input type="radio" name="vallisTimerNotification" value='no' checked>No</label>
 			<label><input type="radio" name="vallisTimerNotification" value='day'>Warm</label>
 			<label><input type="radio" name="vallisTimerNotification" value='night'>Cold</label>
-			<label><input type="radio" name="vallisTimerNotification" value='both'>Ambos</label></p>
+			<label><input type="radio" name="vallisTimerNotification" value='both'>Both</label></p>
 
 			<section id="timers"><img class="loading" src="static/img/loading.gif"></section>
 			<div class="tabFrame">
 				<div class="tab">
-					<button class="tablinks" class='active' onclick="toggleChildTimerWindow()">Abrir Ventana de timers</button>
+					<button class="tablinks" class='active' onclick="toggleChildTimerWindow()">Open timer window</button>
 				</div>
 			</div> 
 			
 			<div id="persistentEnemiesTab" class="hidden">
 				<a id="PE"></a>
-				<h3 id="persistentEnemiesTitle" onclick="toggleHide('persistentEnemies');">🌑 Enemigos Persistentes</h3>
-				<label><input type="checkbox" name='persistentEnemiesSpeech' onclick="toggleInformar(this.name,this.checked);" id='persistentEnemiesSpeech'>📣 Avisar si hay un cambio de status del enemigo</label>
+				<h3 id="persistentEnemiesTitle" onclick="toggleHide('persistentEnemies');">🌑 Persistent Enemies</h3>
+				<label><input type="checkbox" name='persistentEnemiesSpeech' onclick="toggleInformar(this.name,this.checked);" id='persistentEnemiesSpeech'>📣 Notify enemy status change</label>
 				<section id="persistentEnemies"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
 
 			<div id="lastNotificationHolder" class="hidden">
-				<h3 onclick="toggleHide('lastNotificationTitle');">📨 Ultima notificacion 📨</h3>
+				<h3 onclick="toggleHide('lastNotificationTitle');">📨 Last notification 📨</h3>
 				<h4 id='lastNotificationTitle'>Last notification: <span id='lastNotification'></span></h4>
 			</div>
 
 			<a id="FARMING"></a>
-			<h3 id="farmingTitle" onclick="toggleHide('farmingList');">🌑 Lista para farming</h3>
-			<div id="farmingList"><h2>No hay items seleccionados para farming en drops</h2></div>
+			<h3 id="farmingTitle" onclick="toggleHide('farmingList');">🌑 Farming List</h3>
+			<div id="farmingList"><h2>No items selected to farm in drops.</h2></div>
 
 			<audio id="notificationGeneralSound" src='static/sound/allSystemNominal.wav'></audio>
 
 			<h3 onclick="toggleHide('divWarframeProfiler');">🌑 Profiler (Arsenal)</h3>
 			<div class="tabFrame">
-				<h4>Profiler nos muestra todo el detalle tanto de armas como de warframes. Dentro encontraran seguimiento de los patchlogs, estado del vault, ademas los stats especificos de cada item.</h4>
+				<h4>Profiler is like an online Arsenal takes care of warframes companions and weapons details.</h4>
 				<div id='divWarframeProfiler' class="tab">
-					<button class="tablinks" class='active' id="activateProfiler" onclick="window.open('warframeprofiler.html');">Abrir Profiler (Arsenal)</button>
+					<button class="tablinks" class='active' id="activateProfiler" onclick="window.open('warframeprofiler.html');">Open Profiler (Arsenal)</button>
 				</div>
 			</div> 
-			<h3 onclick="toggleHide('divTextRecognition');">🌑 Responder a comandos de voz (EXPERIMENTAL)</h3>
+			<h3 onclick="toggleHide('divTextRecognition');">🌑 Respond to voice commands (EXPERIMENTAL)</h3>
 			<div id='divTextRecognition'class="tabFrame hidden">
-				<h4>Habilitar captura de sonido</h4>
+				<h4>Enable sound capture</h4>
 				<div class="tab">
-					<button class="tablinks" class='active' id="activateRecognitionBtn" onclick="">Habilitar comandos de voz</button>
+					<button class="tablinks" class='active' id="activateRecognitionBtn" onclick="">Enable voice commands</button>
 				</div>
 			</div> 
-			<h3>🌑 Plataformas</h3>
-			<h4>(SE PUEDEN SELECCIONAR DISTINTAS PLATAFORMAS A LA VEZ CARGANDO LA PAGINA EN DISTINTAS PESTA&Ntilde;AS)</h4>
+			<h3>🌑 Platforms</h3>
+			<h4>(Can track different platforms in diferent tabs)</h4>
 			<div class="tabFrame">
 				<div class="tab">
 					<button class="tablinks" id="platformSelectorPC" data-idGroupName="platformSelectorTab" name="pc" onclick="openTab(event, this.name,false);changePlatform(this.name);">PC</button>
@@ -333,19 +333,19 @@
 							<span id='dropsFormBuscando'></span>
 						</li>
 						<li>
-							<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item a buscar" onblur="buscarDrop();" />
-							<input type="button" name="itemPipe" id="formAddPipeButton" class="field-split" value="Agregar busqueda" onclick="agregarBusqueda(formItem.value);" />
+							<input type="text" name="item" id="formItem" class="field-style field-split align-left" placeholder="* Item to search" onblur="buscarDrop();" />
+							<input type="button" name="itemPipe" id="formAddPipeButton" class="field-split" value="Add search" onclick="agregarBusqueda(formItem.value);" />
 						</li>
 						<li id="liTipo">
-							Tipo:
+							Kind:
 							<select id="formTipo" class="field-split" onchange="buscarDrop();">
-								<option value="All" selected>Todo tipo</option>
+								<option value="All" selected>All kind</option>
 								<option value="relics">Relics</option>
-								<option value="missionRewards">Misiones</option>
+								<option value="missionRewards">Mission</option>
 								<option value="cetusBountyRewards">Cetus</option>
-								<option value="transientRewards">Eventos</option>
-								<option value="enemyModTables">Mods enemigos</option>
-								<option value="modLocations">Drops de enemigos</option>
+								<option value="transientRewards">Events</option>
+								<option value="enemyModTables">Enemy mods</option>
+								<option value="modLocations">Enemy drops</option>
 								<option value="sortieRewards">Sortie</option> 
 
 									<!--<option value="blueprintLocations">Planos</option>
@@ -359,9 +359,9 @@
 							</li>
 							
 							<li id="liTipoRelic">
-								Estado de relic:
+								Relic Status:
 								<select id="formTipoRelic" class="field-split" onchange="buscarDrop();">
-									<option value="All" selected>Todas</option>
+									<option value="All" selected>All</option>
 									<option value="Intact">Intact</option>
 									<option value="Exceptional">Exceptional</option>
 									<option value="Flawless">Flawless</option>
@@ -371,30 +371,30 @@
 							<li id="liVaulted">
 								Vaulted:
 								<select id="formVaulted" class="field-split" onchange="buscarDrop();">
-									<option value="All" selected>Todo</option>
-									<option value="vaulted">Solo vaulted</option>
-									<option value="noVault">Exceptuar vaulted</option>
+									<option value="All" selected>All</option>
+									<option value="vaulted">Just vaulted</option>
+									<option value="noVault">Except vaulted</option>
 								</select>
 							</li>
 							<li id="liPlanetaMision">
-								Planeta:
+								Planet:
 								<select id="formPlanetaMision" class="field-split" onchange="buscarDrop();">
-									<option value="All" selected>Todos</option>
+									<option value="All" selected>All</option>
 								</select>
 							</li>
 							
 							<li id="liTipoMision">
-								Tipo Mision:
+								Mission type:
 								<select id="formTipoMision" class="field-split" onchange="buscarDrop();">
-									<option value="All" selected>Todas</option>
+									<option value="All" selected>All</option>
 								</select>
 							</li>
 							
 							<li id="liRotacion">
-								Rotacion:
+								Rotation:
 								<select id="formRotacion" class="field-split" onchange="buscarDrop();">
-									<option value="All" selected>Todas</option>
-									<option value="---">Sin rotacion</option>
+									<option value="All" selected>All</option>
+									<option value="---">No rotation</option>
 									<option value="A">A</option>
 									<option value="B">B</option>
 									<option value="C">C</option>
@@ -402,9 +402,9 @@
 							</li>
 
 							<li id="liRareza">
-								Rareza:
+								Rarity:
 								<select id="formRareza" class="field-split" onchange="buscarDrop();">
-									<option value="All" selected>Todas</option>
+									<option value="All" selected>All</option>
 									<option value="Common">Common</option>
 									<option value="Uncommon">Uncommon</option>
 									<option value="Rare">Rare</option>
@@ -423,7 +423,7 @@
 								<input type="button" id="formClearButton" class="field-split" value="Borrar consulta" onclick="clearForm();"/>
 							</li>
 							<li>
-								Datos extraidos de la <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html">pagina oficial de Digital Extremes</a>
+								All data is from <a href="https://n8k6e2y6.ssl.hwcdn.net/repos/hnfvc0o3jnfvc873njb03enrf56.html">Digital Extremes official drop page</a>
 							</li>
 						</ul>
 					</form>
@@ -470,8 +470,8 @@
 			
 			<div id="fishingTab" data-idGroupName="generalTab" class="tabcontent">
 				<h3 id="fishingTitle" onclick="toggleHide('fishing');">🌑 Fishing</h3>
-				<section id="fishingLocationSelector"></section>
 				<section id="fishing">
+					<section id="fishingLocationSelector"></section>
 					<h5>Bio</h5>
 					<p>
 						<label><input onclick="updateResources(true)" type="radio" name="fishingBioRadio" value='all' checked>All</label>
@@ -485,8 +485,8 @@
 						<label><input onclick="updateResources(true)" type="radio" name="fishingActiveRadio" value=1>Active</label>
 						<label><input onclick="updateResources(true)" type="radio" name="fishingActiveRadio" value=0>Inactive</label>
 					</p>
+					<section id="fishingData" />
 				</section>
-				<section id="fishingData" />
 			</div>
 
 			<div id="eventosTab" data-idGroupName="generalTab" class="tabcontent">
