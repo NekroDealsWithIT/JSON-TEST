@@ -43,10 +43,10 @@
 	</div> -->
 <div class="content">
 	<h1>Warframe profiler</h1>
-	<h4>Aqui se ve toda la info tanto de Warframes como de armas</h4>
-	<p><a href="http://warframe.wikia.com/wiki/Passives" target="blank">Pasivas de armas y warframes</a></p>
-	<p><label><input type="checkbox" onclick="showAllImages=this.checked;redrawItems(we);redrawItems(wa);">Mostrar imagenes</label></p>
-	<p><label><input type="checkbox" onclick="showVideos=this.checked;redrawItems(we);redrawItems(wa);">Mostrar Videos</label></p>
+	<h4>Here you can check all the info in warframes and weapons</h4>
+	<p><a href="http://warframe.wikia.com/wiki/Passives" target="blank">Weapons and Warframes passives</a></p>
+	<p><label><input type="checkbox" onclick="showAllImages=this.checked;redrawItems(we);redrawItems(wa);">Show images</label></p>
+	<p><label><input type="checkbox" onclick="showVideos=this.checked;redrawItems(we);redrawItems(wa);">Show Videos</label></p>
 	<section>
 		<h4>☆ Style ☆</h4>
 		<div class="tabFrame">
@@ -65,19 +65,19 @@
 	-->
 	<div id="tabSelectorGeneral" class="tab">
 		<button data-idgroupname="generalTabSelector" id="generalTabSelectorWarframes" class="tablinks" name="warframesGeneralTab" onclick="openTab(event, this.name,true)">Warframes</button>
-		<button data-idgroupname="generalTabSelector" id="generalTabSelectorWeapons" class="tablinks" name="weaponsGeneralTab" onclick="openTab(event, this.name,true)">Armas</button>
+		<button data-idgroupname="generalTabSelector" id="generalTabSelectorWeapons" class="tablinks" name="weaponsGeneralTab" onclick="openTab(event, this.name,true)">Weapons</button>
 	</div>
 	<div data-idgroupname="generalTabSelector" id="warframesGeneralTab" class="tabcontent">
 		<div id="tabResultadoWarframesGroup" class="tab"></div>
 		<div class='formulario'>
 			<ul>
 				<li>
-					<label class="field-split"><input type="radio" name='warVaulted' value='all' checked onclick="redrawItems(wa);">Mostrar vaulted</label>
-					<label class="field-split"><input type="radio" name='warVaulted' value='vaultedHide' onclick="redrawItems(wa);">Ocultar vaulted</label>
-					<label class="field-split"><input type="radio" name='warVaulted' value='vaultedExclusive' onclick="redrawItems(wa);">Mostrar SOLO vaulted</label>
+					<label class="field-split"><input type="radio" name='warVaulted' value='all' checked onclick="redrawItems(wa);">Show vaulted</label>
+					<label class="field-split"><input type="radio" name='warVaulted' value='vaultedHide' onclick="redrawItems(wa);">Hide vaulted</label>
+					<label class="field-split"><input type="radio" name='warVaulted' value='vaultedExclusive' onclick="redrawItems(wa);">Only vaulted</label>
 				</li>
 				<li>
-					Nombre de warframe: <input class="field-split" type="text" id='txtWarframeName' onkeyup="redrawItems(wa);">
+					Warframe name: <input class="field-split" type="text" id='txtWarframeName' onkeyup="redrawItems(wa);">
 				</li>
 				<div id='combosWarframes' class='formulario'></div>
 			</ul>
@@ -95,22 +95,22 @@
 		<div class='formulario'>
 			<ul>
 				<li>
-					<label class="field-split"><input type="radio" name='wpnVaulted' value='all' checked onclick="redrawItems(we);">Mostrar vaulted</label>
-					<label class="field-split"><input type="radio" name='wpnVaulted' value='vaultedHide' onclick="redrawItems(we);">Ocultar vaulted</label>
-					<label class="field-split"><input type="radio" name='wpnVaulted' value='vaultedExclusive' onclick="redrawItems(we);">Mostrar SOLO vaulted</label>
+					<label class="field-split"><input type="radio" name='wpnVaulted' value='all' checked onclick="redrawItems(we);">Show vaulted</label>
+					<label class="field-split"><input type="radio" name='wpnVaulted' value='vaultedHide' onclick="redrawItems(we);">Hide vaulted</label>
+					<label class="field-split"><input type="radio" name='wpnVaulted' value='vaultedExclusive' onclick="redrawItems(we);">Only vaulted</label>
 				</li>
 				<li>
-					<label class="field-split"><input type="radio" name='wpnSentinel' value='all' checked onclick="redrawItems(we);">Mostrar Sentinel</label>
-					<label class="field-split"><input type="radio" name='wpnSentinel' value='sentinelHide' onclick="redrawItems(we);">Ocultar Sentinel</label>
-					<label class="field-split"><input type="radio" name='wpnSentinel' value='sentinelExclusive' onclick="redrawItems(we);">Mostrar SOLO Sentinel</label></li>
+					<label class="field-split"><input type="radio" name='wpnSentinel' value='all' checked onclick="redrawItems(we);">Show Sentinel</label>
+					<label class="field-split"><input type="radio" name='wpnSentinel' value='sentinelHide' onclick="redrawItems(we);">Hide Sentinel</label>
+					<label class="field-split"><input type="radio" name='wpnSentinel' value='sentinelExclusive' onclick="redrawItems(we);">Only Sentinel</label></li>
 				</li>
 				<li>
-					<label class="field-split"><input type="radio" name='wpnNoise' value='all' checked onclick="redrawItems(we);">Todas</label>
+					<label class="field-split"><input type="radio" name='wpnNoise' value='all' checked onclick="redrawItems(we);">All</label>
 					<label class="field-split"><input type="radio" name='wpnNoise' value='noiseSilent' onclick="redrawItems(we);">Silent</label>
 					<label class="field-split"><input type="radio" name='wpnNoise' value='noiseAlarming' onclick="redrawItems(we);">Alarming</label></li>
 				</li>
 				<li>
-					Nombre de arma: <input  class="field-split" type="text" id='txtWeaponName' oninput="redrawItems(we);">
+					Weapon name: <input  class="field-split" type="text" id='txtWeaponName' oninput="redrawItems(we);">
 				</li>
 			
 			<div id='combosWeapons'></div>
@@ -120,8 +120,8 @@
 		<div id="tabResultadoArmas" class="tab"></div>
 		<div id="resultadoArmas" class="listaNotificaciones"></div>
 		<div id="comparacionArmas" class="listaNotificaciones"></div>
-		<span class="disclaimer">Created by Nekro (ShadowOfNekro) | This site is neither owned nor affliated with Digital Extremes in any way.</span>
 	</div>
+	<span class="disclaimer">Created by Nekro (ShadowOfNekro) | This site is neither owned nor affliated with Digital Extremes in any way.</span>
 </div>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

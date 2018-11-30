@@ -164,8 +164,8 @@ function redrawItems(tipo,filters=[]){
 
 			var tabGroupName='weaponsTab';
 
-			tabResultadoArmasGroup.innerHTML='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR TODO</button>';
-			tabResultadoArmasGroup.innerHTML+='<button data-idgroupname="'+tabGroupName+'" id="'+tabGroupName+'ShowAllTab" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR TODO</button>';
+			tabResultadoArmasGroup.innerHTML='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">HIDE ALL</button>';
+			tabResultadoArmasGroup.innerHTML+='<button data-idgroupname="'+tabGroupName+'" id="'+tabGroupName+'ShowAllTab" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">SHOW ALL</button>';
 			
 			var weaponsHTML='';
 
@@ -329,7 +329,7 @@ function redrawItems(tipo,filters=[]){
 			arrWeaponDamageType=arrayUnique(arrWeaponDamageType).sort();
 			arrWeaponRivenDisposition=arrayUnique(arrWeaponRivenDisposition).sort();
 
-			generalTabSelectorWeapons.innerText='Armas ['+counter+']';
+			generalTabSelectorWeapons.innerText='Weapons ['+counter+']';
 
 			document.getElementById(tabGroupName+'ShowAllTab').click();
 			refreshWeaponsCombos();
@@ -341,8 +341,8 @@ function redrawItems(tipo,filters=[]){
 
 			var tabGroupName='warframesTab';
 
-			tabResultadoWarframesGroup.innerHTML='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">OCULTAR TODO</button>';
-			tabResultadoWarframesGroup.innerHTML+='<button data-idgroupname="'+tabGroupName+'" id="'+tabGroupName+'ShowAllTab" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">MOSTRAR TODO</button>';
+			tabResultadoWarframesGroup.innerHTML='<button data-idgroupname="'+tabGroupName+'" class="tablinks subrayado" name="hideAllTab" onclick="openTab(event, this.name,false)">HIDE ALL</button>';
+			tabResultadoWarframesGroup.innerHTML+='<button data-idgroupname="'+tabGroupName+'" id="'+tabGroupName+'ShowAllTab" class="tablinks subrayado" name="showAllTab" onclick="openTab(event, this.name,false)">SHOW ALL</button>';
 
 			arrWarframeMastery=[];
 
@@ -829,14 +829,14 @@ function generatePatchlogsHTML(pl,id,nombre,hidden=true){
 	var parseado='';
 	id="patchlogs"+id;
 	
-	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Patchlogs de '+nombre+' ['+pl.length+"] [&Uacute;ltimo: "+dateToString(pl[0].date)+"]</h4>";
+	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Patchlogs of '+nombre+' ['+pl.length+"] [Last: "+dateToString(pl[0].date)+"]</h4>";
 	parseado+='<ul id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	parseado+='<div>';
 	pl.forEach(function (p){
 		parseado+="<li><a href='"+p.url+"' target='blank'<h5>("+dateToString(p.date)+") "+p.name+"</h5></a>";
 		//parseado+="<img src="+p.imgUrl+">";
-		(p.additions!=''?parseado+='<p class="patchAdicion">Adiciones: '+p.additions+"</p>":'');
-		(p.changes!=''?parseado+='<p class="patchCambio">Cambios: '+p.changes+"</p>":'');
+		(p.additions!=''?parseado+='<p class="patchAdicion">Additions: '+p.additions+"</p>":'');
+		(p.changes!=''?parseado+='<p class="patchCambio">Changes: '+p.changes+"</p>":'');
 		(p.fixes!=''?parseado+='<p class="patchFix">Fixes: '+p.fixes+"</p>":'');
 		parseado+="</li>";
 	});
@@ -848,7 +848,7 @@ function generateComponentsHTML(comp,id,nombre,hidden=true){
 	var parseado='';
 	id="components"+id;
 	
-	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Componentes de '+nombre+' ['+comp.length+"]</h4>";
+	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Components for '+nombre+' ['+comp.length+"]</h4>";
 	parseado+='<ul id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	parseado+='<div>';
 	comp.forEach(function (p){
@@ -867,7 +867,7 @@ function generateDropsHTML(drop,id,nombre,hidden=true){
 	var parseado='';
 	id="drops"+id;
 	
-	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Drops de '+nombre+' ['+drop.length+"]</h4>";
+	parseado+="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Drops for '+nombre+' ['+drop.length+"]</h4>";
 	parseado+='<ul id="'+id+'" class="'+(hidden?'hidden':'')+'">';
 	parseado+='<div>';
 	drop.forEach(function (p){
@@ -896,7 +896,7 @@ function generatePolaritiesHTML(polarityData,id,nombre,hidden=true){
 	});
 	parseado+="</div></ul>";
 	
-	parseadoFinal="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Polarities de '+nombre+' ['+polarityData.length+' ('+auxTitle+")]</h4>"+parseado;
+	parseadoFinal="<h4 onclick="+'"toggleHide('+"'"+id+"'"+");"+'">🌑 Polarities of '+nombre+' ['+polarityData.length+' ('+auxTitle+")]</h4>"+parseado;
 	return parseadoFinal;	
 }
 
@@ -922,8 +922,8 @@ function refreshWeaponsCombos(){
 	}
 
 	combosWeapons.innerHTML='<ul>';
-	combosWeapons.innerHTML+='<li>Tipo:<select id="weaponTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
-	combosWeapons.innerHTML+='<li>SubTipo:<select id="weaponSubTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
+	combosWeapons.innerHTML+='<li>Type:<select id="weaponTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
+	combosWeapons.innerHTML+='<li>SubType:<select id="weaponSubTipo" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='<li>Riven Disposition:<select id="weaponRivenDisposition" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='<li>Mastery Req:<select id="weaponMastery" class="field-split" onchange="redrawItems(we);"></li><br>';
 	combosWeapons.innerHTML+='<li>Damage Type:<select id="weaponDamageType" class="field-split" onchange="redrawItems(we);"></li><br>';
