@@ -2303,7 +2303,7 @@ function rellenarDatos(forceUpdate=false){
 				parseado+="</ul>";
 			}
 		});
-		syndicates.innerHTML= '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+generalSyndicateCopy+"','Syndicate'"+')"'+"></img>Copiar todas las rewards";
+		syndicates.innerHTML= '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+generalSyndicateCopy+"','Syndicate'"+')"'+"></img>Copy all rewards";
 		syndicates.innerHTML+= parseado;
 
 		//News
