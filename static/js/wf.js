@@ -2383,6 +2383,7 @@ function updateTimerWindow(diff){
 		}
 	}
 }
+/* DEPRECAR */
 function checkSetsClass(reward){
 	reward=reward.toLowerCase();
 	result='';
@@ -2398,6 +2399,28 @@ function checkSetsClass(reward){
 		return result;
 	}
 }
+/* FIN DEPRECAR */
+
+function checkModIsSet(data){
+	var result=false;
+	var str='';
+	data=data.toLowerCase();
+	Object.keys(arrSets).forEach(function(key) {
+		if(key!="data"){
+			str=key.toLowerCase();
+			if(str.includes(data)||data.includes(str)){
+				arrSets[key].set.forEach(s=>{
+					str=key.toLowerCase()+' '+s.toLowerCase()
+					if(str==data){
+						result=[key,arrSets[key]];
+					}
+				});
+			}
+		}
+	});
+	return result;
+}
+
 function strToDate(stringDate){
 	var res=stringDate.split(" ");
 	var response=0;
