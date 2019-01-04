@@ -209,6 +209,7 @@ function drawHunting(o){
 			'<th '+sortableTH+'>Hunt</th>'+
 			'<th '+sortableTH+'>Class</th>'+
 			'<th '+sortableTH+'>Pack</th>'+
+			'<th '+sortableTH+'>Shoots</th>'+
 			'<th '+sortableTH+'>Agressive</th>'+
 			'<th '+sortableTH+'>Cycle</th>'+
 			'<th '+sortableTH+'>Bad</th>'+
@@ -235,6 +236,7 @@ function drawHunting(o){
 			parseado+='<tr>'+
 					'<TD '+'data-sortid="'+k+'"'+'>'+k+'<p><img src="'+i.img+'" style="max-width:10vw!important;"></p></TD>'+
 					'<TD '+'data-sortid="'+i.class+'"'+'>'+i.class+'</TD>'+
+					'<TD '+'data-sortid="'+i.shoots+'"'+'>'+i.shoots+'</TD>'+
 					'<TD '+'data-sortid="'+i.pack+'"'+'>'+i.pack+'</TD>'+
 					'<TD '+'data-sortid="'+i.agressive+'"'+'>'+(i.agressive==true?'YES':'NO')+'</TD>'+
 					'<TD '+'data-sortid="'+i.cycle+'"'+'>'+i.cycle+'</TD>'+
