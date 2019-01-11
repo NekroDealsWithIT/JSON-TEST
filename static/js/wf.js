@@ -124,6 +124,15 @@ function getJson(url='',viaCors=true){
 	request.onload = function() {
 		resultJson = request.response;
 		resultJson.news.reverse();
+		
+		let auxNews=[];
+		resultJson.news.forEach(n=>{
+			if(n.translations!=undefined&&n.translations.en!=undefined){
+				auxNews.push(n);
+			}
+		});
+		resultJson.news=auxNews;
+
 		arraySortByKey(resultJson.fissures,'tierNum',true);
 		// por si se trabo
 	    speechSynthesis.cancel();
