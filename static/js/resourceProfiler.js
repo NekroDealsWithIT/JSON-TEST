@@ -208,8 +208,8 @@ function drawHunting(o){
 	parseado+='<tbody><tr>'+
 			'<th '+sortableTH+'>Hunt</th>'+
 			'<th '+sortableTH+'>Class</th>'+
+			'<th '+sortableTH+'>Shoots</th>'+	
 			'<th '+sortableTH+'>Pack</th>'+
-			'<th '+sortableTH+'>Shoots</th>'+
 			'<th '+sortableTH+'>Agressive</th>'+
 			'<th '+sortableTH+'>Cycle</th>'+
 			'<th '+sortableTH+'>Bad</th>'+
