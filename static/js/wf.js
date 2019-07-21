@@ -191,7 +191,7 @@ function habemusDrops(){
 		dropsDisable(false);	
 		var cantidadItems=0;
 		Object.keys(resultJsonDrops).forEach(function (key) {
-		   cantidadItems+=resultJsonDrops[key].length;
+		   isNaN(resultJsonDrops[key].length)?'':cantidadItems+=resultJsonDrops[key].length;
 		});
 		/*    
 		resultJsonDrops.blueprintLocations.length
