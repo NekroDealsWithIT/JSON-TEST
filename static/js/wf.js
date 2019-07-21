@@ -188,8 +188,13 @@ function getJsonDrops(url='',viaCors=true){
 function habemusDrops(){
 	if(resultJsonDrops!=''){
 		drops.innerHTML='';
-		dropsDisable(false);
-		var cantidadItems=resultJsonDrops.blueprintLocations.length
+		dropsDisable(false);	
+		var cantidadItems=0;
+		Object.keys(resultJsonDrops).forEach(function (key) {
+		   cantidadItems+=resultJsonDrops[key].length;
+		});
+		/*    
+		resultJsonDrops.blueprintLocations.length
 		cantidadItems+=resultJsonDrops.relics.length;
 		cantidadItems+=resultJsonDrops.cetusBountyRewards.length
 		cantidadItems+=resultJsonDrops.transientRewards.length;
@@ -200,6 +205,7 @@ function habemusDrops(){
 		cantidadItems+=resultJsonDrops.keyRewards.length;
 		cantidadItems+=resultJsonDrops.miscItems.length;
 		cantidadItems+=resultJsonDrops.sortieRewards.length;
+		*/
 		dropsMetrics.innerHTML='Charged nodes: '+(cantidadItems)+'<br>Last update:<br>'+dateToString(new Date());
 		getDropsComboLists();
 		getFarmingMarks();
