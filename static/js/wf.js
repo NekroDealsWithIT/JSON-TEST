@@ -830,7 +830,7 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 		});
 	});
 	if (tds.length>0){
-		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' results)</h3>';
 		//result+='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','"+tipodato+"'"+s')"'+"></img>Copy All ["+tds.length+']<br>';
 		result+='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"getAllCopyText(event,'+"'"+tipodato+"'"+','+"'"+idTable+"'"+')"'+"></img>Copy All ["+tds.length+']<br>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
@@ -997,7 +997,7 @@ function buscarDropsMisiones(item,subtipo,idList=[],idTable="tableDropsMisiones"
 	});
 
 	if (tds.length>0){
-		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' results)</h3>';
 		result+='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"getAllCopyText(event,'+"'"+tipodato+"'"+','+"'"+idTable+"'"+')"'+"></img>Copy All ["+tds.length+']<br>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
@@ -1075,7 +1075,7 @@ function buscarDropsCetusBounty(item,subtipo,idList=[],idTable="tableDropsCetusB
 		});
 	});
 	if (tds.length>0){
-		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' results)</h3>';
 		result+='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"getAllCopyText(event,'+"'"+tipodato+"'"+','+"'"+idTable+"'"+')"'+"></img>Copy All ["+tds.length+']<br>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
@@ -1151,7 +1151,7 @@ function buscarDropsEventos(item,subtipo,idList=[],idTable="tableDropsEvents",se
 		});
 	});
 	if (tds.length>0){
-		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' results)</h3>';
 		result+='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"getAllCopyText(event,'+"'"+tipodato+"'"+','+"'"+idTable+"'"+')"'+"></img>Copy All ["+tds.length+']<br>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
@@ -1225,7 +1225,7 @@ function buscarDropsModEnemigo(item,subtipo,idList=[],idTable="tableDropsModEnem
 		});
 	});
 	if (tds.length>0){
-		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' results)</h3>';
 		result+='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"getAllCopyText(event,'+"'"+tipodato+"'"+','+"'"+idTable+"'"+')"'+"></img>Copy All ["+tds.length+']<br>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
@@ -1302,7 +1302,7 @@ function buscarDropsEnemigoMod(item,subtipo,idList=[],idTable="tableDropsModEnem
 		});
 	});
 	if (tds.length>0){
-		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' results)</h3>';
 		result+='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"getAllCopyText(event,'+"'"+tipodato+"'"+','+"'"+idTable+"'"+')"'+"></img>Copy All ["+tds.length+']<br>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
@@ -1368,7 +1368,7 @@ function buscarDropsSortieReward(item,subtipo,idList=[],idTable="tableDropsSorti
 		}
 	});
 	if (tds.length>0){
-		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' resultados)</h3>';
+		var result='<h3 onclick="toggleHide('+"'"+idTable+"'"+')"> * '+sectionTitle+' ('+tds.length+' results)</h3>';
 		result+='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"getAllCopyText(event,'+"'"+tipodato+"'"+','+"'"+idTable+"'"+')"'+"></img>Copy All ["+tds.length+']<br>';
 		result+=generateTable(tds,ths,'tableDrops enlargeMe',idTable,'border="1px solid white"');
 		availableNodes[idTable]=tds.length;
