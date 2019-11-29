@@ -115,7 +115,8 @@ function getJson(url='',viaCors=true){
 	if(viaCors){
 		// cors sirve como proxy externo
 		//http://cors.io/?u=http://content.warframe.com/dynamic/worldState.php
-		url="http://cors.io/?u="+url;
+		//url="http://cors.io/?u="+url;
+		url="https://cors-anywhere.herokuapp.com/"+url;
 	}
 	var request = new XMLHttpRequest();
 	request.open('GET', url);
@@ -186,6 +187,24 @@ function getJsonDrops(url='',viaCors=true){
 		return request.response;
 	}
 }
+
+function getJsonUrl(url='',viaCors=true){
+	fetchingDrops=true;
+	if(viaCors){
+		// cors sirve como proxy externo
+		//http://cors.io/?u=http://content.warframe.com/dynamic/worldState.php
+		//url="http://cors.io/?u="+url;
+		url="https://cors-anywhere.herokuapp.com/"+url;
+	}
+	var request = new XMLHttpRequest();
+	request.open('GET', url);
+	request.responseType = 'json';
+	request.send();
+	request.onload = function() {
+		return request.response;
+	}
+}
+
 function habemusDrops(){
 	if(resultJsonDrops!=''){
 		drops.innerHTML='';
