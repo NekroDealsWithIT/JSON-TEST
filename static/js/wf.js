@@ -188,6 +188,7 @@ function getJsonDrops(url='',viaCors=true){
 	}
 }
 
+/*
 function getJsonUrl(url='',viaCors=true){
 	fetchingDrops=true;
 	if(viaCors){
@@ -203,6 +204,45 @@ function getJsonUrl(url='',viaCors=true){
 	request.onload = function() {
 		return request.response;
 	}
+}
+*/
+
+var getUrlByCorsResponse='';
+
+function getUrlByCors(urlField,dataField="",method='GET'){
+	doCORSRequest({
+        //method: this.id === 'post' ? 'POST' : 'GET',
+        method: method,
+        url: urlField,
+        data: dataField
+    }, function printResult(result) {
+        getUrlByCorsResponse=result;
+    });
+}
+
+function doCORSRequest(options, printResult) {
+	//https://cors-anywhere.herokuapp.com/
+	var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+	var x = new XMLHttpRequest();
+	x.open(options.method, cors_api_url + options.url);
+	x.onload = function() {
+	  printResult(
+	    //options.method + ' ' + options.url + '\n' +
+	    //x.status + ' ' + x.statusText + '\n\n' +
+	    (x.responseText || '')
+	  );
+	};
+	x.onerror = function() {
+	  printResult(
+	    'ERROR ' +options.method + ' ' + options.url + '\n' +
+	    x.status + ' ' + x.statusText + '\n\n' +
+	    (x.responseText || '')
+	  );
+	};
+	if (/^POST/i.test(options.method)) {
+		x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	}
+	x.send(options.data);
 }
 
 function habemusDrops(){
