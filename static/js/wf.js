@@ -2306,6 +2306,52 @@ function rellenarDatos(forceUpdate=false){
 		baro.innerHTML=parseado;
 		baroTitle.innerHTML='🌑 '+baroData.character +' - '+(baroData.active?"ACTIVE":"NOT ACTIVE");
 
+		//NightWave
+		var nightWaveData=resultJson.nightwave;
+		parseado='';
+
+		if(nightWaveData!=null&&nightWaveData.active){
+			txtCopyAll='';
+			var itemsNightWave='';
+			if(resultJson.nightwave.activeChallenges!=null){
+				resultJson.nightwave.activeChallenges.forEach(function (i){
+					itemsNightWave+="("+i.title+" | Reputation: "+i.reputation+" | Description: "+i.description+" | Expiry: "+strDiff((i.expiry),diff)+" | Type: "+(i.isDaily=true?'Daily':(i.isElite=true?'Elite':'Other'))+") ";
+				});
+				itemsNightWave=strReplaceAllNonPrintable(itemsNightWave);
+			}
+			console.log(itemsNightWave);
+			//tabTitleNightWave.innerHTML = 'NightWave ['+ strDiff((nightWaveData.expiry),diff)+']';
+		}else{
+			//tabTitleNightWave.innerHTML = 'NightWave [INACTIVE]';
+		}
+
+		
+		//Kuva
+		var kuvaData=resultJson.kuva;
+		parseado='';
+		if (kuvaData!=null){
+			txtCopyAll='';
+			var itemsKuva='';
+			kuvaData.forEach(function (i){
+				itemsKuva+="("+i.type+" | Node: "+i.node+" | Planet: "+i.planet+" | Expiry: "+strDiff((i.expiry),diff)+ " | Enemy: "+i.enemy+" | AW: "+i.archwing+") ";
+			});
+			itemsKuva=strReplaceAllNonPrintable(itemsKuva);
+			console.log(itemsKuva);
+		}
+		
+		//Arbitration
+		var arbitrationData=resultJson.arbitration;
+		parseado='';
+		if (arbitrationData!=null){
+			txtCopyAll='';
+			var itemsArbitration='';
+			arbitrationData.forEach(function (i){
+				itemsArbitration+="("+i.type+" | Node: "+i.node+" | Planet: "+i.planet+" | Expiry: "+strDiff((i.expiry),diff)+ " | Enemy: "+i.enemy+" | AW: "+i.archwing+") ";
+			});
+			itemsArbitration=strReplaceAllNonPrintable(itemsArbitration);
+			console.log(itemsArbitration);			
+		}
+
 		//Syndicates
 		var synData=resultJson.syndicateMissions;
 		let generalSyndicateCopy='';
@@ -2380,6 +2426,8 @@ function rellenarDatos(forceUpdate=false){
 		});
 		syndicates.innerHTML= '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+generalSyndicateCopy+"','Syndicate'"+')"'+"></img>Copy all rewards";
 		syndicates.innerHTML+= parseado;
+
+
 
 		//News
 		var newsData=resultJson.news;
