@@ -2345,9 +2345,7 @@ function rellenarDatos(forceUpdate=false){
 		if (arbitrationData!=null){
 			txtCopyAll='';
 			var itemsArbitration='';
-			arbitrationData.forEach(function (i){
-				itemsArbitration+="("+i.type+" | Node: "+i.node+" | Planet: "+i.planet+" | Expiry: "+strDiff((i.expiry),diff)+ " | Enemy: "+i.enemy+" | AW: "+i.archwing+") ";
-			});
+			itemsArbitration+="("+arbitrationData.type+" | Node: "+arbitrationData.node+" | Planet: "+arbitrationData.planet+" | Expiry: "+strDiff((arbitrationData.expiry),diff)+ " | Enemy: "+arbitrationData.enemy+" | AW: "+arbitrationData.archwing+") ";
 			itemsArbitration=strReplaceAllNonPrintable(itemsArbitration);
 			console.log(itemsArbitration);			
 		}
