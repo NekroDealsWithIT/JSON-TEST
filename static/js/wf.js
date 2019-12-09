@@ -2315,7 +2315,7 @@ function rellenarDatos(forceUpdate=false){
 			var itemsNightWave='';
 			if(resultJson.nightwave.activeChallenges!=null){
 				resultJson.nightwave.activeChallenges.forEach(function (i){
-					itemsNightWave+="("+i.title+" | Reputation: "+i.reputation+" | Description: "+i.description+" | Expiry: "+strDiff((i.expiry),diff)+" | Type: "+(i.isDaily=true?'Daily':(i.isElite=true?'Elite':'Other'))+") ";
+					itemsNightWave+="("+i.title+" | Reputation: "+i.reputation+" | Description: "+i.desc+" | Expiry: "+strDiff((i.expiry),diff)+" | Type: "+(i.isDaily=true?'Daily':(i.isElite=true?'Elite':'Other'))+") ";
 				});
 				itemsNightWave=strReplaceAllNonPrintable(itemsNightWave);
 			}
