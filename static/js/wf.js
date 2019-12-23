@@ -838,10 +838,14 @@ function buscarDropsRelics(item,subtipo,idList=[],idTable="tableDropsRelics",sec
 			let vaulted=false;
 			resultJsonDrops.activeRelics==undefined?getActiveRelics():'';
 			try{
-				vaulted=(!resultJsonDrops.activeRelics[r.tier].includes(r.relicName));
-				if(vaulted==undefined){
+				if(resultJsonDrops.activeRelics[r.tier]==undefined){
 					getActiveRelics();
-					vaulted=resultJsonDrops.activeRelics[r.tier]==undefined?true:(!resultJsonDrops.activeRelics[r.tier].includes(r.relicName));
+				}else{
+					vaulted=(!resultJsonDrops.activeRelics[r.tier].includes(r.relicName));
+					if(vaulted==undefined){
+						getActiveRelics();
+						vaulted=resultJsonDrops.activeRelics[r.tier]==undefined?true:(!resultJsonDrops.activeRelics[r.tier].includes(r.relicName));
+					}					
 				}
 			}catch(e){
 				console.error(e);
@@ -2336,7 +2340,7 @@ function rellenarDatos(forceUpdate=false){
 				itemsKuva+="("+i.type+" | Node: "+i.node+" | Planet: "+i.planet+" | Expiry: "+strDiff((i.expiry),diff)+ " | Enemy: "+i.enemy+" | AW: "+i.archwing+") ";
 			});
 			itemsKuva=strReplaceAllNonPrintable(itemsKuva);
-			console.log(itemsKuva);
+			//console.log(itemsKuva);
 		}
 		
 		//Arbitration
@@ -2347,7 +2351,7 @@ function rellenarDatos(forceUpdate=false){
 			var itemsArbitration='';
 			itemsArbitration+="("+arbitrationData.type+" | Node: "+arbitrationData.node+" | Planet: "+arbitrationData.planet+" | Expiry: "+strDiff((arbitrationData.expiry),diff)+ " | Enemy: "+arbitrationData.enemy+" | AW: "+arbitrationData.archwing+") ";
 			itemsArbitration=strReplaceAllNonPrintable(itemsArbitration);
-			console.log(itemsArbitration);			
+			//console.log(itemsArbitration);			
 		}
 
 		//Syndicates
