@@ -104,7 +104,6 @@ function processSheetsJson(data,ssId,desc,constants,callback,timeMilis){
 	//console.log(ssId,desc,constants,callback,timeMilis,data);
 	try{
 		//Reemplazo las constantes
-		console.log(constants==='')
 		if(!(constants==='')){
 			var constantsData=parseSheetsJsonData(data,desc,ssId);
 			console.log(constantsData);
@@ -119,14 +118,14 @@ function processSheetsJson(data,ssId,desc,constants,callback,timeMilis){
 				});				
 			}
 		}
-		resultJson=parseSheetsJsonData(data,desc,ssId);
+		let resultJsonSheets=parseSheetsJsonData(data,desc,ssId);
 	}catch(e){
 		console.error('[processSheetsJson]: '+ssId,e.toString());
 	}finally{
 		if (callback==null){
-			return resultJson;
+			return resultJsonSheets;
 		}else{
-			callback(resultJson,ssId,timeMilis);
+			callback(resultJsonSheets,ssId,timeMilis);
 		}
 	}
 }
