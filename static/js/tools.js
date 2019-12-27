@@ -102,6 +102,7 @@ function getJsonSheets(ssId,gid,range,output='csv',desc=false,constants='',callb
 
 function processSheetsJson(data,ssId,desc,constants,callback,timeMilis){
 	//console.log(ssId,desc,constants,callback,timeMilis,data);
+	let resultJsonSheets;
 	try{
 		//Reemplazo las constantes
 		if(!(constants==='')){
@@ -118,7 +119,7 @@ function processSheetsJson(data,ssId,desc,constants,callback,timeMilis){
 				});				
 			}
 		}
-		let resultJsonSheets=parseSheetsJsonData(data,desc,ssId);
+		resultJsonSheets=parseSheetsJsonData(data,desc,ssId);
 	}catch(e){
 		console.error('[processSheetsJson]: '+ssId,e.toString());
 	}finally{
