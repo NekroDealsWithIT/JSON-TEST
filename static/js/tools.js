@@ -51,6 +51,133 @@ function loadExternalHTML(){
 		}
 	}
 }
+
+/*
+-----------------------------------------------------
+	Funciones de QUERY a Google Sheets
+-----------------------------------------------------
+*/
+
+/*
+	getJsonSheets -> processSheetsJson -> parseSheetsJsonData -> callback
+	ssId: Key de compartir en sheets.
+	gid: Id hoja.
+	range: Rango celdas (ver desc).
+	output=Preparado para csv.
+	desc: true si se usa una matriz que tenga en la primer columna la descripcion para hacerla key.
+	constants: (string) nombre de las constantes para reemplazar (para achicar los json).
+	callback: funcion de callback si va vacia, retorna el objeto. Sino, llama callback con estos params (objeto,ssId,duracionMs).
+*/
+function getJsonSheets(ssId,gid,range,output='csv',desc=false,constants='',callback=null){
+	gid="&gid="+gid; //Id Hoja //1037375654
+	range="&range="+range; //Rango query //B2:B
+	output='&output='+output;
+	urlSheets=atob("aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXQvcHViP2tleT0=")+ssId+"&single=true"+gid+output+range;
+
+	try{
+		var start=new Date().getTime();
+		xmlhttp=new XMLHttpRequest();
+		var finish;
+		
+		xmlhttp.onreadystatechange = function() {
+		if(xmlhttp.readyState == 4 && xmlhttp.status==200){
+			finish=new Date().getTime()-start;
+			processSheetsJson(xmlhttp.responseText,ssId,desc,constants,callback,finish);
+		}
+
+		xmlhttp.onprogress = function () {
+			console.log('LOADING '+ssId+': ', xmlhttp.status);
+		};
+		xmlhttp.onload = function () {
+			finish=new Date().getTime()-start;
+			console.log('DONE '+ssId+' ('+finish+' ms): ', xmlhttp.status);
+		};
+	};
+		xmlhttp.open("GET",urlSheets,true);
+		xmlhttp.send(null);
+	} catch (e){
+		console.error('[getJsonSheets]: '+ssId,e.toString());
+	}
+}
+
+function processSheetsJson(data,ssId,desc,constants,callback,timeMilis){
+	//console.log(ssId,desc,constants,callback,timeMilis,data);
+	try{
+		//Reemplazo las constantes
+		console.log(constants==='')
+		if(!(constants==='')){
+			var constantsData=parseSheetsJsonData(data,desc,ssId);
+			console.log(constantsData);
+			if(desc==true){
+				constantsData[constants].forEach(c=>{
+					data=data.split(c.constant).join(c.value);
+				});								
+			} else {
+				console.log(constantsData[0]);
+				constantsData[0].forEach(c=>{
+					data=data.split(c.constant).join(c.value);
+				});				
+			}
+		}
+		resultJson=parseSheetsJsonData(data,desc,ssId);
+	}catch(e){
+		console.error('[processSheetsJson]: '+ssId,e.toString());
+	}finally{
+		if (callback==null){
+			return resultJson;
+		}else{
+			callback(resultJson,ssId,timeMilis);
+		}
+	}
+}
+
+function parseSheetsJsonData(data,desc,ssId){
+	//console.log(desc,ssId,data);
+	try{
+		var response=[];
+
+		//Separo por los enters
+		data=data.split('\n');
+		data.forEach(j =>{
+			//Reemplazo los ""
+			var aux=j.split('""').join('"');
+
+			if (desc==true){
+				//Tiene la columna de descripcion
+				
+				//Busco la descripcion
+				var descripcion=aux.split(',')[0];
+				
+				//Elimino el '"' al final si lo tiene
+				if(aux.substring(aux.length-1)=='"'){
+					aux=aux.substring(0, aux.length-1);
+				}	
+
+				//Pongo la descripcion como clave
+				aux='{"'+descripcion+'":'+aux.substring(descripcion.length+2, aux.indexOf('}]')+2)+'}';
+			}else{
+				//Corto los " al principio y final
+				aux=aux.substring(1, aux.length-1);
+				if(aux.substring(aux.length-1)=='"'){
+					aux=aux.substring(0, aux.length-1);
+				}				
+			}
+
+			//Convierto a JSON
+			aux=JSON.parse(aux);
+			response.push(aux);
+		});
+	}catch(e){
+		console.error('[parseSheetsJsonData]: '+ssId,e.toString());
+	}finally{
+		return response;
+	}
+}
+
+function testCallbackSheets(jsonSheetsResult,ssId,timeMilis){
+	console.log('[recibirCallback] Finalizo '+timeMilis+' ms.',jsonSheetsResult);
+}
+
 /*
 -----------------------------------------------------
 	Funciones de Parametros en URL
