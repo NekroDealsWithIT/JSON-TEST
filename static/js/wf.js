@@ -3340,35 +3340,9 @@ function activateWFMarket(e){
 
 
 /* Buscar info google sheets */
-//const URLJson="https://docs.google.com/spreadsheet/pub?key=1bMpMZnxUIcG7fgBcmzP8Np5v7fKT2VafDQy5Nv06_gs&single=true&gid=0&range=d3&output=csv";
-var URLJson="";
-var sheetJson="";
-function getJsonSheets(){
-	var range="A2:B";
-	var output="csv"
-	var output="json"
-	URLJson="https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vRveR69TYAT9PzegtINhFWctcfyDaT_Bl0spvsM0Gni_b1d-r8GjA2z4G6rK3MI_s-gb_BX1UnykeDT/pubhtml?gid=1037375654&single=true&range="+range+"&output="+output+'"';
-	try{
-		$.ajax(URLJson)
-		.done(function(result){
-			sheetJson=result;
-			sheetJson=strReplaceAll(result,"'",'"')
-			sheetJson=sheetJson.substring(1, sheetJson.length-1);
-			console.log(sheetJson);
-			//sheetJson=JSON.parse(sheetJson);
-			//defaultToolsArr=sheetJson;
-			//updateFilters();
-		})
-		.error(function(result){
-			sheetJson=result;
-			//sheetJson=strReplaceAll(result,"'",'"')
-			//sheetJson=sheetJson.substring(1, sheetJson.length-1);
-			console.log(sheetJson);
-			//sheetJson=JSON.parse(sheetJson);
-			//defaultToolsArr=sheetJson;
-			//updateFilters();
-		});
-	}catch (e){
-		console.error(e);
-	}	
+function getJsonFromSheets(){
+	getJsonSheets('168yKawPbuf8fH_0ro1MGwPIyqNtG6cs3ATTYK7Cy_uI','1037375654','A2:B','csv',true,'constants',getJsonReplyFromSheets);
+}
+function getJsonReplyFromSheets(jsonSheetsResult,ssId,timeMilis){
+	console.log('[getJsonReplyFromSheets] Finalizo '+timeMilis+' ms.',jsonSheetsResult);
 }
