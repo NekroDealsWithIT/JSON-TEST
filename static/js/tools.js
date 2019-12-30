@@ -112,14 +112,18 @@ function processSheetsJson(data,ssId,desc,constants,callback,timeMilis){
 			var constantsData=parseSheetsJsonData(data,desc,ssId);
 			console.log(constantsData);
 			if(desc==true){
-				constantsData[0][constants].forEach(c=>{
-					data=data.split(c.constant).join(c.value);
-				});								
+				if(constantsData[0][constants]!='Loading'){
+					constantsData[0][constants].forEach(c=>{
+						data=data.split(c.constant).join(c.value);
+					});						
+				}
 			} else {
 				console.log(constantsData[0]);
-				constantsData[0].forEach(c=>{
-					data=data.split(c.constant).join(c.value);
-				});				
+				if(constantsData[0]!='Loading'){
+					constantsData[0].forEach(c=>{
+						data=data.split(c.constant).join(c.value);
+					});
+				}
 			}
 		}
 		resultJsonSheets=parseSheetsJsonData(data,desc,ssId);
