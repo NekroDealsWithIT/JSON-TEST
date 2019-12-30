@@ -141,7 +141,13 @@ function parseSheetsJsonData(data,desc,ssId){
 		data.forEach(j =>{
 			//Reemplazo los ""
 			var aux=j.split('""').join('"');
+			var isLoading=false;
 
+			//varifico que no este cargando
+			if(aux.indexOf(",Loading...")>1){
+				isLoading=true;
+			}
+			
 			if (desc==true){
 				//Tiene la columna de descripcion
 				
@@ -153,15 +159,21 @@ function parseSheetsJsonData(data,desc,ssId){
 					aux=aux.substring(0, aux.length-1);
 				}	
 
-				//Pongo la descripcion como clave
-				aux='{"'+descripcion+'":'+aux.substring(descripcion.length+2, aux.indexOf('}]')+2)+'}';
-				console.log('[parseSheetsJsonData] desc: ' +aux);
+				if (!isLoading){
+					//Pongo la descripcion como clave
+					aux='{"'+descripcion+'":'+aux.substring(descripcion.length+2, aux.indexOf('}]')+2)+'}';					
+				}else{
+					//Pongo la descripcion como clave y agrego que esta cargando
+					aux='{"'+descripcion+'":"Loading"}';
+				}
+				
+				//console.log('[parseSheetsJsonData] desc: ' +aux);
 			}else{
 				//Corto los " al principio y final
 				aux=aux.substring(1, aux.length-1);
 				if(aux.substring(aux.length-1)=='"'){
 					aux=aux.substring(0, aux.length-1);
-				}				
+				}
 			}
 
 			//Convierto a JSON
