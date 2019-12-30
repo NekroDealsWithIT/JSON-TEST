@@ -155,7 +155,7 @@ function parseSheetsJsonData(data,desc,ssId){
 
 				//Pongo la descripcion como clave
 				aux='{"'+descripcion+'":'+aux.substring(descripcion.length+2, aux.indexOf('}]')+2)+'}';
-				console.log('[parseSheetsJsonData] desc:' aux);
+				console.log('[parseSheetsJsonData] desc: ' +aux);
 			}else{
 				//Corto los " al principio y final
 				aux=aux.substring(1, aux.length-1);
