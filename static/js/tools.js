@@ -144,7 +144,7 @@ function parseSheetsJsonData(data,desc,ssId){
 			var isLoading=false;
 
 			//varifico que no este cargando
-			if(aux.indexOf(",Loading...")>1){
+			if(aux.indexOf("{")==-1){
 				isLoading=true;
 			}
 			
@@ -161,7 +161,8 @@ function parseSheetsJsonData(data,desc,ssId){
 
 				if (!isLoading){
 					//Pongo la descripcion como clave
-					aux='{"'+descripcion+'":'+aux.substring(descripcion.length+2, aux.indexOf('}]')+2)+'}';					
+					aux='{"'+descripcion+'":'+aux.substring(descripcion.length+2, aux.indexOf('}]')+2)+'}';
+
 				}else{
 					//Pongo la descripcion como clave y agrego que esta cargando
 					aux='{"'+descripcion+'":"Loading"}';
@@ -173,6 +174,11 @@ function parseSheetsJsonData(data,desc,ssId){
 				aux=aux.substring(1, aux.length-1);
 				if(aux.substring(aux.length-1)=='"'){
 					aux=aux.substring(0, aux.length-1);
+				}
+
+				if (isLoading){
+					//Pongo esta cargando, no es valido buscar
+					aux='{"Loading"}';
 				}
 			}
 
