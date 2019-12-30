@@ -72,6 +72,9 @@ function getJsonSheets(ssId,gid,range,output='csv',desc=false,constants='',callb
 	gid="&gid="+gid; //Id Hoja //1037375654
 	range="&range="+range; //Rango query //B2:B
 	output='&output='+output;
+
+	let cacheRandomizer="&random="+Math.round(Math.random() * 10000);
+
 	urlSheets=atob("aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXQvcHViP2tleT0=")+ssId+"&single=true"+gid+output+range;
 
 	try{
