@@ -2324,9 +2324,15 @@ function rellenarDatos(forceUpdate=false){
 				itemsNightWave=strReplaceAllNonPrintable(itemsNightWave);
 			}
 			//console.log(itemsNightWave);
-			//tabTitleNightWave.innerHTML = 'NightWave ['+ strDiff((nightWaveData.expiry),diff)+']';
+			tabTitleNightWave.innerHTML = 'NightWave ['+ strDiff((timeLeftStr(nightWaveData.expiry)),diff)+']';
+			parseado='<h2>NightWave ends '+dateToString(new Date(nightWaveData.expiry))+' ['+ strDiff((timeLeftStr(nightWaveData.expiry)),diff)+']<h2><p>'+weeksLeftStr(nightWaveData.expiry)+' weeks left.</p>';
+
+
+			nightwave.innerHTML=parseado;
 		}else{
-			//tabTitleNightWave.innerHTML = 'NightWave [INACTIVE]';
+			tabTitleNightWave.innerHTML = 'NightWave [INACTIVE]';
+			parseado='<h2>NightWave [INACTIVE]<h2>';
+			nightwave.innerHTML=parseado;
 		}
 
 		
@@ -2353,6 +2359,7 @@ function rellenarDatos(forceUpdate=false){
 			itemsArbitration=strReplaceAllNonPrintable(itemsArbitration);
 			//console.log(itemsArbitration);	
 			arbitration.innerHTML=itemsArbitration;
+			tabTitleArbitration.innerHTML = 'Arbitration ['+ strDiff(timeLeftStr(arbitrationData.expiry),diff)+']';
 		}
 
 		//Syndicates
@@ -2614,6 +2621,20 @@ function timeLeftStr(dateStr){
 	let seconds = Math.abs(Math.floor(duration.seconds()));
 
 	return years+'Y '+months+'M '+days+'d '+hours+'h '+minutes+'m '+seconds+'s';
+}
+
+/*
+	weeksLeftStr convierte fecha Z '2020-01-20T00:00:00.000Z' 
+	a tiempo duracion (en semanas) comparado con la fecha actual:
+	Math.abs(Math.floor(duration.asWeeks()))
+*/
+function weeksLeftStr(dateStr){
+	let now = moment(new Date());
+	let end = moment(dateStr);// another date
+	let duration = moment.duration(Math.abs(end.diff(now)));
+
+	//Get Weeks
+	return Math.abs(Math.floor(duration.asWeeks()));
 }
 
 function strDiff (strDate, diff,htmlSpan=true){
