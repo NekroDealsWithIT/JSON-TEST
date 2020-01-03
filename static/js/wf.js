@@ -2349,9 +2349,10 @@ function rellenarDatos(forceUpdate=false){
 		if (arbitrationData!=null){
 			txtCopyAll='';
 			var itemsArbitration='';
-			itemsArbitration+="("+arbitrationData.type+" | Node: "+arbitrationData.node+" | Planet: "+arbitrationData.planet+" | Expiry: "+strDiff((arbitrationData.expiry),diff)+ " | Enemy: "+arbitrationData.enemy+" | AW: "+arbitrationData.archwing+") ";
+			itemsArbitration+="("+arbitrationData.type+" | Node: "+arbitrationData.node+" | Planet: "+arbitrationData.planet+" | Expiry: "+strDiff(timeLeftStr(arbitrationData.expiry),diff)+ " | Enemy: "+arbitrationData.enemy+" | AW: "+arbitrationData.archwing+") ";
 			itemsArbitration=strReplaceAllNonPrintable(itemsArbitration);
-			//console.log(itemsArbitration);			
+			//console.log(itemsArbitration);	
+			arbitration.innerHTML=itemsArbitration;
 		}
 
 		//Syndicates
@@ -2577,6 +2578,42 @@ function strToDate(stringDate){
 		}
 	});
 	return response;
+}
+
+/*
+	timeLeftStr convierte fecha Z '2020-01-20T00:00:00.000Z' 
+	a tiempo duracion comparado con la fecha actual:
+	years+'Y '+months+'M '+days+'d '+hours+'h '+minutes+'m '+seconds+'s'
+*/
+function timeLeftStr(dateStr){
+	let now = moment(new Date());
+	let end = moment(dateStr);// another date
+	let duration = moment.duration(Math.abs(end.diff(now)));
+
+	//Get Years and subtract from duration
+	let years = Math.abs(Math.floor(duration.asYears()));
+	duration.subtract(moment.duration(years,'years'));
+
+	//Get Months and subtract from duration
+	let months = Math.abs(Math.floor(duration.asMonths()));
+	duration.subtract(moment.duration(months,'months'));
+
+	//Get Days and subtract from duration
+	let days = Math.abs(Math.floor(duration.asDays()));
+	duration.subtract(moment.duration(days,'days'));
+
+	//Get hours and subtract from duration
+	let hours = Math.abs(Math.floor(duration.hours()));
+	duration.subtract(moment.duration(hours,'hours'));
+
+	//Get Minutes and subtract from duration
+	let minutes = Math.abs(Math.floor(duration.minutes()));
+	duration.subtract(moment.duration(minutes,'minutes'));
+
+	//Get seconds
+	let seconds = Math.abs(Math.floor(duration.seconds()));
+
+	return years+'Y '+months+'M '+days+'d '+hours+'h '+minutes+'m '+seconds+'s';
 }
 
 function strDiff (strDate, diff,htmlSpan=true){
