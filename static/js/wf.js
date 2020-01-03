@@ -1511,7 +1511,7 @@ function startAll(){
 	//fin de en que estoy trabajando?
 
 	timer1=setClock(1000,timerTime,timer1);
-	tabTitleAlertas.click()
+	tabTitleDrops.click()
 	//tabShowAll.click();
 }
 function timerTime(){
