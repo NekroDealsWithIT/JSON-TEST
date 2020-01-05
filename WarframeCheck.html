@@ -270,6 +270,63 @@
 				</div>
 			</div> 
 
+			<div id="TabSecundariaTips" style="display: block;">
+				<!-- implementacion de tab secundaria -->
+				<hr>
+				<h3 onclick="toggleHide('tipsTabFrame');">🌑 Tips</h3>
+				<div id="tipsTabFrame"class="tabFrame">
+					<div class="tab">
+						<button data-idGroupName="tipsTab" class="tablinks active subrayado" data-idGroupName="tipsTab" name="hideAllTab" onclick="openTab(event, this.name,false)">HIDE ALL</button>
+						<button data-idGroupName="tipsTab" class="tablinks subrayado" id="tabShowAll" name="showAllTab" onclick="openTab(event, this.name,false)">SHOW ALL</button>
+						<!--
+							Template
+							<button data-idGroupName="tipsTab" class="tablinks" id="PHTemplateTitle" name="PHTemplateTab" onclick="openTab(event, this.name)">PHTemplate</button>
+						-->
+						<button data-idGroupName="tipsTab" class="tablinks" id="primeListTitle" name="primeListTab" onclick="openTab(event, this.name)">Prime List Order</button>
+						<button data-idGroupName="tipsTab" class="tablinks" id="synthTargetsTitle" name="synthTargetsTab" onclick="openTab(event, this.name)">Synth Targets List</button>
+						<button data-idGroupName="tipsTab" class="tablinks" id="lichDmgListTitle" name="lichDmgListTab" onclick="openTab(event, this.name)">Lich Damage List</button>
+						<button data-idGroupName="tipsTab" class="tablinks" id="railjackPowerListTitle" name="railjackPowerListTab" onclick="openTab(event, this.name)">Railjack Tactical Power List</button>
+						<!--<button data-idGroupName="tipsTab" class="tablinks" id="test5Title" name="test5Tab" onclick="openTab(event, this.name)">test5</button>-->
+					</div>
+				</div>	
+				<!--
+					Template
+					<div id="PHTemplateTab" data-idGroupName="tipsTab" class="tabcontent">
+						<a id="PHTemplateAnchor"></a>
+						<h3 id="PHTemplateTitle" onclick="toggleHide('PHTemplate');">🌑 PHTemplate</h3>
+						<section id="PHTemplate" style="text-align:center;"><p>Currently working on it</p><img style="max-width:75%!important;" src="static/img/i hate mondays.png"></section>
+					</div>
+				-->
+				<div id="primeListTab" data-idGroupName="tipsTab" class="tabcontent">
+					<a id="primeListAnchor"></a>
+					<h3 id="primeListTitle" onclick="toggleHide('primeList');">🌑 Prime List Order</h3>
+					<section id="primeList" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
+				</div>
+
+				<div id="synthTargetsTab" data-idGroupName="tipsTab" class="tabcontent">
+					<a id="synthTargetsAnchor"></a>
+					<h3 id="synthTargetsTitle" onclick="toggleHide('synthTargets');">🌑 Synth Targets List</h3>
+					<section id="synthTargets" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
+				</div>
+				<div id="lichDmgListTab" data-idGroupName="tipsTab" class="tabcontent">
+					<a id="lichDmgListAnchor"></a>
+					<h3 id="lichDmgListTitle" onclick="toggleHide('lichDmgList');">🌑 Lich Damage List</h3>
+					<section id="lichDmgList" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
+				</div>
+				<div id="railjackPowerListTab" data-idGroupName="tipsTab" class="tabcontent">
+					<a id="railjackPowerListAnchor"></a>
+					<h3 id="railjackPowerListTitle" onclick="toggleHide('railjackPowerList');">🌑 Railjack Tactical Power List</h3>
+					<section id="railjackPowerList" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
+				</div>
+				<!--
+					<div id="test5Tab" data-idGroupName="tipsTab" class="tabcontent">
+						<a id="test5Anchor"></a>
+						<h3 id="test5Title" onclick="toggleHide('test5');">🌑 test5</h3>
+						<section id="test5" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
+					</div>
+				-->
+			</div>
+		</div>
 			<!-- implementacion de tabs -->
 			<hr>
 			<div class="tabFrame">
@@ -279,11 +336,12 @@
 					<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitleWarframeMarket" name="warframeMarketTab" onclick="openTab(event, this.name);wfMarketTab1.click();">Warframe Market</button> -->
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleDrops" name="dropsTab" onclick="openTab(event, this.name)">Drops</button>
 					<!-- <button data-idGroupName="generalTab" class="tablinks" id="tabTitlePersistentEnemies" name="persistentEnemiesTab" onclick="openTab(event, this.name)">Persistent Enemies</button> -->
-					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNotificaciones" name="notificacionesTab" onclick="openTab(event, this.name)">Notifications</button>
+					<button data-idGroupName="generalTab" class="tablinks hidden" id="tabTitleNotificaciones" name="notificacionesTab" onclick="openTab(event, this.name)">Notifications</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleEventos" name="eventosTab" onclick="openTab(event, this.name)">Events</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleAlertas" name="alertasTab" onclick="openTab(event, this.name)">Alerts</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNightWave" name="nightWaveTab" onclick="openTab(event, this.name)">Nightwave</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleArbitration" name="arbitrationTab" onclick="openTab(event, this.name)">Arbitration</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleKuva" name="kuvaTab" onclick="openTab(event, this.name)">Kuva</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleInvasiones" name="invasionesTab" onclick="openTab(event, this.name)">Invasions</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSortie" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleFisuras" name="fissuresTab" onclick="openTab(event, this.name)">Fissures</button>
@@ -436,7 +494,7 @@
 					<div id="drops"><img class="loading" src="static/img/loading.gif"></div>
 				</div>
 			</div>
-			<div id="notificacionesTab" data-idGroupName="generalTab" class="tabcontent">
+			<div id="notificacionesTab" data-idGroupName="generalTab" class="tabcontent hidden">
 				<a id="NOTI"></a>
 				<h3 id="notificacionesTitle" onclick="toggleHide('notificaciones');">🌑 Notifications</h3>
 				<div id="notificaciones"><img class="loading" src="static/img/loading.gif"></div>
@@ -455,16 +513,22 @@
 
 			<div id="nightWaveTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="nightWaveAnchor"></a>
-				<h3 id="nigthWaveTitle" onclick="toggleHide('alerts');">🌑 Nightwave</h3>
-				<section id="nightwave" style="text-align:center;"><p>Currently working on it</p><img style="max-width:75%!important;" src="static/img/i hate mondays.png"></section>
+				<h3 id="nigthWaveTitle" onclick="toggleHide('nightwave');">🌑 Nightwave</h3>
+				<section id="nightwave" ><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
 				<!--<section id="nightwave"><img class="loading" src="static/img/loading.gif"></section>-->
 			</div>
 
 			<div id="arbitrationTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="arbitrationAnchor"></a>
-				<h3 id="arbitrationTitle" onclick="toggleHide('alerts');">🌑 Arbitration</h3>
-				<section id="arbitration" style="text-align:center;"><p>Currently working on it</p><img style="max-width:75%!important;" src="static/img/i hate mondays.png"></section>
+				<h3 id="arbitrationTitle" onclick="toggleHide('arbitration');">🌑 Arbitration</h3>
+				<section id="arbitration" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
 				<!--<section id="arbitrations"><img class="loading" src="static/img/loading.gif"></section>-->
+			</div>
+
+			<div id="kuvaTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="kuvaAnchor"></a>
+				<h3 id="kuvaTitle" onclick="toggleHide('kuva');">🌑 Kuva</h3>
+				<section id="kuva" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
 			</div>
 
 			<div id="invasionesTab" data-idGroupName="generalTab" class="tabcontent">
@@ -545,64 +609,6 @@
 
 		</div>
 		
-		<div id="TabSecundariaTips" style="display: block;">
-			<!-- implementacion de tab secundaria -->
-			<hr>
-			<h3 onclick="toggleHide('tipsTabFrame');">🌑 Tips</h3>
-			<div id="tipsTabFrame"class="tabFrame">
-				<div class="tab">
-					<button data-idGroupName="tipsTab" class="tablinks active subrayado" data-idGroupName="tipsTab" name="hideAllTab" onclick="openTab(event, this.name,false)">HIDE ALL</button>
-					<button data-idGroupName="tipsTab" class="tablinks subrayado" id="tabShowAll" name="showAllTab" onclick="openTab(event, this.name,false)">SHOW ALL</button>
-					<!--
-						Template
-						<button data-idGroupName="tipsTab" class="tablinks" id="PHTemplateTitle" name="PHTemplateTab" onclick="openTab(event, this.name)">PHTemplate</button>
-					-->
-					<button data-idGroupName="tipsTab" class="tablinks" id="primeListTitle" name="primeListTab" onclick="openTab(event, this.name)">Prime List Order</button>
-					<button data-idGroupName="tipsTab" class="tablinks" id="synthTargetsTitle" name="synthTargetsTab" onclick="openTab(event, this.name)">Synth Targets List</button>
-					<button data-idGroupName="tipsTab" class="tablinks" id="lichDmgListTitle" name="lichDmgListTab" onclick="openTab(event, this.name)">Lich Damage List</button>
-					<button data-idGroupName="tipsTab" class="tablinks" id="railjackPowerListTitle" name="railjackPowerListTab" onclick="openTab(event, this.name)">Railjack Tactical Power List</button>
-					<!--<button data-idGroupName="tipsTab" class="tablinks" id="test5Title" name="test5Tab" onclick="openTab(event, this.name)">test5</button>-->
-				</div>
-			</div>	
-			<!--
-				Template
-				<div id="PHTemplateTab" data-idGroupName="tipsTab" class="tabcontent">
-					<a id="PHTemplateAnchor"></a>
-					<h3 id="PHTemplateTitle" onclick="toggleHide('PHTemplate');">🌑 PHTemplate</h3>
-					<section id="PHTemplate" style="text-align:center;"><p>Currently working on it</p><img style="max-width:75%!important;" src="static/img/i hate mondays.png"></section>
-				</div>
-			-->
-			<div id="primeListTab" data-idGroupName="tipsTab" class="tabcontent">
-				<a id="primeListAnchor"></a>
-				<h3 id="primeListTitle" onclick="toggleHide('primeList');">🌑 Prime List Order</h3>
-				<section id="primeList" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
-			</div>
-
-			<div id="synthTargetsTab" data-idGroupName="tipsTab" class="tabcontent">
-				<a id="synthTargetsAnchor"></a>
-				<h3 id="synthTargetsTitle" onclick="toggleHide('synthTargets');">🌑 Synth Targets List</h3>
-				<section id="synthTargets" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
-			</div>
-			<div id="lichDmgListTab" data-idGroupName="tipsTab" class="tabcontent">
-				<a id="lichDmgListAnchor"></a>
-				<h3 id="lichDmgListTitle" onclick="toggleHide('lichDmgList');">🌑 Lich Damage List</h3>
-				<section id="lichDmgList" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
-			</div>
-			<div id="railjackPowerListTab" data-idGroupName="tipsTab" class="tabcontent">
-				<a id="railjackPowerListAnchor"></a>
-				<h3 id="railjackPowerListTitle" onclick="toggleHide('railjackPowerList');">🌑 Railjack Tactical Power List</h3>
-				<section id="railjackPowerList" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
-			</div>
-			<!--
-				<div id="test5Tab" data-idGroupName="tipsTab" class="tabcontent">
-					<a id="test5Anchor"></a>
-					<h3 id="test5Title" onclick="toggleHide('test5');">🌑 test5</h3>
-					<section id="test5" style="text-align:center;"><p>Currently working on it</p><img style="max-width: 30%!important;" src="static/img/i hate mondays.png"></section>
-				</div>
-			-->
-		</div>
-	</div>
-
 	<span class="disclaimer">Created by Nekro (ShadowOfNekro) | This site is neither owned nor affliated with Digital Extremes in any way.</span>
 </div>
 

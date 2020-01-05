@@ -2325,41 +2325,138 @@ function rellenarDatos(forceUpdate=false){
 			}
 			//console.log(itemsNightWave);
 			tabTitleNightWave.innerHTML = 'NightWave ['+ strDiff((timeLeftStr(nightWaveData.expiry)),diff)+']';
-			parseado='<h2>NightWave ends '+dateToString(new Date(nightWaveData.expiry))+' ['+ strDiff((timeLeftStr(nightWaveData.expiry)),diff)+']<h2><p>'+weeksLeftStr(nightWaveData.expiry)+' weeks left.</p>';
+			parseado='<h2>NightWave ends '+dateToString(new Date(nightWaveData.expiry))+' ['+ strDiff((timeLeftStr(nightWaveData.expiry)),diff)+']</h2><p>('+weeksLeftStr(nightWaveData.expiry,2)+' weeks left.)</p>';
 
+			ths=[];
+			tds=[];
+			ths.push([['Title','sortable'],['Desc','sortable'],['Time','sortable'],['Type','sortable'],['Reputation','sortable']]);
+			txtCopyAll='';
+
+			nightWaveData.activeChallenges.forEach(function(f){
+				var td=[];
+				var nightWaveFaction=f.isElite?'infested':'grineer';
+				var nightWaveType=(f.reputation==7000?'Elite':(f.reputation==4500?'Weekly':'Daily'));
+				nightWaveFaction=nightWaveType=='axi'?'neo':'lith';
+				nightWaveFaction=(nightWaveType=='Elite'?'axi':(nightWaveType=='Weekly'?'neo':'lith'));
+				/*
+				id: "1578268800000seasondailykillenemieswithpoison"
+				activation: "2020-01-03T00:00:00.000Z"
+				startString: "-2d 18h 21m 24s"
+				expiry: "2020-01-06T00:00:00.000Z"
+				active: true
+				isDaily: "Daily"
+				isElite: false
+				desc: "Kill 150 Enemies with Toxin Damage"
+				title: "Poisoner"
+				reputation: 1000
+				*/
+			
+				var txtCopiar="'"+"NightWave: "+f.title+" | Reputation: "+f.reputation+" | Description: "+f.desc+" | Expiry: "+strDiff((timeLeftStr(f.expiry)),diff,false)+" | Type: "+nightWaveType+' (https://nekro-warframe.netlify.com)'+"'";
+				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+				var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+
+				td.push([imgCopiar+' '+f.title,'tdNightWave '+nightWaveFaction,'','data-sortid="'+f.reputation+'"']);
+				td.push([f.desc,'tdNightWave '+nightWaveFaction]);
+				td.push([strDiff((timeLeftStr(f.expiry)),diff),'tdNightWave '+nightWaveFaction,'','data-sortid="'+f.expiry+'"']);
+				td.push([nightWaveType,'tdNightWave '+nightWaveFaction]);
+				td.push([f.reputation,'tdNightWave '+nightWaveFaction]);
+				tds.push(td);
+			});
+			parseado += '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','NightWave'"+')"'+"></img>Copy All ["+tds.length+']';
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
+			parseado +='<hr>';
 
 			nightwave.innerHTML=parseado;
 		}else{
 			tabTitleNightWave.innerHTML = 'NightWave [INACTIVE]';
-			parseado='<h2>NightWave [INACTIVE]<h2>';
+			parseado='<h2>NightWave [INACTIVE]</h2>';
 			nightwave.innerHTML=parseado;
 		}
 
 		
+		//Arbitration
+		var arbitrationData=resultJson.arbitration;
+		parseado='';
+
+		ths=[];
+		tds=[];
+		ths.push([['Type','sortable'],['Planet','sortable'],['Node','sortable'],['Expiry','sortable'],['Enemy','sortable']]);
+
+		if (arbitrationData!=null){
+			var td=[];
+			txtCopyAll='';
+			/*
+			var itemsArbitration='';
+			itemsArbitration+=arbitrationData.type+" | Planet: "+arbitrationData.planet+" | Node: "+arbitrationData.node+" | Expiry: "+strDiff(timeLeftStr(arbitrationData.expiry),diff)+ " | Enemy: "+arbitrationData.enemy;
+			itemsArbitration=strReplaceAllNonPrintable(itemsArbitration);
+			*/
+
+			var txtCopiar="'"+"Arbitration: Mission Type:"+arbitrationData.type+" | Planet: "+arbitrationData.planet+" | Node: "+arbitrationData.node+" | Expiry: "+strDiff((timeLeftStr(arbitrationData.expiry)),diff,false)+" | Faction: "+arbitrationData.enemy+' (https://nekro-warframe.netlify.com)'+"'";
+			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+			var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+			
+			td.push([imgCopiar+' '+arbitrationData.type,'tdKuva '+arbitrationData.enemy.toLowerCase(),'','data-sortid="'+arbitrationData.reputation+'"']);
+			td.push([arbitrationData.planet,'tdKuva '+arbitrationData.enemy.toLowerCase()]);
+			td.push([arbitrationData.node,'tdKuva '+arbitrationData.enemy.toLowerCase()]);
+			td.push([strDiff((timeLeftStr(arbitrationData.expiry)),diff),'tdKuva '+arbitrationData.enemy.toLowerCase(),'','data-sortid="'+arbitrationData.expiry+'"']);
+			td.push([arbitrationData.enemy,'tdKuva '+arbitrationData.enemy.toLowerCase()]);
+			tds.push(td);
+
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
+
+			arbitration.innerHTML=parseado;
+			tabTitleArbitration.innerHTML = 'Arbitration ['+ strDiff(timeLeftStr(arbitrationData.expiry),diff)+']';
+		}
+
 		//Kuva
 		var kuvaData=resultJson.kuva;
 		parseado='';
 		if (kuvaData!=null){
+			ths=[];
+			tds=[];
+			ths.push([['Type','sortable'],['Planet','sortable'],['Node','sortable'],['Expiry','sortable'],['Enemy','sortable']]);
+
 			txtCopyAll='';
 			var itemsKuva='';
 			kuvaData.forEach(function (i){
+				var td=[];
 				itemsKuva+="("+i.type+" | Node: "+i.node+" | Planet: "+i.planet+" | Expiry: "+strDiff((i.expiry),diff)+ " | Enemy: "+i.enemy+" | AW: "+i.archwing+") ";
+
+				var txtCopiar="'"+"Kuva: Mission Type:"+i.type+" | Planet: "+i.planet+" | Node: "+i.node+" | Expiry: "+strDiff((timeLeftStr(i.expiry)),diff,false)+" | Faction: "+i.enemy+' (https://nekro-warframe.netlify.com)'+"'";
+				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+				var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+
+				td.push([imgCopiar+' '+i.type,'tdKuva '+i.enemy.toLowerCase(),'','data-sortid="'+i.reputation+'"']);
+				td.push([i.planet,'tdKuva '+i.enemy.toLowerCase()]);
+				td.push([i.node,'tdKuva '+i.enemy.toLowerCase()]);
+				td.push([strDiff((timeLeftStr(i.expiry)),diff),'tdKuva '+i.enemy.toLowerCase(),'','data-sortid="'+i.expiry+'"']);
+				td.push([i.enemy,'tdKuva '+i.enemy.toLowerCase()]);
+				tds.push(td);
+
+				/*
+				type|planet|node|expiry|enemy|
+				activation: "2020-01-05T20:05:00.000Z"
+				expiry: "2020-01-05T21:05:00.000Z"
+				solnode: "SolNode140"
+				node: "Kiste (Ceres)"
+				name: "Kiste [Ceres]"
+				tile: "Kiste"
+				planet: "Ceres"
+				enemy: "Grineer"
+				type: "Mobile Defense"
+				node_type: "NT_MISSION"
+				archwing: false
+				sharkwing: false
+				*/
+
 			});
 			itemsKuva=strReplaceAllNonPrintable(itemsKuva);
 			//console.log(itemsKuva);
-		}
-		
-		//Arbitration
-		var arbitrationData=resultJson.arbitration;
-		parseado='';
-		if (arbitrationData!=null){
-			txtCopyAll='';
-			var itemsArbitration='';
-			itemsArbitration+="("+arbitrationData.type+" | Node: "+arbitrationData.node+" | Planet: "+arbitrationData.planet+" | Expiry: "+strDiff(timeLeftStr(arbitrationData.expiry),diff)+ " | Enemy: "+arbitrationData.enemy+" | AW: "+arbitrationData.archwing+") ";
-			itemsArbitration=strReplaceAllNonPrintable(itemsArbitration);
-			//console.log(itemsArbitration);	
-			arbitration.innerHTML=itemsArbitration;
-			tabTitleArbitration.innerHTML = 'Arbitration ['+ strDiff(timeLeftStr(arbitrationData.expiry),diff)+']';
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
+			parseado +='<hr>';
+			tabTitleKuva.innerHTML='Kuva ['+tds.length+']'
+			kuva.innerHTML=parseado;
+
 		}
 
 		//Syndicates
@@ -2436,8 +2533,6 @@ function rellenarDatos(forceUpdate=false){
 		});
 		syndicates.innerHTML= '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+generalSyndicateCopy+"','Syndicate'"+')"'+"></img>Copy all rewards";
 		syndicates.innerHTML+= parseado;
-
-
 
 		//News
 		var newsData=resultJson.news;
@@ -2628,13 +2723,13 @@ function timeLeftStr(dateStr){
 	a tiempo duracion (en semanas) comparado con la fecha actual:
 	Math.abs(Math.floor(duration.asWeeks()))
 */
-function weeksLeftStr(dateStr){
+function weeksLeftStr(dateStr,decimals=0){
 	let now = moment(new Date());
 	let end = moment(dateStr);// another date
 	let duration = moment.duration(Math.abs(end.diff(now)));
 
 	//Get Weeks
-	return Math.abs(Math.floor(duration.asWeeks()));
+	return Math.abs(Math.floor(duration.asWeeks()*Math.pow(10, decimals))/Math.pow(10, decimals));
 }
 
 function strDiff (strDate, diff,htmlSpan=true){
