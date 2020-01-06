@@ -54,6 +54,7 @@
 	var firstRun=true;
 	var resultJson='';
 	var resultJsonDrops='';
+	var resultJsonSheets=[];
 	var dropsEncontrados=0;
 
 	var availableNodes=[];
@@ -211,12 +212,12 @@ var getUrlByCorsResponse='';
 
 function getUrlByCors(urlField,dataField="",method='GET'){
 	doCORSRequest({
-        //method: this.id === 'post' ? 'POST' : 'GET',
-        method: method,
-        url: urlField,
-        data: dataField
+		//method: this.id === 'post' ? 'POST' : 'GET',
+		method: method,
+		url: urlField,
+		data: dataField
     }, function printResult(result) {
-        getUrlByCorsResponse=result;
+		getUrlByCorsResponse=result;
     });
 }
 
@@ -1511,8 +1512,11 @@ function startAll(){
 	//fin de en que estoy trabajando?
 
 	timer1=setClock(1000,timerTime,timer1);
-	tabTitleDrops.click()
+	tabTitleDrops.click();
 	//tabShowAll.click();
+
+	//busco sheets
+	getJsonFromSheets();
 }
 function timerTime(){
 	rellenarDatos();
@@ -2269,7 +2273,7 @@ function rellenarDatos(forceUpdate=false){
 		txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 		var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>";
 
-		parseado +='<p class='+(baroData.active?'"baroEsta"':'"baroNoEsta"')+'>'+(baroData.active?'Ends: '+strDiff((baroData.endString),diff):'Llega: '+strDiff((baroData.startString),diff))+imgCopiar+'</p>';
+		parseado +='<p class='+(baroData.active?'"baroEsta"':'"baroNoEsta"')+'>'+(baroData.active?'Ends: '+strDiff((baroData.endString),diff):'Arrives: '+strDiff((baroData.startString),diff))+imgCopiar+'</p>';
 		
 		parseado+=baroData.character+
 		'<BR>Arrives to: '+baroData.location+' Active: '+baroData.active+
@@ -2395,11 +2399,11 @@ function rellenarDatos(forceUpdate=false){
 			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 			var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 			
-			td.push([imgCopiar+' '+arbitrationData.type,'tdKuva '+arbitrationData.enemy.toLowerCase(),'','data-sortid="'+arbitrationData.reputation+'"']);
-			td.push([arbitrationData.planet,'tdKuva '+arbitrationData.enemy.toLowerCase()]);
-			td.push([arbitrationData.node,'tdKuva '+arbitrationData.enemy.toLowerCase()]);
-			td.push([strDiff((timeLeftStr(arbitrationData.expiry)),diff),'tdKuva '+arbitrationData.enemy.toLowerCase(),'','data-sortid="'+arbitrationData.expiry+'"']);
-			td.push([arbitrationData.enemy,'tdKuva '+arbitrationData.enemy.toLowerCase()]);
+			td.push([imgCopiar+' '+arbitrationData.type,'tdArbitration '+arbitrationData.enemy.toLowerCase(),'','data-sortid="'+arbitrationData.reputation+'"']);
+			td.push([arbitrationData.planet,'tdArbitration '+arbitrationData.enemy.toLowerCase()]);
+			td.push([arbitrationData.node,'tdArbitration '+arbitrationData.enemy.toLowerCase()]);
+			td.push([strDiff((timeLeftStr(arbitrationData.expiry)),diff),'tdArbitration '+arbitrationData.enemy.toLowerCase(),'','data-sortid="'+arbitrationData.expiry+'"']);
+			td.push([arbitrationData.enemy,'tdArbitration '+arbitrationData.enemy.toLowerCase()]);
 			tds.push(td);
 
 			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
@@ -2452,6 +2456,7 @@ function rellenarDatos(forceUpdate=false){
 			});
 			itemsKuva=strReplaceAllNonPrintable(itemsKuva);
 			//console.log(itemsKuva);
+			parseado += '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','Kuva'"+')"'+"></img>Copy All ["+tds.length+']';
 			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
 			parseado +='<hr>';
 			tabTitleKuva.innerHTML='Kuva ['+tds.length+']'
@@ -2956,16 +2961,16 @@ function getCachedData(){
 			cookie = cookie.substring(1);
 		}
 
-        // Variable de checkeo
-        var cV='t_';
-        if (cookie.indexOf(cV) == 0) {
-        	var cachedType='';
-        	var cachedItem='';
-        	var cachedImgLink='';
-        	var cachedTime='';
-        	var cachedPlatform='';
-            // (cookieMasticada)
-            var cM=cookie;
+		// Variable de checkeo
+		var cV='t_';
+		if (cookie.indexOf(cV) == 0) {
+			var cachedType='';
+			var cachedItem='';
+			var cachedImgLink='';
+			var cachedTime='';
+			var cachedPlatform='';
+		   // (cookieMasticada)
+		    var cM=cookie;
 
             cV='=';
             if (cM.indexOf(cV) > -1) {
@@ -3494,8 +3499,236 @@ function activateWFMarket(e){
 
 /* Buscar info google sheets */
 function getJsonFromSheets(){
+	console.log("Sheets started");
 	getJsonSheets('168yKawPbuf8fH_0ro1MGwPIyqNtG6cs3ATTYK7Cy_uI','1037375654','A2:B','csv',true,'constants',getJsonReplyFromSheets);
-}
+}		
+
 function getJsonReplyFromSheets(jsonSheetsResult,ssId,timeMilis){
-	console.log('[getJsonReplyFromSheets] Finalizo '+timeMilis+' ms.',jsonSheetsResult);
+	console.log('[getJsonReplyFromSheets] Retrieve Ended '+timeMilis+' ms.',jsonSheetsResult);
+	let complete=true;
+	for (var key in jsonSheetsResult) {
+			if (!jsonSheetsResult.hasOwnProperty(key)) continue;
+			var obj = jsonSheetsResult[key];
+			for (var prop in obj) {
+			if (!obj.hasOwnProperty(prop)) continue;
+			if (obj[prop]=='Loading') {
+				console.error('[getJsonReplyFromSheets] '+prop + " = " + obj[prop]);
+				complete=false;
+			}else{
+				resultJsonSheets[prop]=obj;
+				publishSheetsData(prop,obj);
+			}
+			
+	    }
+	}
+	complete==false?getJsonFromSheets():'';
+}
+
+function publishSheetsData(key,data){
+	//console.log('[publishSheetsData] '+key+' * '+data);
+	let ths=[];
+	let tds=[];
+	let where;
+	let txtCopyAll='';
+	let parseado='';
+
+	switch (String(key)){
+		case 'primeList':
+			var ignoreList=['Obs'];
+			where=document.getElementById(key);
+			//console.log('[publishSheetsData] '+key,data);
+			ths.push([['Warframe','sortable'], //W
+				['Year','sortable'], //Y
+				['Month','sortable'], //M
+				['Update','sortable'], //U
+				['Release Date','sortable'], //RD
+				['Vaulted','sortable'], //V
+				['Last Unvault','sortable'], //LUV
+				['Vault Order','sortable'], //VO
+				['Expected Vault','sortable'] //EV
+				//,['Observations','sortable'] //Obs
+				]);
+
+			data[key].forEach(i=>{
+				let td=[];
+				let row=[];
+								
+				let txtCopiar="'";
+				
+				let counterTHS=0;
+				for (var rowKey in i) {
+						if (!i.hasOwnProperty(rowKey)) continue;
+						if (ths[0][counterTHS]!=undefined&&!ignoreList.includes(rowKey)){
+						let obj = (i[rowKey]!=''?i[rowKey]:'---');
+						row.push([ths[0][counterTHS][0],obj]);
+						txtCopiar+=ths[0][counterTHS][0]+': '+obj+' | ';
+						counterTHS++;									    	
+				    }
+				}				
+				let specialClass=(row[7][1]!='---'?'neo':((row[2][1]!='---'&&row[3][1]!='---')?'orokin':'lith'));
+
+				txtCopiar+=' (https://nekro-warframe.netlify.com)'+"'";				
+				//var txtCopiar="'"+"Warframe: "+i.W+" | Year: "+i.Y+" | Month: "+i.M+" | Update: "+i.U+" | Release Date: "+i.RD+" | Last Unvault: "+i.LUV+" | Vault Order: "+i.VO+" | Expected Vault: "+i.EV+" | Observations: "+i.Obs+' (https://nekro-warframe.netlify.com)'+"'";
+				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+				let imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+				
+				td.push([imgCopiar+' '+row[0][1],'td'+key+' '+specialClass,'','data-sortid="'+row[0][1]+'"']);
+				td.push([row[1][1],'td'+key+' '+specialClass,'','data-sortid="'+row[1][1]+'"']);
+				td.push([row[2][1],'td'+key+' '+specialClass,'','data-sortid="'+row[2][1]+'"']);
+				td.push([row[3][1],'td'+key+' '+specialClass,'','data-sortid="'+row[3][1]+'"']);
+				td.push([row[4][1],'td'+key+' '+specialClass,'','data-sortid="'+row[4][1]+'"']);
+				td.push([row[5][1],'td'+key+' '+specialClass,'','data-sortid="'+row[5][1]+'"']);
+				td.push([row[6][1],'td'+key+' '+specialClass,'','data-sortid="'+row[6][1]+'"']);
+				td.push([row[7][1],'td'+key+' '+specialClass,'','data-sortid="'+row[7][1]+'"']);
+				td.push([row[8][1],'td'+key+' '+specialClass,'','data-sortid="'+row[8][1]+'"']);
+				//td.push([row[9][1],'td'+key+' ']);
+				tds.push(td);
+			});
+			parseado += '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','"+String(key).toUpperCase()+"'"+')"'+"></img>Copy All ["+tds.length+']';
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
+			parseado +='<hr>';
+			where.innerHTML=parseado;
+			break;
+		
+		case 'lichDmgList':
+			var ignoreList=['i'];
+			where=document.getElementById(key);
+			//console.log('[publishSheetsData] '+key,data);
+			ths.push([['Warframe','sortable'], //W
+				['Type','sortable'] //T
+				]);
+			console.log(ths);
+			data[key].forEach(i=>{
+				let td=[];
+				let row=[];
+								
+				let txtCopiar="'";
+				
+				let counterTHS=0;
+				for (var rowKey in i) {
+						if (!i.hasOwnProperty(rowKey)) continue;
+						if (ths[0][counterTHS]!=undefined&&!ignoreList.includes(rowKey)){
+						let obj = (i[rowKey]!=''?i[rowKey]:'---');
+						row.push([ths[0][counterTHS][0],obj]);
+						txtCopiar+=ths[0][counterTHS][0]+': '+obj+' | ';
+						counterTHS++;									    	
+					}
+				}				
+				let specialClass=row[1][1].toLowerCase();
+
+				txtCopiar+=' (https://nekro-warframe.netlify.com)'+"'";				
+				//var txtCopiar="'"+"Warframe: "+i.W+" | Year: "+i.Y+" | Month: "+i.M+" | Update: "+i.U+" | Release Date: "+i.RD+" | Last Unvault: "+i.LUV+" | Vault Order: "+i.VO+" | Expected Vault: "+i.EV+" | Observations: "+i.Obs+' (https://nekro-warframe.netlify.com)'+"'";
+				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+				let imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+				
+				td.push([imgCopiar+' '+row[0][1],'td'+key+' '+specialClass,'','data-sortid="'+row[0][1]+'"']);
+				td.push([row[1][1],'td'+key+' '+specialClass,'','data-sortid="'+row[1][1]+'"']);
+
+				//td.push([row[9][1],'td'+key+' ']);
+				tds.push(td);
+			});
+			parseado += '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','"+String(key).toUpperCase()+"'"+')"'+"></img>Copy All ["+tds.length+']';
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
+			parseado +='<hr>';
+			where.innerHTML=parseado;
+			break;
+		
+		case 'railjackPwrList':
+			var ignoreList=['Wiki'];
+			where=document.getElementById(key);
+			ths.push([['Warframe','sortable'] //W
+				,['Ability','sortable'] //A
+				,['Base Flux','sortable'] //A
+				,['Note','sortable'] //A
+				]);
+			console.log(ths);
+			data[key].forEach(i=>{
+				let td=[];
+				let row=[];
+								
+				let txtCopiar="'";
+				
+				let counterTHS=0;
+				for (var rowKey in i) {
+						if (!i.hasOwnProperty(rowKey)) continue;
+						if (ths[0][counterTHS]!=undefined&&!ignoreList.includes(rowKey)){
+						let obj = (i[rowKey]!=''?i[rowKey]:'---');
+						row.push([ths[0][counterTHS][0],obj]);
+						txtCopiar+=ths[0][counterTHS][0]+': '+obj+' | ';
+						counterTHS++;									    	
+					}
+				}				
+				let specialClass=orokin;
+
+				txtCopiar+=' (https://nekro-warframe.netlify.com)'+"'";				
+				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+				let imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+				
+				td.push([imgCopiar+' '+row[0][1],'td'+key+' '+specialClass,'','data-sortid="'+row[0][1]+'"']);
+				td.push([row[1][1],'td'+key+' '+specialClass,'','data-sortid="'+row[1][1]+'"']);
+				td.push([row[2][1],'td'+key+' '+specialClass,'','data-sortid="'+row[2][1]+'"']);
+				td.push([row[3][1],'td'+key+' '+specialClass,'','data-sortid="'+row[3][1]+'"']);
+
+				//td.push([row[9][1],'td'+key+' ']);
+				tds.push(td);
+			});
+			parseado += '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','"+String(key).toUpperCase()+"'"+')"'+"></img>Copy All ["+tds.length+']';
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
+			parseado +='<hr>';
+			where.innerHTML=parseado;
+			break;
+
+		case 'synthTargets':
+			var ignoreList=['I','W'];
+			where=document.getElementById(key);
+			ths.push([['Target','sortable'] //ID
+				,['Location 1','sortable'] //L1
+				,['Location 2','sortable'] //L2
+				,['Location 3','sortable'] //L3
+				,['Location 4','sortable'] //L4
+				,['Location 5','sortable'] //L5
+				,['Location 6','sortable'] //L6
+				]);
+
+			data[key].forEach(i=>{
+				let td=[];
+				let row=[];
+								
+				let txtCopiar="'";
+				
+				let counterTHS=0;
+				for (var rowKey in i) {
+						if (!i.hasOwnProperty(rowKey)) continue;
+						if (ths[0][counterTHS]!=undefined&&!ignoreList.includes(rowKey)){
+						let obj = (i[rowKey]!=''?i[rowKey]:'---');
+						row.push([ths[0][counterTHS][0],obj]);
+						txtCopiar+=ths[0][counterTHS][0]+': '+obj+' | ';
+						counterTHS++;									    	
+					}
+				}				
+				let specialClass='orokin';
+
+				txtCopiar+=' (https://nekro-warframe.netlify.com)'+"'";				
+				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+				let imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+				
+				td.push([imgCopiar+' '+row[0][1],'td'+key+' '+specialClass,'','data-sortid="'+row[0][1]+'"']);
+				td.push([row[1][1],'td'+key+' '+specialClass,'','data-sortid="'+row[1][1]+'"']);
+				td.push([row[2][1],'td'+key+' '+specialClass,'','data-sortid="'+row[2][1]+'"']);
+				td.push([row[3][1],'td'+key+' '+specialClass,'','data-sortid="'+row[3][1]+'"']);
+				td.push([row[4][1],'td'+key+' '+specialClass,'','data-sortid="'+row[4][1]+'"']);
+				td.push([row[5][1],'td'+key+' '+specialClass,'','data-sortid="'+row[5][1]+'"']);
+				td.push([row[6][1],'td'+key+' '+specialClass,'','data-sortid="'+row[6][1]+'"']);
+
+
+				tds.push(td);
+			});
+			parseado += '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','"+String(key).toUpperCase()+"'"+')"'+"></img>Copy All ["+tds.length+']';
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
+			parseado +='<hr>';
+			where.innerHTML=parseado;
+			break;
+
+		default:
+	}
 }

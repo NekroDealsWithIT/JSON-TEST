@@ -422,7 +422,7 @@ h5{
 }*/
 
 /*color facciones*/
-.corpus{
+.corpus, .cold{
 	background-color: blue;
 	color: white;
 	text-align: center;
@@ -430,7 +430,7 @@ h5{
 .corpus a, .corpus a:visited{
 	color:yellow;
 }
-.grineer{
+.grineer, .electricity{
 	background-color: burlywood;
 	color: darkred;
 	text-align: center;
@@ -438,7 +438,7 @@ h5{
 .grineer a, .grineer a:visited{
 	color:#0400ff;
 }
-.infested, .crossfire{
+.infested, .crossfire, .impact{
 	background-color: aquamarine;
 	color: black;
 	text-align: center;
@@ -446,7 +446,7 @@ h5{
 .infested a, .crossfire a, .infested a:visited, .crossfire a:visited{
 	color:#0400fe;	
 }
-.orokin, .corrupted{
+.orokin, .corrupted,. magnetic{
 	background-color: rebeccapurple;
 	color: white;
 	text-align: center;
@@ -508,20 +508,20 @@ h5{
 }
 
 /*Colores de relics*/
-.axi,.lith,.meso,.neo{
+.axi,.lith,.meso,.neo ,.heat,.radiation,.toxin{
 	color:black;
 }
 
-.axi{
+.axi, .heat{
 	background-color: tomato;
 }
-.neo{
+.neo, .radiation{
 	background-color: gold;	
 }
 .meso{
 	background-color: darkgreen;
 }
-.lith{
+.lith,.toxin{
 	background-color: green;	
 }
 .vaultedRelic{

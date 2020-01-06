@@ -110,7 +110,6 @@ function processSheetsJson(data,ssId,desc,constants,callback,timeMilis){
 		//Reemplazo las constantes
 		if(!(constants==='')){
 			var constantsData=parseSheetsJsonData(data,desc,ssId);
-			console.log(constantsData);
 			if(desc==true){
 				if(constantsData[0][constants]!='Loading'){
 					constantsData[0][constants].forEach(c=>{

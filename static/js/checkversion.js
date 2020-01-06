@@ -13,7 +13,7 @@ function versionCheck(callback=false){
 	}else{
 		version=fetchedVersion;
 		if (version!=''){
-			ultimaVersion.innerHTML="<h3>Ultima version:<br>"+version+"<br>Ultimo chequeo: "+tiempoStr()+"</h3>";
+			ultimaVersion.innerHTML="<h3>Last version:<br>"+version+"<br>Last check: "+tiempoStr()+"</h3>";
 		}
 	}
 }
