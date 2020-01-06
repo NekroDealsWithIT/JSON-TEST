@@ -3597,7 +3597,7 @@ function publishSheetsData(key,data){
 			ths.push([['Warframe','sortable'], //W
 				['Type','sortable'] //T
 				]);
-			console.log(ths);
+
 			data[key].forEach(i=>{
 				let td=[];
 				let row=[];
@@ -3641,7 +3641,7 @@ function publishSheetsData(key,data){
 				,['Base Flux','sortable'] //A
 				,['Note','sortable'] //A
 				]);
-			console.log(ths);
+
 			data[key].forEach(i=>{
 				let td=[];
 				let row=[];
@@ -3658,7 +3658,7 @@ function publishSheetsData(key,data){
 						counterTHS++;									    	
 					}
 				}				
-				let specialClass=orokin;
+				let specialClass='orokin';
 
 				txtCopiar+=' (https://nekro-warframe.netlify.com)'+"'";				
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
