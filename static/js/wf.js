@@ -3723,12 +3723,12 @@ function publishSheetsData(key,data){
 				let imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 				
 				td.push([imgCopiar+' '+row[0][1],'td'+key+' '+specialClass,'','data-sortid="'+row[0][1]+'"']);
-				td.push([row[1][1],'td'+key+' '+specialClass,'','data-sortid="'+row[1][1]+'"']);
-				td.push([row[2][1],'td'+key+' '+specialClass,'','data-sortid="'+row[2][1]+'"']);
-				td.push([row[3][1],'td'+key+' '+specialClass,'','data-sortid="'+row[3][1]+'"']);
-				td.push([row[4][1],'td'+key+' '+specialClass,'','data-sortid="'+row[4][1]+'"']);
-				td.push([row[5][1],'td'+key+' '+specialClass,'','data-sortid="'+row[5][1]+'"']);
-				td.push([row[6][1],'td'+key+' '+specialClass,'','data-sortid="'+row[6][1]+'"']);
+				td.push([row[1][1].split('|').join('<br>'),'td'+key+' '+specialClass,'','data-sortid="'+row[1][1]+'"']);
+				td.push([row[2][1].split('|').join('<br>'),'td'+key+' '+specialClass,'','data-sortid="'+row[2][1]+'"']);
+				td.push([row[3][1].split('|').join('<br>'),'td'+key+' '+specialClass,'','data-sortid="'+row[3][1]+'"']);
+				td.push([row[4][1].split('|').join('<br>'),'td'+key+' '+specialClass,'','data-sortid="'+row[4][1]+'"']);
+				td.push([row[5][1].split('|').join('<br>'),'td'+key+' '+specialClass,'','data-sortid="'+row[5][1]+'"']);
+				td.push([row[6][1].split('|').join('<br>'),'td'+key+' '+specialClass,'','data-sortid="'+row[6][1]+'"']);
 
 
 				tds.push(td);
