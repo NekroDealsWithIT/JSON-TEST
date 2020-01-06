@@ -3536,7 +3536,9 @@ function publishSheetsData(key,data){
 		case 'primeList':
 			var ignoreList=['Obs'];
 			where=document.getElementById(key);
-			//console.log('[publishSheetsData] '+key,data);
+			
+			var primeWarframeOrderTd=[];
+
 			ths.push([['Warframe','sortable'], //W
 				['Year','sortable'], //Y
 				['Month','sortable'], //M
@@ -3565,6 +3567,9 @@ function publishSheetsData(key,data){
 						counterTHS++;									    	
 				    }
 				}				
+				
+
+
 				let specialClass=(row[7][1]!='---'?'neo':((row[2][1]!='---'&&row[3][1]!='---')?'orokin':'lith'));
 
 				txtCopiar+=' (https://nekro-warframe.netlify.com)'+"'";				
@@ -3583,7 +3588,12 @@ function publishSheetsData(key,data){
 				td.push([row[8][1],'td'+key+' '+specialClass,'','data-sortid="'+row[8][1]+'"']);
 				//td.push([row[9][1],'td'+key+' ']);
 				tds.push(td);
+				if(row[7][1]!='---'){
+					primeWarframeOrderTd.push(td);
+				}				
 			});
+			parseado += '<h2>Vault Order</h2>';
+			parseado += generateTable(primeWarframeOrderTd.reverse(),ths,'tableFisures enlargeMe','','');
 			parseado += '<br><img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"warframeCopyToClipboard('+"'"+txtCopyAll+"','"+String(key).toUpperCase()+"'"+')"'+"></img>Copy All ["+tds.length+']';
 			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
 			parseado +='<hr>';
