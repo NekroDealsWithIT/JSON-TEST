@@ -2412,6 +2412,66 @@ function rellenarDatos(forceUpdate=false){
 			tabTitleArbitration.innerHTML = 'Arbitration ['+ strDiff(timeLeftStr(arbitrationData.expiry),diff)+']';
 		}
 
+		//SentientOutposts
+		var sentientOutpostsData=resultJson.sentientOutposts;
+		parseado='';
+
+		
+		ths=[];
+		tds=[];
+		ths.push([['Node','sortable'],['Faction','sortable'],['Type','sortable'],['Expiry','sortable'],['Active','sortable']]);
+
+		if (sentientOutpostsData!=null){
+			var td=[];
+			txtCopyAll='';
+			
+			console.log('[SentientOutposts]',sentientOutpostsData);
+
+			if(sentientOutpostsData.active==false){
+				sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry).add(3,'hours');
+				console.log('[SentientOutposts +3]',sentientOutpostsData);
+			}
+
+			
+			
+
+			parseado +='<h2>Sentient Outpost is '+(sentientOutpostsData.mission!=null?'ACTIVE, ENDS IN: ':'INACTIVE, STARTS IN: ')+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff)+'</h2><hr><p>(Cycle is about 30 minutes active and 3 hours inactive.)</p>'
+				
+			if(sentientOutpostsData.mission!=null){
+				var txtCopiar="'"+"SentientOutposts: Node:"+sentientOutpostsData.mission.node+" | Faction: "+sentientOutpostsData.mission.faction+" | Type: "+sentientOutpostsData.mission.type+" | Ends: "+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff,false)+" | Active: "+sentientOutpostsData.active+' (https://nekro-warframe.netlify.com)'+"'";
+				
+				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+				var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+				var sentientOutpostsClass=sentientOutpostsData.mission.faction.toLowerCase();
+
+				td.push([imgCopiar+' '+sentientOutpostsData.mission.node,'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
+				td.push([sentientOutpostsData.mission.faction,'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
+				td.push([sentientOutpostsData.mission.type,'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
+				td.push([strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.expiry+'"']);
+				td.push([(sentientOutpostsData.active?'ACTIVE':'INACTIVE'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
+				tds.push(td);
+			}else{
+				var txtCopiar="'"+"SentientOutposts: Starts: "+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff,false)+" | Status: "+(sentientOutpostsData.active?'ACTIVE':'INACTIVE')+' (https://nekro-warframe.netlify.com)'+"'";
+
+				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
+				var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
+
+				var sentientOutpostsClass='axi';
+
+				td.push([imgCopiar+' '+'---','tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.reputation+'"']);
+				td.push(['---','tdSentientOutposts '+sentientOutpostsClass]);
+				td.push(['---','tdSentientOutposts '+sentientOutpostsClass]);
+				td.push([strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.expiry+'"']);
+				td.push([(sentientOutpostsData.mission!=null?'ACTIVE':'INACTIVE'),'tdSentientOutposts '+sentientOutpostsClass]);
+				tds.push(td);					
+			}
+
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');			
+			sentientOutposts.innerHTML=parseado;
+			tabTitleSentientOutposts.innerHTML = 'Sentient Outposts ['+(sentientOutpostsData.mission!=null?'Ends ':'Starts ')+ strDiff(timeLeftStr(sentientOutpostsData.expiry),diff)+']';
+		}
+
+
 		//Kuva
 		var kuvaData=resultJson.kuva;
 		parseado='';

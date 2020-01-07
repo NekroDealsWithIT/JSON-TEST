@@ -341,6 +341,7 @@
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleAlertas" name="alertasTab" onclick="openTab(event, this.name)">Alerts</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleNightWave" name="nightWaveTab" onclick="openTab(event, this.name)">Nightwave</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleArbitration" name="arbitrationTab" onclick="openTab(event, this.name)">Arbitration</button>
+					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSentientOutposts" name="sentientOutpostsTab" onclick="openTab(event, this.name)">Sentient Outposts</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleKuva" name="kuvaTab" onclick="openTab(event, this.name)">Kuva</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleInvasiones" name="invasionesTab" onclick="openTab(event, this.name)">Invasions</button>
 					<button data-idGroupName="generalTab" class="tablinks" id="tabTitleSortie" name="sortieTab" onclick="openTab(event, this.name)">Sortie</button>
@@ -505,6 +506,7 @@
 				<h3 id="eventsTitle" onclick="toggleHide('events');">🌑 Events</h3>
 				<section id="events"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
+
 			<div id="alertasTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="A"></a>
 				<h3 id="alertsTitle" onclick="toggleHide('alerts');">🌑 Alerts</h3>
@@ -523,6 +525,12 @@
 				<h3 id="arbitrationTitle" onclick="toggleHide('arbitration');">🌑 Arbitration</h3>
 				<section id="arbitration"><img class="loading" src="static/img/loading.gif"></section>
 				<!--<section id="arbitrations"><img class="loading" src="static/img/loading.gif"></section>-->
+			</div>
+
+			<div id="sentientOutpostsTab" data-idGroupName="generalTab" class="tabcontent">
+				<a id="sentientOutpostsAnchor"></a>
+				<h3 id="sentientOutpostsTitle" onclick="toggleHide('sentientOutposts');">🌑 Sentients Outpost</h3>
+				<section id="sentientOutposts"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
 
 			<div id="kuvaTab" data-idGroupName="generalTab" class="tabcontent">
