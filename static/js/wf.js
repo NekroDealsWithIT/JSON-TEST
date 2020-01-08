@@ -2453,7 +2453,17 @@ function rellenarDatos(forceUpdate=false){
 			
 			//Override
 			if(sentientOutpostTimer!=null){
-				sentientOutpostsData.expiry=moment(new Date((sentientOutpostTimer.projection>new Date()?sentientOutpostTimer.projection:sentientOutpostTimer.end)));
+				if(sentientOutpostsData.active==false){
+					sentientOutpostsData.expiry=moment(new Date((sentientOutpostTimer.projection)));
+				}else{
+					sentientOutpostsData.expiry=moment(new Date((sentientOutpostTimer.end)));
+					console.warn('**** timeStamp ****',new Date());
+					console.log('start',new Date(sentientOutpostTimer.start));
+					console.log('end',new Date(sentientOutpostTimer.end));
+					console.log('Projection',new Date(sentientOutpostTimer.projection));
+					console.log('Used',new Date(sentientOutpostsData.expiry));
+				}
+								
 				// console.log(sentientOutpostsData.expiry);
 			}else{
 				sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry);
