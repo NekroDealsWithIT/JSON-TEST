@@ -19,6 +19,9 @@
 
 	let carouselItems=[];
 
+	let sentientOutpostsStatus;
+	let sentientOutpostTimer;
+
 	function mAq(p='',r=''){if(r==''){q=Object.keys(p_r);return atob(q[randBetween(1,q.length,1)-1]);}else{return (p_r[btoa(p)]==r?1:0)}};
 	function submitMe(){
 		if(
@@ -1517,6 +1520,9 @@ function startAll(){
 
 	//busco sheets
 	getJsonFromSheets();
+
+	//busco timer de anomalias
+	getSentientOutpostTimer(true,false);
 }
 function timerTime(){
 	rellenarDatos();
@@ -2415,7 +2421,12 @@ function rellenarDatos(forceUpdate=false){
 		//SentientOutposts
 		var sentientOutpostsData=resultJson.sentientOutposts;
 		parseado='';
-
+		if(sentientOutpostTimer==null){
+			getSentientOutpostTimer(true,false);	
+		}else{
+			getSentientOutpostTimer(false);
+		}
+		
 		
 		ths=[];
 		tds=[];
@@ -2425,15 +2436,50 @@ function rellenarDatos(forceUpdate=false){
 			var td=[];
 			txtCopyAll='';
 			
-			console.log('[SentientOutposts]',sentientOutpostsData);
+			//console.log('[SentientOutposts]',sentientOutpostsData);
 
 			if(sentientOutpostsData.active==false){
-				sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry).add(3,'hours');
-				console.log('[SentientOutposts +3]',sentientOutpostsData);
+				if(sentientOutpostsData.expiry<sentientOutpostsData.activation){
+					sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry).add(2.5,'hours').add(-20,'minutes');	
+					//console.log('[SentientOutposts +2.5]',sentientOutpostsData.expiry,sentientOutpostsData);
+				}else{
+					sentientOutpostsData.expiry=moment(sentientOutpostsData.activation).add(-20,'minutes');	
+				}
+			}else{
+				sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry).add(-20,'minutes');	
+			}
+			//Override
+			if(sentientOutpostTimer!=null){
+				sentientOutpostsData.expiry=moment(new Date(sentientOutpostTimer.projection));
+				// console.log(sentientOutpostsData.expiry);
+			}else{
+				console.warn('sentientOutpostTimer Null');
 			}
 
 			
-			
+			if(sentientOutpostsStatus!=sentientOutpostsData.active&&sentientOutpostsInform.checked){
+				sentientOutpostsStatus=sentientOutpostsData.active;
+
+				actual=sentientOutpostsData.id;
+				completa=chequearCompleto(sentientOutpostsData.id);
+				timerNotificacion=strDiff(timeLeftStr(sentientOutpostsData.expiry),diff);
+				timerNotificacionSpeachable=strDiff(timeLeftStr(sentientOutpostsData.expiry),diff,false);
+				tipo='Alert';
+
+				let data=sentientOutpostsData;
+				data.actual=actual;
+				data.tipo=tipo;
+				data.timeLeft=timerNotificacionSpeachable;
+				data.t='Sentient Outposts';
+				data.i=' Anomaly is '+(sentientOutpostsData.active!=false?'ACTIVE, ENDS IN':'HIDDEN, SPAWNS IN');
+				if(sentientOutpostsInform.checked){
+					var title=data.t+' '+data.i;
+					var id=data.actual;
+					console.log('Platform: '+platform+', ('+data.tipo+') '+title+': '+convertTimeToSpeacheable(data.timeLeft));
+					notifyList.push(data);
+					console.log('speakData:',data)
+				}
+			}
 
 			parseado +='<h2>Sentient Outpost is '+(sentientOutpostsData.mission!=null?'ACTIVE, ENDS IN: ':'INACTIVE, STARTS IN: ')+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff)+'</h2><hr><p>(Cycle is about 30 minutes active and 3 hours inactive.)</p>'
 				
@@ -2605,7 +2651,7 @@ function rellenarDatos(forceUpdate=false){
 		// parseado='<a id="N"></a>';
 		// parseado='<h3>News</h3>';
 		parseado+='<h4 style="text-align:center;">DE TIMEZONE<br>||| EDT(-4): '+calcActualTimeTimezone(-4)+' <|||> EST(-5): '+calcActualTimeTimezone(-5)+' |||</h4>';
-		parseado+='<p><label><input type="checkbox" onclick="toggleInformarNotif('+"'"+'NEWS'+"'"+')" '+(chequearInformarNotif('NEWS')==true?' checked':'')+'>Notificar nuevas noticias</label></p>'
+		parseado+='<p><label><input type="checkbox" onclick="toggleInformarNotif('+"'"+'NEWS'+"'"+')" '+(chequearInformarNotif('NEWS')==true?' checked':'')+'>Notify news</label></p>'
 		parseado+='<ul class="news enlargeMe">';
 		newsData.forEach(function(n){
 			let tipoNews=''
@@ -2640,7 +2686,7 @@ function rellenarDatos(forceUpdate=false){
 		updateTimerWindow(diff);
 		
 		if(notifyList.length>0&&!window.speechSynthesis.speaking){
-			notifyNotification(notifyList.pop);
+			notifyNotification(notifyList.pop());
 		}
 	}
 
@@ -3525,16 +3571,19 @@ function navigateToAnchor(anchor){
 
 let notifyList=[];
 function notifyNotification(data){
+	console.log(data);
 	let talk;	
 	
 	let title=data.t+' '+data.i;
 	let id=data.actual;
+
+	talk='Platform: '+platform+', ('+data.tipo+') '+title+': '+convertTimeToSpeacheable(data.timeLeft);
+	
 	if(talk!=''&&
 	!window.speechSynthesis.speaking&&
 	id!=undefined&&
 	(notificationStatus[title+id]==undefined||notificationStatus[title+id]!=id))
 	{
-		talk='Platform: '+platform+', ('+data.tipo+') '+title+': '+convertTimeToSpeacheable(data.timeLeft);
 		notificationStatus[title+id]=id;
 		textToSpeech(talk,synthesisLang);
 		console.log(talk);
@@ -3556,6 +3605,25 @@ function activateWFMarket(e){
 	console.log(elIframe)
 }
 
+/* Buscar info timers anomalias */
+function getSentientOutpostTimer(onlyIfModified=true,useAsync=true){
+	$.ajax({
+		async: useAsync,
+		url: atob('aHR0cHM6Ly8xMG8uaW8vYW5vbWFseS5qc29u'),
+		dataType: 'json',
+		ifModified: onlyIfModified,
+		success: function (data, status) {
+			if (status == 'success' && data.projection) {
+
+				data.projection=data.projection * 1000;
+				data.start=data.start * 1000;
+				data.end=data.end * 1000
+
+				sentientOutpostTimer=data;
+			}
+		}
+	});	
+}
 
 /* Buscar info google sheets */
 function getJsonFromSheets(){

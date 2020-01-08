@@ -26,6 +26,8 @@
 	<script type="text/javascript">if(location.protocol=='http:')location.href=location.href.replace(/^http:/, 'https:');</script>
 	<!-- styles -->
 	<link rel="stylesheet" type="text/css" href="static/css/stylesWF.css">
+
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 	<!-- <script type="text/javascript">startAll();</script> -->
@@ -530,6 +532,8 @@
 			<div id="sentientOutpostsTab" data-idGroupName="generalTab" class="tabcontent">
 				<a id="sentientOutpostsAnchor"></a>
 				<h3 id="sentientOutpostsTitle" onclick="toggleHide('sentientOutposts');">🌑 Sentients Outpost</h3>
+				<p><label><input type="checkbox" id="sentientOutpostsInform" onclick="toggleInformarNotif('sentientOutposts')">Alert me when changes status</label></p>
+				<!-- <p><label><input type='checkbox'>Alert me when changes status</label></p> -->
 				<section id="sentientOutposts"><img class="loading" src="static/img/loading.gif"></section>
 			</div>
 
@@ -634,7 +638,6 @@
 	startAll();
 </script>
 
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script> -->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120746637-1"></script>
