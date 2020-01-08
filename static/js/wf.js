@@ -2401,15 +2401,17 @@ function rellenarDatos(forceUpdate=false){
 			itemsArbitration=strReplaceAllNonPrintable(itemsArbitration);
 			*/
 
+			var arbitrationClass=arbitrationData.enemy==null?'':arbitrationData.enemy.toLowerCase();
+
 			var txtCopiar="'"+"Arbitration: Mission Type:"+arbitrationData.type+" | Planet: "+arbitrationData.planet+" | Node: "+arbitrationData.node+" | Expiry: "+strDiff((timeLeftStr(arbitrationData.expiry)),diff,false)+" | Faction: "+arbitrationData.enemy+' (https://nekro-warframe.netlify.com)'+"'";
 			txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 			var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 			
-			td.push([imgCopiar+' '+arbitrationData.type,'tdArbitration '+arbitrationData.enemy.toLowerCase(),'','data-sortid="'+arbitrationData.reputation+'"']);
-			td.push([arbitrationData.planet,'tdArbitration '+arbitrationData.enemy.toLowerCase()]);
-			td.push([arbitrationData.node,'tdArbitration '+arbitrationData.enemy.toLowerCase()]);
-			td.push([strDiff((timeLeftStr(arbitrationData.expiry)),diff),'tdArbitration '+arbitrationData.enemy.toLowerCase(),'','data-sortid="'+arbitrationData.expiry+'"']);
-			td.push([arbitrationData.enemy,'tdArbitration '+arbitrationData.enemy.toLowerCase()]);
+			td.push([imgCopiar+' '+arbitrationData.type,'tdArbitration '+arbitrationClass,'','data-sortid="'+arbitrationData.reputation+'"']);
+			td.push([arbitrationData.planet,'tdArbitration '+arbitrationClass]);
+			td.push([arbitrationData.node,'tdArbitration '+arbitrationClass]);
+			td.push([strDiff((timeLeftStr(arbitrationData.expiry)),diff),'tdArbitration '+arbitrationClass,'','data-sortid="'+arbitrationData.expiry+'"']);
+			td.push([arbitrationData.enemy,'tdArbitration '+arbitrationClass]);
 			tds.push(td);
 
 			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
@@ -2448,16 +2450,18 @@ function rellenarDatos(forceUpdate=false){
 			}else{
 				sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry).add(-20,'minutes');	
 			}
+			
 			//Override
 			if(sentientOutpostTimer!=null){
-				sentientOutpostsData.expiry=moment(new Date(sentientOutpostTimer.projection));
+				sentientOutpostsData.expiry=moment(new Date((sentientOutpostTimer.projection>new Date()?sentientOutpostTimer.projection:sentientOutpostTimer.end)));
 				// console.log(sentientOutpostsData.expiry);
 			}else{
+				sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry);
 				console.warn('sentientOutpostTimer Null');
 			}
 
 			
-			if(sentientOutpostsStatus!=sentientOutpostsData.active&&sentientOutpostsInform.checked){
+			if(sentientOutpostsStatus!=sentientOutpostsData.active){
 				sentientOutpostsStatus=sentientOutpostsData.active;
 
 				actual=sentientOutpostsData.id;
@@ -2481,7 +2485,7 @@ function rellenarDatos(forceUpdate=false){
 				}
 			}
 
-			parseado +='<h2>Sentient Outpost is '+(sentientOutpostsData.mission!=null?'ACTIVE, ENDS IN: ':'INACTIVE, STARTS IN: ')+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff)+'</h2><hr><p>(Cycle is about 30 minutes active and 3 hours inactive.)</p>'
+			parseado +='<h2>Sentient Outpost is '+(sentientOutpostsData.mission!=null?'ACTIVE, ENDS IN: ':'INACTIVE, STARTS IN: ')+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff)+' ('+sentientOutpostsData.expiry.format("HH:mm:ss")+')</h2><hr><p>(Cycle is about 30 minutes active and 2.5 hours inactive.)</p>'
 				
 			if(sentientOutpostsData.mission!=null){
 				var txtCopiar="'"+"SentientOutposts: Node:"+sentientOutpostsData.mission.node+" | Faction: "+sentientOutpostsData.mission.faction+" | Type: "+sentientOutpostsData.mission.type+" | Ends: "+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff,false)+" | Active: "+sentientOutpostsData.active+' (https://nekro-warframe.netlify.com)'+"'";
