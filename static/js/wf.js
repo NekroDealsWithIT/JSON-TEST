@@ -3679,7 +3679,7 @@ function PushRequestPush(onGranted, onDenied) {
 	Push.Permission.request(onGranted, onDenied);
 }
 
-function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'/static/img/factions/lotus.png',pushTimeout=10000,pushTag='') {
+function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'/static/img/favicon/lotus.png',pushTimeout=10000,pushTag='') {
 	Push.create(pushTitle, {
 		body: pushBody,
 		icon: pushIcon,
