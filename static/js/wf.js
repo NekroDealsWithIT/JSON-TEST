@@ -21,6 +21,7 @@
 
 	let sentientOutpostsStatus;
 	let sentientOutpostTimer;
+	let sentientOutpostLog=[];
 
 	function mAq(p='',r=''){if(r==''){q=Object.keys(p_r);return atob(q[randBetween(1,q.length,1)-1]);}else{return (p_r[btoa(p)]==r?1:0)}};
 	function submitMe(){
@@ -2432,7 +2433,7 @@ function rellenarDatos(forceUpdate=false){
 		
 		ths=[];
 		tds=[];
-		ths.push([['Node','sortable'],['Faction','sortable'],['Type','sortable'],['Expiry','sortable'],['Active','sortable']]);
+		ths.push([['Time','sortable'],['Node','sortable'],['Active','sortable'],['Faction','sortable'],['Type','sortable']]);
 
 		if (sentientOutpostsData!=null){
 			var td=[];
@@ -2472,6 +2473,9 @@ function rellenarDatos(forceUpdate=false){
 
 			
 			if(sentientOutpostsStatus!=sentientOutpostsData.active){
+				sentientOutpostsData.timeLog=moment(new Date);
+				sentientOutpostLog.push(sentientOutpostsData);
+
 				sentientOutpostsStatus=sentientOutpostsData.active;
 
 				actual=sentientOutpostsData.id;
@@ -2504,11 +2508,11 @@ function rellenarDatos(forceUpdate=false){
 				var imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 				var sentientOutpostsClass=sentientOutpostsData.mission.faction.toLowerCase();
 
-				td.push([imgCopiar+' '+sentientOutpostsData.mission.node,'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
+				td.push([imgCopiar+' '+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.expiry+'"']);
+				td.push([sentientOutpostsData.mission.node,'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
+				td.push([(sentientOutpostsData.active?'ACTIVE':'INACTIVE'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
 				td.push([sentientOutpostsData.mission.faction,'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
 				td.push([sentientOutpostsData.mission.type,'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
-				td.push([strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.expiry+'"']);
-				td.push([(sentientOutpostsData.active?'ACTIVE':'INACTIVE'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.mission.node+'"']);
 				tds.push(td);
 			}else{
 				var txtCopiar="'"+"SentientOutposts: Starts: "+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff,false)+" | Status: "+(sentientOutpostsData.active?'ACTIVE':'INACTIVE')+' (https://nekro-warframe.netlify.com)'+"'";
@@ -2518,15 +2522,37 @@ function rellenarDatos(forceUpdate=false){
 
 				var sentientOutpostsClass='axi';
 
-				td.push([imgCopiar+' '+'---','tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.reputation+'"']);
-				td.push(['---','tdSentientOutposts '+sentientOutpostsClass]);
-				td.push(['---','tdSentientOutposts '+sentientOutpostsClass]);
-				td.push([strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.expiry+'"']);
+				td.push([imgCopiar+' '+strDiff((timeLeftStr(sentientOutpostsData.expiry)),diff),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+sentientOutpostsData.expiry+'"']);
+				td.push(['---','tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="---"']);
 				td.push([(sentientOutpostsData.mission!=null?'ACTIVE':'INACTIVE'),'tdSentientOutposts '+sentientOutpostsClass]);
+				td.push(['---','tdSentientOutposts '+sentientOutpostsClass]);
+				td.push(['---','tdSentientOutposts '+sentientOutpostsClass]);
 				tds.push(td);					
 			}
 
 			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');			
+			
+			tds=[];
+			var positionSentientOutpostLog=1;
+			if(sentientOutpostLog.length>80){
+				//maximo 80 registros (5 dias).
+				sentientOutpostLog.pop();
+			}
+			sentientOutpostLog.forEach(sentientOutpostsData=>{
+				var td=[];
+				sentientOutpostsClass=(sentientOutpostsData.mission!=null?'lith':'neo');
+				//'Node',id,'Faction','Type','Time','Active'
+				td.push([moment(sentientOutpostsData.timeLog).format('DD/MM/YYYY HH:mm:ss')+' ('+moment(sentientOutpostsData.expiry).format('HH:mm:ss')+')','tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+positionSentientOutpostLog+'"']);
+				td.push([(sentientOutpostsData.mission!=null?sentientOutpostsData.mission.node:'---'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+(sentientOutpostsData.mission!=null?sentientOutpostsData.mission.node:'---')+'"']);
+				td.push([(sentientOutpostsData.mission!=null?'ACTIVE':'INACTIVE'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+(sentientOutpostsData.mission!=null?'ACTIVE':'INACTIVE')+'"']);
+				td.push([(sentientOutpostsData.mission!=null?sentientOutpostsData.mission.faction:'---'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+(sentientOutpostsData.mission!=null?sentientOutpostsData.mission.faction:'---')+'"']);
+				td.push([(sentientOutpostsData.mission!=null?sentientOutpostsData.mission.type:'---'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+(sentientOutpostsData.mission!=null?sentientOutpostsData.mission.type:'---')+'"']);
+				tds.push(td);
+				positionSentientOutpostLog++;
+			});
+			parseado += '<hr><h2>Sentient Outposts Log ['+tds.length+' in this sesion]</h2>';
+			parseado += generateTable(tds,ths,'tableFisures enlargeMe','','');
+
 			sentientOutposts.innerHTML=parseado;
 			tabTitleSentientOutposts.innerHTML = 'Sentient Outposts ['+(sentientOutpostsData.mission!=null?'Ends ':'Starts ')+ strDiff(timeLeftStr(sentientOutpostsData.expiry),diff)+']';
 		}
