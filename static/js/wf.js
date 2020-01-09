@@ -79,6 +79,8 @@
 	var counter1=0;
 	var counter1Max=30;
 
+	let searchingSheets=false;
+
 	var fetchingCounter=0;
 	var fetchingCounterMax=30;
 
@@ -2461,11 +2463,13 @@ function rellenarDatos(forceUpdate=false){
 					sentientOutpostsData.expiry=moment(new Date((sentientOutpostTimer.projection)));
 				}else{
 					sentientOutpostsData.expiry=moment(new Date((sentientOutpostTimer.end)));
+					/*
 					console.warn('**** timeStamp ****',new Date());
 					console.log('start',new Date(sentientOutpostTimer.start));
 					console.log('end',new Date(sentientOutpostTimer.end));
 					console.log('Projection',new Date(sentientOutpostTimer.projection));
 					console.log('Used',new Date(sentientOutpostsData.expiry));
+					*/
 				}
 								
 				// console.log(sentientOutpostsData.expiry);
@@ -3696,7 +3700,6 @@ function createTestSentientOutpostsInform(active){
 
 
 /* Buscar info google sheets */
-let searchingSheets=false;
 function getJsonFromSheets(){
 	if(searchingSheets==false){
 		searchingSheets=true;
@@ -3706,7 +3709,6 @@ function getJsonFromSheets(){
 }		
 
 function getJsonReplyFromSheets(jsonSheetsResult,ssId,timeMilis){
-	searchingSheets=false;
 	console.log('[getJsonReplyFromSheets] Retrieve Ended '+timeMilis+' ms.',jsonSheetsResult);
 	let complete=true;
 	for (var key in jsonSheetsResult) {
@@ -3724,6 +3726,7 @@ function getJsonReplyFromSheets(jsonSheetsResult,ssId,timeMilis){
 			
 	    }
 	}
+	searchingSheets=false;
 	complete==false?getJsonFromSheets():'';
 }
 
