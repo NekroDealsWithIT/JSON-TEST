@@ -2552,7 +2552,7 @@ function rellenarDatos(forceUpdate=false){
 			}
 			sentientOutpostLog.forEach(sentientOutpostsData=>{
 				var td=[];
-				sentientOutpostsClass=(sentientOutpostsData.mission!=null?'infested':'neo');
+				sentientOutpostsClass=(sentientOutpostsData.mission!=null?'infested':'corpus');
 				td.push([moment(sentientOutpostsData.timeLog).format('DD/MM/YYYY HH:mm:ss')+' ('+moment(sentientOutpostsData.expiry).format('HH:mm:ss')+')','tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+positionSentientOutpostLog+'"']);
 				td.push([(sentientOutpostsData.mission!=null?sentientOutpostsData.mission.node:'---'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+(sentientOutpostsData.mission!=null?sentientOutpostsData.mission.node:'---')+'"']);
 				td.push([(sentientOutpostsData.mission!=null?'ACTIVE':'INACTIVE'),'tdSentientOutposts '+sentientOutpostsClass,'','data-sortid="'+(sentientOutpostsData.mission!=null?'ACTIVE':'INACTIVE')+'"']);
