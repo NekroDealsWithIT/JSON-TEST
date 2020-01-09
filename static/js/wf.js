@@ -3680,7 +3680,7 @@ function PushRequestPush(onGranted, onDenied) {
 }
 
 function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'static/img/factions/lotus.png',pushTimeout=10000,pushTag='') {
-	Push.create(title, {
+	Push.create(pushtitle, {
 		body: pushBody,
 		icon: pushIcon,
 		timeout: pushTimeout,
