@@ -3696,12 +3696,17 @@ function createTestSentientOutpostsInform(active){
 
 
 /* Buscar info google sheets */
+let searchingSheets=false;
 function getJsonFromSheets(){
-	console.log("Sheets started");
-	getJsonSheets('168yKawPbuf8fH_0ro1MGwPIyqNtG6cs3ATTYK7Cy_uI','1037375654','A2:B','csv',true,'constants',getJsonReplyFromSheets);
+	if(searchingSheets==false){
+		searchingSheets=true;
+		console.log("Sheets started");
+		getJsonSheets('168yKawPbuf8fH_0ro1MGwPIyqNtG6cs3ATTYK7Cy_uI','1037375654','A2:B','csv',true,'constants',getJsonReplyFromSheets);		
+	}
 }		
 
 function getJsonReplyFromSheets(jsonSheetsResult,ssId,timeMilis){
+	searchingSheets=false;
 	console.log('[getJsonReplyFromSheets] Retrieve Ended '+timeMilis+' ms.',jsonSheetsResult);
 	let complete=true;
 	for (var key in jsonSheetsResult) {
@@ -3710,7 +3715,7 @@ function getJsonReplyFromSheets(jsonSheetsResult,ssId,timeMilis){
 			for (var prop in obj) {
 			if (!obj.hasOwnProperty(prop)) continue;
 			if (obj[prop]=='Loading') {
-				console.error('[getJsonReplyFromSheets] '+prop + " = " + obj[prop]);
+				console.warn('[getJsonReplyFromSheets] '+prop + " = " + obj[prop]);
 				complete=false;
 			}else{
 				resultJsonSheets[prop]=obj;
