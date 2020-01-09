@@ -97,6 +97,7 @@
 
 	let lastFetch='';
 
+	let counterSpeaking=0;
 // arrays activos
 var alertaActivaArr=[];
 var invasionActivaArr=[];
@@ -141,7 +142,9 @@ function getJson(url='',viaCors=true){
 
 		arraySortByKey(resultJson.fissures,'tierNum',true);
 		// por si se trabo
-	    speechSynthesis.cancel();
+	    
+		if(speechSynthesis.speaking){counterSpeaking++;if(counterSpeaking>2){speechSynthesis.cancel();counterSpeaking=0;}else{counterSpeaking=0}}
+	    
 		// checkear la version sino recargar la pagina
 		versionCheck();
 		//generar carousel
@@ -2473,9 +2476,11 @@ function rellenarDatos(forceUpdate=false){
 
 			
 			if(sentientOutpostsStatus!=sentientOutpostsData.active){
+				//Log
 				sentientOutpostsData.timeLog=moment(new Date);
 				sentientOutpostLog.push(sentientOutpostsData);
 
+				//Reset flag
 				sentientOutpostsStatus=sentientOutpostsData.active;
 
 				actual=sentientOutpostsData.id;
@@ -2496,6 +2501,9 @@ function rellenarDatos(forceUpdate=false){
 					console.log('Platform: '+platform+', ('+data.tipo+') '+title+': '+convertTimeToSpeacheable(data.timeLeft));
 					notifyList.push(data);
 					console.log('speakData:',data)
+
+					//Push!
+					PushShowNotification("Anomaly is "+(sentientOutpostsData.active?'ACTIVE ('+data.mission.node+')':'HIDDEN'),(sentientOutpostsData.active?'Ends in: ':'Spawn in: ')+data.timeLeft+' ['moment(sentientOutpostsData.expiry).format('DD/MM/YYYY HH:mm:ss')+']');
 				}
 			}
 
@@ -3664,6 +3672,28 @@ function getSentientOutpostTimer(onlyIfModified=true,useAsync=true){
 		}
 	});	
 }
+
+
+/* Push */
+function PushRequestPush(onGranted, onDenied) {
+	Push.Permission.request(onGranted, onDenied);
+}
+
+function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'static/img/factions/lotus.png',pushTimeout=10000,pushTag='') {
+	Push.create(title, {
+		body: pushBody,
+		icon: pushIcon,
+		timeout: pushTimeout,
+		tag: pushTag
+	})
+}
+
+function createTestSentientOutpostsInform(active){
+	if(active){
+		PushShowNotification("Sentient Outposts Notification","Notification enabled! this is an example of how they looks");	
+	}
+}
+
 
 /* Buscar info google sheets */
 function getJsonFromSheets(){
