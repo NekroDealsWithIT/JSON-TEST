@@ -2503,7 +2503,7 @@ function rellenarDatos(forceUpdate=false){
 					console.log('speakData:',data)
 
 					//Push!
-					PushShowNotification("Anomaly is "+(sentientOutpostsData.active?'ACTIVE ('+data.mission.node+')':'HIDDEN'),(sentientOutpostsData.active?'Ends in: ':'Spawn in: ')+data.timeLeft+' ['moment(sentientOutpostsData.expiry).format('DD/MM/YYYY HH:mm:ss')+']');
+					PushShowNotification("Anomaly is "+(sentientOutpostsData.active?'ACTIVE ('+data.mission.node+')':'HIDDEN'),(sentientOutpostsData.active?'Ends in: ':'Spawn in: ')+data.timeLeft+' ['+moment(sentientOutpostsData.expiry).format('DD/MM/YYYY HH:mm:ss')+']');
 				}
 			}
 
