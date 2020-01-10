@@ -2507,7 +2507,7 @@ function rellenarDatos(forceUpdate=false){
 					console.log('speakData:',data)
 
 					//Push!
-					PushShowNotification("Anomaly is "+(sentientOutpostsData.active?'ACTIVE ('+data.mission.node+')':'HIDDEN'),(sentientOutpostsData.active?'Ends in: ':'Spawn in: ')+data.timeLeft+' ['+moment(sentientOutpostsData.expiry).format('DD/MM/YYYY HH:mm:ss')+']');
+					PushShowNotification("Anomaly "+(sentientOutpostsData.active?'ACTIVE ('+data.mission.node+')':'HIDDEN')+' ['+moment(sentientOutpostsData.expiry).format('HH:mm:ss')+']',(sentientOutpostsData.active?data.node+' Ends: ':'Spawn: ')+data.timeLeft);
 				}
 			}
 
@@ -3683,12 +3683,19 @@ function PushRequestPush(onGranted, onDenied) {
 	Push.Permission.request(onGranted, onDenied);
 }
 
-function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'/static/img/favicon/lotus.png',pushTimeout=10000,pushTag='') {
+function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'/static/img/favicon/lotus.png',pushTimeout=10000,pushTag='',pushClickCallback='') {
 	Push.create(pushTitle, {
 		body: pushBody,
 		icon: pushIcon,
 		timeout: pushTimeout,
-		tag: pushTag
+		tag: pushTag,
+		onClick: function () {
+				//pushClickCallback(pushTitle,pushBody,pushIcon,pushTimeout,pushTag);
+				console.log('OnClickPushShowNotification',this);
+				pushClickCallback!=''?pushClickCallback(this):'';
+				this.close();
+		}
+
 	})
 }
 
