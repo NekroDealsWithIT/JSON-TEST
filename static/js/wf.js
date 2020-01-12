@@ -3953,7 +3953,7 @@ function publishSheetsData(key,data){
 			where.innerHTML=parseado;
 			break;
 		
-		case 'recomendedBuilds':
+		case 'recommendedBuilds':
 			var ignoreList=['I'];
 			where=document.getElementById(key);
 			ths.push([['Type','sortable'] //T
@@ -4040,6 +4040,10 @@ function publishSheetsData(key,data){
 				td.push([row[2][1],'td'+key+' '+specialClass,'','data-sortid="'+row[2][1]+'"']);
 				td.push([row[3][1],'td'+key+' '+specialClass,'','data-sortid="'+row[3][1]+'"']);
 				td.push([row[4][1],'td'+key+' '+specialClass,'','data-sortid="'+row[4][1]+'"']);
+				td.push([row[5][1],'td'+key+' '+specialClass,'','data-sortid="'+row[5][1]+'"']);
+				td.push([row[6][1],'td'+key+' '+specialClass,'','data-sortid="'+row[6][1]+'"']);
+				td.push([row[7][1],'td'+key+' '+specialClass,'','data-sortid="'+row[7][1]+'"']);
+				td.push([row[8][1],'td'+key+' '+specialClass,'','data-sortid="'+row[8][1]+'"']);
 
 				tds.push(td);
 			});
