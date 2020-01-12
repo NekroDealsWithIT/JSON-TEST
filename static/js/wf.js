@@ -3989,7 +3989,7 @@ function publishSheetsData(key,data){
 				td.push([row[1][1],'td'+key+' '+specialClass,'','data-sortid="'+row[1][1]+'"']);
 				td.push([row[2][1],'td'+key+' '+specialClass,'','data-sortid="'+row[2][1]+'"']);
 				td.push([row[3][1],'td'+key+' '+specialClass,'','data-sortid="'+row[3][1]+'"']);
-				td.push([row[4][1],'td'+key+' '+specialClass,'','data-sortid="'+row[4][1]+'"']);
+				td.push(['<a href="'+row[4][1]+'" target="blank">Link Overframe '+row[3][1]+'</a>','td'+key+' '+specialClass,'','data-sortid="'+row[4][1]+'"']);
 
 				tds.push(td);
 			});
