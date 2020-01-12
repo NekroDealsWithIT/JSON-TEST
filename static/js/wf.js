@@ -4035,7 +4035,7 @@ function publishSheetsData(key,data){
 				txtCopyAll+=strReplaceAllNonPrintable(txtCopiar+'\\n');
 				let imgCopiar='<img title="Copy" src="static/img/Copy.png" class="thumbnailCopiar" alt="copy" onClick='+'"copyToClipboard('+txtCopiar+')"'+"></img>&nbsp;";
 				
-				td.push([imgCopiar+' <img src="'+securizeUrl(i.I)+'" class="thumbnail"/>'+row[0][1],'td'+key+' '+specialClass,'','data-sortid="'+row[0][1]+'"']);
+				td.push([imgCopiar+' '+row[0][1],'td'+key+' '+specialClass,'','data-sortid="'+row[0][1]+'"']);
 				td.push([row[1][1],'td'+key+' '+specialClass,'','data-sortid="'+row[1][1]+'"']);
 				td.push([row[2][1],'td'+key+' '+specialClass,'','data-sortid="'+row[2][1]+'"']);
 				td.push([row[3][1],'td'+key+' '+specialClass,'','data-sortid="'+row[3][1]+'"']);
