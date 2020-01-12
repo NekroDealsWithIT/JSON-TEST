@@ -287,6 +287,8 @@
 							Template
 							<button data-idGroupName="tipsTab" class="tablinks" id="PHTemplateTitle" name="PHTemplateTab" onclick="openTab(event, this.name)">PHTemplate</button>
 						-->
+						<button data-idGroupName="tipsTab" class="tablinks" id="recommendedBuildsTitle" name="recommendedBuildsTab" onclick="openTab(event, this.name)">Recommended Builds</button>
+						<button data-idGroupName="tipsTab" class="tablinks" id="farmingTipsTitle" name="farmingTipsTab" onclick="openTab(event, this.name)">Farming Tips</button>
 						<button data-idGroupName="tipsTab" class="tablinks" id="primeListTitle" name="primeListTab" onclick="openTab(event, this.name)">Prime List Order</button>
 						<button data-idGroupName="tipsTab" class="tablinks" id="synthTargetsTitle" name="synthTargetsTab" onclick="openTab(event, this.name)">Synth Targets List</button>
 						<button data-idGroupName="tipsTab" class="tablinks" id="lichDmgListTitle" name="lichDmgListTab" onclick="openTab(event, this.name)">Lich Damage List</button>
@@ -302,6 +304,18 @@
 						<section id="PHTemplate" style="text-align:center;"><p>Currently working on it</p><img style="max-width:75%!important;" src="static/img/i hate mondays.png"></section>
 					</div>
 				-->
+				<div id="recommendedBuildsTab" data-idGroupName="tipsTab" class="tabcontent">
+					<a id="recommendedBuildsAnchor"></a>
+					<h3 id="recommendedBuildsTitle" onclick="toggleHide('recommendedBuilds');">🌑 Recommended Builds</h3>
+					<section id="recommendedBuilds"><div style="text-align:center;"><img class="loading" style="max-width: 50%!important;" src="static/img/loading.gif"></div></section>
+				</div>
+
+				<div id="farmingTipsTab" data-idGroupName="tipsTab" class="tabcontent">
+					<a id="farmingTipsAnchor"></a>
+					<h3 id="farmingTipsTitle" onclick="toggleHide('farmingTips');">🌑 Recommended Builds</h3>
+					<section id="farmingTips"><div style="text-align:center;"><img class="loading" style="max-width: 50%!important;" src="static/img/loading.gif"></div></section>
+				</div>
+
 				<div id="primeListTab" data-idGroupName="tipsTab" class="tabcontent">
 					<a id="primeListAnchor"></a>
 					<h3 id="primeListTitle" onclick="toggleHide('primeList');">🌑 Prime List Order</h3>
