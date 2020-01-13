@@ -37,7 +37,13 @@
 	<div id="botonera">
 		<nav class="botonera">
 			<div id="barraProgreso"></div>
-			<div id="test"></div>
+			<div id="test">
+				<div>Notifications</div>
+				<div>
+					<label><input id="generalNotificationVoice" onclick="toggleInformar(this.id,this.checked);" type="checkbox">Voice</input></label>
+					<label><input id="generalNotificationPopup" onclick="toggleInformar(this.id,this.checked);" type="checkbox">Popup</input></label>
+				</div>
+			</div>		
 	<div>
 		<!-- <label id="botoneraCheckbox"><img src="static/img/favicon/favicon-32x32.png" ><input type="checkbox" name="botonera-desplegable" class="hidden" onclick="toggleHide(this.name);toggleClass('botoneraCheckbox','active',this.checked);">Controles<img src="static/img/favicon/favicon-32x32.png" ></label> -->
 	</div>

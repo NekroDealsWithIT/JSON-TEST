@@ -408,8 +408,12 @@ function generateCarousel(data){
 			});
 			if (idFound==false){
 				generateToast('New item in NEWS!','<a href="#N"><img src="'+securizeUrl(d.imageLink)+'" class="thumbnail"/><p>'+ d.message+'</p></a>',"",20000,"warning");	
-				if(chequearInformarNotif('NEWS')){
-					let talk='Platform: '+platform+', (New item in NEWS!). '+d.message;
+				let talk='Platform: '+platform+', (New item in NEWS!). '+d.message;
+
+				//PUSH!
+				PushShowNotification('New item in NEWS!',d.message,d.imageLink,30000,'NEWS')
+
+				if(chequearInformarNotif('NEWS')&&generalNotificationVoice.checked){
 					textToSpeech(talk,synthesisLang);
 					console.log(talk);
 
@@ -480,6 +484,7 @@ function checkSystems(){
 			//notificationGeneralSound.play();
 			toggleHide("contenidoPagina");
 			generateToast("Welcome back, Operator!","","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWlywyQP08F1llP_JfBsuvQbp4z6n6t2lxCr9G-C3liEviKzuC",5000,"info");
+
 			allAvailable();
 		}
 	}
@@ -1471,6 +1476,11 @@ function startAll(){
 	window.addEventListener('beforeunload', function(event) {
   		onExit();
 	}, false);
+
+	//Busco las notificaciones generales
+	generalNotificationVoice.checked=chequearInformar("generalNotificationPopup");
+	generalNotificationPopup.checked=chequearInformar("generalNotificationPopup");
+
 	/*
 	window.onbeforeunload = confirmExit;
 	function confirmExit(){
@@ -2052,21 +2062,34 @@ function rellenarDatos(forceUpdate=false){
 	    			}
 	    		}
 
-	    		if((notificationStatus[e.agentType]==undefined||notificationStatus[e.agentType]!=status)&&(!window.speechSynthesis.speaking)){
+	    		if((notificationStatus[e.agentType]==undefined||notificationStatus[e.agentType]!=status)){
 	    			//resultJson.persistentEnemies[0].isDiscovered=false
+	    			var titlePush=''
+	    			var bodyPush=''
+	    			var iconPush=(pep[e.agentType.toLowerCase()]!=undefined?pep[e.agentType.toLowerCase()]:window.location.origin+'/static/img/favicon/lotus.png');
+	    			
 	    			let imgToast=(profileImg!=''?'<p>'+profileImg+' class="thumbnail"></p>':'');
 	    			switch(status){
 	    				case 'Found':
 	    					generateToast(e.agentType+' health:'+Math.round(e.healthPercent*100,2)+'% ('+status+')','<a href="#PE">'+imgToast+e.agentType+' '+status+' in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1)+'</a>',"",15000,"success");
+	    					titlePush=e.agentType+' HP:'+Math.round(e.healthPercent*100,2)+'% ('+status+')';
+	    					bodyPush=e.lastDiscoveredAt+'('+gameMode+')'+' [' + strDiff(e.lastDiscoveredTime,diffPersistent*-1,false)+']';
 	    					break;
 	    				case 'Hidden':
 	    					generateToast(e.agentType+' health:'+Math.round(e.healthPercent*100,2)+'% ('+status+')','<a href="#PE">'+imgToast+e.agentType+' '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1)+'</a>',"",15000,"info");
+	    					titlePush=e.agentType+' HP:'+Math.round(e.healthPercent*100,2)+'% ('+status+')';
+	    					bodyPush='Last node: '+e.lastDiscoveredAt+'('+gameMode+')'+' [' + strDiff(e.lastDiscoveredTime,diffPersistent*-1,false)+']';
 	    					break;
 	    				case 'Dead':
 	    					generateToast(e.agentType+' is '+status,'<a href="#PE">'+imgToast+e.agentType+' '+status+' last seen in '+e.lastDiscoveredAt+(gameMode!=''?' mission type ' +gameMode:'')+' Time: ' + strDiff(e.lastDiscoveredTime,diffPersistent*-1)+'</a>',"",15000,"error");
+	    					titlePush=e.agentType+' is '+status;
+	    					bodyPush='Last node: '+e.lastDiscoveredAt+'('+gameMode+')'+' [' + strDiff(e.lastDiscoveredTime,diffPersistent*-1,false)+']';
 	    					break;
 	    				default:
 	    			}
+
+					//Push
+					PushShowNotification(titlePush,bodyPush,iconPush);
 	    			
 	    			if(persistentEnemiesSpeech.checked==true){
 		    			let say='';
@@ -2085,8 +2108,10 @@ function rellenarDatos(forceUpdate=false){
 		    			console.log(say);
 		    			removeClass('lastNotificationHolder','hidden');
 						lastNotification.innerHTML='('+dateToString(new Date)+') '+say;
-
-	    				textToSpeech(say,synthesisLang);
+	    				
+	    				if(generalNotificationVoice&&(!window.speechSynthesis.speaking)){
+	    					textToSpeech(say,synthesisLang);	
+	    				}
 	    			}
 	    			notificationStatus[e.agentType]=status;
 	    		}
@@ -3574,6 +3599,11 @@ function notifyTimer(title,j,nameID,diff){
 				break;			
 		}
 	}
+	
+	//Para notificaciones push
+	var titlePush='';
+	var bodyPush='';
+	var iconPush='';
 
 	if(talk!=''&&
 	!window.speechSynthesis.speaking&&
@@ -3582,21 +3612,38 @@ function notifyTimer(title,j,nameID,diff){
 		if(time[0]=='---'){
 			if(j.isDay!=undefined){
 				talk=title+' timer: the '+(j.isDay==false?'day':'night')+', has arrived!';		
+				titlePush+=' timer';
+				bodyPush='The '+(j.isDay==false?'day':'night')+', has arrived!';
+				iconPush=(j.isDay==true?'day':'night')+'.png';
 			}
 			if(j.isWarm!=undefined){
 				talk=title+' timer: the weather is now '+(j.isWarm==false?'warm':'cold');		
+				titlePush+=' timer';
+				bodyPush='The weather is now '+(j.isWarm==false?'warm':'cold');
+				iconPush=(j.isWarm==true?'warm':'cold')+'.png';
 			}	
 		}else{
 			if(j.isDay!=undefined){
 				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isDay==true?'night':'day');
+				titlePush+=' timer';
+				bodyPush=strDiff(j.timeLeft,diff,false)+' to '+(j.isDay.isDay==true?'🌙 Night':'☀ Day');
+				iconPush=(j.isDay==true?'day':'night')+'.png';
 			}
 			if(j.isWarm!=undefined){
 				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isWarm==true?'cold':'warm')+' cycle';
+				bodyPush=strDiff(j.timeLeft,diff,false)+' to '+(j.isWarm==true?'❄ Cold':'☀ Warm')+' cycle';
+				iconPush=(j.isWarm==true?'warm':'cold')+'.png';
 			}	
 		}
 		
+		//Push
+		PushShowNotification('⏰ '+titlePush,bodyPush,window.location.origin+'/static/img/Sprites/timers/'+iconPush);
+
 		notificationStatus[title+'Timer']=id;
-		textToSpeech(talk,synthesisLang);
+		if(generalNotificationVoice.checked){
+			textToSpeech(talk,synthesisLang);
+		}
+		
 		console.log(talk);
 		talk='<a href="#T">'+talk+'<hr><a href="#T">Link</a></a>'
 		
@@ -3684,19 +3731,21 @@ function PushRequestPush(onGranted, onDenied) {
 }
 
 function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'/static/img/favicon/lotus.png',pushTimeout=10000,pushTag='',pushClickCallback='') {
-	Push.create(pushTitle, {
-		body: pushBody,
-		icon: pushIcon,
-		timeout: pushTimeout,
-		tag: pushTag,
-		onClick: function () {
-				//pushClickCallback(pushTitle,pushBody,pushIcon,pushTimeout,pushTag);
-				console.log('OnClickPushShowNotification',this);
-				pushClickCallback!=''?pushClickCallback(this):'';
-				this.close();
-		}
+	if(generalNotificationVoice.checked){
+		Push.create(pushTitle, {
+			body: pushBody,
+			icon: pushIcon,
+			timeout: pushTimeout,
+			tag: pushTag,
+			onClick: function () {
+					//pushClickCallback(pushTitle,pushBody,pushIcon,pushTimeout,pushTag);
+					console.log('OnClickPushShowNotification',this);
+					pushClickCallback!=''?pushClickCallback(this):'';
+					this.close();
+			}
 
-	})
+		})	
+	}
 }
 
 function createTestSentientOutpostsInform(active){
