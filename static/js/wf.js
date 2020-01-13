@@ -2536,8 +2536,10 @@ function rellenarDatos(forceUpdate=false){
 					var title=data.t+' '+data.i;
 					var id=data.actual;
 					console.log('Platform: '+platform+', ('+data.tipo+') '+title+': '+convertTimeToSpeacheable(data.timeLeft));
-					notifyList.push(data);
-					console.log('speakData:',data)
+					if(generalNotificationVoice.checked){
+						notifyList.push(data);
+						console.log('speakData:',data)
+					}
 
 					//Push!
 					PushShowNotification("Anomaly "+(sentientOutpostsData.active?'ACTIVE ('+data.mission.node+')':'HIDDEN')+' ['+moment(sentientOutpostsData.expiry).format('HH:mm:ss')+']',(sentientOutpostsData.active?data.node+' Ends: ':'Spawn: ')+data.timeLeft);
