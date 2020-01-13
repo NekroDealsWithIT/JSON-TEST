@@ -1477,10 +1477,6 @@ function startAll(){
   		onExit();
 	}, false);
 
-	//Busco las notificaciones generales
-	generalNotificationVoice.checked=chequearInformar("generalNotificationPopup");
-	generalNotificationPopup.checked=chequearInformar("generalNotificationPopup");
-
 	/*
 	window.onbeforeunload = confirmExit;
 	function confirmExit(){
@@ -1529,6 +1525,10 @@ function startAll(){
 		workingOn.innerHTML+='IGN: ShadowOfNekro<br>Discord:Nekro#0089<br>'+'serioMode=true;';
 	}	
 	//fin de en que estoy trabajando?
+
+	//Busco las notificaciones generales
+	generalNotificationVoice.checked=chequearInformar("generalNotificationPopup");
+	generalNotificationPopup.checked=chequearInformar("generalNotificationPopup");
 
 	timer1=setClock(1000,timerTime,timer1);
 	tabTitleDrops.click();
