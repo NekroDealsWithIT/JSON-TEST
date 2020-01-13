@@ -2748,7 +2748,7 @@ function rellenarDatos(forceUpdate=false){
 
 		limpiarCompletasFinalizadas();
 	}else if(resultJson!=''){
-		updateResources();
+		//updateResources();
 
 		let arrTimers=document.querySelectorAll(".timerP,.timerM");
 		arrTimers.forEach(function(t){
