@@ -3612,25 +3612,26 @@ function notifyTimer(title,j,nameID,diff){
 		if(time[0]=='---'){
 			if(j.isDay!=undefined){
 				talk=title+' timer: the '+(j.isDay==false?'day':'night')+', has arrived!';		
-				titlePush+=' timer';
+				titlePush=title+' timer';
 				bodyPush='The '+(j.isDay==false?'day':'night')+', has arrived!';
 				iconPush=(j.isDay==true?'day':'night')+'.png';
 			}
 			if(j.isWarm!=undefined){
 				talk=title+' timer: the weather is now '+(j.isWarm==false?'warm':'cold');		
-				titlePush+=' timer';
+				titlePush=title+' timer';
 				bodyPush='The weather is now '+(j.isWarm==false?'warm':'cold');
 				iconPush=(j.isWarm==true?'warm':'cold')+'.png';
 			}	
 		}else{
 			if(j.isDay!=undefined){
 				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isDay==true?'night':'day');
-				titlePush+=' timer';
+				titlePush=title+' timer';
 				bodyPush=strDiff(j.timeLeft,diff,false)+' to '+(j.isDay.isDay==true?'🌙 Night':'☀ Day');
 				iconPush=(j.isDay==true?'day':'night')+'.png';
 			}
 			if(j.isWarm!=undefined){
 				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isWarm==true?'cold':'warm')+' cycle';
+				titlePush=title+' timer';
 				bodyPush=strDiff(j.timeLeft,diff,false)+' to '+(j.isWarm==true?'❄ Cold':'☀ Warm')+' cycle';
 				iconPush=(j.isWarm==true?'warm':'cold')+'.png';
 			}	
