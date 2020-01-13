@@ -61,6 +61,8 @@
 	var resultJsonSheets=[];
 	var dropsEncontrados=0;
 
+	var resultJsonSheetsComplete=false;
+	
 	var availableNodes=[];
 	var farmingMark=[];
 	var farmingMarkComplete=[];
@@ -156,6 +158,10 @@ function getJson(url='',viaCors=true){
 		if (firstRun){
 			checkSystems();
 		}
+		
+		//busco sheets
+		resultJsonSheetsComplete?getJsonFromSheets():'';
+		
 		return request.response;
 	}
 	request.onerror=e=>{
@@ -499,9 +505,6 @@ function allAvailable(){
 	//Resources
 	resourceStructure();
 	updatePlanetas();
-	
-	//busco sheets
-	getJsonFromSheets();
 }
 
 function getDropsComboLists(){
@@ -3783,8 +3786,7 @@ function getJsonReplyFromSheets(jsonSheetsResult,ssId,timeMilis){
 			
 	    }
 	}
-	searchingSheets=false;
-	complete==false?getJsonFromSheets():'';
+	resultJsonSheetsComplete=complete;
 }
 
 
