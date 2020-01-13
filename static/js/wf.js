@@ -3041,7 +3041,7 @@ function toggleInformar(id){
 	}
 	arrayUnique(informarArrChecked);
 	arrayRemove(informarArrChecked);
-	setCookieArray("informarArrChecked",informarArrChecked,30*24*60*60*1000);
+	setCookieArray("informarArrChecked",informarArrChecked,365*24*60*60*1000);
 	// timerTime();
 }
 function chequearInformar(id){
