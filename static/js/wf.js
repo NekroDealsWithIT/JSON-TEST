@@ -119,6 +119,9 @@ function onExit(){
 function getWFWorldstate(proxy=false){
 	var dataJson=getJson(atob("aHR0cHM6Ly93cy53YXJmcmFtZXN0YXQudXMv")+platform,proxy);
 	//var dataJson=getJson('http://www.pepito.com.ar'+platform,proxy);
+	
+	//busco sheets
+	!resultJsonSheetsComplete?getJsonFromSheets():'';
 }
 function getJson(url='',viaCors=true){
 	fetching=true;
@@ -158,9 +161,6 @@ function getJson(url='',viaCors=true){
 		if (firstRun){
 			checkSystems();
 		}
-		
-		//busco sheets
-		!resultJsonSheetsComplete?getJsonFromSheets():'';
 		
 		return request.response;
 	}
