@@ -498,10 +498,6 @@ function checkSystems(){
 function allAvailable(){
 	//EVERYTHING IS LOADED
 
-	//Busco las notificaciones generales
-	generalNotificationVoice.checked=chequearInformar("generalNotificationVoice");
-	generalNotificationPopup.checked=chequearInformar("generalNotificationPopup");
-
 	//Resources
 	resourceStructure();
 	updatePlanetas();
@@ -1517,6 +1513,15 @@ function startAll(){
 	// console.log('informarArrMostrar:');
 	// console.log(informarArrMostrar);
 	cargarSonidos();
+
+	//Busco las notificaciones generales
+	var parseado='<label><input id="generalNotificationVoice" '+(chequearInformar("generalNotificationVoice")?"checked":"")+' onclick="toggleInformar(this.id,this.checked);" type="checkbox">Voice</input></label>'
+	parseado+='<label><input id="generalNotificationPopup" '+(chequearInformar("generalNotificationPopup")?"checked":"")+' onclick="toggleInformar(this.id,this.checked);" type="checkbox">Popup</input></label>'
+	generalNotificationDiv.innerHTML=parseado;
+	/*
+	generalNotificationVoice.checked=chequearInformar("generalNotificationVoice");
+	generalNotificationPopup.checked=chequearInformar("generalNotificationPopup");
+	*/
 
 	// en que estoy trabajando?
 	if(trabajandoEn.length>-1){
@@ -3787,6 +3792,7 @@ function getJsonReplyFromSheets(jsonSheetsResult,ssId,timeMilis){
 	    }
 	}
 	resultJsonSheetsComplete=complete;
+	searchingSheets=false;
 }
 
 
