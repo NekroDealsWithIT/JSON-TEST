@@ -160,7 +160,7 @@ function getJson(url='',viaCors=true){
 		}
 		
 		//busco sheets
-		resultJsonSheetsComplete?getJsonFromSheets():'';
+		!resultJsonSheetsComplete?getJsonFromSheets():'';
 		
 		return request.response;
 	}
