@@ -492,9 +492,16 @@ function checkSystems(){
 function allAvailable(){
 	//EVERYTHING IS LOADED
 
+	//Busco las notificaciones generales
+	generalNotificationVoice.checked=chequearInformar("generalNotificationVoice");
+	generalNotificationPopup.checked=chequearInformar("generalNotificationPopup");
+
 	//Resources
 	resourceStructure();
 	updatePlanetas();
+	
+	//busco sheets
+	getJsonFromSheets();
 }
 
 function getDropsComboLists(){
@@ -1526,16 +1533,9 @@ function startAll(){
 	}	
 	//fin de en que estoy trabajando?
 
-	//Busco las notificaciones generales
-	generalNotificationVoice.checked=chequearInformar("generalNotificationPopup");
-	generalNotificationPopup.checked=chequearInformar("generalNotificationPopup");
-
 	timer1=setClock(1000,timerTime,timer1);
 	tabTitleDrops.click();
 	//tabShowAll.click();
-
-	//busco sheets
-	getJsonFromSheets();
 
 	//busco timer de anomalias
 	getSentientOutpostTimer(true,false);
