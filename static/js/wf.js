@@ -3648,7 +3648,7 @@ function notifyTimer(title,j,nameID,diff){
 		}
 		
 		//Push
-		PushShowNotification('⏰ '+titlePush,bodyPush,window.location.origin+'/static/img/Sprites/timers/'+iconPush);
+		PushShowNotification('⏰ '+titlePush,bodyPush,window.location.origin+'/static/img/Sprites/timers/'+iconPush,15000,titlePush);
 
 		notificationStatus[title+'Timer']=id;
 		if(generalNotificationVoice.checked){
@@ -3741,7 +3741,7 @@ function PushRequestPush(onGranted, onDenied) {
 	Push.Permission.request(onGranted, onDenied);
 }
 
-function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'/static/img/favicon/lotus.png',pushTimeout=10000,pushTag='',pushClickCallback='') {
+function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'/static/img/favicon/lotus.png',pushTimeout=10000,pushTag='',pushClickCallback='',pushClickCallbackData='') {
 	if(generalNotificationPopup.checked){
 		Push.create(pushTitle, {
 			body: pushBody,
@@ -3751,7 +3751,13 @@ function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pu
 			onClick: function () {
 					//pushClickCallback(pushTitle,pushBody,pushIcon,pushTimeout,pushTag);
 					console.log('OnClickPushShowNotification',this);
-					pushClickCallback!=''?pushClickCallback(this):'';
+					if(pushClickCallback!=''){
+						if(pushClickCallbackData==''){
+							pushClickCallback(this);
+						}else{
+							pushClickCallback(this,pushClickCallbackData);
+						}
+					}
 					this.close();
 			}
 
