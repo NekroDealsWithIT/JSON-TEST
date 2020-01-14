@@ -3616,7 +3616,6 @@ function notifyTimer(title,j,nameID,diff){
 	var iconPush='';
 
 	if(talk!=''&&
-	!window.speechSynthesis.speaking&&
 	(notificationStatus[title+'Timer']==undefined||notificationStatus[title+'Timer']!=id))
 	{
 		if(time[0]=='---'){
@@ -3651,7 +3650,7 @@ function notifyTimer(title,j,nameID,diff){
 		PushShowNotification('⏰ '+titlePush,bodyPush,window.location.origin+'/static/img/Sprites/timers/'+iconPush,15000,titlePush);
 
 		notificationStatus[title+'Timer']=id;
-		if(generalNotificationVoice.checked){
+		if(generalNotificationVoice.checked&&!window.speechSynthesis.speaking){
 			textToSpeech(talk,synthesisLang);
 		}
 		
