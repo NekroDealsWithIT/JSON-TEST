@@ -3742,7 +3742,7 @@ function PushRequestPush(onGranted, onDenied) {
 }
 
 function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pushIcon=window.location.origin+'/static/img/favicon/lotus.png',pushTimeout=10000,pushTag='',pushClickCallback='') {
-	if(generalNotificationVoice.checked){
+	if(generalNotificationPopup.checked){
 		Push.create(pushTitle, {
 			body: pushBody,
 			icon: pushIcon,
