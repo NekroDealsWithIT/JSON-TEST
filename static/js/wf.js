@@ -3749,16 +3749,16 @@ function PushShowNotification(pushTitle='ShadowOfNekro',pushBody='Says hi :)',pu
 			timeout: pushTimeout,
 			tag: pushTag,
 			onClick: function () {
-					//pushClickCallback(pushTitle,pushBody,pushIcon,pushTimeout,pushTag);
-					console.log('OnClickPushShowNotification',this);
-					if(pushClickCallback!=''){
-						if(pushClickCallbackData==''){
-							pushClickCallback(this);
-						}else{
-							pushClickCallback(this,pushClickCallbackData);
-						}
+				//pushClickCallback(pushTitle,pushBody,pushIcon,pushTimeout,pushTag);
+				console.log('OnClickPushShowNotification',this);
+				if(pushClickCallback!=''){
+					if(pushClickCallbackData==''){
+						pushClickCallback(this);
+					}else{
+						pushClickCallback(this,pushClickCallbackData);
 					}
-					this.close();
+				}
+				this.close();
 			}
 
 		})	
