@@ -1014,6 +1014,26 @@ Sets para checkear
 
 /*
 ----------------------------
+		RSS
+----------------------------
+*/
+.rssContainer {
+	width: 100%;
+}
+.rssTitle{
+
+}
+.rssDesc{
+
+}
+.rssDate{
+
+}
+.rssLink{
+	
+}
+/*
+----------------------------
 		WarframeProfiler
 ----------------------------
 */

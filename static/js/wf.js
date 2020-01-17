@@ -81,6 +81,10 @@
 	var counter1=0;
 	var counter1Max=30;
 
+	var timerFeed='';
+	var counterFeed=0;
+	var counterFeedMax=30;
+
 	let searchingSheets=false;
 
 	var fetchingCounter=0;
@@ -114,6 +118,11 @@ function onExit(){
 	}
 	//mato el speechSynthesis por si se da la casualidad de reinicio mientras que habla.
 	speechSynthesis.cancel();
+}
+
+function updateFeed(unreadTreatment){
+	document.querySelector('#divDEResponsesContent').innerHTML='';
+	getFeed(atob("aHR0cHM6Ly9mb3J1bXMud2FyZnJhbWUuY29tL2Rpc2NvdmVyLzIwNjQueG1s"),document.querySelector('#divDEResponsesContent'),document.querySelector('#divDEResponsesTitle'),'Last DE Responses in forums',unreadTreatment);
 }
 
 function getWFWorldstate(proxy=false){
@@ -1542,6 +1551,11 @@ function startAll(){
 	//fin de en que estoy trabajando?
 
 	timer1=setClock(1000,timerTime,timer1);
+	
+	//Feeds cada 10m
+	updateFeed();
+	timerFeed=setClock(1000*60*10,updateFeed,timerFeed);
+	
 	tabTitleDrops.click();
 	//tabShowAll.click();
 
@@ -1618,7 +1632,6 @@ function rellenarDatos(forceUpdate=false){
 		//cookiesShow.innerHTML+=getCookie("completas");
 		//cookiesShow.innerHTML+='<h2>Data cacheada(notificaciones):</h2>';
 		//cookiesShow.innerHTML+=arrayToPipedString(getCachedData());
-
 
 		//Timestamp
 		timeStamp.innerHTML='Timestamp: '+resultJson.timestamp;
@@ -4130,4 +4143,87 @@ function importSentientLogData(data){
 	sentientOutpostLog=JSON.parse(data);
 	resultJson.timestamp='';
 	rellenarDatos(true)
+}
+
+function isRead(id){
+	return pipedStringToArray(getCookie('feedReadMark')).includes(id);
+}
+
+function toggleRead(obj){
+	let update=false;
+	if(obj.checked){
+		feedReadMark.push(obj.value);
+		update=true;
+	}else{
+		arrayRemove(feedReadMark,obj.value);
+	}
+	feedReadMark=arrayUnique(feedReadMark);
+	setCookie('feedReadMark',arrayToPipedString(feedReadMark),7*24*60*60*1000);
+
+	update?updateFeed('unread'):'';
+}
+
+let feedReadMark=[];
+function getFeed(feedUrl,content,titleObj='',titleDesc='',unreadTreatment){
+	fetch('https://cors-anywhere.herokuapp.com/'+feedUrl,{mode: 'cors'}).then((res) => {
+		res.text().then((xmlTxt) => {
+			var domParser = new DOMParser()
+			let doc = domParser.parseFromString(xmlTxt, 'text/xml')
+			let all=doc.querySelectorAll('item');
+			(titleObj!=''?titleObj.innerHTML=titleDesc+' ['+all.length+']'+'  (Last Update: '+moment(new Date()).format('DD/MM/YYYY HH:mm:ss')+')':'');
+
+			all.forEach((item) => {
+				let id=new Date(item.querySelector('pubDate').textContent).getTime();
+				let readed=isRead(id);
+
+				let feedContainer = document.createElement('div');
+				feedContainer.setAttribute('class', 'rssContainer');
+				feedContainer.setAttribute('id', id);
+
+				let h3 = document.createElement('h3');
+				h3.setAttribute('class', 'rssTitle');
+				h3.setAttribute('id', 'title'+id);
+				h3.setAttribute('name', '['+moment(new Date(item.querySelector('pubDate').textContent)).format('DD/MM/YYYY HH:mm:ss')+']');
+				h3.textContent = '['+moment(new Date(item.querySelector('pubDate').textContent)).format('DD/MM/YYYY HH:mm:ss')+'] - '+item.querySelector('title').textContent+(readed?' [READ]':'');
+				feedContainer.appendChild(h3);
+
+				let checkRead = document.createElement('p');
+				checkRead.innerHTML='<label><input type="checkbox" value="'+id+'" onclick="toggleRead(this);" '+(readed?'checked':'')+'>Mark as read</label>';
+				feedContainer.appendChild(checkRead);
+
+				let span = document.createElement('span');
+				span.setAttribute('class', 'rssDesc');
+				span.textContent = item.querySelector('description').textContent
+				feedContainer.appendChild(span);
+
+				/*
+				let p = document.createElement('p');
+				p.setAttribute('class', 'rssDate');
+				p.textContent = moment(new Date(item.querySelector('pubDate').textContent)).format('dd/MM/YYYY HH:mm:ss');
+				feedContainer.appendChild(p);
+				*/
+
+				let p = document.createElement('p');
+				p.setAttribute('class', 'rssDate');
+				
+				let a = document.createElement('a');
+				a.setAttribute('href', item.querySelector('link').textContent);
+				a.setAttribute('target', 'blank');
+				a.setAttribute('class', 'rssLink');
+				a.textContent = 'LINK'
+				
+				p.appendChild(a);
+				feedContainer.appendChild(p);	
+				
+				if(unreadTreatment==='unread'){
+					if(!isRead(id)){
+						content.appendChild(feedContainer);
+					}
+				}else{
+					content.appendChild(feedContainer);
+				}
+
+			})
+		})
+	})
 }

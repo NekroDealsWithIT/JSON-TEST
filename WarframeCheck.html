@@ -280,6 +280,14 @@
 					<button class="tablinks" class='active' id="activateRecognitionBtn" onclick="">Enable voice commands</button>
 				</div>
 			</div> 
+			<h3 onclick="toggleHide('divDEResponses');">🌑 Last DE Responses in forums</h3>
+			<div id='divDEResponses'class="tabFrame" style="min-height: 50vh;">
+				<h4 id='divDEResponsesTitle'>Last DE Responses in forums</h4>
+				<input type="button" onclick="updateFeed();" value="Show All"><input type="button" onclick="updateFeed('unread');" value="Show Unread">
+				<div id="divDEResponsesContent" class="tab" style="overflow-y:auto;max-height:50vh;">
+					<!--<button class="tablinks" class='active' id="activateRecognitionBtn" onclick="">Enable voice commands</button>-->
+				</div>
+			</div> 
 
 			<div id="TabSecundariaTips" style="display: block;">
 				<!-- implementacion de tab secundaria -->
