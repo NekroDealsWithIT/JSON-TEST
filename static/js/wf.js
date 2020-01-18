@@ -4146,7 +4146,7 @@ function importSentientLogData(data){
 }
 
 function isRead(id){
-	return pipedStringToArray(getCookie('feedReadMark')).includes(id);
+	return pipedStringToArray(getCookie('feedReadMark')).includes(id.toString());
 }
 
 function toggleRead(obj){
