@@ -2084,7 +2084,7 @@ function rellenarDatos(forceUpdate=false){
 	    		}
 			
 	    		if((notificationStatus[e.agentType]==undefined||notificationStatus[e.agentType]!=status)){
-	    			console.warn(notificationStatus[e.agentType],status);
+	    			console.info(notificationStatus[e.agentType],status);
 	    			notificationStatus[e.agentType]=status;
 				//resultJson.persistentEnemies[0].isDiscovered=false
 	    			var titlePush=''
@@ -2111,8 +2111,10 @@ function rellenarDatos(forceUpdate=false){
 	    				default:
 	    			}
 
-					//Push
-					PushShowNotification(titlePush,bodyPush,iconPush);
+	    			if(generalNotificationPopup.checked){
+						//Push
+						PushShowNotification(titlePush,bodyPush,iconPush);
+	    			}
 	    			
 	    			if(persistentEnemiesSpeech.checked==true){
 		    			let say='';
@@ -2132,7 +2134,7 @@ function rellenarDatos(forceUpdate=false){
 		    			removeClass('lastNotificationHolder','hidden');
 						lastNotification.innerHTML='('+dateToString(new Date)+') '+say;
 	    				
-	    				if(generalNotificationVoice&&(!window.speechSynthesis.speaking)){
+	    				if(generalNotificationVoice.checked&&(!window.speechSynthesis.speaking)){
 	    					textToSpeech(say,synthesisLang);	
 	    				}
 	    			}	    			
