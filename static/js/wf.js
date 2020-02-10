@@ -3731,7 +3731,7 @@ function activateWFMarket(e){
 function getSentientOutpostTimer(onlyIfModified=true,useAsync=true){
 	$.ajax({
 		async: useAsync,
-		url: atob('aHR0cHM6Ly8xMG8uaW8vYW5vbWFseS5qc29u'),
+		url: atob('aHR0cHM6Ly9zZW1sYXIuY29tL2Fub21hbHkuanNvbg=='),
 		dataType: 'json',
 		ifModified: onlyIfModified,
 		success: function (data, status) {
