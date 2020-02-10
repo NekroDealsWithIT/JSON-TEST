@@ -2085,6 +2085,7 @@ function rellenarDatos(forceUpdate=false){
 			
 	    		if((notificationStatus[e.agentType]==undefined||notificationStatus[e.agentType]!=status)){
 	    			console.warn(notificationStatus[e.agentType],status);
+	    			notificationStatus[e.agentType]=status;
 				//resultJson.persistentEnemies[0].isDiscovered=false
 	    			var titlePush=''
 	    			var bodyPush=''
@@ -2134,8 +2135,7 @@ function rellenarDatos(forceUpdate=false){
 	    				if(generalNotificationVoice&&(!window.speechSynthesis.speaking)){
 	    					textToSpeech(say,synthesisLang);	
 	    				}
-	    			}
-	    			notificationStatus[e.agentType]=status;
+	    			}	    			
 	    		}
 	    		let tableProfileImg=(profileImg!=''?profileImg+' class="thumbnailNotif">':'');
 	    		let classTD='persistentEnemy'+status;
