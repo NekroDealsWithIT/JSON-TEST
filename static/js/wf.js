@@ -2082,9 +2082,10 @@ function rellenarDatos(forceUpdate=false){
 	    				}
 	    			}
 	    		}
-
+			
 	    		if((notificationStatus[e.agentType]==undefined||notificationStatus[e.agentType]!=status)){
-	    			//resultJson.persistentEnemies[0].isDiscovered=false
+	    			console.warn(notificationStatus[e.agentType],status);
+				//resultJson.persistentEnemies[0].isDiscovered=false
 	    			var titlePush=''
 	    			var bodyPush=''
 	    			var iconPush=(pep[e.agentType.toLowerCase()]!=undefined?pep[e.agentType.toLowerCase()]:window.location.origin+'/static/img/favicon/lotus.png');
