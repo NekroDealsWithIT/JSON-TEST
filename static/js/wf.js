@@ -1645,7 +1645,7 @@ function rellenarDatos(forceUpdate=false){
 
 		//Agrego datos para evaluar cambion
 		resultJson.cambionCycle.timeLeft=timeLeftStr(resultJson.cambionCycle.expiry),diff;
-		resultJson.cambionCycle.isVome=(resultJson.cambionCycle.active=='vome'?true,false);
+		resultJson.cambionCycle.isVome=(resultJson.cambionCycle.active=='vome'?true:false);
 
 
 		//notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
@@ -2773,6 +2773,11 @@ function rellenarDatos(forceUpdate=false){
 		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
 		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
 		//notifyTimer('vallis',resultJson.vallisCycle,'valllisTimerNotification',diff);
+
+		//Agrego datos para evaluar cambion
+		resultJson.cambionCycle.timeLeft=timeLeftStr(resultJson.cambionCycle.expiry),diff;
+		resultJson.cambionCycle.isVome=(resultJson.cambionCycle.active=='vome'?true:false);
+
 		notifyTimer('cambion',resultJson.cambionCycle,'cambionTimerNotification',diff);
 		
 		updateTimerWindow(diff);
