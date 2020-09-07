@@ -69,13 +69,14 @@ function loadExternalHTML(){
 	callback: funcion de callback si va vacia, retorna el objeto. Sino, llama callback con estos params (objeto,ssId,duracionMs).
 */
 function getJsonSheets(ssId,gid,range,output='csv',desc=false,constants='',callback=null){
-	gid="&gid="+gid; //Id Hoja //1037375654
+	gid="?gid="+gid; //Id Hoja //1037375654
 	range="&range="+range; //Rango query //B2:B
 	output='&output='+output;
 
 	let cacheRandomizer="&random="+Math.round(Math.random() * 10000);
 
-	urlSheets=atob("aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvZS8yUEFDWC0xdlJ2ZVI2OVRZQVQ5UHplZ3RJTmhGV2N0Y2Z5RGFUX0JsMHNwdnNNMEduaV9iMWQtcjhHakEyejRHNnJLM01JX3MtZ2JfQlgxVW55a2VEVC9wdWJodG1sP2tleT0=")+ssId+"&single=true"+gid+output+range+cacheRandomizer;
+	//urlSheets=atob("aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXQvcHViP2tleT0=")+ssId+"&single=true"+gid+output+range+cacheRandomizer;
+	urlSheets=atob("aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvZS8yUEFDWC0xdlJ2ZVI2OVRZQVQ5UHplZ3RJTmhGV2N0Y2Z5RGFUX0JsMHNwdnNNMEduaV9iMWQtcjhHakEyejRHNnJLM01JX3MtZ2JfQlgxVW55a2VEVC9wdWI=")+gid+"&single=true"+output+range+cacheRandomizer;
 
 	try{
 		var start=new Date().getTime();
