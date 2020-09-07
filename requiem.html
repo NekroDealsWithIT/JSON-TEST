@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nekro's Vault Helper</title>
+	<script type="text/javascript">
+		let order=0;
+		let attempt=1;
+		var object;
+		let vaultRun=["","","",""];
+		let vaultRuns=[];
+		function count(requiem){
+			
+			let obj=document.getElementById("order"+requiem);
+			if (obj.innerHTML=="") {
+				if (order>3){return false}
+				order++;
+				obj.innerHTML="<b>"+order+"</b>";
+				document.getElementById(attempt+"."+order).innerHTML='<img src="'+document.getElementById(requiem).src+'">';
+				vaultRun[order-1]=requiem;
+			}else{
+				obj.innerHTML="";
+				document.getElementById(attempt+"."+order).innerHTML="";
+				order--;
+			}
+
+			object=obj;
+			console.log(obj);
+
+		}
+		function clear(){
+			order=0;
+			document.querySelectorAll(".counter").forEach(r=>{r.innerHTML=""});
+		}
+	</script>
+	<style type="text/css">
+		td img{
+			width: 50px;
+		}
+	</style>
+
+</head>
+<body>
+	<input type="button" name="clear" onclick="clear()" value="Clear">
+	<input type="button" name="clear" onclick="done()" value="Done">
+	<div>
+		<table border="1">
+			<tr>
+				<td>Icon</td>
+				<td>Name</td>
+				<td>Order</td>
+				<td>Icon</td>
+				<td>Name</td>
+				<td>Order</td>
+			</tr>
+			<tr><td><img src="static\img\Sprites\Requiem\FassRequiemIcon.png" id="Fass" onclick="count(this.id)"></td><td>Fass</td><td class="counter" id="orderFass"></td>
+			<td><img src="static\img\Sprites\Requiem\JahuRequiemIcon.png" id="Jahu" onclick="count(this.id)"></td><td>Jahu</td><td class="counter" id="orderJahu"></td></tr>
+			<tr><td><img src="static\img\Sprites\Requiem\KhraRequiemIcon.png" id="Khra" onclick="count(this.id)"></td><td>Khra</td><td class="counter" id="orderKhra"></td>
+			<td><img src="static\img\Sprites\Requiem\LohkRequiemIcon.png" id="Lohk" onclick="count(this.id)"></td><td>Lohk</td><td class="counter" id="orderLohk"></td></tr>
+			<tr><td><img src="static\img\Sprites\Requiem\NetraRequiemIcon.png" id="Netra" onclick="count(this.id)"></td><td>Netra</td><td class="counter" id="orderNetra"></td>
+			<td><img src="static\img\Sprites\Requiem\RisRequiemIcon.png" id="Ris" onclick="count(this.id)"></td><td>Ris</td><td class="counter" id="orderRis"></td></tr>
+			<tr><td><img src="static\img\Sprites\Requiem\VomeRequiemIcon.png" id="Vome" onclick="count(this.id)"></td><td>Vome</td><td class="counter" id="orderVome"></td>
+			<td><img src="static\img\Sprites\Requiem\XataRequiemIcon.png" id="Xata" onclick="count(this.id)"></td><td>Xata</td><td class="counter" id="orderXata"></td></tr>
+		</table>
+	</div>
+	<div>
+		<table id="results" border="1">
+			<tr>
+				<td>Vault</td>
+				<td>Tier</td>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+			<tr><td>1</td><td>1</td><td id="1.1"></td><td id="1.2"></td><td id="1.3"></td><td id="1.4"></td></tr>
+
+		</table>
+	</div>
+</body>
+</html>

@@ -1641,6 +1641,12 @@ function rellenarDatos(forceUpdate=false){
 		timers.innerHTML+='<div>Cetus Timer: <p class='+((resultJson.cetusCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.cetusCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Earth Timer: <p class='+((resultJson.earthCycle.isDay)?'pDay':'pNight')+'>'+strDiff(resultJson.earthCycle.timeLeft,diff) + '</p></div>';
 		timers.innerHTML+='<div>Fortuna Timer: <p class='+((resultJson.vallisCycle.isWarm)?'pDay':'pCold')+'>'+strDiff(resultJson.vallisCycle.timeLeft,diff) + '</p></div>';
+		timers.innerHTML+='<div>Cambion Timer ('+resultJson.cambionCycle.active.toUpperCase()+'): <p class='+((resultJson.cambionCycle.active=='vome')?'pDay':'pCold')+'>'+strDiff(timeLeftStr(resultJson.cambionCycle.expiry),diff) + '</p></div>';
+
+		//Agrego datos para evaluar cambion
+		resultJson.cambionCycle.timeLeft=timeLeftStr(resultJson.cambionCycle.expiry),diff;
+		resultJson.cambionCycle.isVome=(resultJson.cambionCycle.active=='vome'?true,false);
+
 
 		//notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
 		//notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
@@ -2478,12 +2484,14 @@ function rellenarDatos(forceUpdate=false){
 		//SentientOutposts
 		var sentientOutpostsData=resultJson.sentientOutposts;
 		parseado='';
+		
+		/*
 		if(sentientOutpostTimer==null){
 			getSentientOutpostTimer(true,false);	
 		}else{
 			getSentientOutpostTimer(false);
 		}
-		
+		*/
 		
 		ths=[];
 		tds=[];
@@ -2506,27 +2514,6 @@ function rellenarDatos(forceUpdate=false){
 				sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry).add(-20,'minutes');	
 			}
 			
-			//Override
-			if(sentientOutpostTimer!=null){
-				if(sentientOutpostsData.active==false){
-					sentientOutpostsData.expiry=moment(new Date((sentientOutpostTimer.projection)));
-				}else{
-					sentientOutpostsData.expiry=moment(new Date((sentientOutpostTimer.end)));
-					/*
-					console.warn('**** timeStamp ****',new Date());
-					console.log('start',new Date(sentientOutpostTimer.start));
-					console.log('end',new Date(sentientOutpostTimer.end));
-					console.log('Projection',new Date(sentientOutpostTimer.projection));
-					console.log('Used',new Date(sentientOutpostsData.expiry));
-					*/
-				}
-								
-				// console.log(sentientOutpostsData.expiry);
-			}else{
-				sentientOutpostsData.expiry=moment(sentientOutpostsData.expiry);
-				console.warn('sentientOutpostTimer Null');
-			}
-
 			
 			if(sentientOutpostsStatus!=sentientOutpostsData.active){
 				//Log
@@ -2786,6 +2773,8 @@ function rellenarDatos(forceUpdate=false){
 		notifyTimer('cetus',resultJson.cetusCycle,'cetusTimerNotification',diff);
 		notifyTimer('earth',resultJson.earthCycle,'earthTimerNotification',diff);
 		//notifyTimer('vallis',resultJson.vallisCycle,'valllisTimerNotification',diff);
+		notifyTimer('cambion',resultJson.cambionCycle,'cambionTimerNotification',diff);
+		
 		updateTimerWindow(diff);
 		
 		if(notifyList.length>0&&!window.speechSynthesis.speaking){
@@ -3625,7 +3614,33 @@ function notifyTimer(title,j,nameID,diff){
 				break;			
 		}
 	}
-	
+
+	if(j.isVome!=undefined){
+		time.forEach(t=>{(t.indexOf('m')>-1?id=t+(j.isVome==true?'d':'n'):'');});
+		switch(selected){
+			case 'no':
+				break;
+			case 'day':
+				if(time.length<3){
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isVome==true){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});
+					if(time[0]=='---'){talk=true;id='---'+(j.isVome==false?'d':'n');};
+				}
+				break;
+			case 'night':
+				if(time.length<3){
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'&&j.isVome==false){talk=true;}else{if(t==(n*-1)+'m'){talk=true;}}});});		
+					if(time[0]=='---'){talk=true;id='---'+(j.isVome==false?'d':'n');};
+				}
+				break;
+			case 'both':
+				if(time.length<3){
+					time.forEach(t=>{notificationTimers.forEach(n=>{if(t==n+'m'||t==(n*-1)+'m'){talk=true;}});});
+					if(time[0]=='---'){talk=true;id='---'+(j.isVome==false?'d':'n');};
+				}
+				break;			
+		}
+	}	
+
 	//Para notificaciones push
 	var titlePush='';
 	var bodyPush='';
@@ -3646,7 +3661,13 @@ function notifyTimer(title,j,nameID,diff){
 				titlePush=title+' timer';
 				bodyPush='The weather is now '+(j.isWarm==false?'warm':'cold');
 				iconPush=(j.isWarm==true?'warm':'cold')+'.png';
-			}	
+			}
+			if(j.isVome!=undefined){
+				talk=title+' timer: the ambient is now '+(j.isVome==false?'Vome':'Fass');		
+				titlePush=title+' timer';
+				bodyPush='The ambient is now '+(j.isVome==false?'Vome':'Fass');
+				iconPush=(j.isVome==true?'Vome':'Fass')+'.png';
+			}
 		}else{
 			if(j.isDay!=undefined){
 				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isDay.isDay==true?'night':'day');
@@ -3660,6 +3681,12 @@ function notifyTimer(title,j,nameID,diff){
 				bodyPush=strDiff(j.timeLeft,diff,false)+' to '+(j.isWarm==true?'❄ Cold':'☀ Warm')+' cycle';
 				iconPush=(j.isWarm==true?'warm':'cold')+'.png';
 			}	
+			if(j.isVome!=undefined){
+				talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isVome==true?'fass':'vome')+' cycle';
+				titlePush=title+' timer';
+				bodyPush=strDiff(j.timeLeft,diff,false)+' to '+(j.isVome==true?'❄ Fass':'☀ Vome')+' cycle';
+				iconPush=(j.isVome==true?'vome':'fass')+'.png';
+			}
 		}
 		
 		//Push
@@ -3676,13 +3703,17 @@ function notifyTimer(title,j,nameID,diff){
 		removeClass('lastNotificationHolder','hidden');
 		lastNotification.innerHTML='('+dateToString(new Date)+') '+talk;
 
+		if(j.isDay!=undefined){
+			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isDay==true?'(night 🌙)':'(day ☀)'),talk,"",15000,"info");
+		}
 		if(j.isWarm!=undefined){
 			talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isWarm==true?'cold':'warm')+' cycle';
 			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isWarm==true?'(cold ❄)':'(warm ☀)'),talk,"",15000,"info");
 		}	
-		if(j.isDay!=undefined){
-			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isDay==true?'(night 🌙)':'(day ☀)'),talk,"",15000,"info");
-		}
+		if(j.isVome!=undefined){
+			talk=title+' timer: '+convertTimeToSpeacheable(strDiff(j.timeLeft,diff,false))+' to '+(j.isVome==true?'fass':'vome')+' cycle';
+			generateToast('⏰ '+title.toUpperCase()+' Timer '+(j.isVome==true?'(fass ❄)':'(vome ☀)'),talk,"",15000,"info");
+		}	
 	}		
 }
 function navigateToAnchor(anchor){
@@ -3732,6 +3763,8 @@ function activateWFMarket(e){
 
 /* Buscar info timers anomalias */
 function getSentientOutpostTimer(onlyIfModified=true,useAsync=true){
+	/*
+	//CORS
 	$.ajax({
 		async: useAsync,
 		url: atob('aHR0cHM6Ly9zZW1sYXIuY29tL2Fub21hbHkuanNvbg=='),
@@ -3748,6 +3781,7 @@ function getSentientOutpostTimer(onlyIfModified=true,useAsync=true){
 			}
 		}
 	});	
+	*/
 }
 
 
